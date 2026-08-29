@@ -1,1 +1,133 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Console - Delivery Risk Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-100 min-h-screen pb-12">
 
+    <header class="bg-indigo-900 text-white p-4 shadow-md">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="font-bold text-lg"><i class="fa-solid fa-truck-fast text-amber-400 mr-2"></i>Driver Console</h1>
+            <nav class="space-x-3 text-sm">
+                <a href="driver.html" class="font-bold border-b-2 border-amber-400 pb-1">พนักงานส่ง</a>
+                <a href="admin.html" class="text-indigo-200 hover:text-white">แอดมิน</a>
+                <a href="blacklist.html" class="text-indigo-200 hover:text-white">แบล็กลิสต์</a>
+                <a href="tracking.html" class="text-indigo-200 hover:text-white">ลูกค้า</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 mt-6 space-y-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <label class="block font-bold text-slate-800 mb-2">ระบุชื่อผู้รับเพื่อตรวจสอบ:</label>
+            <div class="flex gap-2">
+                <input type="text" id="search-input" placeholder="พิมพ์ชื่อผู้รับ เช่น ธณกร..." class="flex-1 border p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button onclick="handleSearch()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all">
+                    <i class="fa-solid fa-magnifying-glass mr-1"></i> ตรวจสอบ
+                </button>
+            </div>
+        </div>
+
+        <div id="result-card" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
+            <div class="flex justify-between items-center border-b pb-4">
+                <h2 id="res-name" class="text-2xl font-black text-slate-800"></h2>
+                <span id="res-badge" class="px-4 py-1.5 rounded-full text-xs font-bold"></span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 text-center">
+                <div class="bg-slate-50 p-3 rounded-xl">
+                    <span class="text-xs text-slate-500 block">ทั้งหมด</span>
+                    <strong id="res-total" class="text-xl text-slate-800"></strong>
+                </div>
+                <div class="bg-emerald-50 p-3 rounded-xl">
+                    <span class="text-xs text-emerald-700 block">สำเร็จ</span>
+                    <strong id="res-success" class="text-xl text-emerald-600"></strong>
+                </div>
+                <div class="bg-rose-50 p-3 rounded-xl">
+                    <span class="text-xs text-rose-700 block">ตีกลับ</span>
+                    <strong id="res-failed" class="text-xl text-rose-600"></strong>
+                </div>
+            </div>
+
+            <div class="space-y-1">
+                <div class="flex justify-between text-xs font-bold">
+                    <span>ดัชนีความเสี่ยง</span>
+                    <span id="res-percent">0%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+                    <div id="res-bar" class="h-full bg-emerald-500 w-0 transition-all duration-500"></div>
+                </div>
+            </div>
+
+            <div class="border p-4 rounded-xl bg-slate-50 space-y-3">
+                <h3 class="font-bold text-sm text-slate-700">บันทึกผลการจัดส่งล่าสุด</h3>
+                <input type="text" id="order-id" placeholder="เลขพัสดุ / Order ID (ถ้ามี)" class="w-full p-2.5 border rounded-xl text-sm bg-white">
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="submitRecord('SUCCESS')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-sm transition-all">
+                        <i class="fa-solid fa-circle-check mr-1"></i> ส่งสำเร็จ (+1)
+                    </button>
+                    <button onclick="submitRecord('FAILED')" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl shadow-sm transition-all">
+                        <i class="fa-solid fa-circle-xmark mr-1"></i> ตีกลับ / ล้มเหลว (+1)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/db.js"></script>
+    <script>
+        let currentTarget = null;
+
+        function handleSearch() {
+            const query = document.getElementById('search-input').value;
+            currentTarget = DB.findByName(query);
+
+            if (!currentTarget) {
+                alert('ไม่พบข้อมูลผู้รับรายนี้');
+                document.getElementById('result-card').classList.add('hidden');
+                return;
+            }
+            renderUI();
+        }
+
+        function renderUI() {
+            const risk = DB.calculateRisk(currentTarget);
+            
+            document.getElementById('res-name').innerText = currentTarget.name;
+            document.getElementById('res-badge').innerText = risk.label;
+            document.getElementById('res-badge').className = `px-4 py-1.5 rounded-full text-xs font-bold ${risk.colorClass}`;
+            
+            document.getElementById('res-total').innerText = `${risk.total} ชิ้น`;
+            document.getElementById('res-success').innerText = `${currentTarget.success} ชิ้น`;
+            document.getElementById('res-failed').innerText = `${currentTarget.failed} ชิ้น`;
+
+            document.getElementById('res-percent').innerText = `${risk.scorePercent}%`;
+            document.getElementById('res-bar').style.width = `${risk.scorePercent}%`;
+            
+            // เปลี่ยนสีหลอดตามความเสี่ยง
+            const bar = document.getElementById('res-bar');
+            bar.className = `h-full transition-all duration-500 ${risk.level === 'HIGH' ? 'bg-rose-500' : risk.level === 'MEDIUM' ? 'bg-amber-500' : 'bg-emerald-500'}`;
+
+            document.getElementById('result-card').classList.remove('hidden');
+        }
+
+        function submitRecord(type) {
+            if (!currentTarget) return;
+            const orderId = document.getElementById('order-id').value;
+            
+            const updated = DB.recordDelivery(currentTarget.name, type, orderId);
+            if (updated) {
+                currentTarget = updated;
+                renderUI();
+                document.getElementById('order-id').value = '';
+                alert('บันทึกข้อมูลสำเร็จ!');
+            }
+        }
+    </script>
+</body>
+</html>
