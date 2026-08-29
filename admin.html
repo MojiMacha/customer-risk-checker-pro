@@ -3,21 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบแอดมินและวิเคราะห์ยอด - Delivery Risk Pro</title>
-    <!-- Tailwind CSS & Font Awesome -->
+    <title>ระบบแอดมิน - Delivery Risk Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Libraries สำหรับวาดกราฟ (Chart.js & ApexCharts) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
     <style> body { font-family: 'Kanit', sans-serif; } </style>
 </head>
 <body class="bg-slate-100 min-h-screen pb-12">
 
-    <!-- 🔒 หน้าต่างบังคับกรอก PIN -->
+    <!-- 🔒 หน้าต่าง PIN แอดมิน (รหัสพิเศษ: 999888) -->
     <div id="auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
             <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
@@ -25,15 +21,15 @@
             </div>
             <div>
                 <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบแอดมิน</h2>
-                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN 6 หลักเพื่อเข้าใช้งาน</p>
+                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN สำหรับแอดมินผู้ดูแลระบบ</p>
             </div>
             <div class="space-y-3">
                 <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
                     class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-indigo-500 focus:outline-none bg-slate-50">
                 <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
-                    <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง
+                    <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง!
                 </p>
-                <button onclick="loginStaff()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95">
+                <button onclick="loginAdmin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95">
                     เข้าสู่ระบบ
                 </button>
             </div>
@@ -48,112 +44,90 @@
                     <button onclick="history.back()" class="flex items-center gap-1.5 text-xs bg-indigo-800/80 hover:bg-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-700/60 transition-all active:scale-95">
                         <i class="fa-solid fa-arrow-left"></i> <span>ย้อนกลับ</span>
                     </button>
-                    <span class="font-bold text-base md:text-lg">⚙️ ระบบจัดการข้อมูลแอดมิน</span>
+                    <span class="font-bold text-base md:text-lg">⚙️ ระบบแอดมิน</span>
                 </div>
                 <div class="flex items-center space-x-3 text-xs md:text-sm font-medium">
                     <a href="driver.html" class="text-indigo-200 hover:text-white px-2 py-1">พนักงานส่ง</a>
                     <a href="admin.html" class="text-white bg-indigo-800/90 px-3 py-1 rounded-lg border border-indigo-700/50 font-bold">แอดมิน</a>
                     <a href="blacklist.html" class="text-indigo-200 hover:text-white px-2 py-1">แบล็กลิสต์</a>
                     <a href="tracking.html" class="text-indigo-200 hover:text-white px-2 py-1">ลูกค้า</a>
-                    <button onclick="logoutStaff()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">ออกจากระบบ</button>
+                    <button onclick="logoutAdmin()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">ออกจากระบบ</button>
                 </div>
             </div>
         </nav>
 
         <main class="max-w-6xl mx-auto px-4 pt-6 space-y-6">
-
-            <!-- 📊 ส่วนแสดงกราฟวิเคราะห์ข้อมูลยอดขายและสัดส่วน -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- กราฟแบบวงกลม (Pie Chart) -->
-                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3">
-                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-pie text-indigo-600"></i> สัดส่วนการจัดส่งทั้งหมด
-                    </h3>
-                    <div class="relative h-64 flex items-center justify-center">
-                        <canvas id="doughnutChart"></canvas>
-                    </div>
+                <div class="bg-white p-5 rounded-3xl border shadow-sm">
+                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-chart-pie text-indigo-600"></i> สัดส่วนการส่ง</h3>
+                    <div class="h-56 relative flex justify-center items-center"><canvas id="doughnutChart"></canvas></div>
                 </div>
-
-                <!-- กราฟแท่งเทียน (Candlestick Chart) แสดงความผันผวนยอดจัดส่ง -->
-                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3 md:col-span-2">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-                            <i class="fa-solid fa-chart-line text-emerald-600"></i> แนวโน้มยอดจัดส่ง & ความผันผวน (Candlestick)
-                        </h3>
-                        <span class="text-[10px] bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full font-medium">ย้อนหลัง 5 วัน</span>
-                    </div>
-                    <div id="candlestickChart" class="h-64"></div>
+                <div class="bg-white p-5 rounded-3xl border shadow-sm md:col-span-2">
+                    <h3 class="text-sm font-bold text-slate-800 mb-2"><i class="fa-solid fa-chart-line text-emerald-600 mr-1"></i> แนวโน้มความผันผวน (Candlestick)</h3>
+                    <div id="candlestickChart" class="h-56"></div>
                 </div>
             </div>
 
-            <!-- 📥 ส่วนปุ่มดาวน์โหลด/Export ข้อมูลลูกค้า -->
-            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between gap-3 items-center">
-                <div class="flex items-center gap-2 w-full sm:w-auto">
-                    <input type="text" id="admin-search" oninput="renderTable()" placeholder="ค้นหาชื่อผู้รับ..." class="p-2.5 border rounded-xl text-sm w-full sm:w-64 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-
-                <div class="flex flex-wrap gap-2 w-full sm:w-auto justify-end">
-                    <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 active:scale-95">
-                        <i class="fa-solid fa-file-excel"></i> ดาวน์โหลดไฟล์ Excel (CSV)
+            <!-- 📥 Export / Import CSV -->
+            <div class="bg-white p-4 rounded-2xl border shadow-sm flex flex-col sm:flex-row justify-between gap-3 items-center">
+                <input type="text" id="admin-search" oninput="renderTable()" placeholder="ค้นหาชื่อผู้รับ..." class="p-2.5 border rounded-xl text-sm w-full sm:w-64 bg-slate-50">
+                <div class="flex flex-wrap gap-2 justify-end">
+                    <!-- ปุ่มนำเข้า Import CSV -->
+                    <label class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold px-4 py-2.5 rounded-xl border border-indigo-200 cursor-pointer flex items-center gap-1.5 transition-all">
+                        <i class="fa-solid fa-file-import"></i> นำเข้าข้อมูล (Import CSV)
+                        <input type="file" id="csv-file-input" accept=".csv" onchange="importCSV(event)" class="hidden">
+                    </label>
+                    <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-excel"></i> ดาวน์โหลด CSV
                     </button>
-                    <button onclick="copyJSON()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 active:scale-95">
-                        <i class="fa-solid fa-code"></i> คัดลอกข้อมูล JSON
-                    </button>
-                    <button onclick="resetDataPrompt()" class="bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 text-xs font-bold px-3 py-2.5 rounded-xl border border-slate-200 transition-all flex items-center gap-1">
-                        <i class="fa-solid fa-rotate-left"></i> รีเซ็ต
+                    <button onclick="copyJSON()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold px-3 py-2.5 rounded-xl flex items-center gap-1">
+                        <i class="fa-solid fa-code"></i> JSON
                     </button>
                 </div>
             </div>
 
-            <!-- 📋 ตารางแสดงรายชื่อลูกค้า -->
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="bg-white rounded-2xl border shadow-sm overflow-hidden">
                 <table class="w-full text-left text-sm text-slate-600">
-                    <thead class="bg-slate-50 border-b border-slate-200 text-xs text-slate-500 uppercase font-bold">
+                    <thead class="bg-slate-50 border-b text-xs text-slate-500 uppercase font-bold">
                         <tr>
                             <th class="p-4">ชื่อผู้รับ</th>
                             <th class="p-4 text-center">สำเร็จ</th>
                             <th class="p-4 text-center">ตีกลับ</th>
-                            <th class="p-4 text-center">รวม</th>
+                            <th class="p-4 text-center">พิกัดล่าสุด/POD</th>
                             <th class="p-4 text-center">ระดับความเสี่ยง</th>
                             <th class="p-4 text-center">จัดการ</th>
                         </tr>
                     </thead>
-                    <tbody id="user-table-body" class="divide-y divide-slate-100"></tbody>
+                    <tbody id="user-table-body" class="divide-y"></tbody>
                 </table>
             </div>
         </main>
     </div>
 
-    <!-- Scripts -->
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
     <script>
-        let doughnutChartInstance = null;
-        let candleChartInstance = null;
+        const wrongPinSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3');
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('staff_logged_in') === 'true') {
-                showAdmin();
-            }
+            if (sessionStorage.getItem('staff_role') === 'ADMIN') showAdmin();
         });
 
-        document.getElementById('pin-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') loginStaff();
-        });
-
-        function loginStaff() {
+        function loginAdmin() {
             const inputPin = document.getElementById('pin-input').value.trim();
-            if (inputPin === CONFIG.STAFF_PIN) {
-                sessionStorage.setItem('staff_logged_in', 'true');
+            if (inputPin === (CONFIG.ADMIN_PIN || '999888')) {
+                sessionStorage.setItem('staff_role', 'ADMIN');
                 showAdmin();
             } else {
+                wrongPinSound.currentTime = 0;
+                wrongPinSound.play().catch(e => {}); // 🔊 เสียงเตือนเมื่อกรอกผิด
                 document.getElementById('pin-error').classList.remove('hidden');
                 document.getElementById('pin-input').value = '';
             }
         }
 
-        function logoutStaff() {
-            sessionStorage.removeItem('staff_logged_in');
+        function logoutAdmin() {
+            sessionStorage.removeItem('staff_role');
             location.reload();
         }
 
@@ -172,15 +146,16 @@
 
             users.filter(u => u.name.toLowerCase().includes(search)).forEach(user => {
                 const risk = DB.calculateRisk(user);
+                const lastLog = user.logs && user.logs[0] ? user.logs[0] : null;
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="p-4 font-semibold text-slate-800">
-                        ${user.name}
-                        ${user.isBlacklisted ? `<br><span class="text-[10px] text-rose-500 font-bold">🚫 ${user.blacklistReason || 'ติดแบล็กลิสต์'}</span>` : ''}
-                    </td>
+                    <td class="p-4 font-semibold text-slate-800">${user.name}</td>
                     <td class="p-4 text-center font-bold text-emerald-600">${user.success}</td>
                     <td class="p-4 text-center font-bold text-rose-600">${user.failed}</td>
-                    <td class="p-4 text-center font-bold text-slate-700">${user.total}</td>
+                    <td class="p-4 text-center text-xs text-slate-500">
+                        ${lastLog && lastLog.gps ? `📍 ${lastLog.gps}` : '-'}
+                        ${lastLog && lastLog.podImg ? `<br><a href="${lastLog.podImg}" target="_blank" class="text-indigo-600 underline font-bold">ดูรูป POD</a>` : ''}
+                    </td>
                     <td class="p-4 text-center"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${risk.colorClass}">${risk.label}</span></td>
                     <td class="p-4 text-center">
                         <button onclick="toggleBlacklist('${user.name}')" class="text-xs px-2.5 py-1 rounded-lg border font-bold ${user.isBlacklisted ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-rose-50 text-rose-600 border-rose-200'}">
@@ -192,115 +167,83 @@
             });
         }
 
-        // --- 📊 วาดกราฟ Doughnut & Candlestick ---
-        function renderCharts() {
-            const users = DB.getAll();
-            let totalSuccess = 0, totalFailed = 0;
+        // 📥 นำเข้าไฟล์ CSV (Import CSV)
+        function importCSV(event) {
+            const file = event.target.files[0];
+            if (!file) return;
 
-            users.forEach(u => {
-                totalSuccess += u.success;
-                totalFailed += u.failed;
-            });
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const lines = text.split('\n');
+                const users = DB.getAll();
+                let addedCount = 0;
 
-            // 1. วาด Doughnut Chart (วงกลม)
-            const ctx = document.getElementById('doughnutChart').getContext('2d');
-            if (doughnutChartInstance) doughnutChartInstance.destroy();
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+                    const cols = lines[i].split(',');
+                    const name = cols[1] ? cols[1].replace(/"/g, '').trim() : '';
 
-            doughnutChartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['ส่งสำเร็จ', 'ตีกลับ/ล้มเหลว'],
-                    datasets: [{
-                        data: [totalSuccess, totalFailed],
-                        backgroundColor: ['#10b981', '#f43f5e'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom' } }
+                    if (name && !users.find(u => u.name === name)) {
+                        users.push({
+                            name: name,
+                            success: parseInt(cols[2]) || 0,
+                            failed: parseInt(cols[3]) || 0,
+                            total: (parseInt(cols[2]) || 0) + (parseInt(cols[3]) || 0),
+                            isBlacklisted: false,
+                            logs: []
+                        });
+                        addedCount++;
+                    }
                 }
-            });
 
-            // 2. วาด Candlestick Chart (แท่งเทียน)
-            const options = {
-                series: [{
-                    data: [
-                        { x: 'วันจันทร์', y: [10, 25, 8, 22] },
-                        { x: 'วันอังคาร', y: [22, 35, 18, 30] },
-                        { x: 'วันพุธ', y: [30, 32, 20, 25] },
-                        { x: 'วันพฤหัสบดี', y: [25, 42, 24, 40] },
-                        { x: 'วันศุกร์', y: [40, 50, 35, 48] }
-                    ]
-                }],
-                chart: { type: 'candlestick', height: 230, toolbar: { show: false } },
-                xaxis: { type: 'category' },
-                yaxis: { tooltip: { enabled: true } }
+                DB.save(users);
+                alert(`นำเข้าข้อมูลเรียบร้อยแล้ว เพิ่มลูกค้าใหม่ ${addedCount} รายชื่อ`);
+                renderTable();
             };
-
-            if (candleChartInstance) candleChartInstance.destroy();
-            candleChartInstance = new ApexCharts(document.querySelector("#candlestickChart"), options);
-            candleChartInstance.render();
+            reader.readAsText(file);
         }
 
-        // --- 📥 ระบบ Export ข้อมูลไปใช้ที่อื่น ---
-        
-        // 1. ดาวน์โหลดเป็นไฟล์ CSV (เปิดใน Excel ได้ทันที ภาษาไทยไม่ต่าง)
         function exportToCSV() {
             const users = DB.getAll();
-            if (users.length === 0) return alert('ไม่มีข้อมูลสำหรับส่งออก');
-
-            // BOM (\uFEFF) ช่วยให้ Excel อ่านภาษาไทยได้ถูกต้อง
-            let csvContent = "\uFEFFลำดับ,ชื่อผู้รับ,ส่งสำเร็จ,ตีกลับ,รวมทั้งหมด,สถานะความเสี่ยง,ติดแบล็กลิสต์,เหตุผล\n";
-
-            users.forEach((u, index) => {
-                const risk = DB.calculateRisk(u);
-                csvContent += `${index + 1},"${u.name}",${u.success},${u.failed},${u.total},"${risk.label}",${u.isBlacklisted ? 'ใช่' : 'ไม่'},"${u.blacklistReason || ''}"\n`;
-            });
-
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
+            let csv = "\uFEFFลำดับ,ชื่อผู้รับ,ส่งสำเร็จ,ตีกลับ,รวมทั้งหมด\n";
+            users.forEach((u, i) => csv += `${i + 1},"${u.name}",${u.success},${u.failed},${u.total}\n`);
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
-            link.setAttribute('href', url);
-            link.setAttribute('download', `customer_data_${Date.now()}.csv`);
-            document.body.appendChild(link);
+            link.href = URL.createObjectURL(blob);
+            link.download = `customer_data.csv`;
             link.click();
-            document.body.removeChild(link);
         }
 
-        // 2. คัดลอกข้อมูลรูปแบบ JSON
         function copyJSON() {
+            navigator.clipboard.writeText(JSON.stringify(DB.getAll(), null, 2));
+            alert('คัดลอกข้อมูล JSON เรียบร้อยแล้ว');
+        }
+
+        function renderCharts() {
             const users = DB.getAll();
-            navigator.clipboard.writeText(JSON.stringify(users, null, 2)).then(() => {
-                alert('คัดลอกข้อมูลลูกค้า (JSON) ลง Clipboard แล้ว! สามารถนำไปวางใช้งานที่อื่นได้ทันที');
+            let s = 0, f = 0;
+            users.forEach(u => { s += u.success; f += u.failed; });
+
+            new Chart(document.getElementById('doughnutChart').getContext('2d'), {
+                type: 'doughnut',
+                data: { labels: ['สำเร็จ', 'ตีกลับ'], datasets: [{ data: [s, f], backgroundColor: ['#10b981', '#f43f5e'] }] },
+                options: { responsive: true, maintainAspectRatio: false }
             });
+
+            new ApexCharts(document.querySelector("#candlestickChart"), {
+                series: [{ data: [{ x: 'จ.', y: [10, 25, 8, 22] }, { x: 'อ.', y: [22, 35, 18, 30] }, { x: 'พ.', y: [30, 32, 20, 25] }] }],
+                chart: { type: 'candlestick', height: 200 }
+            }).render();
         }
 
         function toggleBlacklist(userName) {
             const list = DB.getAll();
             const user = list.find(u => u.name === userName);
             if (!user) return;
-            if (!user.isBlacklisted) {
-                const reason = prompt(`ระบุเหตุผลติดแบล็กลิสต์ของคุณ ${user.name}:`, 'ปฏิเสธการชำระเงิน COD');
-                if (reason === null) return;
-                user.isBlacklisted = true;
-                user.blacklistReason = reason;
-            } else {
-                user.isBlacklisted = false;
-                user.blacklistReason = '';
-            }
+            user.isBlacklisted = !user.isBlacklisted;
             DB.save(list);
             renderTable();
-            renderCharts();
-        }
-
-        function resetDataPrompt() {
-            if (confirm('คุณต้องการรีเซ็ตข้อมูลทั้งหมดกลับเป็น 43 รายชื่อเริ่มต้นหรือไม่?')) {
-                DB.resetToDefault();
-                renderTable();
-                renderCharts();
-            }
         }
     </script>
 </body>
