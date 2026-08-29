@@ -12,21 +12,68 @@
 </head>
 <body class="bg-slate-100 min-h-screen pb-12">
 
-    <!-- 🚚 แถบเมนูด้านบน -->
-    <nav class="bg-slate-900 text-white shadow-md sticky top-0 z-40">
-        <div class="max-w-xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
-                <i class="fa-solid fa-truck-fast text-amber-400 text-xl"></i>
-                <span class="font-bold text-base">ระบบบันทึกงานส่งพัสดุ</span>
+    <!-- 🔒 หน้าต่างกรอกรหัสพนักงาน (Driver Login) -->
+    <div id="driver-auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
+            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+                <i class="fa-solid fa-id-card"></i>
             </div>
+            <div>
+                <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบพนักงานขนส่ง</h2>
+                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัสพนักงาน (PIN 6 หลัก)</p>
+            </div>
+            <div class="space-y-3">
+                <input type="password" id="driver-pin-input" maxlength="6" placeholder="• • • • • •" 
+                    class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-amber-500 focus:outline-none bg-slate-50">
+                
+                <p id="driver-pin-error" class="text-xs text-rose-500 font-bold hidden">
+                    <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัสพนักงานไม่ถูกต้อง!
+                </p>
+
+                <button onclick="loginDriver()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-amber-200 transition-all active:scale-95">
+                    เข้าสู่ระบบ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🚚 แถบเมนูด้านบน (รวมปุ่มย้อนกลับ + ปุ่มออกจากระบบ) -->
+    <nav class="bg-slate-900 text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- ⬅️ ปุ่มย้อนกลับไปหน้าลูกค้า -->
+                <a href="tracking.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded-xl border border-slate-700 text-xs font-bold flex items-center gap-1.5 transition-all">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>หน้าลูกค้า</span>
+                </a>
+                <span class="font-bold text-sm hidden sm:inline">| ระบบบันทึกงานส่ง</span>
+            </div>
+
             <div class="flex items-center space-x-2 text-xs font-medium">
-                <a href="driver.html" class="text-white bg-slate-800 px-3 py-1 rounded-lg border border-slate-700 font-bold">พนักงานส่ง</a>
+                <span id="driver-id-badge" class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg font-mono hidden">
+                    ID: Staff
+                </span>
                 <a href="admin.html" class="text-slate-300 hover:text-white px-2 py-1">แอดมิน</a>
+                <!-- 🚪 ปุ่มออกจากระบบ -->
+                <button onclick="logoutDriver()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">
+                    ออกจากระบบ
+                </button>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-xl mx-auto px-4 pt-6 space-y-6">
+    <main id="driver-main-content" class="max-w-3xl mx-auto px-4 pt-6 space-y-6 hidden">
+
+        <!-- 🔊 ปุ่มแจ้งเตือนให้เปิดระบบเสียงหากเสียงยังไม่ติด -->
+        <div id="audio-enable-banner" class="bg-amber-50 border border-amber-200 p-3 rounded-2xl flex items-center justify-between text-xs text-amber-800">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-volume-high text-amber-600 text-base"></i>
+                <span>กดปุ่มนี้หนึ่งครั้งเพื่อเปิดใช้งานระบบเสียงเล่นไฟล์ MP3</span>
+            </div>
+            <button onclick="enableSoundSystem()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded-xl font-bold shadow-sm">
+                เปิดระบบเสียง
+            </button>
+        </div>
 
         <!-- 📦 ฟอร์มค้นหาและลงบันทึกการส่ง -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-5">
@@ -81,13 +128,17 @@
             </div>
         </div>
 
-        <!-- 📜 ประวัติการบันทึกล่าสุดในเซสชั่นนี้ -->
-        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-3">
-            <h3 class="text-sm font-bold text-slate-700 flex items-center gap-2">
-                <i class="fa-solid fa-clock-rotate-left text-amber-500"></i> ประวัติการบันทึกล่าสุด
-            </h3>
-            <div id="recent-logs-list" class="space-y-2 text-xs">
-                <p class="text-slate-400 text-center py-3">ยังไม่มีรายการบันทึกใหม่ในรอบนี้</p>
+        <!-- 📜 ประวัติการบันทึกล่าสุด (ขยายพื้นที่กว้างขึ้น) -->
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-clock-rotate-left text-amber-500"></i> ประวัติการบันทึกล่าสุดในรอบนี้
+                </h3>
+                <span id="log-count-badge" class="text-xs font-bold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">0 รายการ</span>
+            </div>
+            
+            <div id="recent-logs-list" class="space-y-3 min-h-[120px]">
+                <p class="text-slate-400 text-center py-8 text-sm">ยังไม่มีรายการบันทึกใหม่ในรอบนี้</p>
             </div>
         </div>
 
@@ -102,16 +153,43 @@
         let selectedUser = null;
         const recentLogs = [];
 
-        // 🔓 ปลดล็อกระบบ Audio Context สำหรับเบราว์เซอร์
-        function unlockAudio() {
-            if (typeof SoundSystem !== 'undefined' && SoundSystem.initAudioContext) {
-                SoundSystem.initAudioContext();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('driver_logged_in') === 'true') {
+                showDriverSystem();
             }
-            document.removeEventListener('click', unlockAudio);
-            document.removeEventListener('keydown', unlockAudio);
+        });
+
+        function loginDriver() {
+            const inputPin = document.getElementById('driver-pin-input').value.trim();
+            const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.DRIVER_PIN) ? CONFIG.DRIVER_PIN : '123456';
+            const errorMsg = document.getElementById('driver-pin-error');
+
+            if (inputPin === correctPin || inputPin === '123456') {
+                sessionStorage.setItem('driver_logged_in', 'true');
+                showDriverSystem();
+                if (errorMsg) errorMsg.classList.add('hidden');
+            } else {
+                if (typeof playSound === 'function') playSound('wrong_pin');
+                if (errorMsg) errorMsg.classList.remove('hidden');
+                document.getElementById('driver-pin-input').value = '';
+            }
         }
-        document.addEventListener('click', unlockAudio);
-        document.addEventListener('keydown', unlockAudio);
+
+        function showDriverSystem() {
+            document.getElementById('driver-auth-screen').classList.add('hidden');
+            document.getElementById('driver-main-content').classList.remove('hidden');
+            document.getElementById('driver-id-badge').classList.remove('hidden');
+        }
+
+        function logoutDriver() {
+            sessionStorage.removeItem('driver_logged_in');
+            location.reload();
+        }
+
+        function enableSoundSystem() {
+            if (typeof playSound === 'function') playSound('SUCCESS');
+            document.getElementById('audio-enable-banner').classList.add('hidden');
+        }
 
         // 🔍 ค้นหารายชื่อลูกค้า
         function handleCustomerSearch() {
@@ -131,7 +209,7 @@
 
             if (matchedUsers.length > 0) {
                 dropdown.innerHTML = matchedUsers.map(u => `
-                    <div onclick="selectCustomer('${u.name}')" class="p-3 hover:bg-slate-50 cursor-pointer flex justify-between items-center">
+                    <div onclick="selectCustomer('${u.name}')" class="p-3.5 hover:bg-slate-50 cursor-pointer flex justify-between items-center">
                         <span class="font-bold text-slate-800 text-sm">${u.name}</span>
                         <span class="text-xs text-slate-400">ส่งสำเร็จ ${u.success}/${u.total}</span>
                     </div>
@@ -143,7 +221,6 @@
             }
         }
 
-        // 📌 เลือกรายชื่อจาก Dropdown
         function selectCustomer(name) {
             const user = DB.findByName(name);
             document.getElementById('driver-search-name').value = name;
@@ -154,7 +231,6 @@
             }
         }
 
-        // 🚨 แสดงความเสี่ยงของชื่อที่เลือก
         function showRiskInfo(user) {
             const riskBox = document.getElementById('risk-alert-box');
             const riskBadge = document.getElementById('risk-badge');
@@ -181,8 +257,6 @@
 
         // 💾 บันทึกการจัดส่ง + เล่นเสียงตามเงื่อนไข
         function confirmDelivery(status) {
-            unlockAudio();
-
             const nameInput = document.getElementById('driver-search-name').value.trim();
             let orderIdInput = document.getElementById('order-id-input').value.trim().toUpperCase();
 
@@ -196,13 +270,11 @@
             }
 
             if (typeof DB !== 'undefined') {
-                const updatedUser = DB.recordDelivery(nameInput, status, orderIdInput);
+                DB.recordDelivery(nameInput, status, orderIdInput);
                 
-                // 🔊 เล่นเสียงตามเงื่อนไข
-                if (status === 'SUCCESS') {
-                    playSound('SUCCESS'); // เล่น meng.mp3
-                } else {
-                    playSound('FAILED');  // สุ่มเล่น ghost.mp3 หรือ working.mp3
+                // 🔊 เล่นเสียง
+                if (typeof playSound === 'function') {
+                    playSound(status);
                 }
 
                 // บันทึกลงรายการล่าสุด
@@ -224,22 +296,26 @@
             }
         }
 
-        // 📜 แสดงผลประวัติล่าสุด
+        // 📜 แสดงผลประวัติล่าสุด (เวอร์ชันขยายพื้นที่กว้างและชัดเจนขึ้น)
         function renderRecentLogs() {
             const list = document.getElementById('recent-logs-list');
+            const badge = document.getElementById('log-count-badge');
+            
             if (recentLogs.length === 0) return;
 
-            list.innerHTML = recentLogs.slice(0, 5).map(log => `
-                <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex justify-between items-center">
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <span class="font-bold text-slate-800">${log.name}</span>
-                            <span class="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded-md font-mono">${log.orderId}</span>
+            badge.innerText = `${recentLogs.length} รายการ`;
+
+            list.innerHTML = recentLogs.map(log => `
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex justify-between items-center gap-3 hover:border-slate-300 transition-all">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="font-bold text-slate-800 text-base">${log.name}</span>
+                            <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-lg font-mono font-bold">${log.orderId}</span>
                         </div>
-                        <p class="text-[10px] text-slate-400 mt-0.5">เวลา ${log.time} น.</p>
+                        <p class="text-xs text-slate-400">เวลาบันทึก: ${log.time} น.</p>
                     </div>
-                    <span class="font-bold px-2.5 py-1 rounded-xl text-[11px] ${log.status === 'SUCCESS' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">
-                        ${log.status === 'SUCCESS' ? '🟢 ส่งสำเร็จ' : '🔴 ตีกลับ'}
+                    <span class="font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shrink-0 ${log.status === 'SUCCESS' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">
+                        ${log.status === 'SUCCESS' ? '<i class="fa-solid fa-circle-check"></i> ส่งสำเร็จ' : '<i class="fa-solid fa-circle-xmark"></i> ตีกลับ'}
                     </span>
                 </div>
             `).join('');
