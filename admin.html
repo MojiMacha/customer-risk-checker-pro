@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบแอดมิน - Delivery Risk Pro</title>
+    <title>ระบบแอดมินและวิเคราะห์ยอด - Delivery Risk Pro</title>
+    <!-- Tailwind CSS & Font Awesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Libraries สำหรับวาดกราฟ (Chart.js & ApexCharts) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
     <style> body { font-family: 'Kanit', sans-serif; } </style>
 </head>
 <body class="bg-slate-100 min-h-screen pb-12">
@@ -42,7 +48,7 @@
                     <button onclick="history.back()" class="flex items-center gap-1.5 text-xs bg-indigo-800/80 hover:bg-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-700/60 transition-all active:scale-95">
                         <i class="fa-solid fa-arrow-left"></i> <span>ย้อนกลับ</span>
                     </button>
-                    <span class="font-bold text-base md:text-lg">⚙️ ระบบแอดมิน</span>
+                    <span class="font-bold text-base md:text-lg">⚙️ ระบบจัดการข้อมูลแอดมิน</span>
                 </div>
                 <div class="flex items-center space-x-3 text-xs md:text-sm font-medium">
                     <a href="driver.html" class="text-indigo-200 hover:text-white px-2 py-1">พนักงานส่ง</a>
@@ -55,16 +61,54 @@
         </nav>
 
         <main class="max-w-6xl mx-auto px-4 pt-6 space-y-6">
-            <div class="flex justify-between items-center bg-white p-4 rounded-2xl border shadow-sm">
-                <input type="text" id="admin-search" oninput="renderTable()" placeholder="ค้นหาชื่อผู้รับ..." class="p-2.5 border rounded-xl text-sm w-72 bg-slate-50">
-                <button onclick="resetDataPrompt()" class="text-xs bg-rose-50 text-rose-600 px-3 py-2 rounded-xl font-bold border border-rose-200">
-                    <i class="fa-solid fa-rotate-left mr-1"></i> รีเซ็ตข้อมูล 43 คน
-                </button>
+
+            <!-- 📊 ส่วนแสดงกราฟวิเคราะห์ข้อมูลยอดขายและสัดส่วน -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- กราฟแบบวงกลม (Pie Chart) -->
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-indigo-600"></i> สัดส่วนการจัดส่งทั้งหมด
+                    </h3>
+                    <div class="relative h-64 flex items-center justify-center">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- กราฟแท่งเทียน (Candlestick Chart) แสดงความผันผวนยอดจัดส่ง -->
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3 md:col-span-2">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-emerald-600"></i> แนวโน้มยอดจัดส่ง & ความผันผวน (Candlestick)
+                        </h3>
+                        <span class="text-[10px] bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full font-medium">ย้อนหลัง 5 วัน</span>
+                    </div>
+                    <div id="candlestickChart" class="h-64"></div>
+                </div>
             </div>
 
-            <div class="bg-white rounded-2xl border shadow-sm overflow-hidden">
+            <!-- 📥 ส่วนปุ่มดาวน์โหลด/Export ข้อมูลลูกค้า -->
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between gap-3 items-center">
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <input type="text" id="admin-search" oninput="renderTable()" placeholder="ค้นหาชื่อผู้รับ..." class="p-2.5 border rounded-xl text-sm w-full sm:w-64 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+
+                <div class="flex flex-wrap gap-2 w-full sm:w-auto justify-end">
+                    <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 active:scale-95">
+                        <i class="fa-solid fa-file-excel"></i> ดาวน์โหลดไฟล์ Excel (CSV)
+                    </button>
+                    <button onclick="copyJSON()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md transition-all flex items-center gap-1.5 active:scale-95">
+                        <i class="fa-solid fa-code"></i> คัดลอกข้อมูล JSON
+                    </button>
+                    <button onclick="resetDataPrompt()" class="bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 text-xs font-bold px-3 py-2.5 rounded-xl border border-slate-200 transition-all flex items-center gap-1">
+                        <i class="fa-solid fa-rotate-left"></i> รีเซ็ต
+                    </button>
+                </div>
+            </div>
+
+            <!-- 📋 ตารางแสดงรายชื่อลูกค้า -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                 <table class="w-full text-left text-sm text-slate-600">
-                    <thead class="bg-slate-50 border-b text-xs text-slate-500 uppercase font-bold">
+                    <thead class="bg-slate-50 border-b border-slate-200 text-xs text-slate-500 uppercase font-bold">
                         <tr>
                             <th class="p-4">ชื่อผู้รับ</th>
                             <th class="p-4 text-center">สำเร็จ</th>
@@ -74,15 +118,19 @@
                             <th class="p-4 text-center">จัดการ</th>
                         </tr>
                     </thead>
-                    <tbody id="user-table-body" class="divide-y"></tbody>
+                    <tbody id="user-table-body" class="divide-y divide-slate-100"></tbody>
                 </table>
             </div>
         </main>
     </div>
 
+    <!-- Scripts -->
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
     <script>
+        let doughnutChartInstance = null;
+        let candleChartInstance = null;
+
         document.addEventListener('DOMContentLoaded', () => {
             if (sessionStorage.getItem('staff_logged_in') === 'true') {
                 showAdmin();
@@ -113,6 +161,7 @@
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('main-content').classList.remove('hidden');
             renderTable();
+            renderCharts();
         }
 
         function renderTable() {
@@ -143,6 +192,91 @@
             });
         }
 
+        // --- 📊 วาดกราฟ Doughnut & Candlestick ---
+        function renderCharts() {
+            const users = DB.getAll();
+            let totalSuccess = 0, totalFailed = 0;
+
+            users.forEach(u => {
+                totalSuccess += u.success;
+                totalFailed += u.failed;
+            });
+
+            // 1. วาด Doughnut Chart (วงกลม)
+            const ctx = document.getElementById('doughnutChart').getContext('2d');
+            if (doughnutChartInstance) doughnutChartInstance.destroy();
+
+            doughnutChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ส่งสำเร็จ', 'ตีกลับ/ล้มเหลว'],
+                    datasets: [{
+                        data: [totalSuccess, totalFailed],
+                        backgroundColor: ['#10b981', '#f43f5e'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // 2. วาด Candlestick Chart (แท่งเทียน)
+            const options = {
+                series: [{
+                    data: [
+                        { x: 'วันจันทร์', y: [10, 25, 8, 22] },
+                        { x: 'วันอังคาร', y: [22, 35, 18, 30] },
+                        { x: 'วันพุธ', y: [30, 32, 20, 25] },
+                        { x: 'วันพฤหัสบดี', y: [25, 42, 24, 40] },
+                        { x: 'วันศุกร์', y: [40, 50, 35, 48] }
+                    ]
+                }],
+                chart: { type: 'candlestick', height: 230, toolbar: { show: false } },
+                xaxis: { type: 'category' },
+                yaxis: { tooltip: { enabled: true } }
+            };
+
+            if (candleChartInstance) candleChartInstance.destroy();
+            candleChartInstance = new ApexCharts(document.querySelector("#candlestickChart"), options);
+            candleChartInstance.render();
+        }
+
+        // --- 📥 ระบบ Export ข้อมูลไปใช้ที่อื่น ---
+        
+        // 1. ดาวน์โหลดเป็นไฟล์ CSV (เปิดใน Excel ได้ทันที ภาษาไทยไม่ต่าง)
+        function exportToCSV() {
+            const users = DB.getAll();
+            if (users.length === 0) return alert('ไม่มีข้อมูลสำหรับส่งออก');
+
+            // BOM (\uFEFF) ช่วยให้ Excel อ่านภาษาไทยได้ถูกต้อง
+            let csvContent = "\uFEFFลำดับ,ชื่อผู้รับ,ส่งสำเร็จ,ตีกลับ,รวมทั้งหมด,สถานะความเสี่ยง,ติดแบล็กลิสต์,เหตุผล\n";
+
+            users.forEach((u, index) => {
+                const risk = DB.calculateRisk(u);
+                csvContent += `${index + 1},"${u.name}",${u.success},${u.failed},${u.total},"${risk.label}",${u.isBlacklisted ? 'ใช่' : 'ไม่'},"${u.blacklistReason || ''}"\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            link.setAttribute('download', `customer_data_${Date.now()}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 2. คัดลอกข้อมูลรูปแบบ JSON
+        function copyJSON() {
+            const users = DB.getAll();
+            navigator.clipboard.writeText(JSON.stringify(users, null, 2)).then(() => {
+                alert('คัดลอกข้อมูลลูกค้า (JSON) ลง Clipboard แล้ว! สามารถนำไปวางใช้งานที่อื่นได้ทันที');
+            });
+        }
+
         function toggleBlacklist(userName) {
             const list = DB.getAll();
             const user = list.find(u => u.name === userName);
@@ -158,12 +292,14 @@
             }
             DB.save(list);
             renderTable();
+            renderCharts();
         }
 
         function resetDataPrompt() {
             if (confirm('คุณต้องการรีเซ็ตข้อมูลทั้งหมดกลับเป็น 43 รายชื่อเริ่มต้นหรือไม่?')) {
                 DB.resetToDefault();
                 renderTable();
+                renderCharts();
             }
         }
     </script>
