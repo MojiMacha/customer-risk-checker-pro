@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blacklist Control - Delivery Risk Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-100 min-h-screen pb-12">
 
+    <header class="bg-indigo-900 text-white p-4 shadow-md">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <h1 class="font-bold text-lg"><i class="fa-solid fa-user-slash text-rose-400 mr-2"></i>Blacklist Control Center</h1>
+            <nav class="space-x-3 text-sm">
+                <a href="driver.html" class="text-indigo-200 hover:text-white">พนักงานส่ง</a>
+                <a href="admin.html" class="text-indigo-200 hover:text-white">แอดมิน</a>
+                <a href="blacklist.html" class="font-bold border-b-2 border-amber-400 pb-1">แบล็กลิสต์</a>
+                <a href="tracking.html" class="text-indigo-200 hover:text-white">ลูกค้า</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 mt-6 space-y-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+            <h2 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-shield-halved mr-2 text-rose-500"></i>จัดการรายชื่อติดแบล็กลิสต์</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b text-xs text-slate-500 font-bold">
+                            <th class="p-3">ชื่อผู้รับ</th>
+                            <th class="p-3">สถานะ</th>
+                            <th class="p-3">เหตุผลในการติดแบล็กลิสต์</th>
+                            <th class="p-3">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="blacklist-table-body" class="text-sm divide-y"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/db.js"></script>
+    <script>
+        function renderBlacklistTable() {
+            const users = DB.getAll();
+            const tbody = document.getElementById('blacklist-table-body');
+            tbody.innerHTML = '';
+
+            users.forEach((u) => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition-colors';
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-slate-800">${u.name}</td>
+                    <td class="p-3">
+                        ${u.isBlacklisted 
+                            ? '<span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-700">ติดแบล็กลิสต์</span>' 
+                            : '<span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600">ปกติ</span>'}
+                    </td>
+                    <td class="p-3 text-slate-500 text-xs">${u.blacklistReason || '-'}</td>
+                    <td class="p-3">
+                        <button onclick="toggleBlacklist('${u.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white transition-all ${u.isBlacklisted ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-rose-600 hover:bg-rose-700'}">
+                            ${u.isBlacklisted ? 'ปลดแบล็กลิสต์' : 'เพิ่มเข้าแบล็กลิสต์'}
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function toggleBlacklist(userId) {
+            const users = DB.getAll();
+            const user = users.find(u => u.id === userId);
+            if (!user) return;
+
+            if (!user.isBlacklisted) {
+                const reason = prompt(`ระบุเหตุผลในการเพิ่ม ${user.name} เข้าแบล็กลิสต์:`, 'ปฏิเสธรับสินค้าหลายครั้ง');
+                if (reason === null) return;
+                user.isBlacklisted = true;
+                user.blacklistReason = reason;
+            } else {
+                if (confirm(`คุณต้องการปลดแบล็กลิสต์ ${user.name} ใช่หรือไม่?`)) {
+                    user.isBlacklisted = false;
+                    user.blacklistReason = '';
+                } else {
+                    return;
+                }
+            }
+
+            DB.save(users);
+            renderBlacklistTable();
+        }
+
+        document.addEventListener('DOMContentLoaded', renderBlacklistTable);
+    </script>
+</body>
+</html>
