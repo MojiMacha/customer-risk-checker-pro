@@ -11,7 +11,6 @@
 </head>
 <body class="bg-slate-50 min-h-screen pb-12">
 
-    <!-- 🔒 หน้าต่างรหัส PIN (แยก PIN พนักงาน: 001456) -->
     <div id="auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
             <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
@@ -34,7 +33,6 @@
         </div>
     </div>
 
-    <!-- 🚚 เนื้อหาหลัก -->
     <div id="main-content" class="hidden">
         <nav class="bg-indigo-900 text-white shadow-md sticky top-0 z-40">
             <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
@@ -67,10 +65,9 @@
 
             <div id="result-box" class="hidden bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
                 
-                <!-- 🚨 Risk Alert Badge (เตือนความเสี่ยงเรียลไทม์) -->
                 <div id="risk-alert-banner" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-3.5 rounded-2xl text-xs font-bold flex items-center gap-2 animate-pulse">
                     <i class="fa-solid fa-triangle-exclamation text-lg text-rose-600"></i>
-                    <span id="risk-alert-text">คำเตือน: ผู้รับรายนี้มีความเสี่ยงสูง/ติดแบล็กลิสต์ โปรดระวังการเก็บเงินปลายทาง</span>
+                    <span id="risk-alert-text">คำเตือน: ผู้รับรายนี้มีความเสี่ยงสูง/ติดแบล็กลิสต์</span>
                 </div>
 
                 <div class="flex justify-between items-start border-b pb-4">
@@ -87,16 +84,6 @@
                     <div class="bg-rose-50 p-3 rounded-2xl border border-rose-100"><p class="text-xs text-rose-600">ตีกลับ</p><p id="res-failed" class="text-lg font-bold text-rose-600">0</p></div>
                 </div>
 
-                <!-- 📷 ถ่ายรูปหลักฐานการส่ง (Proof of Delivery) -->
-                <div class="border-t pt-3 space-y-2">
-                    <label class="block text-xs font-bold text-slate-700">📷 รูปถ่ายหลักฐานการจัดส่ง (POD)</label>
-                    <input type="file" id="pod-image-input" accept="image/*" capture="environment" onchange="previewPodImage(event)" class="text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                    <div id="pod-preview-container" class="hidden mt-2 relative w-32 h-32 rounded-2xl overflow-hidden border">
-                        <img id="pod-preview-img" class="w-full h-full object-cover">
-                    </div>
-                </div>
-
-                <!-- ปุ่มอัปเดตสถานะ -->
                 <div class="pt-2 border-t space-y-2">
                     <div class="flex gap-2">
                         <button onclick="askConfirm('SUCCESS')" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-2xl shadow-md active:scale-95 transition-all">
@@ -116,14 +103,12 @@
         </main>
     </div>
 
-    <!-- ⚠️ Pop-up ยืนยันการทำรายการ -->
     <div id="confirm-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-4 border border-slate-100">
             <div id="confirm-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner"></div>
             <div>
                 <h3 class="text-lg font-bold text-slate-800">ยืนยันการทำรายการ</h3>
                 <p id="confirm-text" class="text-xs text-slate-500 mt-1"></p>
-                <p id="confirm-gps-text" class="text-[11px] text-indigo-600 mt-1 font-medium"><i class="fa-solid fa-location-dot"></i> กำลังดึงพิกัด GPS...</p>
             </div>
             <div class="flex gap-2 pt-2">
                 <button onclick="closeConfirmModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-2.5 rounded-xl text-sm transition-all">
@@ -138,29 +123,13 @@
 
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
-    <script>
-        // --- 🔊 การตั้งค่าไฟล์เสียง (สามารถเปลี่ยน Path เป็นไฟล์เสียงที่มีได้) ---
-        const SOUNDS = {
-            wrongPin: new Audio('https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3'), // เสียงรหัสผิด
-            success:  new Audio('https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3'), // เสียงส่งสำเร็จ
-            alert:    new Audio('https://assets.mixkit.co/active_storage/sfx/951/951-preview.mp3')     // เสียงแจ้งเตือนความเสี่ยง
-        };
-
-        function playSound(key) {
-            if (SOUNDS[key]) {
-                SOUNDS[key].currentTime = 0;
-                SOUNDS[key].play().catch(e => console.log('Audio error:', e));
-            }
-        }
-
+    <script src="js/sound.js"></script> <script>
         let currentSearchedUser = null;
         let pendingType = null;
         let lastActionRecord = null;
-        let currentGpsLocation = null;
-        let currentPodImageData = null;
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('staff_role') === 'DRIVER') {
+            if (sessionStorage.getItem('staff_role') === 'DRIVER' || sessionStorage.getItem('staff_logged_in') === 'true') {
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('main-content').classList.remove('hidden');
             }
@@ -168,13 +137,13 @@
 
         function loginStaff() {
             const inputPin = document.getElementById('pin-input').value.trim();
-            // PIN สำหรับพนักงานส่งคือ 001456
-            if (inputPin === (CONFIG.DRIVER_PIN || CONFIG.STAFF_PIN)) {
+            if (inputPin === (CONFIG.DRIVER_PIN || CONFIG.STAFF_PIN || '001456')) {
                 sessionStorage.setItem('staff_role', 'DRIVER');
+                sessionStorage.setItem('staff_logged_in', 'true');
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('main-content').classList.remove('hidden');
             } else {
-                playSound('wrongPin'); // 🔊 เล่นเสียงเมื่อกรอกรหัสผิด
+                playSound('failed'); // 🔊 เรียกเล่นเสียงจาก sound.js
                 document.getElementById('pin-error').classList.remove('hidden');
                 document.getElementById('pin-input').value = '';
             }
@@ -182,45 +151,40 @@
 
         function logoutStaff() {
             sessionStorage.removeItem('staff_role');
+            sessionStorage.removeItem('staff_logged_in');
             location.reload();
         }
 
-       function handleSearch() {
-    const input = document.getElementById('search-input');
-    const name = input.value.trim(); // ตัดช่องว่างหน้า-หลัง
-    
-    if (!name) {
-        alert('กรุณากรอกชื่อผู้รับที่ต้องการค้นหา');
-        return;
-    }
+        function handleSearch() {
+            const name = document.getElementById('search-input').value.trim();
+            if (!name) return;
+            const user = DB.findByName(name);
+            if (!user) { alert('ไม่พบข้อมูลรายชื่อนี้'); return; }
+            
+            currentSearchedUser = user;
+            lastActionRecord = null;
+            document.getElementById('undo-btn').classList.add('hidden');
 
-    const user = DB.findByName(name);
-    
-    if (!user) {
-        alert(`ไม่พบข้อมูลรายชื่อ "${name}" ในระบบ`);
-        return;
-    }
-    
-    currentSearchedUser = user;
-    lastActionRecord = null;
-    document.getElementById('undo-btn').classList.add('hidden');
+            const risk = DB.calculateRisk(user);
 
-    // แจ้งเตือนความเสี่ยง
-    const risk = DB.calculateRisk(user);
-    const alertBanner = document.getElementById('risk-alert-banner');
-    if (user.isBlacklisted || risk.level === 'HIGH') {
-        playSound('alert');
-        alertBanner.classList.remove('hidden');
-        document.getElementById('risk-alert-text').innerText = user.isBlacklisted 
-            ? `⚠️ รายชื่อนี้ติดแบล็กลิสต์: ${user.blacklistReason || 'ปฏิเสธการชำระเงิน'}`
-            : `⚠️ คำเตือน: ลูกค้ารายนี้มีประวัติตีกลับสูง (${user.failed} ครั้ง)`;
-    } else {
-        alertBanner.classList.add('hidden');
-    }
+            // 🔊 เรียกใช้เสียงตามระดับความเสี่ยงผ่าน SoundSystem (บรรทัดเดียวจบ!)
+            SoundSystem.playByRisk(user, risk.level);
 
-    refreshUserDisplay();
-    document.getElementById('result-box').classList.remove('hidden');
-}
+            // แสดงแบนเนอร์แจ้งเตือน
+            const alertBanner = document.getElementById('risk-alert-banner');
+            if (user.isBlacklisted || risk.level === 'HIGH') {
+                alertBanner.classList.remove('hidden');
+                document.getElementById('risk-alert-text').innerText = user.isBlacklisted 
+                    ? `⚠️ รายชื่อนี้ติดแบล็กลิสต์: ${user.blacklistReason || 'ปฏิเสธการชำระเงิน'}`
+                    : `⚠️ คำเตือน: ลูกค้ารายนี้มีประวัติตีกลับสูง (${user.failed} ครั้ง)`;
+            } else {
+                alertBanner.classList.add('hidden');
+            }
+
+            refreshUserDisplay();
+            document.getElementById('result-box').classList.remove('hidden');
+        }
+
         function refreshUserDisplay() {
             const user = DB.findByName(currentSearchedUser.name);
             currentSearchedUser = user;
@@ -233,40 +197,9 @@
             document.getElementById('res-badge').innerHTML = `<span class="px-3 py-1 rounded-full text-xs font-bold ${risk.colorClass}">${risk.label}</span>`;
         }
 
-        // 📷 ระบบ Preview รูปภาพ POD
-        function previewPodImage(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    currentPodImageData = e.target.result;
-                    document.getElementById('pod-preview-img').src = currentPodImageData;
-                    document.getElementById('pod-preview-container').classList.remove('hidden');
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // 📍 ดึงพิกัด GPS
-        function getGps() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    pos => {
-                        currentGpsLocation = `${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`;
-                        document.getElementById('confirm-gps-text').innerText = `📍 พิกัดปัจจุบัน: ${currentGpsLocation}`;
-                    },
-                    err => {
-                        currentGpsLocation = "ไม่เปิดตำแหน่ง GPS";
-                        document.getElementById('confirm-gps-text').innerText = `📍 ไม่สามารถดึงพิกัด GPS ได้`;
-                    }
-                );
-            }
-        }
-
         function askConfirm(type) {
             if (!currentSearchedUser) return;
             pendingType = type;
-            getGps(); // ดึงตำแหน่ง GPS อัตโนมัติ
 
             const iconBox = document.getElementById('confirm-icon');
             const submitBtn = document.getElementById('confirm-submit-btn');
@@ -275,12 +208,12 @@
             if (type === 'SUCCESS') {
                 iconBox.className = "w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner";
                 iconBox.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-                confirmText.innerText = `ยืนยันการจัดส่งสำเร็จ คุณ ${currentSearchedUser.name}?`;
+                confirmText.innerText = `ต้องการบันทึกสถานะ "ส่งสำเร็จ" ใช่หรือไม่?`;
                 submitBtn.className = "flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition-all";
             } else {
                 iconBox.className = "w-14 h-14 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner";
                 iconBox.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
-                confirmText.innerText = `ยืนยันการตีกลับพัสดุ คุณ ${currentSearchedUser.name}?`;
+                confirmText.innerText = `ต้องการบันทึกสถานะ "ตีกลับ / ปฏิเสธ" ใช่หรือไม่?`;
                 submitBtn.className = "flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition-all";
             }
 
@@ -295,18 +228,13 @@
         function executeRecord() {
             if (!currentSearchedUser || !pendingType) return;
 
-            playSound('success'); // 🔊 เล่นเสียงเมื่อบันทึกสำเร็จ
+            // 🔊 เล่นเสียงตามประเภทปุ่มที่กด
+            if (pendingType === 'SUCCESS') playSound('success');
+            else playSound('failed');
 
             lastActionRecord = { userName: currentSearchedUser.name, type: pendingType };
-
-            // บันทึกสถานะพร้อมพิกัด GPS และรูปภาพ POD ลงใน DB
-            DB.recordDelivery(
-                currentSearchedUser.name, 
-                pendingType, 
-                'ORD-' + Date.now().toString().slice(-4),
-                { gps: currentGpsLocation, podImg: currentPodImageData }
-            );
-
+            DB.recordDelivery(currentSearchedUser.name, pendingType, 'ORD-' + Date.now().toString().slice(-4));
+            
             closeConfirmModal();
             refreshUserDisplay();
             document.getElementById('undo-btn').classList.remove('hidden');
