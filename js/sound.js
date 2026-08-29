@@ -3,7 +3,7 @@
 // ==========================================
 
 const SoundSystem = {
-    paths: {
+    pathsว {
         blacklist: 'sounds/ghost.mp3',
         high_risk: 'sounds/ghost.mp3',
         medium_risk: 'sounds/ohno.mp3',
