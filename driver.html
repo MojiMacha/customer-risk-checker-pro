@@ -137,19 +137,25 @@
 
 function loginStaff() {
     const inputPin = document.getElementById('pin-input').value.trim();
+    const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.DRIVER_PIN) ? CONFIG.DRIVER_PIN : '001456';
+    const pinError = document.getElementById('pin-error');
     
-    // ตรวจสอบว่ารหัส PIN ถูกต้องหรือไม่
-    if (inputPin === (CONFIG.DRIVER_PIN || CONFIG.STAFF_PIN || '001456')) {
-        // 🟢 กรณีรหัสถูกต้อง
+    if (inputPin === correctPin) {
         sessionStorage.setItem('staff_role', 'DRIVER');
         sessionStorage.setItem('staff_logged_in', 'true');
         document.getElementById('auth-screen').classList.add('hidden');
         document.getElementById('main-content').classList.remove('hidden');
+        if (pinError) pinError.classList.add('hidden');
     } else {
-        // 🔴 กรณีรหัสผิด ให้เล่นเสียงเตือนตรงนี้ครับ!
-        playSound('wrong_pin'); // 👈 เพิ่มบรรทัดนี้ลงไป (หรือใช้ playSound('failed') ก็ได้)
+        // 🔊 เล่นเสียงเตือนทันทีเมื่อใส่ PIN ผิด
+        playSound('wrong_pin'); 
 
-        document.getElementById('pin-error').classList.remove('hidden');
+        // ⚠️ แสดงข้อความเตือน PIN ไม่ถูกต้อง
+        if (pinError) {
+            pinError.classList.remove('hidden');
+        } else {
+            alert('รหัส PIN ไม่ถูกต้อง!');
+        }
         document.getElementById('pin-input').value = '';
     }
 }
