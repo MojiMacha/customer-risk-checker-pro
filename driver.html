@@ -185,33 +185,42 @@
             location.reload();
         }
 
-        function handleSearch() {
-            const name = document.getElementById('search-input').value.trim();
-            if (!name) return;
-            const user = DB.findByName(name);
-            if (!user) { alert('ไม่พบข้อมูลรายชื่อนี้'); return; }
-            
-            currentSearchedUser = user;
-            lastActionRecord = null;
-            document.getElementById('undo-btn').classList.add('hidden');
+       function handleSearch() {
+    const input = document.getElementById('search-input');
+    const name = input.value.trim(); // ตัดช่องว่างหน้า-หลัง
+    
+    if (!name) {
+        alert('กรุณากรอกชื่อผู้รับที่ต้องการค้นหา');
+        return;
+    }
 
-            // 🚨 ระบบ Risk Alert & เล่นเสียงเตือนถ้ารายชื่อเสี่ยงสูง/แบล็กลิสต์
-            const risk = DB.calculateRisk(user);
-            const alertBanner = document.getElementById('risk-alert-banner');
-            if (user.isBlacklisted || risk.level === 'HIGH') {
-                playSound('alert'); // 🔊 เล่นเสียงเตือนภัย
-                alertBanner.classList.remove('hidden');
-                document.getElementById('risk-alert-text').innerText = user.isBlacklisted 
-                    ? `⚠️ รายชื่อนี้ติดแบล็กลิสต์: ${user.blacklistReason || 'ปฏิเสธการชำระเงิน'}`
-                    : `⚠️ คำเตือน: ลูกค้ารายนี้มีประวัติตีกลับสูง (${user.failed} ครั้ง)`;
-            } else {
-                alertBanner.classList.add('hidden');
-            }
+    const user = DB.findByName(name);
+    
+    if (!user) {
+        alert(`ไม่พบข้อมูลรายชื่อ "${name}" ในระบบ`);
+        return;
+    }
+    
+    currentSearchedUser = user;
+    lastActionRecord = null;
+    document.getElementById('undo-btn').classList.add('hidden');
 
-            refreshUserDisplay();
-            document.getElementById('result-box').classList.remove('hidden');
-        }
+    // แจ้งเตือนความเสี่ยง
+    const risk = DB.calculateRisk(user);
+    const alertBanner = document.getElementById('risk-alert-banner');
+    if (user.isBlacklisted || risk.level === 'HIGH') {
+        playSound('alert');
+        alertBanner.classList.remove('hidden');
+        document.getElementById('risk-alert-text').innerText = user.isBlacklisted 
+            ? `⚠️ รายชื่อนี้ติดแบล็กลิสต์: ${user.blacklistReason || 'ปฏิเสธการชำระเงิน'}`
+            : `⚠️ คำเตือน: ลูกค้ารายนี้มีประวัติตีกลับสูง (${user.failed} ครั้ง)`;
+    } else {
+        alertBanner.classList.add('hidden');
+    }
 
+    refreshUserDisplay();
+    document.getElementById('result-box').classList.remove('hidden');
+}
         function refreshUserDisplay() {
             const user = DB.findByName(currentSearchedUser.name);
             currentSearchedUser = user;
