@@ -1,1 +1,95 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking - Delivery Risk Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-100 min-h-screen pb-12">
 
+    <header class="bg-indigo-900 text-white p-4 shadow-md">
+        <div class="max-w-3xl mx-auto flex justify-between items-center">
+            <h1 class="font-bold text-lg"><i class="fa-solid fa-box-archive text-amber-400 mr-2"></i>ติดตามพัสดุ</h1>
+            <nav class="space-x-3 text-sm">
+                <a href="driver.html" class="text-indigo-200 hover:text-white">พนักงานส่ง</a>
+                <a href="admin.html" class="text-indigo-200 hover:text-white">แอดมิน</a>
+                <a href="blacklist.html" class="text-indigo-200 hover:text-white">แบล็กลิสต์</a>
+                <a href="tracking.html" class="font-bold border-b-2 border-amber-400 pb-1">ลูกค้า</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-4 mt-8 space-y-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center space-y-4">
+            <h2 class="text-xl font-bold text-slate-800">ค้นหาสถานะการจัดส่งพัสดุ</h2>
+            <div class="flex gap-2 max-w-md mx-auto">
+                <input type="text" id="track-input" placeholder="ใส่ชื่อผู้รับ หรือ เลขพัสดุ..." class="flex-1 border p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                <button onclick="searchTracking()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-xl font-bold transition-all text-sm">
+                    <i class="fa-solid fa-magnifying-glass mr-1"></i> ค้นหา
+                </button>
+            </div>
+        </div>
+
+        <div id="track-result" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-4">
+            <div class="border-b pb-3 flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-slate-500 block">ผู้รับสินค้า</span>
+                    <strong id="cust-name" class="text-lg text-slate-800"></strong>
+                </div>
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700">ระบบปกติ</span>
+            </div>
+            <div class="space-y-3">
+                <h3 class="font-bold text-sm text-slate-700">ประวัติการจัดส่งล่าสุด</h3>
+                <div id="cust-logs" class="space-y-2 text-xs text-slate-600"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/db.js"></script>
+    <script>
+        function searchTracking() {
+            const query = document.getElementById('track-input').value.trim();
+            if (!query) return;
+
+            const users = DB.getAll();
+            let foundUser = users.find(u => u.name.toLowerCase() === query.toLowerCase());
+
+            if (!foundUser) {
+                alert('ไม่พบข้อมูลพัสดุในระบบ');
+                document.getElementById('track-result').classList.add('hidden');
+                return;
+            }
+
+            document.getElementById('cust-name').innerText = foundUser.name;
+            const logsContainer = document.getElementById('cust-logs');
+            logsContainer.innerHTML = '';
+
+            if (!foundUser.logs || foundUser.logs.length === 0) {
+                logsContainer.innerHTML = '<p class="text-slate-400 italic p-2">ยังไม่มีประวัติการส่งพัสดุในระบบ</p>';
+            } else {
+                foundUser.logs.forEach(log => {
+                    const div = document.createElement('div');
+                    div.className = 'p-3 bg-slate-50 rounded-xl flex justify-between items-center';
+                    const statusBadge = log.type === 'SUCCESS' 
+                        ? '<span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle-check mr-1"></i>ส่งสำเร็จ</span>' 
+                        : '<span class="text-rose-600 font-bold"><i class="fa-solid fa-circle-xmark mr-1"></i>ส่งไม่สำเร็จ</span>';
+                    
+                    div.innerHTML = `
+                        <div>
+                            <strong class="block text-slate-700">เลขพัสดุ: ${log.orderId}</strong>
+                            <span class="text-slate-400">${log.timestamp}</span>
+                        </div>
+                        <div>${statusBadge}</div>
+                    `;
+                    logsContainer.appendChild(div);
+                });
+            }
+
+            document.getElementById('track-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
