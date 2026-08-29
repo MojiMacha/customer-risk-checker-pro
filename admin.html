@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js สำหรับแสดงกราฟ -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style> body { font-family: 'Kanit', sans-serif; } </style>
 </head>
 <body class="bg-slate-50 min-h-screen pb-12">
@@ -92,6 +94,29 @@
                 </div>
             </div>
 
+            <!-- 📊 ส่วนแสดงผลกราฟวิเคราะห์ข้อมูล (Charts Section) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- กราฟแท่งเปรียบเทียบยอดรวม / สำเร็จ / ตีกลับ -->
+                <div class="md:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-column text-indigo-600"></i> เปรียบเทียบภาพรวมการจัดส่ง (ชิ้น)
+                    </h3>
+                    <div class="h-64 relative">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- กราฟวงกลมแสดงสัดส่วนสำเร็จ vs ตีกลับ -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-emerald-600"></i> สัดส่วนผลการส่ง
+                    </h3>
+                    <div class="h-64 relative flex items-center justify-center">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
             <!-- 📋 ส่วนการจัดการข้อมูล นำเข้า และดาวน์โหลด -->
             <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-4">
@@ -101,14 +126,12 @@
                     </div>
                     
                     <div class="flex flex-wrap gap-2">
-                        <!-- 📥 ปุ่มนำเข้าไฟล์ CSV -->
                         <input type="file" id="csv-file-input" accept=".csv" class="hidden" onchange="handleImportCSV(event)">
                         <button onclick="document.getElementById('csv-file-input').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
                             <i class="fa-solid fa-file-import text-sm"></i>
                             <span>นำเข้าไฟล์ CSV</span>
                         </button>
 
-                        <!-- 📤 ปุ่มดาวน์โหลดข้อมูล -->
                         <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
                             <i class="fa-solid fa-file-excel text-sm"></i>
                             <span>ดาวน์โหลดรายงาน (CSV)</span>
@@ -116,12 +139,10 @@
                     </div>
                 </div>
 
-                <!-- ช่องค้นหา -->
                 <div class="flex gap-2">
                     <input type="text" id="admin-search" onkeyup="renderUserList()" placeholder="ค้นหาตามชื่อผู้รับ..." class="flex-1 border border-slate-200 p-3 rounded-2xl text-sm focus:outline-none focus:border-amber-500">
                 </div>
 
-                <!-- รายชื่อข้อมูล -->
                 <div id="admin-user-list" class="space-y-3 pt-2"></div>
             </div>
         </main>
@@ -134,6 +155,8 @@
 
     <script>
         const ESTIMATED_PARCEL_PRICE = 350;
+        let barChartInstance = null;
+        let doughnutChartInstance = null;
 
         function unlockAudio() {
             if (typeof SoundSystem !== 'undefined' && SoundSystem.initAudioContext) {
@@ -185,11 +208,12 @@
         }
 
         function initAdminDashboard() {
-            calculateFinancials();
+            calculateFinancialsAndCharts();
             renderUserList();
         }
 
-        function calculateFinancials() {
+        // 💵 คำนวณสรุปการเงิน และวาดกราฟ
+        function calculateFinancialsAndCharts() {
             if (typeof DB === 'undefined') return;
             const users = DB.getAll();
 
@@ -204,13 +228,71 @@
             const totalParcels = totalSuccess + totalFailed;
             const successRate = totalParcels > 0 ? ((totalSuccess / totalParcels) * 100).toFixed(1) : 0;
 
-            document.getElementById('stat-success-count').innerText = `${totalSuccess} รายการ`;
+            document.getElementById('stat-success-count').innerText = `${totalSuccess.toLocaleString()} รายการ`;
             document.getElementById('stat-success-amount').innerText = `ประมาณ ฿${(totalSuccess * ESTIMATED_PARCEL_PRICE).toLocaleString()}`;
 
-            document.getElementById('stat-failed-count').innerText = `${totalFailed} รายการ`;
+            document.getElementById('stat-failed-count').innerText = `${totalFailed.toLocaleString()} รายการ`;
             document.getElementById('stat-failed-amount').innerText = `เสียหายประมาณ ฿${(totalFailed * ESTIMATED_PARCEL_PRICE).toLocaleString()}`;
 
             document.getElementById('stat-rate').innerText = `${successRate}%`;
+
+            // Render กราฟ
+            renderCharts(totalParcels, totalSuccess, totalFailed);
+        }
+
+        // 📊 ฟังก์ชันสร้างและอัปเดตกราฟ Chart.js
+        function renderCharts(total, success, failed) {
+            // Destroy กราฟเก่าหากมีอยู่ เพื่อป้องกันกราฟซ้อนทับ
+            if (barChartInstance) barChartInstance.destroy();
+            if (doughnutChartInstance) doughnutChartInstance.destroy();
+
+            // 1. กราฟแท่ง (Bar Chart)
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            barChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['ยอดรวมทั้งหมด', 'ส่งสำเร็จ', 'ตีกลับ / ปฏิเสธ'],
+                    datasets: [{
+                        label: 'จำนวนพัสดุ (ชิ้น)',
+                        data: [total, success, failed],
+                        backgroundColor: ['#6366f1', '#10b981', '#f43f5e'],
+                        borderRadius: 12,
+                        barThickness: 36
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+
+            // 2. กราฟวงกลม (Doughnut Chart)
+            const ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
+            doughnutChartInstance = new Chart(ctxDoughnut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['ส่งสำเร็จ', 'ตีกลับ / ปฏิเสธ'],
+                    datasets: [{
+                        data: [success, failed],
+                        backgroundColor: ['#10b981', '#f43f5e'],
+                        borderWidth: 2,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
         }
 
         function renderUserList() {
@@ -258,7 +340,6 @@
             }).join('');
         }
 
-        // 📥 ฟังก์ชันประมวลผลนำเข้าไฟล์ CSV
         function handleImportCSV(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -273,9 +354,8 @@
                 const dbList = DB.getAll();
 
                 lines.forEach((line, index) => {
-                    if (index === 0 || !line.trim()) return; // ข้าม Header หรือบรรทัดว่าง
+                    if (index === 0 || !line.trim()) return;
 
-                    // รองรับคอมมาในเครื่องหมายอัญประกาศ " "
                     const cols = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || line.split(',');
                     if (cols.length >= 3) {
                         const name = cols[0].replace(/"/g, '').trim();
@@ -307,13 +387,12 @@
                 DB.save(dbList);
                 alert(`นำเข้าข้อมูลสำเร็จทั้งหมด ${importedCount} รายการ!`);
                 initAdminDashboard();
-                event.target.value = ''; // ล้าง Input เพื่อให้นำเข้าไฟล์เดิมซ้ำได้
+                event.target.value = '';
             };
 
             reader.readAsText(file, "UTF-8");
         }
 
-        // 📤 ฟังก์ชันดาวน์โหลดไฟล์ CSV
         function exportToCSV() {
             if (typeof DB === 'undefined') return;
             const users = DB.getAll().filter(u => (u.total && u.total > 0) || u.isBlacklisted);
