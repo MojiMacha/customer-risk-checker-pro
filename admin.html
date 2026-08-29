@@ -4,250 +4,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบแอดมิน - Delivery Risk Pro</title>
+    <!-- Tailwind CSS & Font Awesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <style> body { font-family: 'Kanit', sans-serif; } </style>
 </head>
-<body class="bg-slate-100 min-h-screen pb-12">
+<body class="bg-slate-50 min-h-screen pb-12">
 
-    <!-- 🔒 หน้าต่าง PIN แอดมิน (รหัสพิเศษ: 999888) -->
+    <!-- 🔒 หน้าต่างบังคับกรอก PIN แอดมิน -->
     <div id="auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
-            <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
                 <i class="fa-solid fa-user-shield"></i>
             </div>
             <div>
                 <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบแอดมิน</h2>
-                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN สำหรับแอดมินผู้ดูแลระบบ</p>
+                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN สำหรับแอดมิน</p>
             </div>
             <div class="space-y-3">
                 <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
-                    class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-indigo-500 focus:outline-none bg-slate-50">
+                    class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-amber-500 focus:outline-none bg-slate-50">
+                
+                <!-- 🚨 ข้อความเตือน PIN ไม่ถูกต้อง -->
                 <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
                     <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง!
                 </p>
-                <button onclick="loginAdmin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95">
+
+                <button onclick="loginAdmin()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-amber-200 transition-all active:scale-95">
                     เข้าสู่ระบบ
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- ⚙️ เนื้อหาหลักแอดมิน -->
+    <!-- 👑 เนื้อหาหลักระบบแอดมิน -->
     <div id="main-content" class="hidden">
-        <nav class="bg-indigo-900 text-white shadow-md sticky top-0 z-40">
+        <nav class="bg-amber-900 text-white shadow-md sticky top-0 z-40">
             <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center space-x-3">
-                    <button onclick="history.back()" class="flex items-center gap-1.5 text-xs bg-indigo-800/80 hover:bg-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-700/60 transition-all active:scale-95">
-                        <i class="fa-solid fa-arrow-left"></i> <span>ย้อนกลับ</span>
-                    </button>
-                    <span class="font-bold text-base md:text-lg">⚙️ ระบบแอดมิน</span>
+                    <span class="font-bold text-base md:text-lg">👑 ผู้ดูแลระบบ (Admin)</span>
                 </div>
                 <div class="flex items-center space-x-3 text-xs md:text-sm font-medium">
-                    <a href="driver.html" class="text-indigo-200 hover:text-white px-2 py-1">พนักงานส่ง</a>
-                    <a href="admin.html" class="text-white bg-indigo-800/90 px-3 py-1 rounded-lg border border-indigo-700/50 font-bold">แอดมิน</a>
-                    <a href="blacklist.html" class="text-indigo-200 hover:text-white px-2 py-1">แบล็กลิสต์</a>
-                    <a href="tracking.html" class="text-indigo-200 hover:text-white px-2 py-1">ลูกค้า</a>
+                    <a href="driver.html" class="text-amber-200 hover:text-white px-2 py-1">พนักงานส่ง</a>
+                    <a href="admin.html" class="text-white bg-amber-800/90 px-3 py-1 rounded-lg border border-amber-700/50 font-bold">แอดมิน</a>
+                    <a href="blacklist.html" class="text-amber-200 hover:text-white px-2 py-1">แบล็กลิสต์</a>
+                    <a href="tracking.html" class="text-amber-200 hover:text-white px-2 py-1">ลูกค้า</a>
                     <button onclick="logoutAdmin()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">ออกจากระบบ</button>
                 </div>
             </div>
         </nav>
 
-        <main class="max-w-6xl mx-auto px-4 pt-6 space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-5 rounded-3xl border shadow-sm">
-                    <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2 mb-2"><i class="fa-solid fa-chart-pie text-indigo-600"></i> สัดส่วนการส่ง</h3>
-                    <div class="h-56 relative flex justify-center items-center"><canvas id="doughnutChart"></canvas></div>
+        <main class="max-w-4xl mx-auto px-4 pt-6 space-y-6">
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                <h2 class="text-lg font-bold text-slate-800">จัดการข้อมูลประวัติการจัดส่ง</h2>
+                <div id="admin-user-list" class="space-y-3">
+                    <!-- รายชื่อผู้รับจะแสดงตรงนี้ผ่าน JavaScript -->
                 </div>
-                <div class="bg-white p-5 rounded-3xl border shadow-sm md:col-span-2">
-                    <h3 class="text-sm font-bold text-slate-800 mb-2"><i class="fa-solid fa-chart-line text-emerald-600 mr-1"></i> แนวโน้มความผันผวน (Candlestick)</h3>
-                    <div id="candlestickChart" class="h-56"></div>
-                </div>
-            </div>
-
-            <!-- 📥 Export / Import CSV -->
-            <div class="bg-white p-4 rounded-2xl border shadow-sm flex flex-col sm:flex-row justify-between gap-3 items-center">
-                <input type="text" id="admin-search" oninput="renderTable()" placeholder="ค้นหาชื่อผู้รับ..." class="p-2.5 border rounded-xl text-sm w-full sm:w-64 bg-slate-50">
-                <div class="flex flex-wrap gap-2 justify-end">
-                    <!-- ปุ่มนำเข้า Import CSV -->
-                    <label class="bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold px-4 py-2.5 rounded-xl border border-indigo-200 cursor-pointer flex items-center gap-1.5 transition-all">
-                        <i class="fa-solid fa-file-import"></i> นำเข้าข้อมูล (Import CSV)
-                        <input type="file" id="csv-file-input" accept=".csv" onchange="importCSV(event)" class="hidden">
-                    </label>
-                    <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md flex items-center gap-1.5">
-                        <i class="fa-solid fa-file-excel"></i> ดาวน์โหลด CSV
-                    </button>
-                    <button onclick="copyJSON()" class="bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold px-3 py-2.5 rounded-xl flex items-center gap-1">
-                        <i class="fa-solid fa-code"></i> JSON
-                    </button>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl border shadow-sm overflow-hidden">
-                <table class="w-full text-left text-sm text-slate-600">
-                    <thead class="bg-slate-50 border-b text-xs text-slate-500 uppercase font-bold">
-                        <tr>
-                            <th class="p-4">ชื่อผู้รับ</th>
-                            <th class="p-4 text-center">สำเร็จ</th>
-                            <th class="p-4 text-center">ตีกลับ</th>
-                            <th class="p-4 text-center">พิกัดล่าสุด/POD</th>
-                            <th class="p-4 text-center">ระดับความเสี่ยง</th>
-                            <th class="p-4 text-center">จัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="user-table-body" class="divide-y"></tbody>
-                </table>
             </div>
         </main>
     </div>
 
+    <!-- 🔗 เรียกใช้งานไฟล์ JS ครบถ้วนตามลำดับ -->
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
     <script src="js/sound.js"></script>
+
     <script>
+        // 🔓 ปลดล็อกระบบเสียงของเบราว์เซอร์เมื่อมีการแตะหรือคลิกหน้าเว็บ
+        function unlockAudio() {
+            if (typeof SoundSystem !== 'undefined' && SoundSystem.initAudioContext) {
+                SoundSystem.initAudioContext();
+            }
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('keydown', unlockAudio);
+        }
+        document.addEventListener('click', unlockAudio);
+        document.addEventListener('keydown', unlockAudio);
 
         document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('staff_role') === 'ADMIN') showAdmin();
+            if (sessionStorage.getItem('staff_role') === 'ADMIN' || sessionStorage.getItem('admin_logged_in') === 'true') {
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                renderUserList();
+            }
         });
 
-       function loginAdmin() {
-    const password = document.getElementById('admin-password').value.trim();
-    const correctPass = (typeof CONFIG !== 'undefined' && CONFIG.ADMIN_PASSWORD) ? CONFIG.ADMIN_PASSWORD : 'admin';
+        // 🔊 สั่งเล่นเสียงแบบปลอดภัย
+        function safePlaySound(type) {
+            if (typeof playSound === 'function') {
+                playSound(type);
+            } else if (typeof SoundSystem !== 'undefined' && SoundSystem.play) {
+                SoundSystem.play(type);
+            }
+        }
 
-    if (password === correctPass) {
-        sessionStorage.setItem('admin_logged_in', 'true');
-        document.getElementById('auth-screen').classList.add('hidden');
-        document.getElementById('main-content').classList.remove('hidden');
-        renderTable();
-    } else {
-        // 🔊 เล่นเสียงเตือนเมื่อใส่รหัส Admin ผิด
-        playSound('wrong_pin'); 
-        alert('รหัสผ่าน Admin ไม่ถูกต้อง!');
-        document.getElementById('admin-password').value = '';
-    }
-}
+        function loginAdmin() {
+            unlockAudio(); // ปลดล็อกเสียงทันทีที่กดปุ่มเข้าสู่ระบบ
+            const inputPin = document.getElementById('pin-input').value.trim();
+            const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.ADMIN_PIN) ? CONFIG.ADMIN_PIN : '888888';
+            const pinError = document.getElementById('pin-error');
+
+            if (inputPin === correctPin) {
+                sessionStorage.setItem('staff_role', 'ADMIN');
+                sessionStorage.setItem('admin_logged_in', 'true');
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                if (pinError) pinError.classList.add('hidden');
+                renderUserList();
+            } else {
+                // 🔊 เล่นเสียงเตือนรหัสผิด
+                safePlaySound('wrong_pin');
+
+                // ⚠️ แสดงตัวหนังสือสีแดงแจ้งเตือน
+                if (pinError) pinError.classList.remove('hidden');
+                document.getElementById('pin-input').value = '';
+            }
+        }
 
         function logoutAdmin() {
             sessionStorage.removeItem('staff_role');
+            sessionStorage.removeItem('admin_logged_in');
             location.reload();
         }
 
-        function showAdmin() {
-            document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('main-content').classList.remove('hidden');
-            renderTable();
-            renderCharts();
-        }
+        function renderUserList() {
+            const listContainer = document.getElementById('admin-user-list');
+            if (!listContainer || typeof DB === 'undefined') return;
 
-        function renderTable() {
             const users = DB.getAll();
-            const search = document.getElementById('admin-search').value.toLowerCase().trim();
-            const tbody = document.getElementById('user-table-body');
-            tbody.innerHTML = '';
+            if (users.length === 0) {
+                listContainer.innerHTML = `<p class="text-slate-400 text-center py-4">ยังไม่มีข้อมูลในระบบ</p>`;
+                return;
+            }
 
-            users.filter(u => u.name.toLowerCase().includes(search)).forEach(user => {
-                const risk = DB.calculateRisk(user);
-                const lastLog = user.logs && user.logs[0] ? user.logs[0] : null;
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td class="p-4 font-semibold text-slate-800">${user.name}</td>
-                    <td class="p-4 text-center font-bold text-emerald-600">${user.success}</td>
-                    <td class="p-4 text-center font-bold text-rose-600">${user.failed}</td>
-                    <td class="p-4 text-center text-xs text-slate-500">
-                        ${lastLog && lastLog.gps ? `📍 ${lastLog.gps}` : '-'}
-                        ${lastLog && lastLog.podImg ? `<br><a href="${lastLog.podImg}" target="_blank" class="text-indigo-600 underline font-bold">ดูรูป POD</a>` : ''}
-                    </td>
-                    <td class="p-4 text-center"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${risk.colorClass}">${risk.label}</span></td>
-                    <td class="p-4 text-center">
-                        <button onclick="toggleBlacklist('${user.name}')" class="text-xs px-2.5 py-1 rounded-lg border font-bold ${user.isBlacklisted ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-rose-50 text-rose-600 border-rose-200'}">
-                            ${user.isBlacklisted ? 'ปลดแบล็กลิสต์' : 'ติดแบล็กลิสต์'}
-                        </button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        // 📥 นำเข้าไฟล์ CSV (Import CSV)
-        function importCSV(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const text = e.target.result;
-                const lines = text.split('\n');
-                const users = DB.getAll();
-                let addedCount = 0;
-
-                for (let i = 1; i < lines.length; i++) {
-                    if (!lines[i].trim()) continue;
-                    const cols = lines[i].split(',');
-                    const name = cols[1] ? cols[1].replace(/"/g, '').trim() : '';
-
-                    if (name && !users.find(u => u.name === name)) {
-                        users.push({
-                            name: name,
-                            success: parseInt(cols[2]) || 0,
-                            failed: parseInt(cols[3]) || 0,
-                            total: (parseInt(cols[2]) || 0) + (parseInt(cols[3]) || 0),
-                            isBlacklisted: false,
-                            logs: []
-                        });
-                        addedCount++;
-                    }
-                }
-
-                DB.save(users);
-                alert(`นำเข้าข้อมูลเรียบร้อยแล้ว เพิ่มลูกค้าใหม่ ${addedCount} รายชื่อ`);
-                renderTable();
-            };
-            reader.readAsText(file);
-        }
-
-        function exportToCSV() {
-            const users = DB.getAll();
-            let csv = "\uFEFFลำดับ,ชื่อผู้รับ,ส่งสำเร็จ,ตีกลับ,รวมทั้งหมด\n";
-            users.forEach((u, i) => csv += `${i + 1},"${u.name}",${u.success},${u.failed},${u.total}\n`);
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `customer_data.csv`;
-            link.click();
-        }
-
-        function copyJSON() {
-            navigator.clipboard.writeText(JSON.stringify(DB.getAll(), null, 2));
-            alert('คัดลอกข้อมูล JSON เรียบร้อยแล้ว');
-        }
-
-        function renderCharts() {
-            const users = DB.getAll();
-            let s = 0, f = 0;
-            users.forEach(u => { s += u.success; f += u.failed; });
-
-            new Chart(document.getElementById('doughnutChart').getContext('2d'), {
-                type: 'doughnut',
-                data: { labels: ['สำเร็จ', 'ตีกลับ'], datasets: [{ data: [s, f], backgroundColor: ['#10b981', '#f43f5e'] }] },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-
-            new ApexCharts(document.querySelector("#candlestickChart"), {
-                series: [{ data: [{ x: 'จ.', y: [10, 25, 8, 22] }, { x: 'อ.', y: [22, 35, 18, 30] }, { x: 'พ.', y: [30, 32, 20, 25] }] }],
-                chart: { type: 'candlestick', height: 200 }
-            }).render();
-        }
-
-        function toggleBlacklist(userName) {
-            const list = DB.getAll();
-            const user = list.find(u => u.name === userName);
-            if (!user) return;
-            user.isBlacklisted = !user.isBlacklisted;
-            DB.save(list);
-            renderTable();
+            listContainer.innerHTML = users.map(user => `
+                <div class="flex justify-between items-center p-4 bg-slate-50 rounded-2xl border border-slate-200">
+                    <div>
+                        <p class="font-bold text-slate-800">${user.name}</p>
+                        <p class="text-xs text-slate-500">สำเร็จ: ${user.success} | ตีกลับ: ${user.failed}</p>
+                    </div>
+                    <span class="text-xs px-3 py-1 rounded-full font-bold ${user.isBlacklisted ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
+                        ${user.isBlacklisted ? 'Blacklisted' : 'Normal'}
+                    </span>
+                </div>
+            `).join('');
         }
     </script>
 </body>
