@@ -3,260 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบหลังบ้านพนักงาน - Admin Management</title>
+    <title>ระบบแอดมิน - Delivery Risk Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Kanit', sans-serif; }
-    </style>
+    <style> body { font-family: 'Kanit', sans-serif; } </style>
 </head>
 <body class="bg-slate-100 min-h-screen pb-12">
 
-    <!-- ================= 🔒 หน้าต่างล็อกอิน PIN พนักงาน ================= -->
+    <!-- 🔒 หน้าต่างบังคับกรอก PIN -->
     <div id="auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
             <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
                 <i class="fa-solid fa-user-shield"></i>
             </div>
-            
             <div>
-                <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบพนักงาน</h2>
-                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN เพื่อจัดการข้อมูลระบบ</p>
+                <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบแอดมิน</h2>
+                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN 6 หลักเพื่อเข้าใช้งาน</p>
             </div>
-
             <div class="space-y-3">
-                <input type="password" id="admin-pin-input" maxlength="6" placeholder="• • • • • •" 
+                <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
                     class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-indigo-500 focus:outline-none bg-slate-50">
-                
-                <p id="admin-pin-error" class="text-xs text-rose-500 font-bold hidden">
+                <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
                     <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง
                 </p>
-
-                <button onclick="loginAdmin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95">
+                <button onclick="loginStaff()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95">
                     เข้าสู่ระบบ
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- ================= 📊 หน้าจอหลัก พนักงาน / แอดมิน ================= -->
-    <div id="main-admin-content" class="hidden">
-        
-        <!-- Header -->
-        <nav class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <!-- ⚙️ เนื้อหาหลักแอดมิน -->
+    <div id="main-content" class="hidden">
+        <nav class="bg-indigo-900 text-white shadow-md sticky top-0 z-40">
             <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold shadow-md shadow-indigo-200">
-                        <i class="fa-solid fa-list-check"></i>
-                    </div>
-                    <div>
-                        <h1 class="font-bold text-slate-800 text-base leading-none">ระบบจัดการพนักงาน</h1>
-                        <span class="text-[10px] text-slate-400 font-medium">Delivery Risk Management Panel</span>
-                    </div>
+                    <button onclick="history.back()" class="flex items-center gap-1.5 text-xs bg-indigo-800/80 hover:bg-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-700/60 transition-all active:scale-95">
+                        <i class="fa-solid fa-arrow-left"></i> <span>ย้อนกลับ</span>
+                    </button>
+                    <span class="font-bold text-base md:text-lg">⚙️ ระบบแอดมิน</span>
                 </div>
-
-                <div class="flex items-center gap-2">
-                    <button onclick="resetDataPrompt()" class="text-xs text-slate-500 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 px-3 py-2 rounded-xl font-semibold transition-all flex items-center gap-1 border border-slate-200">
-                        <i class="fa-solid fa-rotate-left"></i> รีเซ็ตข้อมูล (43 รายชื่อ)
-                    </button>
-                    <button onclick="logoutAdmin()" class="text-xs text-rose-600 bg-rose-50 hover:bg-rose-100 px-3 py-2 rounded-xl font-bold transition-all border border-rose-200 flex items-center gap-1">
-                        <i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ
-                    </button>
+                <div class="flex items-center space-x-3 text-xs md:text-sm font-medium">
+                    <a href="driver.html" class="text-indigo-200 hover:text-white px-2 py-1">พนักงานส่ง</a>
+                    <a href="admin.html" class="text-white bg-indigo-800/90 px-3 py-1 rounded-lg border border-indigo-700/50 font-bold">แอดมิน</a>
+                    <a href="blacklist.html" class="text-indigo-200 hover:text-white px-2 py-1">แบล็กลิสต์</a>
+                    <a href="tracking.html" class="text-indigo-200 hover:text-white px-2 py-1">ลูกค้า</a>
+                    <button onclick="logoutStaff()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">ออกจากระบบ</button>
                 </div>
             </div>
         </nav>
 
         <main class="max-w-6xl mx-auto px-4 pt-6 space-y-6">
-
-            <!-- สรุปตัวเลขสถิติ (Stat Cards) -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
-                    <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center font-bold">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium">รายชื่อทั้งหมด</p>
-                        <p id="stat-total" class="text-xl font-bold text-slate-800">0</p>
-                    </div>
-                </div>
-
-                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
-                    <div class="w-10 h-10 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center font-bold">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium">ความเสี่ยงสูง</p>
-                        <p id="stat-high" class="text-xl font-bold text-rose-600">0</p>
-                    </div>
-                </div>
-
-                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
-                    <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center font-bold">
-                        <i class="fa-solid fa-shield-cat"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium">ติดแบล็กลิสต์</p>
-                        <p id="stat-blacklist" class="text-xl font-bold text-amber-600">0</p>
-                    </div>
-                </div>
-
-                <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
-                    <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center font-bold">
-                        <i class="fa-solid fa-circle-check"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400 font-medium">ความเสี่ยงต่ำ</p>
-                        <p id="stat-low" class="text-xl font-bold text-emerald-600">0</p>
-                    </div>
-                </div>
+            <div class="flex justify-between items-center bg-white p-4 rounded-2xl border shadow-sm">
+                <input type="text" id="admin-search" oninput="renderTable()" placeholder="ค้นหาชื่อผู้รับ..." class="p-2.5 border rounded-xl text-sm w-72 bg-slate-50">
+                <button onclick="resetDataPrompt()" class="text-xs bg-rose-50 text-rose-600 px-3 py-2 rounded-xl font-bold border border-rose-200">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> รีเซ็ตข้อมูล 43 คน
+                </button>
             </div>
 
-            <!-- กล่องค้นหา & เพิ่มข้อมูล -->
-            <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between gap-3 items-center">
-                <div class="relative w-full md:w-80">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3.5 text-slate-400 text-sm"></i>
-                    <input type="text" id="admin-search" oninput="renderTable()" placeholder="ค้นหาชื่อผู้รับ..." 
-                        class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                </div>
-
-                <div class="flex gap-2 w-full md:w-auto">
-                    <button onclick="openAddUserModal()" class="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold px-4 py-2.5 rounded-xl shadow-md shadow-indigo-100 transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-user-plus"></i> เพิ่มรายชื่อใหม่
-                    </button>
-                </div>
+            <div class="bg-white rounded-2xl border shadow-sm overflow-hidden">
+                <table class="w-full text-left text-sm text-slate-600">
+                    <thead class="bg-slate-50 border-b text-xs text-slate-500 uppercase font-bold">
+                        <tr>
+                            <th class="p-4">ชื่อผู้รับ</th>
+                            <th class="p-4 text-center">สำเร็จ</th>
+                            <th class="p-4 text-center">ตีกลับ</th>
+                            <th class="p-4 text-center">รวม</th>
+                            <th class="p-4 text-center">ระดับความเสี่ยง</th>
+                            <th class="p-4 text-center">จัดการ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-table-body" class="divide-y"></tbody>
+                </table>
             </div>
-
-            <!-- ตารางแสดงผลรายชื่อ -->
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-slate-600">
-                        <thead class="bg-slate-50 border-b border-slate-200 text-xs text-slate-500 uppercase font-bold">
-                            <tr>
-                                <th class="p-4">ชื่อผู้รับ</th>
-                                <th class="p-4 text-center">ส่งสำเร็จ</th>
-                                <th class="p-4 text-center">ตีกลับ/ล้มเหลว</th>
-                                <th class="p-4 text-center">รวมทั้งหมด</th>
-                                <th class="p-4 text-center">ระดับความเสี่ยง</th>
-                                <th class="p-4 text-center">จัดการ</th>
-                            </tr>
-                        </thead>
-                        <tbody id="user-table-body" class="divide-y divide-slate-100">
-                            <!-- JS Render รายชื่อตรงนี้ -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
         </main>
     </div>
 
-    <!-- ================= Modal เพิ่มรายชื่อใหม่ ================= -->
-    <div id="add-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white w-full max-w-md rounded-3xl p-6 shadow-2xl space-y-4">
-            <h3 class="text-lg font-bold text-slate-800">เพิ่มรายชื่อผู้รับใหม่</h3>
-            <div class="space-y-3">
-                <div>
-                    <label class="text-xs font-semibold text-slate-500">ชื่อ-นามสกุล/ชื่อผู้รับ</label>
-                    <input type="text" id="new-name" class="w-full p-2.5 border rounded-xl mt-1 text-sm bg-slate-50">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500">จำนวนส่งสำเร็จเริ่มต้น</label>
-                        <input type="number" id="new-success" value="0" class="w-full p-2.5 border rounded-xl mt-1 text-sm bg-slate-50">
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-slate-500">จำนวนตีกลับเริ่มต้น</label>
-                        <input type="number" id="new-failed" value="0" class="w-full p-2.5 border rounded-xl mt-1 text-sm bg-slate-50">
-                    </div>
-                </div>
-            </div>
-            <div class="flex gap-2 pt-2">
-                <button onclick="closeAddUserModal()" class="flex-1 bg-slate-100 text-slate-600 font-bold py-2.5 rounded-xl text-sm">ยกเลิก</button>
-                <button onclick="saveNewUser()" class="flex-1 bg-indigo-600 text-white font-bold py-2.5 rounded-xl text-sm shadow-md">บันทึกข้อมูล</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Scripts -->
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
     <script>
-        // เช็กสิทธิ์ล็อกอินเมื่อโหลดหน้า
         document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('admin_logged_in') === 'true') {
-                showAdminPanel();
+            if (sessionStorage.getItem('staff_logged_in') === 'true') {
+                showAdmin();
             }
         });
 
-        // ล็อกอิน PIN 001456
-        function loginAdmin() {
-            const inputPin = document.getElementById('admin-pin-input').value.trim();
+        document.getElementById('pin-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') loginStaff();
+        });
+
+        function loginStaff() {
+            const inputPin = document.getElementById('pin-input').value.trim();
             if (inputPin === CONFIG.STAFF_PIN) {
-                sessionStorage.setItem('admin_logged_in', 'true');
-                showAdminPanel();
+                sessionStorage.setItem('staff_logged_in', 'true');
+                showAdmin();
             } else {
-                document.getElementById('admin-pin-error').classList.remove('hidden');
-                document.getElementById('admin-pin-input').value = '';
+                document.getElementById('pin-error').classList.remove('hidden');
+                document.getElementById('pin-input').value = '';
             }
         }
 
-        function logoutAdmin() {
-            sessionStorage.removeItem('admin_logged_in');
+        function logoutStaff() {
+            sessionStorage.removeItem('staff_logged_in');
             location.reload();
         }
 
-        function showAdminPanel() {
+        function showAdmin() {
             document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('main-admin-content').classList.remove('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
             renderTable();
         }
 
-        // แสดงผลตารางผู้ใช้
         function renderTable() {
             const users = DB.getAll();
-            const searchText = document.getElementById('admin-search').value.toLowerCase().trim();
+            const search = document.getElementById('admin-search').value.toLowerCase().trim();
             const tbody = document.getElementById('user-table-body');
             tbody.innerHTML = '';
 
-            let countHigh = 0, countBlacklist = 0, countLow = 0;
-
-            const filteredUsers = users.filter(u => u.name.toLowerCase().includes(searchText));
-
-            users.forEach(u => {
-                const risk = DB.calculateRisk(u);
-                if (u.isBlacklisted) countBlacklist++;
-                else if (risk.level === 'HIGH') countHigh++;
-                else if (risk.level === 'LOW') countLow++;
-            });
-
-            // อัปเดตสถิติ
-            document.getElementById('stat-total').innerText = users.length;
-            document.getElementById('stat-high').innerText = countHigh;
-            document.getElementById('stat-blacklist').innerText = countBlacklist;
-            document.getElementById('stat-low').innerText = countLow;
-
-            // วาดแถวในตาราง
-            filteredUsers.forEach(user => {
+            users.filter(u => u.name.toLowerCase().includes(search)).forEach(user => {
                 const risk = DB.calculateRisk(user);
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 transition-all";
-
                 tr.innerHTML = `
                     <td class="p-4 font-semibold text-slate-800">
                         ${user.name}
-                        ${user.isBlacklisted ? `<br><span class="text-[10px] text-rose-500 font-bold"><i class="fa-solid fa-ban"></i> ${user.blacklistReason || 'ติดแบล็กลิสต์'}</span>` : ''}
+                        ${user.isBlacklisted ? `<br><span class="text-[10px] text-rose-500 font-bold">🚫 ${user.blacklistReason || 'ติดแบล็กลิสต์'}</span>` : ''}
                     </td>
                     <td class="p-4 text-center font-bold text-emerald-600">${user.success}</td>
                     <td class="p-4 text-center font-bold text-rose-600">${user.failed}</td>
                     <td class="p-4 text-center font-bold text-slate-700">${user.total}</td>
+                    <td class="p-4 text-center"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${risk.colorClass}">${risk.label}</span></td>
                     <td class="p-4 text-center">
-                        <span class="px-2.5 py-1 rounded-full text-xs font-bold ${risk.colorClass}">
-                            ${risk.label}
-                        </span>
-                    </td>
-                    <td class="p-4 text-center">
-                        <button onclick="toggleBlacklist('${user.name}')" class="text-xs px-2.5 py-1 rounded-lg border font-bold transition-all ${user.isBlacklisted ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-rose-50 text-rose-600 border-rose-200'}">
+                        <button onclick="toggleBlacklist('${user.name}')" class="text-xs px-2.5 py-1 rounded-lg border font-bold ${user.isBlacklisted ? 'bg-emerald-50 text-emerald-600 border-emerald-200' : 'bg-rose-50 text-rose-600 border-rose-200'}">
                             ${user.isBlacklisted ? 'ปลดแบล็กลิสต์' : 'ติดแบล็กลิสต์'}
                         </button>
                     </td>
@@ -265,52 +143,26 @@
             });
         }
 
-        // จัดการแบล็กลิสต์
         function toggleBlacklist(userName) {
             const list = DB.getAll();
             const user = list.find(u => u.name === userName);
             if (!user) return;
-
             if (!user.isBlacklisted) {
-                const reason = prompt(`ระบุเหตุผลที่ติดแบล็กลิสต์สำหรับคุณ ${user.name}:`, 'ปฏิเสธการชำระเงิน COD');
-                if (reason === null) return; // กดยกเลิก
+                const reason = prompt(`ระบุเหตุผลติดแบล็กลิสต์ของคุณ ${user.name}:`, 'ปฏิเสธการชำระเงิน COD');
+                if (reason === null) return;
                 user.isBlacklisted = true;
                 user.blacklistReason = reason;
             } else {
                 user.isBlacklisted = false;
                 user.blacklistReason = '';
             }
-
             DB.save(list);
             renderTable();
         }
 
-        // รีเซ็ตกลับเป็น 43 คนหลัก
         function resetDataPrompt() {
             if (confirm('คุณต้องการรีเซ็ตข้อมูลทั้งหมดกลับเป็น 43 รายชื่อเริ่มต้นหรือไม่?')) {
                 DB.resetToDefault();
-                renderTable();
-                alert('รีเซ็ตข้อมูลเป็น 43 รายชื่อสำเร็จแล้ว');
-            }
-        }
-
-        // Modal เพิ่มรายชื่อ
-        function openAddUserModal() { document.getElementById('add-modal').classList.remove('hidden'); }
-        function closeAddUserModal() { document.getElementById('add-modal').classList.add('hidden'); }
-        
-        function saveNewUser() {
-            const name = document.getElementById('new-name').value.trim();
-            const success = document.getElementById('new-success').value;
-            const failed = document.getElementById('new-failed').value;
-
-            if (!name) return alert('กรุณากรอกชื่อผู้รับ');
-
-            const res = DB.addUser(name, success, failed);
-            if (!res.success) {
-                alert(res.message);
-            } else {
-                closeAddUserModal();
-                document.getElementById('new-name').value = '';
                 renderTable();
             }
         }
