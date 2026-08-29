@@ -139,6 +139,17 @@
         let pendingType = null;
         let lastActionRecord = null;
 
+        // 🔓 ปลดล็อกระบบเสียงของเบราว์เซอร์เมื่อผู้ใช้คลิกหรือกดปุ่มใดๆ บนหน้าเว็บครั้งแรก
+        function unlockAudio() {
+            if (typeof SoundSystem !== 'undefined' && SoundSystem.initAudioContext) {
+                SoundSystem.initAudioContext();
+            }
+            document.removeEventListener('click', unlockAudio);
+            document.removeEventListener('keydown', unlockAudio);
+        }
+        document.addEventListener('click', unlockAudio);
+        document.addEventListener('keydown', unlockAudio);
+
         document.addEventListener('DOMContentLoaded', () => {
             if (sessionStorage.getItem('staff_role') === 'DRIVER' || sessionStorage.getItem('staff_logged_in') === 'true') {
                 document.getElementById('auth-screen').classList.add('hidden');
@@ -146,7 +157,7 @@
             }
         });
 
-        // 🔊 สั่งเล่นเสียงแบบปลอดภัย (ถ้ายังไม่มีฟังก์ชันก็ไม่ค้าง)
+        // 🔊 สั่งเล่นเสียงแบบปลอดภัย
         function safePlaySound(type) {
             if (typeof playSound === 'function') {
                 playSound(type);
@@ -156,6 +167,7 @@
         }
 
         function loginStaff() {
+            unlockAudio(); // ปลดล็อกเสียงทันทีที่กดปุ่มเข้าสู่ระบบ
             const inputPin = document.getElementById('pin-input').value.trim();
             const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.DRIVER_PIN) ? CONFIG.DRIVER_PIN : '001456';
             const pinError = document.getElementById('pin-error');
@@ -183,6 +195,7 @@
         }
 
         function handleSearch() {
+            unlockAudio();
             const name = document.getElementById('search-input').value.trim();
             if (!name) return;
 
