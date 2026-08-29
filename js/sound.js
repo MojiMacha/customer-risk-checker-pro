@@ -7,12 +7,12 @@ const SoundSystem = {
     // (สามารถเปลี่ยนชื่อไฟล์ตรงนี้ได้ตามที่ตั้งไว้จริง)
    paths: {
     blacklist: 'sounds/ส่งผีหรอไอ้ควาย.mp3',
-    high_risk: 'sounds/ไอ้สัสทำงาน.mp3',
+    high_risk: 'sounds/ส่งผีหรอไอ้ควาย.mp3',
     medium_risk: 'sounds/เหี้ยละไอ้สัสเอ้ย.mp3',
     low_risk: 'sounds/เป้าหมายคือหมื่น.mp3',
     wrong_pin: 'sounds/โง่ชิบหาย.mp3',
-    success: 'sounds/success.mp3',
-    failed: 'sounds/failed.mp3'
+    success: 'sounds/เป้าหมายคือหมื่น.mp3',
+    failed: 'sounds/ไอ้สัสทำงาน.mp3''
 },
 
     // ฟังก์ชันสำหรับเล่นเสียง
