@@ -135,19 +135,24 @@
             }
         });
 
-        function loginStaff() {
-            const inputPin = document.getElementById('pin-input').value.trim();
-            if (inputPin === (CONFIG.DRIVER_PIN || CONFIG.STAFF_PIN || '001456')) {
-                sessionStorage.setItem('staff_role', 'DRIVER');
-                sessionStorage.setItem('staff_logged_in', 'true');
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-            } else {
-                playSound('failed'); // 🔊 เรียกเล่นเสียงจาก sound.js
-                document.getElementById('pin-error').classList.remove('hidden');
-                document.getElementById('pin-input').value = '';
-            }
-        }
+function loginStaff() {
+    const inputPin = document.getElementById('pin-input').value.trim();
+    
+    // ตรวจสอบว่ารหัส PIN ถูกต้องหรือไม่
+    if (inputPin === (CONFIG.DRIVER_PIN || CONFIG.STAFF_PIN || '001456')) {
+        // 🟢 กรณีรหัสถูกต้อง
+        sessionStorage.setItem('staff_role', 'DRIVER');
+        sessionStorage.setItem('staff_logged_in', 'true');
+        document.getElementById('auth-screen').classList.add('hidden');
+        document.getElementById('main-content').classList.remove('hidden');
+    } else {
+        // 🔴 กรณีรหัสผิด ให้เล่นเสียงเตือนตรงนี้ครับ!
+        playSound('wrong_pin'); // 👈 เพิ่มบรรทัดนี้ลงไป (หรือใช้ playSound('failed') ก็ได้)
+
+        document.getElementById('pin-error').classList.remove('hidden');
+        document.getElementById('pin-input').value = '';
+    }
+}
 
         function logoutStaff() {
             sessionStorage.removeItem('staff_role');
