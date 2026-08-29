@@ -26,7 +26,6 @@
                 <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
                     class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-amber-500 focus:outline-none bg-slate-50">
                 
-                <!-- 🚨 ข้อความเตือน PIN ไม่ถูกต้อง -->
                 <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
                     <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง!
                 </p>
@@ -55,23 +54,80 @@
             </div>
         </nav>
 
-        <main class="max-w-4xl mx-auto px-4 pt-6 space-y-6">
+        <main class="max-w-5xl mx-auto px-4 pt-6 space-y-6">
+            
+            <!-- 💵 การ์ดสรุปยอดทางการเงินและการจัดส่ง -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400">รายการจัดส่งสำเร็จ</p>
+                        <h3 id="stat-success-count" class="text-2xl font-bold text-emerald-600 mt-1">0 รายการ</h3>
+                        <p id="stat-success-amount" class="text-xs font-semibold text-slate-500 mt-0.5">ประมาณ ฿0</p>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400">รายการตีกลับ / ปฏิเสธ</p>
+                        <h3 id="stat-failed-count" class="text-2xl font-bold text-rose-600 mt-1">0 รายการ</h3>
+                        <p id="stat-failed-amount" class="text-xs font-semibold text-slate-500 mt-0.5">เสียหายประมาณ ฿0</p>
+                    </div>
+                    <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400">อัตราการส่งสำเร็จ</p>
+                        <h3 id="stat-rate" class="text-2xl font-bold text-indigo-600 mt-1">0%</h3>
+                        <p class="text-xs font-semibold text-slate-400 mt-0.5">จากพัสดุทั้งหมด</p>
+                    </div>
+                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 📋 ส่วนการจัดการข้อมูลและดาวน์โหลด -->
             <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                <h2 class="text-lg font-bold text-slate-800">จัดการข้อมูลประวัติการจัดส่ง</h2>
-                <div id="admin-user-list" class="space-y-3">
-                    <!-- รายชื่อผู้รับจะแสดงตรงนี้ผ่าน JavaScript -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-4">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">ข้อมูลประวัติจัดส่งและลูกค้า</h2>
+                        <p class="text-xs text-slate-400">ดูรายชื่อผู้รับ ตรวจสอบสถานะการเงิน และส่งออกรายงาน</p>
+                    </div>
+                    
+                    <!-- 📥 ปุ่มดาวน์โหลดข้อมูล -->
+                    <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
+                        <i class="fa-solid fa-file-excel text-sm"></i>
+                        <span>ดาวน์โหลดรายงาน (CSV)</span>
+                    </button>
+                </div>
+
+                <!-- ช่องค้นหาและตัวกรอง -->
+                <div class="flex gap-2">
+                    <input type="text" id="admin-search" onkeyup="renderUserList()" placeholder="ค้นหาตามชื่อผู้รับ..." class="flex-1 border border-slate-200 p-3 rounded-2xl text-sm focus:outline-none focus:border-amber-500">
+                </div>
+
+                <!-- ตาราง / รายการข้อมูล -->
+                <div id="admin-user-list" class="space-y-3 pt-2">
+                    <!-- แสดงข้อมูลลูกค้าผ่าน JavaScript -->
                 </div>
             </div>
         </main>
     </div>
 
-    <!-- 🔗 เรียกใช้งานไฟล์ JS ครบถ้วนตามลำดับ -->
+    <!-- 🔗 เรียกใช้งานไฟล์ JS ครบถ้วน -->
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
     <script src="js/sound.js"></script>
 
     <script>
-        // 🔓 ปลดล็อกระบบเสียงของเบราว์เซอร์เมื่อมีการแตะหรือคลิกหน้าเว็บ
+        const ESTIMATED_PARCEL_PRICE = 350; // สมมติราคาสินค้าต่อชิ้นเฉลี่ย 350 บาท (ปรับเปลี่ยนได้)
+
         function unlockAudio() {
             if (typeof SoundSystem !== 'undefined' && SoundSystem.initAudioContext) {
                 SoundSystem.initAudioContext();
@@ -86,21 +142,17 @@
             if (sessionStorage.getItem('staff_role') === 'ADMIN' || sessionStorage.getItem('admin_logged_in') === 'true') {
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('main-content').classList.remove('hidden');
-                renderUserList();
+                initAdminDashboard();
             }
         });
 
-        // 🔊 สั่งเล่นเสียงแบบปลอดภัย
         function safePlaySound(type) {
-            if (typeof playSound === 'function') {
-                playSound(type);
-            } else if (typeof SoundSystem !== 'undefined' && SoundSystem.play) {
-                SoundSystem.play(type);
-            }
+            if (typeof playSound === 'function') playSound(type);
+            else if (typeof SoundSystem !== 'undefined' && SoundSystem.play) SoundSystem.play(type);
         }
 
         function loginAdmin() {
-            unlockAudio(); // ปลดล็อกเสียงทันทีที่กดปุ่มเข้าสู่ระบบ
+            unlockAudio();
             const inputPin = document.getElementById('pin-input').value.trim();
             const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.ADMIN_PIN) ? CONFIG.ADMIN_PIN : '888888';
             const pinError = document.getElementById('pin-error');
@@ -111,12 +163,9 @@
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('main-content').classList.remove('hidden');
                 if (pinError) pinError.classList.add('hidden');
-                renderUserList();
+                initAdminDashboard();
             } else {
-                // 🔊 เล่นเสียงเตือนรหัสผิด
                 safePlaySound('wrong_pin');
-
-                // ⚠️ แสดงตัวหนังสือสีแดงแจ้งเตือน
                 if (pinError) pinError.classList.remove('hidden');
                 document.getElementById('pin-input').value = '';
             }
@@ -128,27 +177,115 @@
             location.reload();
         }
 
+        function initAdminDashboard() {
+            calculateFinancials();
+            renderUserList();
+        }
+
+        // 💵 คำนวณสรุปยอดการเงินและสถิติ
+        function calculateFinancials() {
+            if (typeof DB === 'undefined') return;
+            const users = DB.getAll();
+
+            let totalSuccess = 0;
+            let totalFailed = 0;
+
+            users.forEach(u => {
+                totalSuccess += (u.success || 0);
+                totalFailed += (u.failed || 0);
+            });
+
+            const totalParcels = totalSuccess + totalFailed;
+            const successRate = totalParcels > 0 ? ((totalSuccess / totalParcels) * 100).toFixed(1) : 0;
+
+            document.getElementById('stat-success-count').innerText = `${totalSuccess} รายการ`;
+            document.getElementById('stat-success-amount').innerText = `ประมาณ ฿${(totalSuccess * ESTIMATED_PARCEL_PRICE).toLocaleString()}`;
+
+            document.getElementById('stat-failed-count').innerText = `${totalFailed} รายการ`;
+            document.getElementById('stat-failed-amount').innerText = `เสียหายประมาณ ฿${(totalFailed * ESTIMATED_PARCEL_PRICE).toLocaleString()}`;
+
+            document.getElementById('stat-rate').innerText = `${successRate}%`;
+        }
+
+        // 📋 แสดงรายการผู้รับ
         function renderUserList() {
             const listContainer = document.getElementById('admin-user-list');
+            const searchKeyword = document.getElementById('admin-search').value.trim().toLowerCase();
             if (!listContainer || typeof DB === 'undefined') return;
 
-            const users = DB.getAll();
+            let users = DB.getAll();
+
+            // กรองค้นหาตามชื่อ
+            if (searchKeyword) {
+                users = users.filter(u => u.name.toLowerCase().includes(searchKeyword));
+            }
+
+            // กรองเฉพาะลูกค้าที่มีประวัติการทำรายการ (ตัดชื่อที่ไม่เกี่ยวข้องออก)
+            users = users.filter(u => (u.total && u.total > 0) || u.isBlacklisted);
+
             if (users.length === 0) {
-                listContainer.innerHTML = `<p class="text-slate-400 text-center py-4">ยังไม่มีข้อมูลในระบบ</p>`;
+                listContainer.innerHTML = `<p class="text-slate-400 text-center py-6 text-sm">ไม่พบข้อมูลประวัติลูกค้าที่ค้นหา</p>`;
                 return;
             }
 
-            listContainer.innerHTML = users.map(user => `
-                <div class="flex justify-between items-center p-4 bg-slate-50 rounded-2xl border border-slate-200">
-                    <div>
-                        <p class="font-bold text-slate-800">${user.name}</p>
-                        <p class="text-xs text-slate-500">สำเร็จ: ${user.success} | ตีกลับ: ${user.failed}</p>
+            listContainer.innerHTML = users.map(user => {
+                const risk = DB.calculateRisk(user);
+                const estRevenue = user.success * ESTIMATED_PARCEL_PRICE;
+                const estLoss = user.failed * ESTIMATED_PARCEL_PRICE;
+
+                return `
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-slate-800 text-base">${user.name}</span>
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${risk.colorClass}">${risk.label}</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">
+                                ส่งทั้งหมด: <b class="text-slate-700">${user.total}</b> | 
+                                สำเร็จ: <b class="text-emerald-600">${user.success}</b> | 
+                                ตีกลับ: <b class="text-rose-600">${user.failed}</b>
+                            </p>
+                        </div>
+
+                        <!-- ส่วนข้อมูลการเงินรายบุคคล -->
+                        <div class="text-left md:text-right border-t md:border-t-0 pt-2 md:pt-0 w-full md:w-auto">
+                            <p class="text-xs font-semibold text-emerald-600">รับแล้ว: ฿${estRevenue.toLocaleString()}</p>
+                            ${estLoss > 0 ? `<p class="text-[11px] font-semibold text-rose-500">ตีกลับเสียโอกาส: ฿${estLoss.toLocaleString()}</p>` : ''}
+                        </div>
                     </div>
-                    <span class="text-xs px-3 py-1 rounded-full font-bold ${user.isBlacklisted ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'}">
-                        ${user.isBlacklisted ? 'Blacklisted' : 'Normal'}
-                    </span>
-                </div>
-            `).join('');
+                `;
+            }).join('');
+        }
+
+        // 📥 ฟังก์ชันดาวน์โหลดข้อมูลลูกค้าเป็นไฟล์ Excel/CSV
+        function exportToCSV() {
+            if (typeof DB === 'undefined') return;
+            const users = DB.getAll().filter(u => (u.total && u.total > 0) || u.isBlacklisted);
+
+            if (users.length === 0) {
+                alert('ไม่มีข้อมูลลูกค้าสำหรับการดาวน์โหลด');
+                return;
+            }
+
+            let csvContent = "\uFEFF"; // ป้องกันภาษาไทยต่างด้าวใน Excel
+            csvContent += "ชื่อผู้รับ,ส่งทั้งหมด,ส่งสำเร็จ,ตีกลับ,สถานะแบล็กลิสต์,ยอดเงินรับสำเร็จ (บาท),ยอดสูญเสีย (บาท)\n";
+
+            users.forEach(u => {
+                const estRevenue = u.success * ESTIMATED_PARCEL_PRICE;
+                const estLoss = u.failed * ESTIMATED_PARCEL_PRICE;
+                const isBL = u.isBlacklisted ? "ติดแบล็กลิสต์" : "ปกติ";
+                
+                csvContent += `"${u.name}",${u.total},${u.success},${u.failed},"${isBL}",${estRevenue},${estLoss}\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `รายงานลูกค้า_DeliveryRiskPro_${new Date().toISOString().slice(0,10)}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     </script>
 </body>
