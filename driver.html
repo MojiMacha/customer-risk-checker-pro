@@ -3,143 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบพนักงานส่ง - Delivery Risk Pro</title>
+    <title>ระบบพนักงานขนส่ง - Delivery Risk Pro</title>
     <!-- Tailwind CSS & Font Awesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style> body { font-family: 'Kanit', sans-serif; } </style>
 </head>
-<body class="bg-slate-50 min-h-screen pb-12">
+<body class="bg-slate-100 min-h-screen pb-12">
 
-    <!-- 🔒 หน้าต่างบังคับกรอก PIN -->
-    <div id="auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
-            <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
-                <i class="fa-solid fa-truck-fast"></i>
+    <!-- 🚚 แถบเมนูด้านบน -->
+    <nav class="bg-slate-900 text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-truck-fast text-amber-400 text-xl"></i>
+                <span class="font-bold text-base">ระบบบันทึกงานส่งพัสดุ</span>
             </div>
-            <div>
-                <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบพนักงานส่ง</h2>
-                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN พนักงานส่ง (6 หลัก)</p>
-            </div>
-            <div class="space-y-3">
-                <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
-                    class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-indigo-500 focus:outline-none bg-slate-50">
-                
-                <!-- 🚨 ข้อความเตือน PIN ไม่ถูกต้อง -->
-                <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
-                    <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง!
-                </p>
-
-                <button onclick="loginStaff()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95">
-                    เข้าสู่ระบบ
-                </button>
+            <div class="flex items-center space-x-2 text-xs font-medium">
+                <a href="driver.html" class="text-white bg-slate-800 px-3 py-1 rounded-lg border border-slate-700 font-bold">พนักงานส่ง</a>
+                <a href="admin.html" class="text-slate-300 hover:text-white px-2 py-1">แอดมิน</a>
             </div>
         </div>
-    </div>
+    </nav>
 
-    <!-- 🚚 เนื้อหาหลักระบบพนักงานส่ง -->
-    <div id="main-content" class="hidden">
-        <nav class="bg-indigo-900 text-white shadow-md sticky top-0 z-40">
-            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <span class="font-bold text-base md:text-lg">🚚 พนักงานส่ง</span>
-                </div>
-                <div class="flex items-center space-x-3 text-xs md:text-sm font-medium">
-                    <a href="driver.html" class="text-white bg-indigo-800/90 px-3 py-1 rounded-lg border border-indigo-700/50 font-bold">พนักงานส่ง</a>
-                    <a href="admin.html" class="text-indigo-200 hover:text-white px-2 py-1">แอดมิน</a>
-                    <a href="blacklist.html" class="text-indigo-200 hover:text-white px-2 py-1">แบล็กลิสต์</a>
-                    <a href="tracking.html" class="text-indigo-200 hover:text-white px-2 py-1">ลูกค้า</a>
-                    <button onclick="logoutStaff()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">ออกจากระบบ</button>
-                </div>
-            </div>
-        </nav>
+    <main class="max-w-xl mx-auto px-4 pt-6 space-y-6">
 
-        <main class="max-w-3xl mx-auto px-4 pt-6 space-y-6">
-            <!-- กล่องค้นหา -->
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-magnifying-glass text-indigo-600"></i> ค้นหาผู้รับเพื่ออัปเดตการจัดส่ง
-                </h2>
-                <div class="flex gap-2">
-                    <input type="text" id="search-input" placeholder="พิมพ์ชื่อผู้รับ..." class="flex-1 border border-slate-300 p-3 rounded-2xl font-medium focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <button onclick="handleSearch()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-2xl shadow-md">ค้นหา</button>
-                </div>
+        <!-- 📦 ฟอร์มค้นหาและลงบันทึกการส่ง -->
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-5">
+            <div class="text-center space-y-1">
+                <h2 class="text-xl font-bold text-slate-800">ลงบันทึกการจัดส่งพัสดุ</h2>
+                <p class="text-xs text-slate-400">ระบุเลขออเดอร์ ค้นหาชื่อผู้รับ และเลือกผลการส่ง</p>
             </div>
 
-            <!-- กล่องแสดงผลลัพธ์ -->
-            <div id="result-box" class="hidden bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                
-                <!-- แถบเตือนความเสี่ยง -->
-                <div id="risk-alert-banner" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-3.5 rounded-2xl text-xs font-bold flex items-center gap-2 animate-pulse">
-                    <i class="fa-solid fa-triangle-exclamation text-lg text-rose-600"></i>
-                    <span id="risk-alert-text">คำเตือน: ผู้รับรายนี้มีความเสี่ยงสูง/ติดแบล็กลิสต์</span>
+            <div class="space-y-4">
+                <!-- 🏷️ ช่องใส่เลขออเดอร์ / เลขแทร็กกิ้ง -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">
+                        <i class="fa-solid fa-barcode text-amber-500 mr-1"></i> รหัสสินค้า / เลขออเดอร์
+                    </label>
+                    <input type="text" id="order-id-input" placeholder="เช่น TH123600TH" 
+                        class="w-full border-2 border-slate-200 p-3 rounded-2xl text-base font-semibold focus:outline-none focus:border-amber-500 uppercase bg-slate-50">
                 </div>
 
-                <div class="flex justify-between items-start border-b pb-4">
-                    <div>
-                        <h3 id="res-name" class="text-xl font-bold text-slate-800"></h3>
-                        <p class="text-xs text-slate-400">ประวัติการรับพัสดุ</p>
+                <!-- 👤 ช่องค้นหาชื่อลูกค้า -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">
+                        <i class="fa-solid fa-user text-amber-500 mr-1"></i> ชื่อผู้รับพัสดุ
+                    </label>
+                    <div class="relative">
+                        <input type="text" id="driver-search-name" oninput="handleCustomerSearch()" placeholder="พิมพ์ชื่อเพื่อค้นหา..." 
+                            class="w-full border-2 border-slate-200 p-3 rounded-2xl text-base font-semibold focus:outline-none focus:border-amber-500 bg-slate-50">
+                        <div id="search-dropdown" class="absolute w-full bg-white border border-slate-200 rounded-2xl shadow-xl mt-1 hidden max-h-48 overflow-y-auto z-30 divide-y divide-slate-100"></div>
                     </div>
-                    <div id="res-badge"></div>
                 </div>
 
-                <div class="grid grid-cols-3 gap-3 text-center">
-                    <div class="bg-slate-50 p-3 rounded-2xl border"><p class="text-xs text-slate-500">ส่งทั้งหมด</p><p id="res-total" class="text-lg font-bold">0</p></div>
-                    <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-100"><p class="text-xs text-emerald-600">สำเร็จ</p><p id="res-success" class="text-lg font-bold text-emerald-600">0</p></div>
-                    <div class="bg-rose-50 p-3 rounded-2xl border border-rose-100"><p class="text-xs text-rose-600">ตีกลับ</p><p id="res-failed" class="text-lg font-bold text-rose-600">0</p></div>
-                </div>
-
-                <!-- ปุ่มอัปเดตสถานะ -->
-                <div class="pt-2 border-t space-y-2">
-                    <div class="flex gap-2">
-                        <button onclick="askConfirm('SUCCESS')" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-2xl shadow-md active:scale-95 transition-all">
-                            <i class="fa-solid fa-check mr-1"></i> ส่งสำเร็จ
-                        </button>
-                        <button onclick="askConfirm('FAILED')" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-2xl shadow-md active:scale-95 transition-all">
-                            <i class="fa-solid fa-xmark mr-1"></i> ตีกลับ / ปฏิเสธ
-                        </button>
+                <!-- ⚠️ กล่องแสดงผลระดับความเสี่ยงของลูกค้า -->
+                <div id="risk-alert-box" class="hidden p-4 rounded-2xl border space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span id="risk-badge" class="px-3 py-1 rounded-full text-xs font-bold"></span>
+                        <span id="customer-stats" class="text-xs font-semibold text-slate-500"></span>
                     </div>
+                    <p id="blacklist-reason-text" class="text-xs text-rose-600 font-semibold hidden"></p>
+                </div>
 
-                    <button id="undo-btn" onclick="undoLastRecord()" class="hidden w-full bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold py-2.5 rounded-2xl border border-amber-200 text-xs transition-all flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-rotate-left"></i>
-                        <span>เลิกทำรายการล่าสุด</span>
+                <!-- 🔘 ปุ่มกดยืนยันการส่ง -->
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button onclick="confirmDelivery('SUCCESS')" class="bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-100 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-check text-lg"></i>
+                        <span>ส่งสำเร็จ</span>
+                    </button>
+
+                    <button onclick="confirmDelivery('FAILED')" class="bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold py-3.5 px-4 rounded-2xl shadow-lg shadow-rose-100 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-xmark text-lg"></i>
+                        <span>ตีกลับ / ปฏิเสธ</span>
                     </button>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
 
-    <!-- ⚠️ Pop-up ยืนยันการทำรายการ -->
-    <div id="confirm-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-4 border border-slate-100">
-            <div id="confirm-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner"></div>
-            <div>
-                <h3 class="text-lg font-bold text-slate-800">ยืนยันการทำรายการ</h3>
-                <p id="confirm-text" class="text-xs text-slate-500 mt-1"></p>
-            </div>
-            <div class="flex gap-2 pt-2">
-                <button onclick="closeConfirmModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-2.5 rounded-xl text-sm transition-all">
-                    ยกเลิก
-                </button>
-                <button id="confirm-submit-btn" onclick="executeRecord()" class="flex-1 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition-all">
-                    ยืนยัน
-                </button>
+        <!-- 📜 ประวัติการบันทึกล่าสุดในเซสชั่นนี้ -->
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-200 space-y-3">
+            <h3 class="text-sm font-bold text-slate-700 flex items-center gap-2">
+                <i class="fa-solid fa-clock-rotate-left text-amber-500"></i> ประวัติการบันทึกล่าสุด
+            </h3>
+            <div id="recent-logs-list" class="space-y-2 text-xs">
+                <p class="text-slate-400 text-center py-3">ยังไม่มีรายการบันทึกใหม่ในรอบนี้</p>
             </div>
         </div>
-    </div>
 
-    <!-- 🔗 เรียกใช้งานไฟล์ JS ให้ครบถ้วนตามลำดับ -->
+    </main>
+
+    <!-- 🔗 เรียกใช้งานไฟล์ JS -->
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
     <script src="js/sound.js"></script>
 
     <script>
-        let currentSearchedUser = null;
-        let pendingType = null;
-        let lastActionRecord = null;
+        let selectedUser = null;
+        const recentLogs = [];
 
-        // 🔓 ปลดล็อกระบบเสียงของเบราว์เซอร์เมื่อผู้ใช้คลิกหรือกดปุ่มใดๆ บนหน้าเว็บครั้งแรก
+        // 🔓 ปลดล็อกระบบ Audio Context สำหรับเบราว์เซอร์
         function unlockAudio() {
             if (typeof SoundSystem !== 'undefined' && SoundSystem.initAudioContext) {
                 SoundSystem.initAudioContext();
@@ -150,164 +113,136 @@
         document.addEventListener('click', unlockAudio);
         document.addEventListener('keydown', unlockAudio);
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('staff_role') === 'DRIVER' || sessionStorage.getItem('staff_logged_in') === 'true') {
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-            }
-        });
+        // 🔍 ค้นหารายชื่อลูกค้า
+        function handleCustomerSearch() {
+            const inputName = document.getElementById('driver-search-name').value.trim();
+            const dropdown = document.getElementById('search-dropdown');
+            const riskBox = document.getElementById('risk-alert-box');
 
-        // 🔊 สั่งเล่นเสียงแบบปลอดภัย
-        function safePlaySound(type) {
-            if (typeof playSound === 'function') {
-                playSound(type);
-            } else if (typeof SoundSystem !== 'undefined' && SoundSystem.play) {
-                SoundSystem.play(type);
-            }
-        }
-
-        function loginStaff() {
-            unlockAudio(); // ปลดล็อกเสียงทันทีที่กดปุ่มเข้าสู่ระบบ
-            const inputPin = document.getElementById('pin-input').value.trim();
-            const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.DRIVER_PIN) ? CONFIG.DRIVER_PIN : '001456';
-            const pinError = document.getElementById('pin-error');
-
-            if (inputPin === correctPin) {
-                sessionStorage.setItem('staff_role', 'DRIVER');
-                sessionStorage.setItem('staff_logged_in', 'true');
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-                if (pinError) pinError.classList.add('hidden');
-            } else {
-                // 🔊 เล่นเสียงเตือนเมื่อกดผิด
-                safePlaySound('wrong_pin');
-
-                // ⚠️ แสดงตัวหนังสือ PIN ไม่ถูกต้อง
-                if (pinError) pinError.classList.remove('hidden');
-                document.getElementById('pin-input').value = '';
-            }
-        }
-
-        function logoutStaff() {
-            sessionStorage.removeItem('staff_role');
-            sessionStorage.removeItem('staff_logged_in');
-            location.reload();
-        }
-
-        function handleSearch() {
-            unlockAudio();
-            const name = document.getElementById('search-input').value.trim();
-            if (!name) return;
-
-            if (typeof DB === 'undefined') {
-                alert('ระบบฐานข้อมูลยังไม่พร้อมใช้งาน (db.js ไม่สมบูรณ์)');
+            if (!inputName || typeof DB === 'undefined') {
+                dropdown.classList.add('hidden');
+                riskBox.classList.add('hidden');
+                selectedUser = null;
                 return;
             }
 
+            const allUsers = DB.getAll();
+            const matchedUsers = allUsers.filter(u => u.name.toLowerCase().includes(inputName.toLowerCase()));
+
+            if (matchedUsers.length > 0) {
+                dropdown.innerHTML = matchedUsers.map(u => `
+                    <div onclick="selectCustomer('${u.name}')" class="p-3 hover:bg-slate-50 cursor-pointer flex justify-between items-center">
+                        <span class="font-bold text-slate-800 text-sm">${u.name}</span>
+                        <span class="text-xs text-slate-400">ส่งสำเร็จ ${u.success}/${u.total}</span>
+                    </div>
+                `).join('');
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+                showRiskInfo({ name: inputName, success: 0, failed: 0, total: 0, isBlacklisted: false });
+            }
+        }
+
+        // 📌 เลือกรายชื่อจาก Dropdown
+        function selectCustomer(name) {
             const user = DB.findByName(name);
-            if (!user) { 
-                alert('ไม่พบข้อมูลรายชื่อนี้ในระบบ'); 
-                return; 
-            }
-            
-            currentSearchedUser = user;
-            lastActionRecord = null;
-            document.getElementById('undo-btn').classList.add('hidden');
-
-            const risk = DB.calculateRisk(user);
-
-            // 🔊 เล่นเสียงความเสี่ยง
-            if (typeof SoundSystem !== 'undefined' && SoundSystem.playByRisk) {
-                SoundSystem.playByRisk(user, risk.level);
-            }
-
-            // แสดงแบนเนอร์แจ้งเตือน
-            const alertBanner = document.getElementById('risk-alert-banner');
-            if (user.isBlacklisted || risk.level === 'HIGH') {
-                alertBanner.classList.remove('hidden');
-                document.getElementById('risk-alert-text').innerText = user.isBlacklisted 
-                    ? `⚠️ รายชื่อนี้ติดแบล็กลิสต์: ${user.blacklistReason || 'ปฏิเสธการชำระเงิน'}`
-                    : `⚠️ คำเตือน: ลูกค้ารายนี้มีประวัติตีกลับสูง (${user.failed} ครั้ง)`;
-            } else {
-                alertBanner.classList.add('hidden');
-            }
-
-            refreshUserDisplay();
-            document.getElementById('result-box').classList.remove('hidden');
-        }
-
-        function refreshUserDisplay() {
-            if (!currentSearchedUser) return;
-            const user = DB.findByName(currentSearchedUser.name) || currentSearchedUser;
-            currentSearchedUser = user;
-            const risk = DB.calculateRisk(user);
-
-            document.getElementById('res-name').innerText = user.name;
-            document.getElementById('res-total').innerText = user.total;
-            document.getElementById('res-success').innerText = user.success;
-            document.getElementById('res-failed').innerText = user.failed;
-            document.getElementById('res-badge').innerHTML = `<span class="px-3 py-1 rounded-full text-xs font-bold ${risk.colorClass}">${risk.label}</span>`;
-        }
-
-        function askConfirm(type) {
-            if (!currentSearchedUser) return;
-            pendingType = type;
-
-            const iconBox = document.getElementById('confirm-icon');
-            const submitBtn = document.getElementById('confirm-submit-btn');
-            const confirmText = document.getElementById('confirm-text');
-
-            if (type === 'SUCCESS') {
-                iconBox.className = "w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner";
-                iconBox.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
-                confirmText.innerText = `ต้องการบันทึกสถานะ "ส่งสำเร็จ" ใช่หรือไม่?`;
-                submitBtn.className = "flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition-all";
-            } else {
-                iconBox.className = "w-14 h-14 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner";
-                iconBox.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
-                confirmText.innerText = `ต้องการบันทึกสถานะ "ตีกลับ / ปฏิเสธ" ใช่หรือไม่?`;
-                submitBtn.className = "flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition-all";
-            }
-
-            document.getElementById('confirm-modal').classList.remove('hidden');
-        }
-
-        function closeConfirmModal() {
-            document.getElementById('confirm-modal').classList.add('hidden');
-            pendingType = null;
-        }
-
-        function executeRecord() {
-            if (!currentSearchedUser || !pendingType) return;
-
-            if (pendingType === 'SUCCESS') safePlaySound('success');
-            else safePlaySound('failed');
-
-            lastActionRecord = { userName: currentSearchedUser.name, type: pendingType };
-            DB.recordDelivery(currentSearchedUser.name, pendingType, 'ORD-' + Date.now().toString().slice(-4));
-            
-            closeConfirmModal();
-            refreshUserDisplay();
-            document.getElementById('undo-btn').classList.remove('hidden');
-        }
-
-        function undoLastRecord() {
-            if (!lastActionRecord) return;
-            const list = DB.getAll();
-            const user = list.find(u => u.name === lastActionRecord.userName);
-
+            document.getElementById('driver-search-name').value = name;
+            document.getElementById('search-dropdown').classList.add('hidden');
             if (user) {
-                if (lastActionRecord.type === 'SUCCESS' && user.success > 0) user.success--;
-                else if (lastActionRecord.type === 'FAILED' && user.failed > 0) user.failed--;
-                user.total = user.success + user.failed;
-                if (user.logs && user.logs.length > 0) user.logs.shift();
-
-                DB.save(list);
-                alert('ยกเลิกรายการล่าสุดเรียบร้อยแล้ว');
-                lastActionRecord = null;
-                document.getElementById('undo-btn').classList.add('hidden');
-                refreshUserDisplay();
+                selectedUser = user;
+                showRiskInfo(user);
             }
+        }
+
+        // 🚨 แสดงความเสี่ยงของชื่อที่เลือก
+        function showRiskInfo(user) {
+            const riskBox = document.getElementById('risk-alert-box');
+            const riskBadge = document.getElementById('risk-badge');
+            const customerStats = document.getElementById('customer-stats');
+            const blReason = document.getElementById('blacklist-reason-text');
+
+            const risk = DB.calculateRisk(user);
+
+            riskBox.className = `p-4 rounded-2xl border space-y-2 ${user.isBlacklisted ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 border-slate-200'}`;
+            riskBadge.className = `px-3 py-1 rounded-full text-xs font-bold ${risk.colorClass}`;
+            riskBadge.innerText = risk.label;
+
+            customerStats.innerText = `ประวัติ: สำเร็จ ${user.success} / ตีกลับ ${user.failed} (รวม ${user.total})`;
+
+            if (user.isBlacklisted && user.blacklistReason) {
+                blReason.innerText = `⚠️ สาเหตุติดแบล็กลิสต์: ${user.blacklistReason}`;
+                blReason.classList.remove('hidden');
+            } else {
+                blReason.classList.add('hidden');
+            }
+
+            riskBox.classList.remove('hidden');
+        }
+
+        // 💾 บันทึกการจัดส่ง + เล่นเสียงตามเงื่อนไข
+        function confirmDelivery(status) {
+            unlockAudio();
+
+            const nameInput = document.getElementById('driver-search-name').value.trim();
+            let orderIdInput = document.getElementById('order-id-input').value.trim().toUpperCase();
+
+            if (!nameInput) {
+                alert('กรุณากรอกชื่อผู้รับพัสดุ');
+                return;
+            }
+
+            if (!orderIdInput) {
+                orderIdInput = 'TH' + Math.floor(100000 + Math.random() * 900000) + 'TH';
+            }
+
+            if (typeof DB !== 'undefined') {
+                const updatedUser = DB.recordDelivery(nameInput, status, orderIdInput);
+                
+                // 🔊 เล่นเสียงตามเงื่อนไข
+                if (status === 'SUCCESS') {
+                    playSound('SUCCESS'); // เล่น meng.mp3
+                } else {
+                    playSound('FAILED');  // สุ่มเล่น ghost.mp3 หรือ working.mp3
+                }
+
+                // บันทึกลงรายการล่าสุด
+                recentLogs.unshift({
+                    orderId: orderIdInput,
+                    name: nameInput,
+                    status: status,
+                    time: new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })
+                });
+
+                renderRecentLogs();
+
+                // ล้างค่า Input
+                document.getElementById('driver-search-name').value = '';
+                document.getElementById('order-id-input').value = '';
+                document.getElementById('risk-alert-box').classList.add('hidden');
+                document.getElementById('search-dropdown').classList.add('hidden');
+                selectedUser = null;
+            }
+        }
+
+        // 📜 แสดงผลประวัติล่าสุด
+        function renderRecentLogs() {
+            const list = document.getElementById('recent-logs-list');
+            if (recentLogs.length === 0) return;
+
+            list.innerHTML = recentLogs.slice(0, 5).map(log => `
+                <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex justify-between items-center">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-slate-800">${log.name}</span>
+                            <span class="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded-md font-mono">${log.orderId}</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400 mt-0.5">เวลา ${log.time} น.</p>
+                    </div>
+                    <span class="font-bold px-2.5 py-1 rounded-xl text-[11px] ${log.status === 'SUCCESS' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">
+                        ${log.status === 'SUCCESS' ? '🟢 ส่งสำเร็จ' : '🔴 ตีกลับ'}
+                    </span>
+                </div>
+            `).join('');
         }
     </script>
 </body>
