@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบพนักงานส่ง - Delivery Risk Pro</title>
+    <!-- Tailwind CSS & Font Awesome -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -11,6 +12,7 @@
 </head>
 <body class="bg-slate-50 min-h-screen pb-12">
 
+    <!-- 🔒 หน้าต่างบังคับกรอก PIN -->
     <div id="auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
             <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
@@ -23,9 +25,12 @@
             <div class="space-y-3">
                 <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
                     class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-indigo-500 focus:outline-none bg-slate-50">
+                
+                <!-- 🚨 ข้อความเตือน PIN ไม่ถูกต้อง -->
                 <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
                     <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง!
                 </p>
+
                 <button onclick="loginStaff()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95">
                     เข้าสู่ระบบ
                 </button>
@@ -33,13 +38,11 @@
         </div>
     </div>
 
+    <!-- 🚚 เนื้อหาหลักระบบพนักงานส่ง -->
     <div id="main-content" class="hidden">
         <nav class="bg-indigo-900 text-white shadow-md sticky top-0 z-40">
             <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
                 <div class="flex items-center space-x-3">
-                    <button onclick="history.back()" class="flex items-center gap-1.5 text-xs bg-indigo-800/80 hover:bg-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-700/60 transition-all active:scale-95">
-                        <i class="fa-solid fa-arrow-left"></i> <span>ย้อนกลับ</span>
-                    </button>
                     <span class="font-bold text-base md:text-lg">🚚 พนักงานส่ง</span>
                 </div>
                 <div class="flex items-center space-x-3 text-xs md:text-sm font-medium">
@@ -53,6 +56,7 @@
         </nav>
 
         <main class="max-w-3xl mx-auto px-4 pt-6 space-y-6">
+            <!-- กล่องค้นหา -->
             <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
                 <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
                     <i class="fa-solid fa-magnifying-glass text-indigo-600"></i> ค้นหาผู้รับเพื่ออัปเดตการจัดส่ง
@@ -63,8 +67,10 @@
                 </div>
             </div>
 
+            <!-- กล่องแสดงผลลัพธ์ -->
             <div id="result-box" class="hidden bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
                 
+                <!-- แถบเตือนความเสี่ยง -->
                 <div id="risk-alert-banner" class="hidden bg-rose-50 border border-rose-200 text-rose-700 p-3.5 rounded-2xl text-xs font-bold flex items-center gap-2 animate-pulse">
                     <i class="fa-solid fa-triangle-exclamation text-lg text-rose-600"></i>
                     <span id="risk-alert-text">คำเตือน: ผู้รับรายนี้มีความเสี่ยงสูง/ติดแบล็กลิสต์</span>
@@ -84,6 +90,7 @@
                     <div class="bg-rose-50 p-3 rounded-2xl border border-rose-100"><p class="text-xs text-rose-600">ตีกลับ</p><p id="res-failed" class="text-lg font-bold text-rose-600">0</p></div>
                 </div>
 
+                <!-- ปุ่มอัปเดตสถานะ -->
                 <div class="pt-2 border-t space-y-2">
                     <div class="flex gap-2">
                         <button onclick="askConfirm('SUCCESS')" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-2xl shadow-md active:scale-95 transition-all">
@@ -96,13 +103,14 @@
 
                     <button id="undo-btn" onclick="undoLastRecord()" class="hidden w-full bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold py-2.5 rounded-2xl border border-amber-200 text-xs transition-all flex items-center justify-center gap-1.5">
                         <i class="fa-solid fa-rotate-left"></i>
-                        <span>เลิกทำรายการล่าสุด (กรณีเผลอกดผิด)</span>
+                        <span>เลิกทำรายการล่าสุด</span>
                     </button>
                 </div>
             </div>
         </main>
     </div>
 
+    <!-- ⚠️ Pop-up ยืนยันการทำรายการ -->
     <div id="confirm-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-4 border border-slate-100">
             <div id="confirm-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner"></div>
@@ -121,9 +129,12 @@
         </div>
     </div>
 
+    <!-- 🔗 เรียกใช้งานไฟล์ JS ให้ครบถ้วนตามลำดับ -->
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
-    <script src="js/sound.js"></script> <script>
+    <script src="js/sound.js"></script>
+
+    <script>
         let currentSearchedUser = null;
         let pendingType = null;
         let lastActionRecord = null;
@@ -135,30 +146,35 @@
             }
         });
 
-function loginStaff() {
-    const inputPin = document.getElementById('pin-input').value.trim();
-    const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.DRIVER_PIN) ? CONFIG.DRIVER_PIN : '001456';
-    const pinError = document.getElementById('pin-error');
-    
-    if (inputPin === correctPin) {
-        sessionStorage.setItem('staff_role', 'DRIVER');
-        sessionStorage.setItem('staff_logged_in', 'true');
-        document.getElementById('auth-screen').classList.add('hidden');
-        document.getElementById('main-content').classList.remove('hidden');
-        if (pinError) pinError.classList.add('hidden');
-    } else {
-        // 🔊 เล่นเสียงเตือนทันทีเมื่อใส่ PIN ผิด
-        playSound('wrong_pin'); 
-
-        // ⚠️ แสดงข้อความเตือน PIN ไม่ถูกต้อง
-        if (pinError) {
-            pinError.classList.remove('hidden');
-        } else {
-            alert('รหัส PIN ไม่ถูกต้อง!');
+        // 🔊 สั่งเล่นเสียงแบบปลอดภัย (ถ้ายังไม่มีฟังก์ชันก็ไม่ค้าง)
+        function safePlaySound(type) {
+            if (typeof playSound === 'function') {
+                playSound(type);
+            } else if (typeof SoundSystem !== 'undefined' && SoundSystem.play) {
+                SoundSystem.play(type);
+            }
         }
-        document.getElementById('pin-input').value = '';
-    }
-}
+
+        function loginStaff() {
+            const inputPin = document.getElementById('pin-input').value.trim();
+            const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.DRIVER_PIN) ? CONFIG.DRIVER_PIN : '001456';
+            const pinError = document.getElementById('pin-error');
+
+            if (inputPin === correctPin) {
+                sessionStorage.setItem('staff_role', 'DRIVER');
+                sessionStorage.setItem('staff_logged_in', 'true');
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                if (pinError) pinError.classList.add('hidden');
+            } else {
+                // 🔊 เล่นเสียงเตือนเมื่อกดผิด
+                safePlaySound('wrong_pin');
+
+                // ⚠️ แสดงตัวหนังสือ PIN ไม่ถูกต้อง
+                if (pinError) pinError.classList.remove('hidden');
+                document.getElementById('pin-input').value = '';
+            }
+        }
 
         function logoutStaff() {
             sessionStorage.removeItem('staff_role');
@@ -169,8 +185,17 @@ function loginStaff() {
         function handleSearch() {
             const name = document.getElementById('search-input').value.trim();
             if (!name) return;
+
+            if (typeof DB === 'undefined') {
+                alert('ระบบฐานข้อมูลยังไม่พร้อมใช้งาน (db.js ไม่สมบูรณ์)');
+                return;
+            }
+
             const user = DB.findByName(name);
-            if (!user) { alert('ไม่พบข้อมูลรายชื่อนี้'); return; }
+            if (!user) { 
+                alert('ไม่พบข้อมูลรายชื่อนี้ในระบบ'); 
+                return; 
+            }
             
             currentSearchedUser = user;
             lastActionRecord = null;
@@ -178,8 +203,10 @@ function loginStaff() {
 
             const risk = DB.calculateRisk(user);
 
-            // 🔊 เรียกใช้เสียงตามระดับความเสี่ยงผ่าน SoundSystem (บรรทัดเดียวจบ!)
-            SoundSystem.playByRisk(user, risk.level);
+            // 🔊 เล่นเสียงความเสี่ยง
+            if (typeof SoundSystem !== 'undefined' && SoundSystem.playByRisk) {
+                SoundSystem.playByRisk(user, risk.level);
+            }
 
             // แสดงแบนเนอร์แจ้งเตือน
             const alertBanner = document.getElementById('risk-alert-banner');
@@ -197,7 +224,8 @@ function loginStaff() {
         }
 
         function refreshUserDisplay() {
-            const user = DB.findByName(currentSearchedUser.name);
+            if (!currentSearchedUser) return;
+            const user = DB.findByName(currentSearchedUser.name) || currentSearchedUser;
             currentSearchedUser = user;
             const risk = DB.calculateRisk(user);
 
@@ -239,9 +267,8 @@ function loginStaff() {
         function executeRecord() {
             if (!currentSearchedUser || !pendingType) return;
 
-            // 🔊 เล่นเสียงตามประเภทปุ่มที่กด
-            if (pendingType === 'SUCCESS') playSound('success');
-            else playSound('failed');
+            if (pendingType === 'SUCCESS') safePlaySound('success');
+            else safePlaySound('failed');
 
             lastActionRecord = { userName: currentSearchedUser.name, type: pendingType };
             DB.recordDelivery(currentSearchedUser.name, pendingType, 'ORD-' + Date.now().toString().slice(-4));
