@@ -106,25 +106,29 @@
 
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
+    <script src="js/sound.js"></script>
     <script>
-        const wrongPinSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3');
 
         document.addEventListener('DOMContentLoaded', () => {
             if (sessionStorage.getItem('staff_role') === 'ADMIN') showAdmin();
         });
 
-        function loginAdmin() {
-            const inputPin = document.getElementById('pin-input').value.trim();
-            if (inputPin === (CONFIG.ADMIN_PIN || '999888')) {
-                sessionStorage.setItem('staff_role', 'ADMIN');
-                showAdmin();
-            } else {
-                wrongPinSound.currentTime = 0;
-                wrongPinSound.play().catch(e => {}); // 🔊 เสียงเตือนเมื่อกรอกผิด
-                document.getElementById('pin-error').classList.remove('hidden');
-                document.getElementById('pin-input').value = '';
-            }
-        }
+       function loginAdmin() {
+    const password = document.getElementById('admin-password').value.trim();
+    const correctPass = (typeof CONFIG !== 'undefined' && CONFIG.ADMIN_PASSWORD) ? CONFIG.ADMIN_PASSWORD : 'admin';
+
+    if (password === correctPass) {
+        sessionStorage.setItem('admin_logged_in', 'true');
+        document.getElementById('auth-screen').classList.add('hidden');
+        document.getElementById('main-content').classList.remove('hidden');
+        renderTable();
+    } else {
+        // 🔊 เล่นเสียงเตือนเมื่อใส่รหัส Admin ผิด
+        playSound('wrong_pin'); 
+        alert('รหัสผ่าน Admin ไม่ถูกต้อง!');
+        document.getElementById('admin-password').value = '';
+    }
+}
 
         function logoutAdmin() {
             sessionStorage.removeItem('staff_role');
