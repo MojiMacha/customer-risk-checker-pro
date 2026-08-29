@@ -1,105 +1,145 @@
-// 📦 ข้อมูลลูกค้ารวม 43 คน อัปเดตจากไฟล์ CSV ล่าสุด
-const DEFAULT_CUSTOMERS = [
-    { name: "ธณกร", success: 28, failed: 27, total: 55, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "นรินทร์", success: 59, failed: 16, total: 75, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ปาลิดา", success: 28, failed: 2, total: 30, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "นฤบดินทร์", success: 140, failed: 0, total: 140, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "เพชรทักษิณ", success: 41, failed: 21, total: 62, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "พิชชาภา", success: 85, failed: 15, total: 100, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "สุรเชษฐ์", success: 12, failed: 18, total: 30, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ชลธิชา", success: 95, failed: 5, total: 100, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "กิตติพงษ์", success: 3, failed: 12, total: 15, isBlacklisted: true, blacklistReason: "ปฏิเสธการชำระเงิน COD หลายครั้ง", logs: [] },
-    { name: "ณิชารีย์", success: 60, failed: 4, total: 64, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ภานุวัฒน์", success: 110, failed: 2, total: 112, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ศิริพร", success: 45, failed: 15, total: 60, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "อนันดา", success: 30, failed: 30, total: 60, isBlacklisted: true, blacklistReason: "ติดต่อไม่ได้ ตีกลับบ่อยครั้ง", logs: [] },
-    { name: "วรรณิสา", success: 88, failed: 12, total: 100, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ธีรเดช", success: 200, failed: 5, total: 205, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "พรทิพย์", success: 15, failed: 35, total: 50, isBlacklisted: true, blacklistReason: "ยกเลิกออเดอร์กลางทางบ่อยครั้ง", logs: [] },
-    { name: "เอกชัย", success: 72, failed: 8, total: 80, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "กนกวรรณ", success: 50, failed: 50, total: 100, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ชัยวัฒน์", success: 130, failed: 10, total: 140, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "มณีรัตน์", success: 40, failed: 3, total: 43, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ปรีชา", success: 9, failed: 21, total: 30, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ศิรินทิพย์", success: 105, failed: 15, total: 120, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "สมชาย", success: 500, failed: 20, total: 520, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "วิภาวี", success: 18, failed: 2, total: 20, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "เกียรติศักดิ์", success: 250, failed: 0, total: 250, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "อารยา", success: 320, failed: 5, total: 325, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ณเดชน์", success: 180, failed: 10, total: 190, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "อุรัสยา", success: 210, failed: 0, total: 210, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "มาริโอ้", success: 95, failed: 15, total: 110, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ดาวิกา", success: 160, failed: 2, total: 162, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "พัชราภา", success: 400, failed: 1, total: 401, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ปริญ", success: 85, failed: 25, total: 110, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ราณี", success: 290, failed: 3, total: 293, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "จิรายุ", success: 175, failed: 12, total: 187, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ธนภพ", success: 65, failed: 5, total: 70, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "พุฒิชัย", success: 120, failed: 18, total: 138, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "พิธา", success: 350, failed: 10, total: 360, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "แพทองธาร", success: 230, failed: 20, total: 250, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "อนุทิน", success: 140, failed: 30, total: 170, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "ชลน่าน", success: 45, failed: 35, total: 80, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "สุรชัย", success: 190, failed: 8, total: 198, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "จินตหรา", success: 80, failed: 2, total: 82, isBlacklisted: false, blacklistReason: "", logs: [] },
-    { name: "พงษ์สิทธิ์", success: 310, failed: 15, total: 325, isBlacklisted: false, blacklistReason: "", logs: [] }
+// ==========================================
+// 📦 ระบบจัดการฐานข้อมูลจำลอง (js/db.js)
+// ==========================================
+
+const STORAGE_KEY = 'delivery_risk_db_v1';
+
+// 📋 รายชื่อข้อมูลตั้งต้น (43 รายชื่อ)
+const initialUserData = [
+    { id: 1, name: "ธณกร", success: 28, failed: 27, total: 55, isBlacklisted: false, blacklistReason: "" },
+    { id: 2, name: "นรินทร์", success: 59, failed: 16, total: 75, isBlacklisted: false, blacklistReason: "" },
+    { id: 3, name: "ปาลิดา", success: 28, failed: 2, total: 30, isBlacklisted: false, blacklistReason: "" },
+    { id: 4, name: "นฤบดินทร์", success: 140, failed: 0, total: 140, isBlacklisted: false, blacklistReason: "" },
+    { id: 5, name: "เพชรทักษิณ", success: 41, failed: 21, total: 62, isBlacklisted: false, blacklistReason: "" },
+    { id: 6, name: "มินติยา", success: 38, failed: 1, total: 39, isBlacklisted: false, blacklistReason: "" },
+    { id: 7, name: "ญาณิณ", success: 1, failed: 1, total: 2, isBlacklisted: false, blacklistReason: "" },
+    { id: 8, name: "อนันทพร", success: 32, failed: 4, total: 36, isBlacklisted: false, blacklistReason: "" },
+    { id: 9, name: "ชลดา", success: 8, failed: 10, total: 18, isBlacklisted: false, blacklistReason: "" },
+    { id: 10, name: "วรโชติ", success: 53, failed: 9, total: 62, isBlacklisted: false, blacklistReason: "" },
+    { id: 11, name: "กิตติคุณ", success: 47, failed: 13, total: 60, isBlacklisted: false, blacklistReason: "" },
+    { id: 12, name: "ปัณณิชาภรณ์", success: 1, failed: 0, total: 1, isBlacklisted: false, blacklistReason: "" },
+    { id: 13, name: "พรเมธี", success: 12, failed: 23, total: 35, isBlacklisted: true, blacklistReason: "ปฏิเสธการชำระเงิน COD และปิดเครื่องใส่พนักงานขนส่ง 3 ครั้งติด" },
+    { id: 14, name: "อารยา", success: 14, failed: 9, total: 23, isBlacklisted: false, blacklistReason: "" },
+    { id: 15, name: "ชลธิศ", success: 28, failed: 19, total: 47, isBlacklisted: false, blacklistReason: "" },
+    { id: 16, name: "ปิยะฉัตร", success: 20, failed: 7, total: 27, isBlacklisted: false, blacklistReason: "" },
+    { id: 17, name: "จิรายุ", success: 36, failed: 16, total: 52, isBlacklisted: false, blacklistReason: "" },
+    { id: 18, name: "แอลวิน", success: 0, failed: 13, total: 13, isBlacklisted: false, blacklistReason: "" },
+    { id: 19, name: "เกศณี", success: 19, failed: 9, total: 28, isBlacklisted: false, blacklistReason: "" },
+    { id: 20, name: "ระภีภัทร", success: 60, failed: 2, total: 62, isBlacklisted: false, blacklistReason: "" },
+    { id: 21, name: "กีรติ", success: 23, failed: 4, total: 27, isBlacklisted: false, blacklistReason: "" },
+    { id: 22, name: "ปิณณิชาภรณ์", success: 74, failed: 5, total: 79, isBlacklisted: false, blacklistReason: "" },
+    { id: 23, name: "สิงหรัตน์", success: 44, failed: 8, total: 52, isBlacklisted: false, blacklistReason: "" },
+    { id: 24, name: "ขติยา", success: 2, failed: 0, total: 2, isBlacklisted: false, blacklistReason: "" },
+    { id: 25, name: "ธัญธร", success: 33, failed: 20, total: 53, isBlacklisted: false, blacklistReason: "" },
+    { id: 26, name: "ธีรภัทร์", success: 30, failed: 8, total: 38, isBlacklisted: false, blacklistReason: "" },
+    { id: 27, name: "จรรยาภรณ์", success: 64, failed: 9, total: 73, isBlacklisted: false, blacklistReason: "" },
+    { id: 28, name: "กมลรัตน์", success: 10, failed: 9, total: 19, isBlacklisted: false, blacklistReason: "" },
+    { id: 29, name: "อารยาพร", success: 24, failed: 15, total: 39, isBlacklisted: false, blacklistReason: "" },
+    { id: 30, name: "ประภาพร", success: 45, failed: 15, total: 60, isBlacklisted: false, blacklistReason: "" },
+    { id: 31, name: "นิภาพร", success: 24, failed: 24, total: 48, isBlacklisted: false, blacklistReason: "" },
+    { id: 32, name: "อริษา", success: 25, failed: 13, total: 38, isBlacklisted: false, blacklistReason: "" },
+    { id: 33, name: "มินทร์ลดา", success: 25, failed: 0, total: 25, isBlacklisted: false, blacklistReason: "" },
+    { id: 34, name: "ปนัดดา", success: 41, failed: 0, total: 41, isBlacklisted: false, blacklistReason: "" },
+    { id: 35, name: "บัญญพนธ์", success: 4, failed: 4, total: 8, isBlacklisted: false, blacklistReason: "" },
+    { id: 36, name: "วันวิสา", success: 16, failed: 6, total: 22, isBlacklisted: false, blacklistReason: "" },
+    { id: 37, name: "ณัฐนิชา", success: 16, failed: 12, total: 28, isBlacklisted: false, blacklistReason: "" },
+    { id: 38, name: "ยาซีน", success: 14, failed: 35, total: 49, isBlacklisted: false, blacklistReason: "" },
+    { id: 39, name: "ศุภวิชญ์", success: 20, failed: 17, total: 37, isBlacklisted: false, blacklistReason: "" },
+    { id: 40, name: "พฤฒิตนัย", success: 20, failed: 12, total: 32, isBlacklisted: false, blacklistReason: "" },
+    { id: 41, name: "ศุภชัย", success: 37, failed: 21, total: 58, isBlacklisted: false, blacklistReason: "" },
+    { id: 42, name: "สิริกร", success: 1, failed: 1, total: 2, isBlacklisted: false, blacklistReason: "" },
+    { id: 43, name: "คอปเปอร์", success: 100, failed: 0, total: 100, isBlacklisted: false, blacklistReason: "" }
 ];
 
 const DB = {
-    KEY: 'delivery_risk_db_v2',
-
+    // 📖 ดึงข้อมูลทั้งหมด
     getAll() {
-        const data = localStorage.getItem(this.KEY);
+        const data = localStorage.getItem(STORAGE_KEY);
         if (!data) {
-            // ถ้าไม่เจอข้อมูล ให้ดึงชุดข้อมูล 43 คนล่าสุดไปใช้ทันที
-            this.save(DEFAULT_CUSTOMERS);
-            return DEFAULT_CUSTOMERS;
+            this.save(initialUserData);
+            return initialUserData;
         }
         return JSON.parse(data);
     },
 
+    // 💾 บันทึกข้อมูลลง LocalStorage
     save(data) {
-        localStorage.setItem(this.KEY, JSON.stringify(data));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     },
 
-    resetToDefault() {
-        this.save(DEFAULT_CUSTOMERS);
-        return DEFAULT_CUSTOMERS;
-    },
-
+    // 🔍 ค้นหาตามชื่อผู้รับ
     findByName(name) {
-        const users = this.getAll();
-        return users.find(u => u.name.trim().toLowerCase() === name.trim().toLowerCase());
+        const list = this.getAll();
+        return list.find(u => u.name.trim().toLowerCase() === name.trim().toLowerCase());
     },
 
+    // 📊 คำนวณระดับความเสี่ยงอัตโนมัติ
     calculateRisk(user) {
-        if (!user || user.total === 0) return { label: 'ไม่มีข้อมูล', level: 'LOW', colorClass: 'bg-slate-100 text-slate-600' };
-        if (user.isBlacklisted) return { label: 'แบล็กลิสต์ (เสี่ยงสูงสุด)', level: 'CRITICAL', colorClass: 'bg-rose-600 text-white font-bold' };
-        
-        const failRate = (user.failed / user.total) * 100;
-        if (failRate >= 40 || user.failed >= 20) return { label: 'เสี่ยงสูง (High Risk)', level: 'HIGH', colorClass: 'bg-rose-100 text-rose-700 font-bold' };
-        if (failRate >= 15 || user.failed >= 5) return { label: 'เสี่ยงปานกลาง (Medium Risk)', level: 'MEDIUM', colorClass: 'bg-amber-100 text-amber-700 font-bold' };
-        return { label: 'เสี่ยงต่ำ (Low Risk)', level: 'LOW', colorClass: 'bg-emerald-100 text-emerald-700 font-bold' };
+        if (!user) return { level: 'LOW', label: '🟢 ความเสี่ยงต่ำ', colorClass: 'bg-emerald-100 text-emerald-700 border-emerald-300' };
+
+        if (user.isBlacklisted) {
+            return { level: 'HIGH', label: '🔴 ติดแบล็กลิสต์', colorClass: 'bg-rose-100 text-rose-700 border-rose-300 font-bold' };
+        }
+
+        const total = user.total || (user.success + user.failed);
+        if (total === 0) {
+            return { level: 'LOW', label: '🟢 ความเสี่ยงต่ำ (ไม่มีประวัติ)', colorClass: 'bg-emerald-100 text-emerald-700 border-emerald-300' };
+        }
+
+        const failRate = (user.failed / total) * 100;
+
+        if (failRate >= 40 || user.failed >= 10) {
+            return { level: 'HIGH', label: '🔴 ความเสี่ยงสูง (High Risk)', colorClass: 'bg-rose-100 text-rose-700 border-rose-300 font-bold' };
+        } else if (failRate >= 20 || user.failed >= 5) {
+            return { level: 'MEDIUM', label: '🟡 ความเสี่ยงปานกลาง (Medium Risk)', colorClass: 'bg-amber-100 text-amber-700 border-amber-300' };
+        } else {
+            return { level: 'LOW', label: '🟢 ความเสี่ยงต่ำ (Low Risk)', colorClass: 'bg-emerald-100 text-emerald-700 border-emerald-300' };
+        }
     },
 
-    recordDelivery(userName, type, orderId = '', extra = {}) {
-        const users = this.getAll();
-        const user = users.find(u => u.name === userName);
-        if (!user) return;
+    // 📝 อัปเดตประวัติการจัดส่ง (กดส่งสำเร็จ / ตีกลับ)
+    recordDelivery(userName, type, orderId = '') {
+        const list = this.getAll();
+        let user = list.find(u => u.name.trim().toLowerCase() === userName.trim().toLowerCase());
 
-        if (type === 'SUCCESS') user.success++;
-        else if (type === 'FAILED') user.failed++;
-        user.total = user.success + user.failed;
+        if (!user) {
+            user = {
+                id: Date.now(),
+                name: userName,
+                success: 0,
+                failed: 0,
+                total: 0,
+                isBlacklisted: false,
+                blacklistReason: '',
+                logs: []
+            };
+            list.push(user);
+        }
 
         if (!user.logs) user.logs = [];
+
+        if (type === 'SUCCESS') {
+            user.success++;
+        } else if (type === 'FAILED') {
+            user.failed++;
+        }
+
+        user.total = user.success + user.failed;
+
+        // บันทึกประวัติ Timestamp
         user.logs.unshift({
-            id: orderId,
             type: type,
-            date: new Date().toLocaleString('th-TH'),
-            gps: extra.gps || null,
-            podImg: extra.podImg || null
+            orderId: orderId || ('ORD-' + Date.now().toString().slice(-4)),
+            timestamp: new Date().toLocaleString('th-TH')
         });
 
-        this.save(users);
+        this.save(list);
+        return user;
+    },
+
+    // 🔄 รีเซ็ตข้อมูลกลับเป็นค่าเริ่มต้น
+    resetToDefault() {
+        this.save(initialUserData);
+        return initialUserData;
     }
 };
