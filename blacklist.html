@@ -3,96 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blacklist Control - Delivery Risk Pro</title>
+    <title>รายชื่อแบล็กลิสต์ - Delivery Risk Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style> body { font-family: 'Kanit', sans-serif; } </style>
 </head>
-<body class="bg-slate-100 min-h-screen pb-12">
+<body class="bg-slate-50 min-h-screen pb-12">
 
-    <header class="bg-indigo-900 text-white p-4 shadow-md">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <h1 class="font-bold text-lg"><i class="fa-solid fa-user-slash text-rose-400 mr-2"></i>Blacklist Control Center</h1>
-            <nav class="space-x-3 text-sm">
-                <a href="driver.html" class="text-indigo-200 hover:text-white">พนักงานส่ง</a>
-                <a href="admin.html" class="text-indigo-200 hover:text-white">แอดมิน</a>
-                <a href="blacklist.html" class="font-bold border-b-2 border-amber-400 pb-1">แบล็กลิสต์</a>
-                <a href="tracking.html" class="text-indigo-200 hover:text-white">ลูกค้า</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="max-w-5xl mx-auto px-4 mt-6 space-y-6">
-        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-            <h2 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-shield-halved mr-2 text-rose-500"></i>จัดการรายชื่อติดแบล็กลิสต์</h2>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-slate-50 border-b text-xs text-slate-500 font-bold">
-                            <th class="p-3">ชื่อผู้รับ</th>
-                            <th class="p-3">สถานะ</th>
-                            <th class="p-3">เหตุผลในการติดแบล็กลิสต์</th>
-                            <th class="p-3">จัดการ</th>
-                        </tr>
-                    </thead>
-                    <tbody id="blacklist-table-body" class="text-sm divide-y"></tbody>
-                </table>
+    <!-- 🔒 หน้าต่างบังคับกรอก PIN -->
+    <div id="auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
+            <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+                <i class="fa-solid fa-user-slash"></i>
+            </div>
+            <div>
+                <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบแบล็กลิสต์</h2>
+                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN 6 หลักเพื่อเข้าใช้งาน</p>
+            </div>
+            <div class="space-y-3">
+                <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
+                    class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-rose-500 focus:outline-none bg-slate-50">
+                <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
+                    <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง
+                </p>
+                <button onclick="loginStaff()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-rose-200 transition-all active:scale-95">
+                    เข้าสู่ระบบ
+                </button>
             </div>
         </div>
-    </main>
+    </div>
+
+    <!-- ⛔ เนื้อหาหลักหน้าแบล็กลิสต์ -->
+    <div id="main-content" class="hidden">
+        <nav class="bg-indigo-900 text-white shadow-md sticky top-0 z-40">
+            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <button onclick="history.back()" class="flex items-center gap-1.5 text-xs bg-indigo-800/80 hover:bg-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-700/60 transition-all active:scale-95">
+                        <i class="fa-solid fa-arrow-left"></i> <span>ย้อนกลับ</span>
+                    </button>
+                    <span class="font-bold text-base md:text-lg">🚫 รายชื่อแบล็กลิสต์</span>
+                </div>
+                <div class="flex items-center space-x-3 text-xs md:text-sm font-medium">
+                    <a href="driver.html" class="text-indigo-200 hover:text-white px-2 py-1">พนักงานส่ง</a>
+                    <a href="admin.html" class="text-indigo-200 hover:text-white px-2 py-1">แอดมิน</a>
+                    <a href="blacklist.html" class="text-white bg-indigo-800/90 px-3 py-1 rounded-lg border border-indigo-700/50 font-bold">แบล็กลิสต์</a>
+                    <a href="tracking.html" class="text-indigo-200 hover:text-white px-2 py-1">ลูกค้า</a>
+                    <button onclick="logoutStaff()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">ออกจากระบบ</button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="max-w-5xl mx-auto px-4 pt-6 space-y-6">
+            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
+                <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-ban text-rose-600"></i> รายชื่อผู้รับที่ติดแบล็กลิสต์
+                </h2>
+                <div id="blacklist-container" class="space-y-3">
+                    <!-- รายชื่อจะขึ้นตรงนี้ -->
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
     <script>
-        function renderBlacklistTable() {
-            const users = DB.getAll();
-            const tbody = document.getElementById('blacklist-table-body');
-            tbody.innerHTML = '';
+        document.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('staff_logged_in') === 'true') {
+                showPage();
+            }
+        });
 
-            users.forEach((u) => {
-                const tr = document.createElement('tr');
-                tr.className = 'hover:bg-slate-50 transition-colors';
-                tr.innerHTML = `
-                    <td class="p-3 font-bold text-slate-800">${u.name}</td>
-                    <td class="p-3">
-                        ${u.isBlacklisted 
-                            ? '<span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-100 text-rose-700">ติดแบล็กลิสต์</span>' 
-                            : '<span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600">ปกติ</span>'}
-                    </td>
-                    <td class="p-3 text-slate-500 text-xs">${u.blacklistReason || '-'}</td>
-                    <td class="p-3">
-                        <button onclick="toggleBlacklist('${u.id}')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-white transition-all ${u.isBlacklisted ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-rose-600 hover:bg-rose-700'}">
-                            ${u.isBlacklisted ? 'ปลดแบล็กลิสต์' : 'เพิ่มเข้าแบล็กลิสต์'}
-                        </button>
-                    </td>
+        document.getElementById('pin-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') loginStaff();
+        });
+
+        function loginStaff() {
+            const inputPin = document.getElementById('pin-input').value.trim();
+            if (inputPin === CONFIG.STAFF_PIN) {
+                sessionStorage.setItem('staff_logged_in', 'true');
+                showPage();
+            } else {
+                document.getElementById('pin-error').classList.remove('hidden');
+                document.getElementById('pin-input').value = '';
+            }
+        }
+
+        function logoutStaff() {
+            sessionStorage.removeItem('staff_logged_in');
+            location.reload();
+        }
+
+        function showPage() {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+            renderBlacklist();
+        }
+
+        function renderBlacklist() {
+            const users = DB.getAll().filter(u => u.isBlacklisted);
+            const container = document.getElementById('blacklist-container');
+            container.innerHTML = '';
+
+            if (users.length === 0) {
+                container.innerHTML = `<p class="text-center text-slate-400 py-8 text-sm">ไม่มีรายชื่อที่ติดแบล็กลิสต์ในขณะนี้</p>`;
+                return;
+            }
+
+            users.forEach(u => {
+                const item = document.createElement('div');
+                item.className = "bg-rose-50/50 border border-rose-100 p-4 rounded-2xl flex justify-between items-center";
+                item.innerHTML = `
+                    <div>
+                        <h4 class="font-bold text-slate-800">${u.name}</h4>
+                        <p class="text-xs text-rose-600 mt-0.5"><i class="fa-solid fa-triangle-exclamation mr-1"></i>${u.blacklistReason || 'ปฏิเสธการรับชำระเงิน / ติดต่อไม่ได้'}</p>
+                    </div>
+                    <button onclick="removeBlacklist('${u.name}')" class="text-xs bg-white text-slate-600 hover:text-emerald-600 border px-3 py-1.5 rounded-xl font-bold shadow-sm">
+                        ปลดแบล็กลิสต์
+                    </button>
                 `;
-                tbody.appendChild(tr);
+                container.appendChild(item);
             });
         }
 
-        function toggleBlacklist(userId) {
-            const users = DB.getAll();
-            const user = users.find(u => u.id === userId);
-            if (!user) return;
-
-            if (!user.isBlacklisted) {
-                const reason = prompt(`ระบุเหตุผลในการเพิ่ม ${user.name} เข้าแบล็กลิสต์:`, 'ปฏิเสธรับสินค้าหลายครั้ง');
-                if (reason === null) return;
-                user.isBlacklisted = true;
-                user.blacklistReason = reason;
-            } else {
-                if (confirm(`คุณต้องการปลดแบล็กลิสต์ ${user.name} ใช่หรือไม่?`)) {
-                    user.isBlacklisted = false;
-                    user.blacklistReason = '';
-                } else {
-                    return;
-                }
+        function removeBlacklist(name) {
+            const list = DB.getAll();
+            const user = list.find(u => u.name === name);
+            if (user) {
+                user.isBlacklisted = false;
+                user.blacklistReason = '';
+                DB.save(list);
+                renderBlacklist();
             }
-
-            DB.save(users);
-            renderBlacklistTable();
         }
-
-        document.addEventListener('DOMContentLoaded', renderBlacklistTable);
     </script>
 </body>
 </html>
