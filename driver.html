@@ -1,133 +1,69 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driver Console - Delivery Risk Pro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-slate-100 min-h-screen pb-12">
-
-    <header class="bg-indigo-900 text-white p-4 shadow-md">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <h1 class="font-bold text-lg"><i class="fa-solid fa-truck-fast text-amber-400 mr-2"></i>Driver Console</h1>
-            <nav class="space-x-3 text-sm">
-                <a href="driver.html" class="font-bold border-b-2 border-amber-400 pb-1">พนักงานส่ง</a>
-                <a href="admin.html" class="text-indigo-200 hover:text-white">แอดมิน</a>
-                <a href="blacklist.html" class="text-indigo-200 hover:text-white">แบล็กลิสต์</a>
-                <a href="tracking.html" class="text-indigo-200 hover:text-white">ลูกค้า</a>
-            </nav>
+<button onclick="logoutStaff()" class="text-xs text-rose-600 font-bold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg border border-rose-200 transition-all">
+    <i class="fa-solid fa-right-from-bracket mr-1"></i> ออกจากระบบ
+</button>
+<!-- ================= Modal ยืนยันรหัส PIN ================= -->
+<div id="pin-modal" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
+        <div class="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+            <i class="fa-solid fa-lock"></i>
         </div>
-    </header>
-
-    <main class="max-w-3xl mx-auto px-4 mt-6 space-y-6">
-        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <label class="block font-bold text-slate-800 mb-2">ระบุชื่อผู้รับเพื่อตรวจสอบ:</label>
-            <div class="flex gap-2">
-                <input type="text" id="search-input" placeholder="พิมพ์ชื่อผู้รับ เช่น ธณกร..." class="flex-1 border p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                <button onclick="handleSearch()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-bold transition-all">
-                    <i class="fa-solid fa-magnifying-glass mr-1"></i> ตรวจสอบ
-                </button>
-            </div>
+        
+        <div>
+            <h2 class="text-xl font-bold text-slate-800">ระบบเฉพาะพนักงาน</h2>
+            <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN 6 หลักเพื่อเข้าใช้งาน</p>
         </div>
 
-        <div id="result-card" class="hidden bg-white p-6 rounded-2xl shadow-md border border-slate-200 space-y-6">
-            <div class="flex justify-between items-center border-b pb-4">
-                <h2 id="res-name" class="text-2xl font-black text-slate-800"></h2>
-                <span id="res-badge" class="px-4 py-1.5 rounded-full text-xs font-bold"></span>
-            </div>
+        <div class="space-y-3">
+            <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
+                class="w-full text-center text-2xl tracking-[0.5em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-indigo-500 focus:outline-none transition-all bg-slate-50">
+            
+            <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
+                <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง
+            </p>
 
-            <div class="grid grid-cols-3 gap-3 text-center">
-                <div class="bg-slate-50 p-3 rounded-xl">
-                    <span class="text-xs text-slate-500 block">ทั้งหมด</span>
-                    <strong id="res-total" class="text-xl text-slate-800"></strong>
-                </div>
-                <div class="bg-emerald-50 p-3 rounded-xl">
-                    <span class="text-xs text-emerald-700 block">สำเร็จ</span>
-                    <strong id="res-success" class="text-xl text-emerald-600"></strong>
-                </div>
-                <div class="bg-rose-50 p-3 rounded-xl">
-                    <span class="text-xs text-rose-700 block">ตีกลับ</span>
-                    <strong id="res-failed" class="text-xl text-rose-600"></strong>
-                </div>
-            </div>
-
-            <div class="space-y-1">
-                <div class="flex justify-between text-xs font-bold">
-                    <span>ดัชนีความเสี่ยง</span>
-                    <span id="res-percent">0%</span>
-                </div>
-                <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
-                    <div id="res-bar" class="h-full bg-emerald-500 w-0 transition-all duration-500"></div>
-                </div>
-            </div>
-
-            <div class="border p-4 rounded-xl bg-slate-50 space-y-3">
-                <h3 class="font-bold text-sm text-slate-700">บันทึกผลการจัดส่งล่าสุด</h3>
-                <input type="text" id="order-id" placeholder="เลขพัสดุ / Order ID (ถ้ามี)" class="w-full p-2.5 border rounded-xl text-sm bg-white">
-                <div class="grid grid-cols-2 gap-3">
-                    <button onclick="submitRecord('SUCCESS')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-sm transition-all">
-                        <i class="fa-solid fa-circle-check mr-1"></i> ส่งสำเร็จ (+1)
-                    </button>
-                    <button onclick="submitRecord('FAILED')" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-xl shadow-sm transition-all">
-                        <i class="fa-solid fa-circle-xmark mr-1"></i> ตีกลับ / ล้มเหลว (+1)
-                    </button>
-                </div>
-            </div>
+            <button onclick="checkPin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95">
+                ยืนยันเข้าสู่ระบบ
+            </button>
         </div>
-    </main>
+    </div>
+</div>
 
-    <script src="js/config.js"></script>
-    <script src="js/db.js"></script>
-    <script>
-        let currentTarget = null;
-
-        function handleSearch() {
-            const query = document.getElementById('search-input').value;
-            currentTarget = DB.findByName(query);
-
-            if (!currentTarget) {
-                alert('ไม่พบข้อมูลผู้รับรายนี้');
-                document.getElementById('result-card').classList.add('hidden');
-                return;
-            }
-            renderUI();
+<!-- ================= Script ควบคุมการยืนยันตัวตน ================= -->
+<script>
+    // ตรวจสอบสถานะการเข้าสู่ระบบเมื่อเปิดหน้าเว็บ
+    document.addEventListener('DOMContentLoaded', () => {
+        const isAuthenticated = sessionStorage.getItem('staff_logged_in');
+        if (isAuthenticated === 'true') {
+            document.getElementById('pin-modal').classList.add('hidden');
         }
+    });
 
-        function renderUI() {
-            const risk = DB.calculateRisk(currentTarget);
-            
-            document.getElementById('res-name').innerText = currentTarget.name;
-            document.getElementById('res-badge').innerText = risk.label;
-            document.getElementById('res-badge').className = `px-4 py-1.5 rounded-full text-xs font-bold ${risk.colorClass}`;
-            
-            document.getElementById('res-total').innerText = `${risk.total} ชิ้น`;
-            document.getElementById('res-success').innerText = `${currentTarget.success} ชิ้น`;
-            document.getElementById('res-failed').innerText = `${currentTarget.failed} ชิ้น`;
-
-            document.getElementById('res-percent').innerText = `${risk.scorePercent}%`;
-            document.getElementById('res-bar').style.width = `${risk.scorePercent}%`;
-            
-            // เปลี่ยนสีหลอดตามความเสี่ยง
-            const bar = document.getElementById('res-bar');
-            bar.className = `h-full transition-all duration-500 ${risk.level === 'HIGH' ? 'bg-rose-500' : risk.level === 'MEDIUM' ? 'bg-amber-500' : 'bg-emerald-500'}`;
-
-            document.getElementById('result-card').classList.remove('hidden');
+    // ฟังการกดปุ่ม Enter ในช่องกรอก PIN
+    document.getElementById('pin-input').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            checkPin();
         }
+    });
 
-        function submitRecord(type) {
-            if (!currentTarget) return;
-            const orderId = document.getElementById('order-id').value;
-            
-            const updated = DB.recordDelivery(currentTarget.name, type, orderId);
-            if (updated) {
-                currentTarget = updated;
-                renderUI();
-                document.getElementById('order-id').value = '';
-                alert('บันทึกข้อมูลสำเร็จ!');
-            }
+    // ตรวจสอบรหัส PIN
+    function checkPin() {
+        const inputPin = document.getElementById('pin-input').value.trim();
+        const errorMsg = document.getElementById('pin-error');
+
+        if (inputPin === CONFIG.STAFF_PIN) {
+            sessionStorage.setItem('staff_logged_in', 'true');
+            document.getElementById('pin-modal').classList.add('hidden');
+            errorMsg.classList.add('hidden');
+        } else {
+            errorMsg.classList.remove('hidden');
+            document.getElementById('pin-input').value = '';
+            document.getElementById('pin-input').focus();
         }
-    </script>
-</body>
-</html>
+    }
+
+    // ฟังก์ชันออกจากระบบ (เรียกใช้เมื่อต้องการ ล็อกเอ้าท์)
+    function logoutStaff() {
+        sessionStorage.removeItem('staff_logged_in');
+        location.reload();
+    }
+</script>
