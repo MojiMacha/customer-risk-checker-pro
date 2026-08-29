@@ -3,7 +3,6 @@
 // ==========================================
 
 const SoundSystem = {
-    // 💡 กำหนด Path ของไฟล์เสียง .mp3 ในโฟลเดอร์ sounds/
     paths: {
         blacklist: 'sounds/ghost.mp3',
         high_risk: 'sounds/ghost.mp3',
@@ -40,7 +39,6 @@ const SoundSystem = {
     }
 };
 
-// 🎯 ฟังก์ชันสำหรับเรียกเล่นเสียงแบบสั้น (ต้องมีคำว่า function นำหน้า)
 function playSound(type) {
     SoundSystem.play(type);
 }
