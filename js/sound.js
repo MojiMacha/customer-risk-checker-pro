@@ -7,9 +7,9 @@ const SoundSystem = {
         blacklist: 'sounds/ghost.mp3',
         high_risk: 'sounds/ghost.mp3',
         medium_risk: 'sounds/ohno.mp3',
-        low_risk: 'sounds/men.mp3',
+        low_risk: 'sounds/meng.mp3',
         wrong_pin: 'sounds/stupid.mp3',
-        success: 'sounds/men.mp3',
+        success: 'sounds/meng.mp3',
         failed: 'sounds/ghost.mp3'
     },
 
