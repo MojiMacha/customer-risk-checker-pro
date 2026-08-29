@@ -78,22 +78,53 @@
                     <div class="bg-emerald-50 p-3 rounded-2xl border border-emerald-100"><p class="text-xs text-emerald-600">สำเร็จ</p><p id="res-success" class="text-lg font-bold text-emerald-600">0</p></div>
                     <div class="bg-rose-50 p-3 rounded-2xl border border-rose-100"><p class="text-xs text-rose-600">ตีกลับ</p><p id="res-failed" class="text-lg font-bold text-rose-600">0</p></div>
                 </div>
-                <div class="pt-2 border-t flex gap-2">
-                    <button onclick="record('SUCCESS')" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-2xl shadow-md">
-                        <i class="fa-solid fa-check mr-1"></i> ส่งสำเร็จ
-                    </button>
-                    <button onclick="record('FAILED')" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-2xl shadow-md">
-                        <i class="fa-solid fa-xmark mr-1"></i> ตีกลับ / ปฏิเสธ
+
+                <!-- ปุ่มอัปเดตสถานะ -->
+                <div class="pt-2 border-t space-y-2">
+                    <div class="flex gap-2">
+                        <button onclick="askConfirm('SUCCESS')" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-2xl shadow-md active:scale-95 transition-all">
+                            <i class="fa-solid fa-check mr-1"></i> ส่งสำเร็จ
+                        </button>
+                        <button onclick="askConfirm('FAILED')" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-2xl shadow-md active:scale-95 transition-all">
+                            <i class="fa-solid fa-xmark mr-1"></i> ตีกลับ / ปฏิเสธ
+                        </button>
+                    </div>
+
+                    <!-- ปุ่มยกเลิก/Undo กรณีเผลอกดผิด -->
+                    <button id="undo-btn" onclick="undoLastRecord()" class="hidden w-full bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold py-2.5 rounded-2xl border border-amber-200 text-xs transition-all flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>เลิกทำรายการล่าสุด (กรณีเผลอกดผิด)</span>
                     </button>
                 </div>
             </div>
         </main>
     </div>
 
+    <!-- ⚠️ Pop-up ยืนยันการทำรายการ -->
+    <div id="confirm-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-4 border border-slate-100">
+            <div id="confirm-icon" class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner"></div>
+            <div>
+                <h3 class="text-lg font-bold text-slate-800">ยืนยันการทำรายการ</h3>
+                <p id="confirm-text" class="text-xs text-slate-500 mt-1"></p>
+            </div>
+            <div class="flex gap-2 pt-2">
+                <button onclick="closeConfirmModal()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-2.5 rounded-xl text-sm transition-all">
+                    ยกเลิก
+                </button>
+                <button id="confirm-submit-btn" onclick="executeRecord()" class="flex-1 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition-all">
+                    ยืนยัน
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/config.js"></script>
     <script src="js/db.js"></script>
     <script>
         let currentSearchedUser = null;
+        let pendingType = null;
+        let lastActionRecord = null; // บันทึกไว้สำหรับทำ Undo
 
         document.addEventListener('DOMContentLoaded', () => {
             if (sessionStorage.getItem('staff_logged_in') === 'true') {
@@ -104,6 +135,10 @@
 
         document.getElementById('pin-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') loginStaff();
+        });
+
+        document.getElementById('search-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearch();
         });
 
         function loginStaff() {
@@ -128,21 +163,100 @@
             if (!name) return;
             const user = DB.findByName(name);
             if (!user) { alert('ไม่พบข้อมูลรายชื่อนี้'); return; }
+            
+            currentSearchedUser = user;
+            lastActionRecord = null; // รีเซ็ตการยกเลิกเมื่อค้นหาคนใหม่
+            document.getElementById('undo-btn').classList.add('hidden');
+
+            refreshUserDisplay();
+            document.getElementById('result-box').classList.remove('hidden');
+        }
+
+        function refreshUserDisplay() {
+            const user = DB.findByName(currentSearchedUser.name);
             currentSearchedUser = user;
             const risk = DB.calculateRisk(user);
+
             document.getElementById('res-name').innerText = user.name;
             document.getElementById('res-total').innerText = user.total;
             document.getElementById('res-success').innerText = user.success;
             document.getElementById('res-failed').innerText = user.failed;
             document.getElementById('res-badge').innerHTML = `<span class="px-3 py-1 rounded-full text-xs font-bold ${risk.colorClass}">${risk.label}</span>`;
-            document.getElementById('result-box').classList.remove('hidden');
         }
 
-        function record(type) {
+        // --- ระบบยืนยันก่อนทำรายการ (Confirm Modal) ---
+        function askConfirm(type) {
             if (!currentSearchedUser) return;
-            DB.recordDelivery(currentSearchedUser.name, type, 'ORD-' + Date.now().toString().slice(-4));
-            alert('บันทึกข้อมูลสำเร็จ');
-            handleSearch();
+            pendingType = type;
+
+            const iconBox = document.getElementById('confirm-icon');
+            const submitBtn = document.getElementById('confirm-submit-btn');
+            const confirmText = document.getElementById('confirm-text');
+
+            if (type === 'SUCCESS') {
+                iconBox.className = "w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner";
+                iconBox.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+                confirmText.innerText = `ต้องการบันทึกสถานะ "ส่งสำเร็จ" ให้คุณ ${currentSearchedUser.name} ใช่หรือไม่?`;
+                submitBtn.className = "flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition-all";
+            } else {
+                iconBox.className = "w-14 h-14 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner";
+                iconBox.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
+                confirmText.innerText = `ต้องการบันทึกสถานะ "ตีกลับ / ปฏิเสธ" ให้คุณ ${currentSearchedUser.name} ใช่หรือไม่?`;
+                submitBtn.className = "flex-1 bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 rounded-xl text-sm shadow-md transition-all";
+            }
+
+            document.getElementById('confirm-modal').classList.remove('hidden');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirm-modal').classList.add('hidden');
+            pendingType = null;
+        }
+
+        function executeRecord() {
+            if (!currentSearchedUser || !pendingType) return;
+
+            // บันทึกไว้ทำ Undo
+            lastActionRecord = {
+                userName: currentSearchedUser.name,
+                type: pendingType
+            };
+
+            DB.recordDelivery(currentSearchedUser.name, pendingType, 'ORD-' + Date.now().toString().slice(-4));
+            closeConfirmModal();
+            refreshUserDisplay();
+
+            // แสดงปุ่มเลิกทำรายการ
+            document.getElementById('undo-btn').classList.remove('hidden');
+        }
+
+        // --- ระบบยกเลิกกรณีเผลอกดผิด (Undo) ---
+        function undoLastRecord() {
+            if (!lastActionRecord) return;
+
+            const list = DB.getAll();
+            const user = list.find(u => u.name === lastActionRecord.userName);
+
+            if (user) {
+                if (lastActionRecord.type === 'SUCCESS' && user.success > 0) {
+                    user.success--;
+                } else if (lastActionRecord.type === 'FAILED' && user.failed > 0) {
+                    user.failed--;
+                }
+                user.total = user.success + user.failed;
+
+                // ลบ Log ล่าสุดออก
+                if (user.logs && user.logs.length > 0) {
+                    user.logs.shift();
+                }
+
+                DB.save(list);
+                alert('ยกเลิกรายการล่าสุดเรียบร้อยแล้ว');
+                
+                lastActionRecord = null;
+                document.getElementById('undo-btn').classList.add('hidden');
+                refreshUserDisplay();
+            }
         }
     </script>
 </body>
