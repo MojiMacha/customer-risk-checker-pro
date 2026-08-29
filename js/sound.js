@@ -12,6 +12,7 @@ const SoundSystem = {
         low_risk: 'sounds/low_risk.mp3',     // เสียงเสี่ยงต่ำ (ประวัติดี)
         success: 'sounds/success.mp3',       // เสียงบันทึกสำเร็จ
         failed: 'sounds/failed.mp3'          // เสียงบันทึกตีกลับ
+        wrong_pin: 'sounds/wrong_pin.mp3'
     },
 
     // ฟังก์ชันสำหรับเล่นเสียง
