@@ -37,11 +37,10 @@
         </div>
     </div>
 
-    <!-- 🚚 แถบเมนูด้านบน (รวมปุ่มย้อนกลับ + ปุ่มออกจากระบบ) -->
+    <!-- 🚚 แถบเมนูด้านบน -->
     <nav class="bg-slate-900 text-white shadow-md sticky top-0 z-40">
         <div class="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <!-- ⬅️ ปุ่มย้อนกลับไปหน้าลูกค้า -->
                 <a href="tracking.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded-xl border border-slate-700 text-xs font-bold flex items-center gap-1.5 transition-all">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>หน้าลูกค้า</span>
@@ -54,7 +53,6 @@
                     ID: Staff
                 </span>
                 <a href="admin.html" class="text-slate-300 hover:text-white px-2 py-1">แอดมิน</a>
-                <!-- 🚪 ปุ่มออกจากระบบ -->
                 <button onclick="logoutDriver()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">
                     ออกจากระบบ
                 </button>
@@ -64,14 +62,14 @@
 
     <main id="driver-main-content" class="max-w-3xl mx-auto px-4 pt-6 space-y-6 hidden">
 
-        <!-- 🔊 ปุ่มแจ้งเตือนให้เปิดระบบเสียงหากเสียงยังไม่ติด -->
-        <div id="audio-enable-banner" class="bg-amber-50 border border-amber-200 p-3 rounded-2xl flex items-center justify-between text-xs text-amber-800">
+        <!-- 🔊 ปุ่มทดสอบเสียง / เปิดการอนุญาตเสียง -->
+        <div class="bg-amber-50 border border-amber-200 p-3 rounded-2xl flex items-center justify-between text-xs text-amber-800">
             <div class="flex items-center gap-2">
                 <i class="fa-solid fa-volume-high text-amber-600 text-base"></i>
-                <span>กดปุ่มนี้หนึ่งครั้งเพื่อเปิดใช้งานระบบเสียงเล่นไฟล์ MP3</span>
+                <span>คลิกปุ่มนี้เพื่อเปิดสิทธิ์และทดสอบเล่นเสียง</span>
             </div>
-            <button onclick="enableSoundSystem()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded-xl font-bold shadow-sm">
-                เปิดระบบเสียง
+            <button onclick="testPlaySound()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded-xl font-bold shadow-sm active:scale-95">
+                🔊 ทดสอบเสียง
             </button>
         </div>
 
@@ -128,7 +126,7 @@
             </div>
         </div>
 
-        <!-- 📜 ประวัติการบันทึกล่าสุด (ขยายพื้นที่กว้างขึ้น) -->
+        <!-- 📜 ประวัติการบันทึกล่าสุด -->
         <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
             <div class="flex items-center justify-between border-b pb-3">
                 <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
@@ -169,7 +167,7 @@
                 showDriverSystem();
                 if (errorMsg) errorMsg.classList.add('hidden');
             } else {
-                if (typeof playSound === 'function') playSound('wrong_pin');
+                safePlaySound('wrong_pin');
                 if (errorMsg) errorMsg.classList.remove('hidden');
                 document.getElementById('driver-pin-input').value = '';
             }
@@ -186,9 +184,22 @@
             location.reload();
         }
 
-        function enableSoundSystem() {
-            if (typeof playSound === 'function') playSound('SUCCESS');
-            document.getElementById('audio-enable-banner').classList.add('hidden');
+        // 🔊 ฟังก์ชันเล่นเสียงแบบไม่ขัดขวางการทำงานของโค้ดหลัก
+        function safePlaySound(type) {
+            try {
+                if (typeof playSound === 'function') {
+                    playSound(type);
+                } else if (typeof SoundSystem !== 'undefined') {
+                    SoundSystem.play(type);
+                }
+            } catch (err) {
+                console.warn('ระบบเสียงไม่พร้อมใช้งาน:', err);
+            }
+        }
+
+        function testPlaySound() {
+            safePlaySound('SUCCESS');
+            alert('กำลังทดสอบเล่นเสียงส่งสำเร็จ (meng.mp3)');
         }
 
         // 🔍 ค้นหารายชื่อลูกค้า
@@ -255,7 +266,7 @@
             riskBox.classList.remove('hidden');
         }
 
-        // 💾 บันทึกการจัดส่ง + เล่นเสียงตามเงื่อนไข
+        // 💾 บันทึกการจัดส่ง
         function confirmDelivery(status) {
             const nameInput = document.getElementById('driver-search-name').value.trim();
             let orderIdInput = document.getElementById('order-id-input').value.trim().toUpperCase();
@@ -269,34 +280,33 @@
                 orderIdInput = 'TH' + Math.floor(100000 + Math.random() * 900000) + 'TH';
             }
 
+            // 1. บันทึกลงฐานข้อมูล
             if (typeof DB !== 'undefined') {
                 DB.recordDelivery(nameInput, status, orderIdInput);
-                
-                // 🔊 เล่นเสียง
-                if (typeof playSound === 'function') {
-                    playSound(status);
-                }
-
-                // บันทึกลงรายการล่าสุด
-                recentLogs.unshift({
-                    orderId: orderIdInput,
-                    name: nameInput,
-                    status: status,
-                    time: new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })
-                });
-
-                renderRecentLogs();
-
-                // ล้างค่า Input
-                document.getElementById('driver-search-name').value = '';
-                document.getElementById('order-id-input').value = '';
-                document.getElementById('risk-alert-box').classList.add('hidden');
-                document.getElementById('search-dropdown').classList.add('hidden');
-                selectedUser = null;
             }
+
+            // 2. เล่นเสียงแจ้งเตือน (ถ้าเสียงมีปัญหา จะไม่ทำให้การบันทึกค้าง)
+            safePlaySound(status);
+
+            // 3. เพิ่มประวัติลงรายการล่าสุดบนหน้าจอ
+            recentLogs.unshift({
+                orderId: orderIdInput,
+                name: nameInput,
+                status: status,
+                time: new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })
+            });
+
+            renderRecentLogs();
+
+            // 4. ล้างค่าช่องกรอก
+            document.getElementById('driver-search-name').value = '';
+            document.getElementById('order-id-input').value = '';
+            document.getElementById('risk-alert-box').classList.add('hidden');
+            document.getElementById('search-dropdown').classList.add('hidden');
+            selectedUser = null;
         }
 
-        // 📜 แสดงผลประวัติล่าสุด (เวอร์ชันขยายพื้นที่กว้างและชัดเจนขึ้น)
+        // 📜 แสดงผลประวัติการบันทึกล่าสุด
         function renderRecentLogs() {
             const list = document.getElementById('recent-logs-list');
             const badge = document.getElementById('log-count-badge');
