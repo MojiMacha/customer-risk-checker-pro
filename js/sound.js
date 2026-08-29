@@ -3,38 +3,41 @@
 // ==========================================
 
 const SoundSystem = {
-    paths: {
-        blacklist: 'sounds/ghost.mp3',
-        high_risk: 'sounds/ghost.mp3',
-        medium_risk: 'sounds/ohno.mp3',
-        low_risk: 'sounds/meng.mp3',
-        wrong_pin: 'sounds/stupid.mp3',
-        success: 'sounds/success.mp3',
-        failed: 'sounds/failed.mp3'
-    },
+    audioContext: null,
 
-    play(soundType) {
-        const path = this.paths[soundType];
-        if (path) {
-            const audio = new Audio(path);
-            audio.play().catch(err => {
-                console.log('เบราว์เซอร์บล็อกการเล่นเสียงอัตโนมัติ:', err);
-            });
-        } else {
-            console.warn(`ไม่พบไฟล์เสียงสำหรับ: ${soundType}`);
+    initAudioContext() {
+        if (!this.audioContext) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) {
+                this.audioContext = new AudioContext();
+            }
+        }
+        if (this.audioContext && this.audioContext.state === 'suspended') {
+            this.audioContext.resume();
         }
     },
 
-    playByRisk(user, riskLevel) {
-        if (!user) return;
-        if (user.isBlacklisted) {
-            this.play('blacklist');
-        } else if (riskLevel === 'HIGH') {
-            this.play('high_risk');
-        } else if (riskLevel === 'MEDIUM') {
-            this.play('medium_risk');
-        } else {
-            this.play('low_risk');
+    play(type) {
+        this.initAudioContext();
+
+        let soundPath = '';
+
+        if (type === 'SUCCESS' || type === 'success') {
+            soundPath = 'meng.mp3';
+        } else if (type === 'FAILED' || type === 'failed' || type === 'returned') {
+            // สุ่มเลือกระหว่าง ghost.mp3 กับ working.mp3 (50/50)
+            const sounds = ['ghost.mp3', 'working.mp3'];
+            const randomIndex = Math.floor(Math.random() * sounds.length);
+            soundPath = sounds[randomIndex];
+        } else if (type === 'wrong_pin') {
+            soundPath = 'ghost.mp3';
+        }
+
+        if (soundPath) {
+            const audio = new Audio(soundPath);
+            audio.play().catch(err => {
+                console.warn(`ไม่สามารถเล่นไฟล์เสียง ${soundPath} ได้:`, err);
+            });
         }
     }
 };
