@@ -5,15 +5,15 @@
 const SoundSystem = {
     // 💡 กำหนด Path ของไฟล์เสียง .mp3 ในโฟลเดอร์ sounds/
     // (สามารถเปลี่ยนชื่อไฟล์ตรงนี้ได้ตามที่ตั้งไว้จริง)
-   paths: {
-    blacklist: 'sounds/ghost.mp3',
-    high_risk: 'sounds/ghost.mp3',
-    medium_risk: 'sounds/ohno.mp3',
-    low_risk: 'sounds/meng.mp3',
-    wrong_pin: 'sounds/stupid.mp3',
-    success: 'sounds/meng.mp3',
-    failed: 'sounds/working.mp3''
-},
+  paths: {
+    blacklist: 'sounds/blacklist.mp3',   // ส่งผีหรอไอ้ควาย.mp3
+    high_risk: 'sounds/high_risk.mp3',   // ไอ้สัสทำงาน.mp3
+    medium_risk: 'sounds/medium_risk.mp3', // เหี้ยละไอ้สัสเอ้ย.mp3
+    low_risk: 'sounds/low_risk.mp3',     // เป้าหมายคือหมื่น.mp3
+    wrong_pin: 'sounds/wrong_pin.mp3',   // โง่ชิบหาย.mp3
+    success: 'sounds/success.mp3',
+    failed: 'sounds/failed.mp3'
+}
 
     // ฟังก์ชันสำหรับเล่นเสียง
     play(soundType) {
