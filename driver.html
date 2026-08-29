@@ -167,7 +167,7 @@
                 showDriverSystem();
                 if (errorMsg) errorMsg.classList.add('hidden');
             } else {
-                safePlaySound('wrong_pin');
+                safePlaySound('ghost.mp3');
                 if (errorMsg) errorMsg.classList.remove('hidden');
                 document.getElementById('driver-pin-input').value = '';
             }
@@ -184,22 +184,19 @@
             location.reload();
         }
 
-        // 🔊 ฟังก์ชันเล่นเสียงแบบไม่ขัดขวางการทำงานของโค้ดหลัก
-        function safePlaySound(type) {
+        // 🔊 ฟังก์ชันเล่นไฟล์เสียงตามที่ระบุโดยตรง
+        function safePlaySound(soundFile) {
             try {
-                if (typeof playSound === 'function') {
-                    playSound(type);
-                } else if (typeof SoundSystem !== 'undefined') {
-                    SoundSystem.play(type);
-                }
+                const audio = new Audio(soundFile);
+                audio.play().catch(err => console.warn('เล่นเสียงไม่สำเร็จ:', err));
             } catch (err) {
                 console.warn('ระบบเสียงไม่พร้อมใช้งาน:', err);
             }
         }
 
         function testPlaySound() {
-            safePlaySound('SUCCESS');
-            alert('กำลังทดสอบเล่นเสียงส่งสำเร็จ (meng.mp3)');
+            safePlaySound('meng.mp3');
+            alert('กำลังทดสอบเล่นเสียง meng.mp3');
         }
 
         // 🔍 ค้นหารายชื่อลูกค้า
@@ -285,8 +282,12 @@
                 DB.recordDelivery(nameInput, status, orderIdInput);
             }
 
-            // 2. เล่นเสียงแจ้งเตือน (ถ้าเสียงมีปัญหา จะไม่ทำให้การบันทึกค้าง)
-            safePlaySound(status);
+            // 2. เล่นเสียงแจ้งเตือนแบบตรงตัว (ไม่สุ่ม)
+            if (status === 'SUCCESS') {
+                safePlaySound('meng.mp3');
+            } else {
+                safePlaySound('ghost.mp3');
+            }
 
             // 3. เพิ่มประวัติลงรายการล่าสุดบนหน้าจอ
             recentLogs.unshift({
