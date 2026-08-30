@@ -1,954 +1,1559 @@
 <!DOCTYPE html>
 
 <html lang="th">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 ```
-<meta name="viewport"
-    content="width=device-width, initial-scale=1.0">
-
-<title>Delivery Risk Pro | Portal</title>
+<title>Delivery Risk Pro | ระบบจัดการการจัดส่ง</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <!-- Font Awesome -->
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
 
 <!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
 <style>
+    * {
+        box-sizing: border-box;
+    }
+
     body {
         font-family: 'Kanit', sans-serif;
     }
 
+    html {
+        scroll-behavior: smooth;
+    }
+
     .fade-up {
-        animation: fadeUp 0.7s ease-out;
+        animation: fadeUp .55s ease-out both;
+    }
+
+    .fade-up-delay-1 {
+        animation-delay: .08s;
+    }
+
+    .fade-up-delay-2 {
+        animation-delay: .16s;
+    }
+
+    .fade-up-delay-3 {
+        animation-delay: .24s;
     }
 
     .menu-card {
-        transition: all 0.25s ease;
+        transition:
+            transform .2s ease,
+            box-shadow .2s ease,
+            border-color .2s ease,
+            background-color .2s ease;
     }
 
     .menu-card:hover {
-        transform: translateY(-4px);
+        transform: translateY(-3px);
     }
 
     .menu-card:active {
-        transform: scale(0.98);
+        transform: scale(.985);
+    }
+
+    .soft-card {
+        transition:
+            transform .2s ease,
+            box-shadow .2s ease;
+    }
+
+    .soft-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 15px 35px rgba(15, 23, 42, .08);
+    }
+
+    .shine {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .shine::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 70%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.10),
+            transparent
+        );
+        transform: skewX(-18deg);
+        transition: left .6s ease;
+    }
+
+    .shine:hover::after {
+        left: 140%;
     }
 
     @keyframes fadeUp {
-
         from {
             opacity: 0;
-            transform: translateY(25px);
+            transform: translateY(18px);
         }
 
         to {
             opacity: 1;
             transform: translateY(0);
         }
-
     }
 </style>
 ```
 
 </head>
 
-<body
-    class="
-    min-h-screen
+<body class="bg-slate-100 text-slate-800 min-h-screen">
 
 ```
-text-white
+<!-- ========================================= -->
+<!-- TOP NAVBAR -->
+<!-- ========================================= -->
 
-flex
-items-center
-justify-center
+<header class="sticky top-0 z-50">
 
-p-4
+    <nav class="bg-slate-950 text-white border-b border-slate-800 shadow-lg">
 
-bg-gradient-to-br
-from-slate-950
-via-slate-900
-to-indigo-950
-">
-```
+        <div class="max-w-6xl mx-auto px-4">
 
-<!-- Background Decoration -->
+            <div class="h-16 flex items-center justify-between gap-4">
 
-<div
-    class="
-    fixed
+                <!-- BRAND -->
 
-```
-top-0
-left-0
+                <a
+                    href="index.html"
+                    class="flex items-center gap-3 min-w-0"
+                >
 
-w-72
-h-72
+                    <div
+                        class="
+                        w-10
+                        h-10
+                        rounded-xl
+                        bg-gradient-to-br
+                        from-indigo-500
+                        to-indigo-700
+                        flex
+                        items-center
+                        justify-center
+                        shadow-lg
+                        shrink-0
+                        "
+                    >
 
-bg-indigo-600/20
+                        <i class="fa-solid fa-truck-fast text-amber-300"></i>
 
-rounded-full
+                    </div>
 
-blur-3xl
+                    <div class="min-w-0">
 
--translate-x-1/2
--translate-y-1/2
-"
-```
+                        <div class="font-bold text-sm sm:text-base leading-tight">
+                            Delivery Risk <span class="text-indigo-400">Pro</span>
+                        </div>
 
-> </div>
+                        <div class="text-[10px] sm:text-xs text-slate-400">
+                            Logistics Management System
+                        </div>
 
-<div
-    class="
-    fixed
+                    </div>
 
-```
-bottom-0
-right-0
+                </a>
 
-w-96
-h-96
 
-bg-amber-500/10
+                <!-- STATUS -->
 
-rounded-full
+                <div
+                    class="
+                    hidden
+                    sm:flex
+                    items-center
+                    gap-2
+                    px-3
+                    py-2
+                    rounded-xl
+                    bg-emerald-500/10
+                    border
+                    border-emerald-500/20
+                    text-emerald-300
+                    text-xs
+                    font-semibold
+                    "
+                >
 
-blur-3xl
+                    <span
+                        class="
+                        w-2
+                        h-2
+                        bg-emerald-400
+                        rounded-full
+                        animate-pulse
+                        "
+                    ></span>
 
-translate-x-1/3
-translate-y-1/3
-"
-```
+                    ระบบออนไลน์
 
-> </div>
+                </div>
 
-<!-- MAIN CONTAINER -->
+            </div>
 
-<main
-    class="
-    relative
+        </div>
 
-```
-max-w-4xl
-w-full
+    </nav>
 
-fade-up
-"
-```
+</header>
 
->
 
-<!-- HEADER -->
+<!-- ========================================= -->
+<!-- MAIN -->
+<!-- ========================================= -->
 
-<section class="text-center mb-8">
+<main class="max-w-6xl mx-auto px-4 py-6 sm:py-8">
 
-```
-<!-- LOGO -->
 
-<div
-    class="
-    inline-flex
+    <!-- ========================================= -->
+    <!-- HERO -->
+    <!-- ========================================= -->
 
-    items-center
-    justify-center
-
-    w-24
-    h-24
-
-    rounded-3xl
-
-    bg-gradient-to-br
-    from-indigo-500
-    to-indigo-700
-
-    shadow-xl
-    shadow-indigo-950/50
-
-    mb-5
-    "
->
-
-    <i
+    <section
         class="
-        fa-solid
-        fa-truck-fast
-
-        text-4xl
-
-        text-amber-300
+        fade-up
+        relative
+        overflow-hidden
+        rounded-[2rem]
+        bg-gradient-to-br
+        from-indigo-700
+        via-indigo-800
+        to-slate-950
+        text-white
+        shadow-2xl
         "
-    ></i>
+    >
 
-</div>
+        <!-- Decorative -->
 
+        <div
+            class="
+            absolute
+            -top-24
+            -right-24
+            w-72
+            h-72
+            rounded-full
+            bg-indigo-400/20
+            blur-3xl
+            "
+        ></div>
 
-
-<!-- TITLE -->
-
-<h1
-    class="
-    text-3xl
-    sm:text-4xl
-
-    font-black
-
-    tracking-tight
-    "
->
-
-    Delivery Risk
-
-    <span class="text-indigo-400">
-
-        Pro
-
-    </span>
-
-</h1>
-
-
-
-<p
-    class="
-    text-sm
-    sm:text-base
-
-    text-slate-400
-
-    mt-3
-    "
->
-
-    ระบบวิเคราะห์ความเสี่ยงและติดตามการจัดส่งพัสดุ
-
-</p>
+        <div
+            class="
+            absolute
+            -bottom-28
+            -left-20
+            w-72
+            h-72
+            rounded-full
+            bg-amber-400/10
+            blur-3xl
+            "
+        ></div>
 
 
+        <div class="relative p-6 sm:p-8 lg:p-10">
 
-<!-- STATUS -->
+            <div class="grid lg:grid-cols-[1fr_360px] gap-8 items-center">
 
-<div
-    class="
-    inline-flex
 
-    items-center
-    gap-2
+                <!-- HERO TEXT -->
 
-    mt-4
+                <div>
 
-    px-4
-    py-2
+                    <div
+                        class="
+                        inline-flex
+                        items-center
+                        gap-2
+                        px-3
+                        py-1.5
+                        rounded-full
+                        bg-white/10
+                        border
+                        border-white/10
+                        text-indigo-100
+                        text-xs
+                        font-medium
+                        "
+                    >
 
-    rounded-full
+                        <i class="fa-solid fa-shield-halved text-emerald-300"></i>
 
-    bg-emerald-500/10
+                        Smart Delivery & Risk Management
 
-    border
-    border-emerald-500/20
+                    </div>
 
-    text-emerald-300
 
-    text-xs
-    font-semibold
-    "
->
+                    <h1
+                        class="
+                        text-3xl
+                        sm:text-4xl
+                        lg:text-5xl
+                        font-black
+                        leading-tight
+                        mt-5
+                        "
+                    >
 
-    <span
+                        จัดการการจัดส่ง
+                        <br>
+
+                        <span class="text-indigo-300">
+                            อย่างมืออาชีพ
+                        </span>
+
+                    </h1>
+
+
+                    <p
+                        class="
+                        text-sm
+                        sm:text-base
+                        text-indigo-100/80
+                        mt-4
+                        max-w-xl
+                        leading-relaxed
+                        "
+                    >
+
+                        ระบบช่วยพนักงาน ผู้ดูแล และลูกค้า
+                        ตรวจสอบสถานะพัสดุ วิเคราะห์ความเสี่ยง
+                        และจัดการข้อมูลการจัดส่งได้จากที่เดียว
+
+                    </p>
+
+
+                    <!-- QUICK SEARCH -->
+
+                    <div class="mt-7 max-w-2xl">
+
+                        <div
+                            class="
+                            flex
+                            items-center
+                            bg-white
+                            rounded-2xl
+                            p-1.5
+                            shadow-xl
+                            "
+                        >
+
+                            <div
+                                class="
+                                w-10
+                                h-10
+                                flex
+                                items-center
+                                justify-center
+                                text-slate-400
+                                shrink-0
+                                "
+                            >
+
+                                <i class="fa-solid fa-magnifying-glass"></i>
+
+                            </div>
+
+                            <input
+                                type="text"
+                                id="quick-search"
+                                placeholder="กรอกรหัสพัสดุเพื่อไปยังหน้าติดตาม..."
+                                class="
+                                flex-1
+                                min-w-0
+                                outline-none
+                                bg-transparent
+                                text-slate-700
+                                text-sm
+                                px-1
+                                "
+                                onkeydown="handleQuickSearch(event)"
+                            >
+
+                            <a
+                                href="tracking.html"
+                                class="
+                                bg-indigo-600
+                                hover:bg-indigo-700
+                                text-white
+                                px-4
+                                sm:px-5
+                                py-3
+                                rounded-xl
+                                text-xs
+                                sm:text-sm
+                                font-bold
+                                transition
+                                shrink-0
+                                "
+                            >
+
+                                ติดตาม
+
+                            </a>
+
+                        </div>
+
+                        <p class="text-[11px] text-indigo-200 mt-2 ml-2">
+                            <i class="fa-solid fa-circle-info mr-1"></i>
+                            เช่น TH123456TH
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HERO VISUAL -->
+
+                <div
+                    class="
+                    hidden
+                    lg:flex
+                    justify-center
+                    "
+                >
+
+                    <div
+                        class="
+                        relative
+                        w-64
+                        h-64
+                        rounded-[2.5rem]
+                        bg-white/10
+                        border
+                        border-white/10
+                        backdrop-blur-sm
+                        flex
+                        items-center
+                        justify-center
+                        shadow-2xl
+                        "
+                    >
+
+                        <div
+                            class="
+                            absolute
+                            inset-5
+                            rounded-[2rem]
+                            border
+                            border-dashed
+                            border-white/15
+                            "
+                        ></div>
+
+                        <div
+                            class="
+                            w-28
+                            h-28
+                            rounded-[2rem]
+                            bg-white
+                            flex
+                            items-center
+                            justify-center
+                            shadow-2xl
+                            "
+                        >
+
+                            <i
+                                class="
+                                fa-solid
+                                fa-box-open
+                                text-5xl
+                                text-indigo-600
+                                "
+                            ></i>
+
+                        </div>
+
+
+                        <div
+                            class="
+                            absolute
+                            -right-3
+                            top-8
+                            px-3
+                            py-2
+                            rounded-xl
+                            bg-emerald-500
+                            text-white
+                            text-xs
+                            font-bold
+                            shadow-lg
+                            "
+                        >
+
+                            <i class="fa-solid fa-check mr-1"></i>
+
+                            Secure
+
+                        </div>
+
+
+                        <div
+                            class="
+                            absolute
+                            -left-5
+                            bottom-8
+                            px-3
+                            py-2
+                            rounded-xl
+                            bg-amber-400
+                            text-slate-900
+                            text-xs
+                            font-bold
+                            shadow-lg
+                            "
+                        >
+
+                            <i class="fa-solid fa-bolt mr-1"></i>
+
+                            Smart Risk
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- QUICK STATS -->
+    <!-- ========================================= -->
+
+    <section
         class="
-        w-2
-        h-2
-
-        bg-emerald-400
-
-        rounded-full
-
-        animate-pulse
+        grid
+        grid-cols-2
+        lg:grid-cols-4
+        gap-3
+        sm:gap-4
+        mt-5
+        fade-up
+        fade-up-delay-1
         "
-    ></span>
+    >
 
-    ระบบพร้อมใช้งาน
+        <!-- STAT 1 -->
 
-</div>
-```
+        <div class="soft-card bg-white rounded-2xl border border-slate-200 p-4">
 
-</section>
+            <div class="flex items-center justify-between">
 
-<!-- PORTAL CARD -->
+                <div>
 
-<section
-    class="
-    bg-slate-900/70
+                    <p class="text-[11px] text-slate-400 font-semibold">
+                        ระบบ
+                    </p>
 
-```
-backdrop-blur-xl
+                    <p class="text-base font-bold text-emerald-600 mt-1">
+                        Online
+                    </p>
 
-border
-border-white/10
+                </div>
 
-rounded-[2rem]
+                <div
+                    class="
+                    w-10
+                    h-10
+                    rounded-xl
+                    bg-emerald-50
+                    text-emerald-500
+                    flex
+                    items-center
+                    justify-center
+                    "
+                >
 
-p-5
-sm:p-7
+                    <i class="fa-solid fa-signal"></i>
 
-shadow-2xl
-"
-```
+                </div>
 
->
+            </div>
 
-<!-- SECTION TITLE -->
+        </div>
 
-<div class="mb-6">
 
-```
-<h2
-    class="
-    text-lg
+        <!-- STAT 2 -->
 
-    font-bold
-    "
->
+        <div class="soft-card bg-white rounded-2xl border border-slate-200 p-4">
 
-    เลือกประเภทผู้ใช้งาน
+            <div class="flex items-center justify-between">
 
-</h2>
+                <div>
 
+                    <p class="text-[11px] text-slate-400 font-semibold">
+                        Tracking
+                    </p>
 
-<p
-    class="
-    text-xs
+                    <p class="text-base font-bold text-indigo-600 mt-1">
+                        Real-time
+                    </p>
 
-    text-slate-400
+                </div>
 
-    mt-1
-    "
->
+                <div
+                    class="
+                    w-10
+                    h-10
+                    rounded-xl
+                    bg-indigo-50
+                    text-indigo-500
+                    flex
+                    items-center
+                    justify-center
+                    "
+                >
 
-    เลือกเมนูเพื่อเข้าสู่ระบบที่ต้องการ
+                    <i class="fa-solid fa-location-dot"></i>
 
-</p>
-```
+                </div>
 
-</div>
+            </div>
 
-<!-- MENU GRID -->
+        </div>
 
-<div
-    class="
-    grid
 
-```
-grid-cols-1
-sm:grid-cols-2
+        <!-- STAT 3 -->
 
-gap-4
-"
-```
+        <div class="soft-card bg-white rounded-2xl border border-slate-200 p-4">
 
->
+            <div class="flex items-center justify-between">
 
-<!-- DRIVER -->
+                <div>
 
-<a
-href="driver.html"
+                    <p class="text-[11px] text-slate-400 font-semibold">
+                        Risk Analysis
+                    </p>
 
-```
-class="
-menu-card
+                    <p class="text-base font-bold text-amber-600 mt-1">
+                        Smart AI
+                    </p>
 
-group
+                </div>
 
-relative
+                <div
+                    class="
+                    w-10
+                    h-10
+                    rounded-xl
+                    bg-amber-50
+                    text-amber-500
+                    flex
+                    items-center
+                    justify-center
+                    "
+                >
 
-overflow-hidden
+                    <i class="fa-solid fa-brain"></i>
 
-bg-gradient-to-br
-from-indigo-600
-to-indigo-800
+                </div>
 
-p-6
+            </div>
 
-rounded-2xl
+        </div>
 
-shadow-lg
-shadow-indigo-950/40
-"
-```
 
->
+        <!-- STAT 4 -->
 
-<div
-    class="
-    absolute
+        <div class="soft-card bg-white rounded-2xl border border-slate-200 p-4">
 
-```
--right-8
--top-8
+            <div class="flex items-center justify-between">
 
-text-white/10
+                <div>
 
-text-8xl
-"
-```
+                    <p class="text-[11px] text-slate-400 font-semibold">
+                        Security
+                    </p>
 
->
+                    <p class="text-base font-bold text-rose-600 mt-1">
+                        Protected
+                    </p>
+
+                </div>
 
-```
-<i class="fa-solid fa-motorcycle"></i>
-```
+                <div
+                    class="
+                    w-10
+                    h-10
+                    rounded-xl
+                    bg-rose-50
+                    text-rose-500
+                    flex
+                    items-center
+                    justify-center
+                    "
+                >
 
-</div>
+                    <i class="fa-solid fa-shield-halved"></i>
 
-<div
-    class="
-    relative
+                </div>
 
-```
-flex
-items-start
-justify-between
-"
-```
+            </div>
 
->
+        </div>
 
-<div>
+    </section>
 
-<div
-    class="
-    w-12
-    h-12
 
-```
-rounded-xl
+    <!-- ========================================= -->
+    <!-- APPLICATION MENU -->
+    <!-- ========================================= -->
 
-bg-white/15
+    <section
+        class="
+        mt-7
+        fade-up
+        fade-up-delay-2
+        "
+    >
+
+        <div class="flex items-end justify-between mb-4">
+
+            <div>
+
+                <p
+                    class="
+                    text-xs
+                    font-bold
+                    text-indigo-600
+                    uppercase
+                    tracking-wider
+                    "
+                >
+                    Quick Access
+                </p>
 
-flex
-items-center
-justify-center
+                <h2 class="text-xl sm:text-2xl font-black text-slate-800 mt-1">
+                    เลือกเมนูการใช้งาน
+                </h2>
 
-text-xl
-"
-```
+                <p class="text-xs text-slate-400 mt-1">
+                    เข้าถึงระบบที่ต้องการได้อย่างรวดเร็ว
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+
+            <!-- DRIVER -->
+
+            <a
+                href="driver.html"
+                class="
+                menu-card
+                shine
+                group
+                relative
+                overflow-hidden
+                bg-gradient-to-br
+                from-indigo-600
+                to-indigo-800
+                text-white
+                rounded-3xl
+                p-6
+                shadow-lg
+                shadow-indigo-200
+                "
+            >
 
->
-
-```
-<i class="fa-solid fa-motorcycle"></i>
-```
-
-</div>
-
-<h3
-    class="
-    font-bold
-
-```
-mt-4
-
-text-lg
-"
-```
-
->
-
-```
-พนักงานส่งพัสดุ
-```
-
-</h3>
-
-<p
-    class="
-    text-xs
-
-```
-text-indigo-200
-
-mt-1
-"
-```
-
->
-
-```
-บันทึกสถานะการจัดส่ง
-```
-
-</p>
-
-</div>
-
-<i
-class="
-fa-solid
-fa-arrow-right
-
-```
-mt-1
-
-text-indigo-200
-
-group-hover:translate-x-1
-
-transition
-"
-```
-
-> </i>
-
-</div>
-
-</a>
-
-<!-- ADMIN -->
-
-<a
-href="admin.html"
-
-```
-class="
-menu-card
-
-group
-
-bg-slate-800
-
-hover:bg-slate-700
-
-border
-border-slate-700
-
-p-6
-
-rounded-2xl
-
-transition
-"
-```
-
->
-
-<div
-    class="
-    flex
-    items-start
-    justify-between
-    "
->
-
-<div>
-
-<div
-    class="
-    w-12
-    h-12
-
-```
-rounded-xl
-
-bg-indigo-500/15
-
-text-indigo-400
-
-flex
-items-center
-justify-center
-
-text-xl
-"
-```
-
->
-
-```
-<i class="fa-solid fa-chart-pie"></i>
-```
-
-</div>
-
-<h3
-    class="
-    font-bold
-
-```
-mt-4
-
-text-lg
-"
-```
-
->
-
-```
-ผู้บริหาร & แอดมิน
-```
-
-</h3>
-
-<p
-    class="
-    text-xs
-
-```
-text-slate-400
-
-mt-1
-"
-```
-
->
-
-```
-ดูข้อมูลและสถิติของระบบ
-```
-
-</p>
-
-</div>
-
-<i
-class="
-fa-solid
-fa-arrow-right
-
-```
-text-slate-500
-
-group-hover:text-white
-group-hover:translate-x-1
-
-transition
-"
-```
-
-> </i>
-
-</div>
-
-</a>
-
-<!-- BLACKLIST -->
-
-<a
-href="blacklist.html"
-
-```
-class="
-menu-card
-
-group
-
-bg-slate-800
-
-hover:bg-rose-950/40
-
-border
-border-slate-700
-
-hover:border-rose-500/30
-
-p-6
-
-rounded-2xl
-
-transition
-"
-```
-
->
-
-<div
-    class="
-    flex
-    items-start
-    justify-between
-    "
->
-
-<div>
-
-<div
-    class="
-    w-12
-    h-12
-
-```
-rounded-xl
-
-bg-rose-500/10
-
-text-rose-400
-
-flex
-items-center
-justify-center
-
-text-xl
-"
-```
-
->
-
-```
-<i class="fa-solid fa-user-shield"></i>
-```
-
-</div>
-
-<h3
-    class="
-    font-bold
-
-```
-mt-4
-
-text-lg
-"
-```
-
->
-
-```
-จัดการแบล็กลิสต์
-```
-
-</h3>
-
-<p
-    class="
-    text-xs
-
-```
-text-slate-400
-
-mt-1
-"
-```
-
->
-
-```
-ตรวจสอบรายชื่อที่มีความเสี่ยง
-```
-
-</p>
-
-</div>
-
-<i
-class="
-fa-solid
-fa-arrow-right
-
-```
-text-slate-500
-
-group-hover:text-rose-300
-group-hover:translate-x-1
-
-transition
-"
-```
-
-> </i>
-
-</div>
-
-</a>
-
-<!-- CUSTOMER -->
-
-<a
-href="tracking.html"
-
-```
-class="
-menu-card
-
-group
-
-bg-slate-800
-
-hover:bg-emerald-950/30
-
-border
-border-slate-700
-
-hover:border-emerald-500/30
-
-p-6
-
-rounded-2xl
-
-transition
-"
-```
-
->
-
-<div
-    class="
-    flex
-    items-start
-    justify-between
-    "
->
-
-<div>
-
-<div
-    class="
-    w-12
-    h-12
-
-```
-rounded-xl
-
-bg-emerald-500/10
-
-text-emerald-400
-
-flex
-items-center
-justify-center
-
-text-xl
-"
-```
-
->
-
-```
-<i class="fa-solid fa-magnifying-glass"></i>
-```
-
-</div>
-
-<h3
-    class="
-    font-bold
-
-```
-mt-4
-
-text-lg
-"
-```
-
->
-
-```
-ติดตามพัสดุ
-```
-
-</h3>
-
-<p
-    class="
-    text-xs
-
-```
-text-slate-400
-
-mt-1
-"
-```
-
->
-
-```
-ตรวจสอบสถานะการจัดส่งสินค้า
-```
-
-</p>
-
-</div>
-
-<i
-class="
-fa-solid
-fa-arrow-right
-
-```
-text-slate-500
-
-group-hover:text-emerald-300
-group-hover:translate-x-1
-
-transition
-"
-```
-
-> </i>
-
-</div>
-
-</a>
-
-</div>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer
-    class="
-    text-center
-
-```
-mt-8
-
-text-xs
-
-text-slate-500
-"
-```
-
->
-
-```
-<div
-    class="
-    flex
-    justify-center
-    items-center
-    gap-2
-    "
->
-
-    <i class="fa-solid fa-shield-halved text-indigo-400"></i>
-
-    <span>
-
-        Delivery Risk Pro System
-
-    </span>
-
-</div>
-
-
-<p class="mt-2">
-
-    ระบบวิเคราะห์และจัดการความเสี่ยงในการจัดส่ง
-
-</p>
-```
-
-</footer>
+                <div
+                    class="
+                    absolute
+                    -right-8
+                    -bottom-10
+                    text-white/5
+                    text-9xl
+                    "
+                >
+
+                    <i class="fa-solid fa-motorcycle"></i>
+
+                </div>
+
+
+                <div class="relative">
+
+                    <div class="flex items-center justify-between">
+
+                        <div
+                            class="
+                            w-12
+                            h-12
+                            rounded-2xl
+                            bg-white/15
+                            flex
+                            items-center
+                            justify-center
+                            text-xl
+                            "
+                        >
+
+                            <i class="fa-solid fa-motorcycle"></i>
+
+                        </div>
+
+                        <span
+                            class="
+                            px-2.5
+                            py-1
+                            rounded-lg
+                            bg-white/10
+                            border
+                            border-white/10
+                            text-[10px]
+                            font-bold
+                            "
+                        >
+                            STAFF
+                        </span>
+
+                    </div>
+
+
+                    <h3 class="text-xl font-bold mt-5">
+                        พนักงานส่งพัสดุ
+                    </h3>
+
+                    <p class="text-xs text-indigo-200 mt-1 max-w-xs">
+                        บันทึกผลการจัดส่ง ตรวจสอบลูกค้า และประเมินความเสี่ยง
+                    </p>
+
+
+                    <div
+                        class="
+                        inline-flex
+                        items-center
+                        gap-2
+                        mt-5
+                        text-xs
+                        font-bold
+                        "
+                    >
+
+                        เริ่มทำงาน
+
+                        <i
+                            class="
+                            fa-solid
+                            fa-arrow-right
+                            group-hover:translate-x-1
+                            transition
+                            "
+                        ></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <!-- TRACKING -->
+
+            <a
+                href="tracking.html"
+                class="
+                menu-card
+                group
+                relative
+                overflow-hidden
+                bg-white
+                rounded-3xl
+                p-6
+                border
+                border-slate-200
+                shadow-sm
+                hover:border-emerald-300
+                hover:shadow-lg
+                "
+            >
+
+                <div
+                    class="
+                    absolute
+                    -right-7
+                    -bottom-8
+                    text-emerald-500/5
+                    text-9xl
+                    "
+                >
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                </div>
+
+
+                <div class="relative">
+
+                    <div class="flex items-center justify-between">
+
+                        <div
+                            class="
+                            w-12
+                            h-12
+                            rounded-2xl
+                            bg-emerald-50
+                            text-emerald-600
+                            flex
+                            items-center
+                            justify-center
+                            text-xl
+                            "
+                        >
+
+                            <i class="fa-solid fa-magnifying-glass-location"></i>
+
+                        </div>
+
+                        <span
+                            class="
+                            px-2.5
+                            py-1
+                            rounded-lg
+                            bg-emerald-50
+                            text-emerald-600
+                            text-[10px]
+                            font-bold
+                            "
+                        >
+                            TRACKING
+                        </span>
+
+                    </div>
+
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-5">
+                        ติดตามพัสดุ
+                    </h3>
+
+                    <p class="text-xs text-slate-400 mt-1 max-w-xs">
+                        ตรวจสอบสถานะพัสดุและข้อมูลการจัดส่งได้อย่างรวดเร็ว
+                    </p>
+
+
+                    <div
+                        class="
+                        inline-flex
+                        items-center
+                        gap-2
+                        mt-5
+                        text-xs
+                        font-bold
+                        text-emerald-600
+                        "
+                    >
+
+                        ตรวจสอบพัสดุ
+
+                        <i
+                            class="
+                            fa-solid
+                            fa-arrow-right
+                            group-hover:translate-x-1
+                            transition
+                            "
+                        ></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <!-- ADMIN -->
+
+            <a
+                href="admin.html"
+                class="
+                menu-card
+                group
+                relative
+                overflow-hidden
+                bg-white
+                rounded-3xl
+                p-6
+                border
+                border-slate-200
+                shadow-sm
+                hover:border-amber-300
+                hover:shadow-lg
+                "
+            >
+
+                <div
+                    class="
+                    absolute
+                    -right-7
+                    -bottom-8
+                    text-amber-500/5
+                    text-9xl
+                    "
+                >
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                </div>
+
+
+                <div class="relative">
+
+                    <div class="flex items-center justify-between">
+
+                        <div
+                            class="
+                            w-12
+                            h-12
+                            rounded-2xl
+                            bg-amber-50
+                            text-amber-600
+                            flex
+                            items-center
+                            justify-center
+                            text-xl
+                            "
+                        >
+
+                            <i class="fa-solid fa-chart-line"></i>
+
+                        </div>
+
+                        <span
+                            class="
+                            px-2.5
+                            py-1
+                            rounded-lg
+                            bg-amber-50
+                            text-amber-700
+                            text-[10px]
+                            font-bold
+                            "
+                        >
+                            ADMIN
+                        </span>
+
+                    </div>
+
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-5">
+                        ผู้บริหาร & แอดมิน
+                    </h3>
+
+                    <p class="text-xs text-slate-400 mt-1 max-w-xs">
+                        ดูสถิติ วิเคราะห์ข้อมูล และจัดการข้อมูลระบบ
+                    </p>
+
+
+                    <div
+                        class="
+                        inline-flex
+                        items-center
+                        gap-2
+                        mt-5
+                        text-xs
+                        font-bold
+                        text-amber-600
+                        "
+                    >
+
+                        เปิด Dashboard
+
+                        <i
+                            class="
+                            fa-solid
+                            fa-arrow-right
+                            group-hover:translate-x-1
+                            transition
+                            "
+                        ></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+            <!-- BLACKLIST -->
+
+            <a
+                href="blacklist.html"
+                class="
+                menu-card
+                group
+                relative
+                overflow-hidden
+                bg-white
+                rounded-3xl
+                p-6
+                border
+                border-slate-200
+                shadow-sm
+                hover:border-rose-300
+                hover:shadow-lg
+                "
+            >
+
+                <div
+                    class="
+                    absolute
+                    -right-7
+                    -bottom-8
+                    text-rose-500/5
+                    text-9xl
+                    "
+                >
+
+                    <i class="fa-solid fa-user-shield"></i>
+
+                </div>
+
+
+                <div class="relative">
+
+                    <div class="flex items-center justify-between">
+
+                        <div
+                            class="
+                            w-12
+                            h-12
+                            rounded-2xl
+                            bg-rose-50
+                            text-rose-600
+                            flex
+                            items-center
+                            justify-center
+                            text-xl
+                            "
+                        >
+
+                            <i class="fa-solid fa-user-shield"></i>
+
+                        </div>
+
+                        <span
+                            class="
+                            px-2.5
+                            py-1
+                            rounded-lg
+                            bg-rose-50
+                            text-rose-600
+                            text-[10px]
+                            font-bold
+                            "
+                        >
+                            SECURITY
+                        </span>
+
+                    </div>
+
+
+                    <h3 class="text-xl font-bold text-slate-800 mt-5">
+                        จัดการแบล็กลิสต์
+                    </h3>
+
+                    <p class="text-xs text-slate-400 mt-1 max-w-xs">
+                        ตรวจสอบและจัดการรายชื่อผู้รับที่มีความเสี่ยง
+                    </p>
+
+
+                    <div
+                        class="
+                        inline-flex
+                        items-center
+                        gap-2
+                        mt-5
+                        text-xs
+                        font-bold
+                        text-rose-600
+                        "
+                    >
+
+                        เปิดระบบความปลอดภัย
+
+                        <i
+                            class="
+                            fa-solid
+                            fa-arrow-right
+                            group-hover:translate-x-1
+                            transition
+                            "
+                        ></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- HOW IT WORKS -->
+    <!-- ========================================= -->
+
+    <section
+        class="
+        mt-7
+        bg-white
+        rounded-3xl
+        border
+        border-slate-200
+        shadow-sm
+        p-6
+        sm:p-7
+        fade-up
+        fade-up-delay-3
+        "
+    >
+
+        <div class="text-center mb-7">
+
+            <p
+                class="
+                text-xs
+                font-bold
+                text-indigo-600
+                uppercase
+                tracking-wider
+                "
+            >
+                How it works
+            </p>
+
+            <h2 class="text-xl font-black text-slate-800 mt-1">
+                ทำงานง่ายใน 3 ขั้นตอน
+            </h2>
+
+        </div>
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+
+            <!-- STEP 1 -->
+
+            <div class="text-center">
+
+                <div
+                    class="
+                    w-14
+                    h-14
+                    mx-auto
+                    rounded-2xl
+                    bg-indigo-50
+                    text-indigo-600
+                    flex
+                    items-center
+                    justify-center
+                    text-xl
+                    "
+                >
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                </div>
+
+                <div class="mt-3">
+
+                    <p class="text-xs text-indigo-500 font-bold">
+                        STEP 01
+                    </p>
+
+                    <h3 class="font-bold text-slate-800 mt-1">
+                        ค้นหาข้อมูล
+                    </h3>
+
+                    <p class="text-xs text-slate-400 mt-1">
+                        ค้นหาพัสดุหรือลูกค้าจากระบบ
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 2 -->
+
+            <div class="text-center">
+
+                <div
+                    class="
+                    w-14
+                    h-14
+                    mx-auto
+                    rounded-2xl
+                    bg-amber-50
+                    text-amber-600
+                    flex
+                    items-center
+                    justify-center
+                    text-xl
+                    "
+                >
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                </div>
+
+                <div class="mt-3">
+
+                    <p class="text-xs text-amber-600 font-bold">
+                        STEP 02
+                    </p>
+
+                    <h3 class="font-bold text-slate-800 mt-1">
+                        วิเคราะห์ความเสี่ยง
+                    </h3>
+
+                    <p class="text-xs text-slate-400 mt-1">
+                        ระบบประเมินความเสี่ยงของผู้รับ
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 3 -->
+
+            <div class="text-center">
+
+                <div
+                    class="
+                    w-14
+                    h-14
+                    mx-auto
+                    rounded-2xl
+                    bg-emerald-50
+                    text-emerald-600
+                    flex
+                    items-center
+                    justify-center
+                    text-xl
+                    "
+                >
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <div class="mt-3">
+
+                    <p class="text-xs text-emerald-600 font-bold">
+                        STEP 03
+                    </p>
+
+                    <h3 class="font-bold text-slate-800 mt-1">
+                        บันทึกผล
+                    </h3>
+
+                    <p class="text-xs text-slate-400 mt-1">
+                        บันทึกสถานะและเก็บประวัติการจัดส่ง
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- SECURITY NOTICE -->
+    <!-- ========================================= -->
+
+    <section
+        class="
+        mt-5
+        rounded-2xl
+        bg-slate-900
+        text-white
+        p-5
+        sm:p-6
+        "
+    >
+
+        <div
+            class="
+            flex
+            flex-col
+            sm:flex-row
+            sm:items-center
+            justify-between
+            gap-4
+            "
+        >
+
+            <div class="flex items-start gap-3">
+
+                <div
+                    class="
+                    w-10
+                    h-10
+                    rounded-xl
+                    bg-emerald-500/10
+                    text-emerald-400
+                    flex
+                    items-center
+                    justify-center
+                    shrink-0
+                    "
+                >
+
+                    <i class="fa-solid fa-lock"></i>
+
+                </div>
+
+                <div>
+
+                    <h3 class="font-bold text-sm">
+                        ระบบรักษาความปลอดภัย
+                    </h3>
+
+                    <p class="text-xs text-slate-400 mt-1">
+                        ข้อมูลการจัดส่งและข้อมูลผู้ใช้งานถูกจัดการภายในระบบ
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="
+                flex
+                items-center
+                gap-2
+                text-xs
+                text-emerald-400
+                font-semibold
+                "
+            >
+
+                <span
+                    class="
+                    w-2
+                    h-2
+                    rounded-full
+                    bg-emerald-400
+                    animate-pulse
+                    "
+                ></span>
+
+                Protected System
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================= -->
+    <!-- FOOTER -->
+    <!-- ========================================= -->
+
+    <footer class="text-center py-8">
+
+        <div
+            class="
+            flex
+            justify-center
+            items-center
+            gap-2
+            text-xs
+            font-semibold
+            text-slate-500
+            "
+        >
+
+            <i class="fa-solid fa-truck-fast text-indigo-500"></i>
+
+            Delivery Risk Pro
+
+        </div>
+
+        <p class="text-[10px] text-slate-400 mt-1">
+            Smart Delivery & Risk Management System
+        </p>
+
+    </footer>
 
 </main>
 
-</body>
 
+<!-- ========================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================= -->
+
+<script>
+
+    function handleQuickSearch(event) {
+
+        if (event.key !== 'Enter') {
+            return;
+        }
+
+        const value =
+            document
+            .getElementById('quick-search')
+            .value
+            .trim();
+
+        if (!value) {
+            return;
+        }
+
+        window.location.href =
+            'tracking.html?tracking='
+            + encodeURIComponent(value);
+
+    }
+
+</script>
+```
+
+</body>
 </html>
