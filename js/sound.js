@@ -23,7 +23,7 @@ const SoundSystem = {
         success: 'sounds/meng.mp3',
 
         // ❌ ตีกลับ / ปฏิเสธ
-        failed: 'sounds/ghots.mp3'
+        failed: 'sounds/failed.mp3'
     },
 
     audioUnlocked: false,
