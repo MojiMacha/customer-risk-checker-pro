@@ -4,27 +4,42 @@ const shops = [
         id: "S001",
         name: "Dr.PONG",
         logo: "images/shops/S001.jpeg",
-        mall: true,
-        description: "ร้านผลิตภัณฑ์ดูแลผิวและความงาม",
-        rating: 4.9
+        mall: true
     },
 
     {
         id: "S002",
         name: "Fashion Store",
         logo: "images/shops/shop2.jpg",
-        mall: true,
-        description: "ร้านเสื้อผ้าและแฟชั่น",
-        rating: 4.8
+        mall: true
     },
 
     {
         id: "S003",
         name: "ร้านค้าทั่วไป",
         logo: "images/shops/shop1.jpg",
-        mall: false,
-        description: "ร้านสินค้าทั่วไป",
-        rating: 4.7
+        mall: false
+    },
+
+    {
+        id: "S004",
+        name: "Book Academy",
+        logo: "images/shops/shop2.jpg",
+        mall: true
+    },
+
+    {
+        id: "S005",
+        name: "Everyday Store",
+        logo: "images/shops/shop1.jpg",
+        mall: true
+    },
+
+    {
+        id: "S006",
+        name: "Tech Mall",
+        logo: "images/shops/shop2.jpg",
+        mall: true
     }
 
 ];
