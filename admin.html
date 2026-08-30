@@ -1,425 +1,2216 @@
 <!DOCTYPE html>
+
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบแอดมิน - Delivery Risk Pro</title>
-    <!-- Tailwind CSS & Font Awesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chart.js สำหรับแสดงกราฟ -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style> body { font-family: 'Kanit', sans-serif; } </style>
-</head>
-<body class="bg-slate-50 min-h-screen pb-12">
 
-    <!-- 🔒 หน้าต่างบังคับกรอก PIN แอดมิน -->
-    <div id="auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
-            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
-                <i class="fa-solid fa-user-shield"></i>
-            </div>
-            <div>
-                <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบแอดมิน</h2>
-                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN สำหรับแอดมิน</p>
-            </div>
-            <div class="space-y-3">
-                <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
-                    class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-amber-500 focus:outline-none bg-slate-50">
-                
-                <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
-                    <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง!
-                </p>
+```
+<title>Admin Dashboard | Delivery Risk Pro</title>
 
-                <button onclick="loginAdmin()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-amber-200 transition-all active:scale-95">
-                    เข้าสู่ระบบ
-                </button>
-            </div>
-        </div>
-    </div>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 👑 เนื้อหาหลักระบบแอดมิน -->
-    <div id="main-content" class="hidden">
-        <nav class="bg-amber-900 text-white shadow-md sticky top-0 z-40">
-            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <span class="font-bold text-base md:text-lg">👑 ผู้ดูแลระบบ (Admin)</span>
-                </div>
-                <div class="flex items-center space-x-3 text-xs md:text-sm font-medium">
-                    <a href="driver.html" class="text-amber-200 hover:text-white px-2 py-1">พนักงานส่ง</a>
-                    <a href="admin.html" class="text-white bg-amber-800/90 px-3 py-1 rounded-lg border border-amber-700/50 font-bold">แอดมิน</a>
-                    <a href="blacklist.html" class="text-amber-200 hover:text-white px-2 py-1">แบล็กลิสต์</a>
-                    <a href="tracking.html" class="text-amber-200 hover:text-white px-2 py-1">ลูกค้า</a>
-                    <button onclick="logoutAdmin()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">ออกจากระบบ</button>
-                </div>
-            </div>
-        </nav>
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
 
-        <main class="max-w-5xl mx-auto px-4 pt-6 space-y-6">
-            
-            <!-- 💵 การ์ดสรุปยอดทางการเงินและการจัดส่ง -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-bold text-slate-400">รายการจัดส่งสำเร็จ</p>
-                        <h3 id="stat-success-count" class="text-2xl font-bold text-emerald-600 mt-1">0 รายการ</h3>
-                        <p id="stat-success-amount" class="text-xs font-semibold text-slate-500 mt-0.5">ประมาณ ฿0</p>
-                    </div>
-                    <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-circle-check"></i>
-                    </div>
-                </div>
+<!-- Google Font -->
+<link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
-                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-bold text-slate-400">รายการตีกลับ / ปฏิเสธ</p>
-                        <h3 id="stat-failed-count" class="text-2xl font-bold text-rose-600 mt-1">0 รายการ</h3>
-                        <p id="stat-failed-amount" class="text-xs font-semibold text-slate-500 mt-0.5">เสียหายประมาณ ฿0</p>
-                    </div>
-                    <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-circle-xmark"></i>
-                    </div>
-                </div>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-                <div class="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-bold text-slate-400">อัตราการส่งสำเร็จ</p>
-                        <h3 id="stat-rate" class="text-2xl font-bold text-indigo-600 mt-1">0%</h3>
-                        <p class="text-xs font-semibold text-slate-400 mt-0.5">จากพัสดุทั้งหมด</p>
-                    </div>
-                    <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </div>
-                </div>
-            </div>
+<style>
+    body {
+        font-family: 'Kanit', sans-serif;
+    }
 
-            <!-- 📊 ส่วนแสดงผลกราฟวิเคราะห์ข้อมูล (Charts Section) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- กราฟแท่งเปรียบเทียบยอดรวม / สำเร็จ / ตีกลับ -->
-                <div class="md:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                    <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-column text-indigo-600"></i> เปรียบเทียบภาพรวมการจัดส่ง (ชิ้น)
-                    </h3>
-                    <div class="h-64 relative">
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 transparent;
+    }
 
-                <!-- กราฟวงกลมแสดงสัดส่วนสำเร็จ vs ตีกลับ -->
-                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-4">
-                    <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-pie text-emerald-600"></i> สัดส่วนผลการส่ง
-                    </h3>
-                    <div class="h-64 relative flex items-center justify-center">
-                        <canvas id="doughnutChart"></canvas>
-                    </div>
-                </div>
-            </div>
+    .fade-in {
+        animation: fadeIn .45s ease-out;
+    }
 
-            <!-- 📋 ส่วนการจัดการข้อมูล นำเข้า และดาวน์โหลด -->
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-4">
-                    <div>
-                        <h2 class="text-lg font-bold text-slate-800">ข้อมูลประวัติจัดส่งและลูกค้า</h2>
-                        <p class="text-xs text-slate-400">จัดการรายชื่อ นำเข้าไฟล์ CSV หรือดาวน์โหลดรายงาน</p>
-                    </div>
-                    
-                    <div class="flex flex-wrap gap-2">
-                        <input type="file" id="csv-file-input" accept=".csv" class="hidden" onchange="handleImportCSV(event)">
-                        <button onclick="document.getElementById('csv-file-input').click()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
-                            <i class="fa-solid fa-file-import text-sm"></i>
-                            <span>นำเข้าไฟล์ CSV</span>
-                        </button>
+    .card {
+        transition: all .2s ease;
+    }
 
-                        <button onclick="exportToCSV()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2.5 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-md transition-all active:scale-95">
-                            <i class="fa-solid fa-file-excel text-sm"></i>
-                            <span>ดาวน์โหลดรายงาน (CSV)</span>
-                        </button>
-                    </div>
-                </div>
+    .card:hover {
+        transform: translateY(-2px);
+    }
 
-                <div class="flex gap-2">
-                    <input type="text" id="admin-search" onkeyup="renderUserList()" placeholder="ค้นหาตามชื่อผู้รับ..." class="flex-1 border border-slate-200 p-3 rounded-2xl text-sm focus:outline-none focus:border-amber-500">
-                </div>
+    .nav-link {
+        transition: all .2s ease;
+    }
 
-                <div id="admin-user-list" class="space-y-3 pt-2"></div>
-            </div>
-        </main>
-    </div>
+    .nav-link:hover {
+        background: rgba(255,255,255,.08);
+    }
 
-    <!-- 🔗 เรียกใช้งานไฟล์ JS ครบถ้วน -->
-    <script src="js/config.js"></script>
-    <script src="js/db.js"></script>
-    <script src="js/sound.js"></script>
-
-    <script>
-        const ESTIMATED_PARCEL_PRICE = 350;
-        let barChartInstance = null;
-        let doughnutChartInstance = null;
-
-        function unlockAudio() {
-            if (typeof SoundSystem !== 'undefined' && SoundSystem.initAudioContext) {
-                SoundSystem.initAudioContext();
-            }
-            document.removeEventListener('click', unlockAudio);
-            document.removeEventListener('keydown', unlockAudio);
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
         }
-        document.addEventListener('click', unlockAudio);
-        document.addEventListener('keydown', unlockAudio);
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('staff_role') === 'ADMIN' || sessionStorage.getItem('admin_logged_in') === 'true') {
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-                initAdminDashboard();
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+```
+
+</head>
+
+<body class="bg-slate-100 text-slate-800 min-h-screen">
+
+<!-- ========================================================= -->
+
+<!-- ADMIN AUTH -->
+
+<!-- ========================================================= -->
+
+<div
+    id="auth-screen"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4
+    bg-slate-950/90 backdrop-blur-md"
+>
+
+```
+<div
+    class="relative w-full max-w-md bg-white rounded-[2rem]
+    shadow-2xl overflow-hidden fade-in"
+>
+
+    <!-- TOP -->
+    <div
+        class="h-32 bg-gradient-to-br from-indigo-600 via-indigo-700 to-slate-900
+        relative"
+    >
+
+        <div
+            class="absolute inset-0 opacity-20"
+            style="
+            background-image:
+            radial-gradient(circle at 20% 20%, white 1px, transparent 1px);
+            background-size: 20px 20px;
+            "
+        ></div>
+
+        <div
+            class="absolute left-1/2 bottom-0
+            -translate-x-1/2 translate-y-1/2"
+        >
+
+            <div
+                class="w-20 h-20 rounded-3xl bg-white
+                shadow-xl flex items-center justify-center"
+            >
+
+                <i
+                    class="fa-solid fa-user-shield
+                    text-3xl text-indigo-600"
+                ></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div class="p-8 pt-16 text-center">
+
+        <span
+            class="inline-flex items-center gap-2
+            px-3 py-1.5 rounded-full
+            bg-indigo-50 text-indigo-600
+            text-[11px] font-bold"
+        >
+            <i class="fa-solid fa-shield-halved"></i>
+            ADMIN ACCESS
+        </span>
+
+        <h1 class="text-2xl font-black text-slate-900 mt-4">
+            Delivery Risk Pro
+        </h1>
+
+        <p class="text-sm text-slate-400 mt-1">
+            ศูนย์ควบคุมและวิเคราะห์ระบบจัดส่ง
+        </p>
+
+
+        <div class="mt-7">
+
+            <label
+                class="block text-left text-xs
+                font-bold text-slate-600 mb-2"
+            >
+                <i class="fa-solid fa-lock text-indigo-500 mr-1"></i>
+                รหัส PIN ผู้ดูแลระบบ
+            </label>
+
+            <input
+                type="password"
+                id="pin-input"
+                maxlength="6"
+                inputmode="numeric"
+                autocomplete="off"
+                placeholder="• • • • • •"
+                class="w-full text-center text-2xl
+                tracking-[0.4em] font-bold py-4
+                border-2 border-slate-200 rounded-2xl
+                bg-slate-50
+                focus:outline-none
+                focus:border-indigo-500
+                focus:bg-white"
+            >
+
+            <p
+                id="pin-error"
+                class="hidden text-xs text-rose-500
+                font-bold mt-3"
+            >
+                <i class="fa-solid fa-circle-exclamation mr-1"></i>
+                รหัส PIN ไม่ถูกต้อง
+            </p>
+
+
+            <button
+                onclick="loginAdmin()"
+                class="w-full mt-4 py-4 rounded-2xl
+                bg-gradient-to-r from-indigo-600 to-indigo-700
+                hover:from-indigo-500 hover:to-indigo-600
+                text-white font-bold
+                shadow-lg shadow-indigo-200
+                transition-all active:scale-95"
+            >
+                <i class="fa-solid fa-right-to-bracket mr-2"></i>
+                เข้าสู่ Dashboard
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ========================================================= -->
+
+<!-- MAIN APP -->
+
+<!-- ========================================================= -->
+
+<div id="main-content" class="hidden">
+
+<!-- ========================================================= -->
+
+<!-- NAVBAR -->
+
+<!-- ========================================================= -->
+
+<nav
+    class="sticky top-0 z-40
+    bg-slate-950 text-white
+    border-b border-slate-800 shadow-lg"
+>
+
+```
+<div
+    class="max-w-7xl mx-auto px-4 sm:px-6
+    py-3 flex items-center justify-between"
+>
+
+    <!-- BRAND -->
+
+    <div class="flex items-center gap-3">
+
+        <a
+            href="index.html"
+            class="w-10 h-10 rounded-xl
+            bg-indigo-600 hover:bg-indigo-500
+            flex items-center justify-center
+            transition"
+            title="กลับหน้าหลัก"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+
+
+        <div>
+
+            <div class="flex items-center gap-2">
+
+                <h1 class="font-bold text-sm sm:text-base">
+                    Delivery Risk
+                    <span class="text-indigo-400">Pro</span>
+                </h1>
+
+                <span
+                    class="hidden sm:inline-flex
+                    px-2 py-0.5 rounded-md
+                    bg-indigo-500/10
+                    border border-indigo-500/20
+                    text-indigo-300
+                    text-[9px] font-bold"
+                >
+                    ADMIN
+                </span>
+
+            </div>
+
+            <p class="text-[10px] text-slate-500">
+                Control Center
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- NAV LINKS -->
+
+    <div class="flex items-center gap-1">
+
+        <a
+            href="driver.html"
+            class="nav-link hidden md:flex
+            items-center gap-2
+            px-3 py-2 rounded-xl
+            text-xs text-slate-300"
+        >
+            <i class="fa-solid fa-motorcycle"></i>
+            พนักงานส่ง
+        </a>
+
+        <a
+            href="blacklist.html"
+            class="nav-link hidden md:flex
+            items-center gap-2
+            px-3 py-2 rounded-xl
+            text-xs text-slate-300"
+        >
+            <i class="fa-solid fa-user-shield"></i>
+            แบล็กลิสต์
+        </a>
+
+        <a
+            href="tracking.html"
+            class="nav-link hidden md:flex
+            items-center gap-2
+            px-3 py-2 rounded-xl
+            text-xs text-slate-300"
+        >
+            <i class="fa-solid fa-magnifying-glass"></i>
+            ลูกค้า
+        </a>
+
+
+        <div
+            class="hidden sm:flex items-center gap-2
+            ml-2 px-3 py-2 rounded-xl
+            bg-emerald-500/10
+            border border-emerald-500/20"
+        >
+
+            <span
+                class="w-2 h-2 rounded-full
+                bg-emerald-400 animate-pulse"
+            ></span>
+
+            <span
+                class="text-[10px]
+                font-bold text-emerald-300"
+            >
+                ONLINE
+            </span>
+
+        </div>
+
+
+        <button
+            onclick="logoutAdmin()"
+            class="ml-1 w-10 h-10
+            rounded-xl
+            bg-rose-500/10
+            text-rose-300
+            hover:bg-rose-500/20
+            transition"
+            title="ออกจากระบบ"
+        >
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </button>
+
+    </div>
+
+</div>
+```
+
+</nav>
+
+<!-- ========================================================= -->
+
+<!-- DASHBOARD -->
+
+<!-- ========================================================= -->
+
+<main
+    class="max-w-7xl mx-auto
+    px-4 sm:px-6 py-6 space-y-6 fade-in"
+>
+
+<!-- ========================================================= -->
+
+<!-- HEADER -->
+
+<!-- ========================================================= -->
+
+<section
+    class="bg-gradient-to-br
+    from-indigo-700 via-indigo-800 to-slate-950
+    rounded-[2rem] p-6 sm:p-8
+    text-white shadow-xl overflow-hidden relative"
+>
+
+```
+<div
+    class="absolute -right-20 -top-20
+    w-72 h-72 rounded-full
+    bg-indigo-400/10 blur-3xl"
+></div>
+
+<div
+    class="absolute -left-20 -bottom-20
+    w-60 h-60 rounded-full
+    bg-purple-400/10 blur-3xl"
+></div>
+
+
+<div class="relative flex flex-col sm:flex-row
+    sm:items-center justify-between gap-5">
+
+    <div>
+
+        <div
+            class="inline-flex items-center gap-2
+            text-xs text-indigo-200"
+        >
+
+            <span
+                class="w-2 h-2 rounded-full
+                bg-emerald-400 animate-pulse"
+            ></span>
+
+            ระบบกำลังทำงานปกติ
+
+        </div>
+
+
+        <h2
+            class="text-2xl sm:text-3xl
+            font-black mt-2"
+        >
+            Admin Dashboard
+        </h2>
+
+        <p
+            class="text-xs sm:text-sm
+            text-indigo-200 mt-2"
+        >
+            ภาพรวมข้อมูลการจัดส่งและการวิเคราะห์ความเสี่ยง
+        </p>
+
+    </div>
+
+
+    <div
+        class="hidden sm:flex
+        w-20 h-20 rounded-3xl
+        bg-white/10
+        border border-white/10
+        items-center justify-center
+        text-4xl"
+    >
+
+        <i class="fa-solid fa-chart-pie"></i>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ========================================================= -->
+
+<!-- STAT CARDS -->
+
+<!-- ========================================================= -->
+
+<section
+    class="grid grid-cols-1
+    sm:grid-cols-2 lg:grid-cols-4 gap-4"
+>
+
+<!-- TOTAL -->
+
+<div
+    class="card bg-white rounded-3xl
+    border border-slate-200
+    p-5 shadow-sm"
+>
+
+```
+<div class="flex items-center justify-between">
+
+    <div>
+
+        <p class="text-xs font-bold text-slate-400">
+            พัสดุทั้งหมด
+        </p>
+
+        <h3
+            id="stat-total-count"
+            class="text-2xl font-black
+            text-slate-800 mt-1"
+        >
+            0
+        </h3>
+
+        <p class="text-[11px] text-slate-400 mt-1">
+            รายการจัดส่ง
+        </p>
+
+    </div>
+
+
+    <div
+        class="w-12 h-12 rounded-2xl
+        bg-indigo-50 text-indigo-600
+        flex items-center justify-center
+        text-xl"
+    >
+        <i class="fa-solid fa-box"></i>
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- SUCCESS -->
+
+<div
+    class="card bg-white rounded-3xl
+    border border-slate-200
+    p-5 shadow-sm"
+>
+
+```
+<div class="flex items-center justify-between">
+
+    <div>
+
+        <p class="text-xs font-bold text-slate-400">
+            ส่งสำเร็จ
+        </p>
+
+        <h3
+            id="stat-success-count"
+            class="text-2xl font-black
+            text-emerald-600 mt-1"
+        >
+            0
+        </h3>
+
+        <p
+            id="stat-success-amount"
+            class="text-[11px]
+            text-slate-400 mt-1"
+        >
+            ประมาณ ฿0
+        </p>
+
+    </div>
+
+
+    <div
+        class="w-12 h-12 rounded-2xl
+        bg-emerald-50 text-emerald-600
+        flex items-center justify-center
+        text-xl"
+    >
+        <i class="fa-solid fa-circle-check"></i>
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- FAILED -->
+
+<div
+    class="card bg-white rounded-3xl
+    border border-slate-200
+    p-5 shadow-sm"
+>
+
+```
+<div class="flex items-center justify-between">
+
+    <div>
+
+        <p class="text-xs font-bold text-slate-400">
+            ตีกลับ / ปฏิเสธ
+        </p>
+
+        <h3
+            id="stat-failed-count"
+            class="text-2xl font-black
+            text-rose-600 mt-1"
+        >
+            0
+        </h3>
+
+        <p
+            id="stat-failed-amount"
+            class="text-[11px]
+            text-slate-400 mt-1"
+        >
+            เสียหายประมาณ ฿0
+        </p>
+
+    </div>
+
+
+    <div
+        class="w-12 h-12 rounded-2xl
+        bg-rose-50 text-rose-600
+        flex items-center justify-center
+        text-xl"
+    >
+        <i class="fa-solid fa-circle-xmark"></i>
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- RATE -->
+
+<div
+    class="card bg-white rounded-3xl
+    border border-slate-200
+    p-5 shadow-sm"
+>
+
+```
+<div class="flex items-center justify-between">
+
+    <div>
+
+        <p class="text-xs font-bold text-slate-400">
+            อัตราส่งสำเร็จ
+        </p>
+
+        <h3
+            id="stat-rate"
+            class="text-2xl font-black
+            text-indigo-600 mt-1"
+        >
+            0%
+        </h3>
+
+        <p class="text-[11px] text-slate-400 mt-1">
+            จากพัสดุทั้งหมด
+        </p>
+
+    </div>
+
+
+    <div
+        class="w-12 h-12 rounded-2xl
+        bg-indigo-50 text-indigo-600
+        flex items-center justify-center
+        text-xl"
+    >
+        <i class="fa-solid fa-chart-line"></i>
+    </div>
+
+</div>
+```
+
+</div>
+
+</section>
+
+<!-- ========================================================= -->
+
+<!-- CHARTS -->
+
+<!-- ========================================================= -->
+
+<section
+    class="grid grid-cols-1 lg:grid-cols-3 gap-6"
+>
+
+<!-- BAR -->
+
+<div
+    class="lg:col-span-2
+    bg-white rounded-3xl
+    border border-slate-200
+    p-6 shadow-sm"
+>
+
+```
+<div
+    class="flex items-center
+    justify-between mb-5"
+>
+
+    <div>
+
+        <h3 class="font-bold text-slate-800">
+
+            <i
+                class="fa-solid fa-chart-column
+                text-indigo-500 mr-2"
+            ></i>
+
+            ภาพรวมการจัดส่ง
+
+        </h3>
+
+        <p
+            class="text-[11px]
+            text-slate-400 mt-1"
+        >
+            เปรียบเทียบจำนวนพัสดุในระบบ
+        </p>
+
+    </div>
+
+    <span
+        class="px-3 py-1.5 rounded-xl
+        bg-slate-100
+        text-[10px] font-bold
+        text-slate-500"
+    >
+        LIVE DATA
+    </span>
+
+</div>
+
+
+<div class="h-72">
+
+    <canvas id="barChart"></canvas>
+
+</div>
+```
+
+</div>
+
+<!-- DOUGHNUT -->
+
+<div
+    class="bg-white rounded-3xl
+    border border-slate-200
+    p-6 shadow-sm"
+>
+
+```
+<div>
+
+    <h3 class="font-bold text-slate-800">
+
+        <i
+            class="fa-solid fa-chart-pie
+            text-emerald-500 mr-2"
+        ></i>
+
+        สัดส่วนผลการส่ง
+
+    </h3>
+
+    <p
+        class="text-[11px]
+        text-slate-400 mt-1"
+    >
+        สำเร็จเทียบกับตีกลับ
+    </p>
+
+</div>
+
+
+<div
+    class="h-72 flex
+    items-center justify-center mt-2"
+>
+
+    <canvas id="doughnutChart"></canvas>
+
+</div>
+```
+
+</div>
+
+</section>
+
+<!-- ========================================================= -->
+
+<!-- DATA MANAGEMENT -->
+
+<!-- ========================================================= -->
+
+<section
+    class="bg-white rounded-3xl
+    border border-slate-200
+    shadow-sm overflow-hidden"
+>
+
+<div
+    class="p-6
+    border-b border-slate-100"
+>
+
+```
+<div
+    class="flex flex-col
+    lg:flex-row lg:items-center
+    justify-between gap-4"
+>
+
+    <div>
+
+        <div
+            class="flex items-center gap-2"
+        >
+
+            <div
+                class="w-9 h-9
+                rounded-xl
+                bg-indigo-50
+                text-indigo-600
+                flex items-center
+                justify-center"
+            >
+
+                <i class="fa-solid fa-database"></i>
+
+            </div>
+
+            <h2 class="text-lg font-bold">
+                ข้อมูลลูกค้า
+            </h2>
+
+        </div>
+
+        <p
+            class="text-xs
+            text-slate-400 mt-2"
+        >
+            จัดการประวัติการจัดส่ง
+            และรายงานข้อมูลลูกค้า
+        </p>
+
+    </div>
+
+
+    <div
+        class="flex flex-wrap gap-2"
+    >
+
+        <input
+            type="file"
+            id="csv-file-input"
+            accept=".csv"
+            class="hidden"
+            onchange="handleImportCSV(event)"
+        >
+
+
+        <button
+            onclick="document.getElementById('csv-file-input').click()"
+            class="px-4 py-2.5
+            rounded-xl
+            bg-indigo-600
+            hover:bg-indigo-700
+            text-white text-xs
+            font-bold
+            shadow-sm
+            transition active:scale-95"
+        >
+
+            <i class="fa-solid fa-file-import mr-1"></i>
+            นำเข้า CSV
+
+        </button>
+
+
+        <button
+            onclick="exportToCSV()"
+            class="px-4 py-2.5
+            rounded-xl
+            bg-emerald-600
+            hover:bg-emerald-700
+            text-white text-xs
+            font-bold
+            shadow-sm
+            transition active:scale-95"
+        >
+
+            <i class="fa-solid fa-file-export mr-1"></i>
+            Export CSV
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="relative mt-5">
+
+    <i
+        class="fa-solid fa-magnifying-glass
+        absolute left-4 top-1/2
+        -translate-y-1/2
+        text-slate-400"
+    ></i>
+
+    <input
+        type="text"
+        id="admin-search"
+        onkeyup="renderUserList()"
+        placeholder="ค้นหาชื่อลูกค้า..."
+        class="w-full
+        pl-11 pr-4 py-3
+        rounded-2xl
+        border border-slate-200
+        bg-slate-50
+        text-sm
+        focus:outline-none
+        focus:border-indigo-400
+        focus:bg-white
+        transition"
+    >
+
+</div>
+```
+
+</div>
+
+<!-- USER LIST -->
+
+<div
+    id="admin-user-list"
+    class="p-5 space-y-3"
+></div>
+
+</section>
+
+<!-- ========================================================= -->
+
+<!-- SYSTEM STATUS -->
+
+<!-- ========================================================= -->
+
+<section
+    class="bg-slate-900
+    rounded-3xl p-5
+    text-white"
+>
+
+```
+<div
+    class="flex flex-col
+    sm:flex-row
+    sm:items-center
+    justify-between gap-4"
+>
+
+    <div>
+
+        <p
+            class="text-xs
+            text-slate-400"
+        >
+            SYSTEM STATUS
+        </p>
+
+        <h3
+            class="font-bold mt-1"
+        >
+            ระบบ Delivery Risk Pro
+        </h3>
+
+    </div>
+
+
+    <div
+        class="grid grid-cols-3 gap-2"
+    >
+
+        <div
+            class="px-4 py-2
+            rounded-xl
+            bg-emerald-500/10
+            border border-emerald-500/20"
+        >
+
+            <p class="text-[9px] text-slate-400">
+                DATABASE
+            </p>
+
+            <p
+                class="text-xs
+                text-emerald-300
+                font-bold"
+            >
+                ● ONLINE
+            </p>
+
+        </div>
+
+
+        <div
+            class="px-4 py-2
+            rounded-xl
+            bg-emerald-500/10
+            border border-emerald-500/20"
+        >
+
+            <p class="text-[9px] text-slate-400">
+                RISK ENGINE
+            </p>
+
+            <p
+                class="text-xs
+                text-emerald-300
+                font-bold"
+            >
+                ● READY
+            </p>
+
+        </div>
+
+
+        <div
+            class="px-4 py-2
+            rounded-xl
+            bg-emerald-500/10
+            border border-emerald-500/20"
+        >
+
+            <p class="text-[9px] text-slate-400">
+                SYSTEM
+            </p>
+
+            <p
+                class="text-xs
+                text-emerald-300
+                font-bold"
+            >
+                ● ACTIVE
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- FOOTER -->
+
+<footer
+    class="text-center
+    text-[11px]
+    text-slate-400 pb-2"
+>
+
+```
+<i
+    class="fa-solid fa-shield-halved
+    text-indigo-400 mr-1"
+></i>
+
+Delivery Risk Pro · Admin Control Center
+```
+
+</footer>
+
+</main>
+
+</div>
+
+<!-- ========================================================= -->
+
+<!-- JS FILES -->
+
+<!-- ========================================================= -->
+
+<script src="js/config.js"></script>
+
+<script src="js/db.js"></script>
+
+<script src="js/sound.js"></script>
+
+<script>
+
+const ESTIMATED_PARCEL_PRICE = 350;
+
+let barChartInstance = null;
+let doughnutChartInstance = null;
+
+
+/* =========================================================
+   AUDIO
+========================================================= */
+
+function unlockAudio() {
+
+    if (
+        typeof SoundSystem !== 'undefined' &&
+        SoundSystem.initAudioContext
+    ) {
+
+        SoundSystem.initAudioContext();
+
+    }
+
+    document.removeEventListener('click', unlockAudio);
+    document.removeEventListener('keydown', unlockAudio);
+
+}
+
+
+document.addEventListener('click', unlockAudio);
+document.addEventListener('keydown', unlockAudio);
+
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    if (
+        sessionStorage.getItem('staff_role') === 'ADMIN' ||
+        sessionStorage.getItem('admin_logged_in') === 'true'
+    ) {
+
+        document
+            .getElementById('auth-screen')
+            .classList
+            .add('hidden');
+
+        document
+            .getElementById('main-content')
+            .classList
+            .remove('hidden');
+
+        initAdminDashboard();
+
+    }
+
+
+    const pinInput =
+        document.getElementById('pin-input');
+
+    if (pinInput) {
+
+        pinInput.addEventListener('keydown', event => {
+
+            if (event.key === 'Enter') {
+
+                loginAdmin();
+
             }
+
         });
 
-        function safePlaySound(type) {
-            if (typeof playSound === 'function') playSound(type);
-            else if (typeof SoundSystem !== 'undefined' && SoundSystem.play) SoundSystem.play(type);
+    }
+
+});
+
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+function safePlaySound(type) {
+
+    if (
+        typeof playSound === 'function'
+    ) {
+
+        playSound(type);
+
+    }
+
+    else if (
+        typeof SoundSystem !== 'undefined' &&
+        SoundSystem.play
+    ) {
+
+        SoundSystem.play(type);
+
+    }
+
+}
+
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function loginAdmin() {
+
+    unlockAudio();
+
+    const inputPin =
+        document
+        .getElementById('pin-input')
+        .value
+        .trim();
+
+
+    const correctPin =
+
+        (
+            typeof CONFIG !== 'undefined' &&
+            CONFIG.ADMIN_PIN
+        )
+
+        ?
+
+        CONFIG.ADMIN_PIN
+
+        :
+
+        '888888';
+
+
+    const pinError =
+        document.getElementById('pin-error');
+
+
+    if (inputPin === correctPin) {
+
+        sessionStorage.setItem(
+            'staff_role',
+            'ADMIN'
+        );
+
+        sessionStorage.setItem(
+            'admin_logged_in',
+            'true'
+        );
+
+
+        document
+            .getElementById('auth-screen')
+            .classList
+            .add('hidden');
+
+
+        document
+            .getElementById('main-content')
+            .classList
+            .remove('hidden');
+
+
+        if (pinError) {
+
+            pinError.classList.add('hidden');
+
         }
 
-        function loginAdmin() {
-            unlockAudio();
-            const inputPin = document.getElementById('pin-input').value.trim();
-            const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.ADMIN_PIN) ? CONFIG.ADMIN_PIN : '888888';
-            const pinError = document.getElementById('pin-error');
 
-            if (inputPin === correctPin) {
-                sessionStorage.setItem('staff_role', 'ADMIN');
-                sessionStorage.setItem('admin_logged_in', 'true');
-                document.getElementById('auth-screen').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-                if (pinError) pinError.classList.add('hidden');
-                initAdminDashboard();
-            } else {
-                safePlaySound('wrong_pin');
-                if (pinError) pinError.classList.remove('hidden');
-                document.getElementById('pin-input').value = '';
-            }
+        initAdminDashboard();
+
+    }
+
+    else {
+
+        safePlaySound('wrong_pin');
+
+        if (pinError) {
+
+            pinError.classList.remove('hidden');
+
         }
 
-        function logoutAdmin() {
-            sessionStorage.removeItem('staff_role');
-            sessionStorage.removeItem('admin_logged_in');
-            location.reload();
-        }
 
-        function initAdminDashboard() {
-            calculateFinancialsAndCharts();
-            renderUserList();
-        }
+        document
+            .getElementById('pin-input')
+            .value = '';
 
-        // 💵 คำนวณสรุปการเงิน และวาดกราฟ
-        function calculateFinancialsAndCharts() {
-            if (typeof DB === 'undefined') return;
-            const users = DB.getAll();
+    }
 
-            let totalSuccess = 0;
-            let totalFailed = 0;
+}
 
-            users.forEach(u => {
-                totalSuccess += (u.success || 0);
-                totalFailed += (u.failed || 0);
-            });
 
-            const totalParcels = totalSuccess + totalFailed;
-            const successRate = totalParcels > 0 ? ((totalSuccess / totalParcels) * 100).toFixed(1) : 0;
 
-            document.getElementById('stat-success-count').innerText = `${totalSuccess.toLocaleString()} รายการ`;
-            document.getElementById('stat-success-amount').innerText = `ประมาณ ฿${(totalSuccess * ESTIMATED_PARCEL_PRICE).toLocaleString()}`;
+/* =========================================================
+   LOGOUT
+========================================================= */
 
-            document.getElementById('stat-failed-count').innerText = `${totalFailed.toLocaleString()} รายการ`;
-            document.getElementById('stat-failed-amount').innerText = `เสียหายประมาณ ฿${(totalFailed * ESTIMATED_PARCEL_PRICE).toLocaleString()}`;
+function logoutAdmin() {
 
-            document.getElementById('stat-rate').innerText = `${successRate}%`;
+    sessionStorage.removeItem('staff_role');
+    sessionStorage.removeItem('admin_logged_in');
 
-            // Render กราฟ
-            renderCharts(totalParcels, totalSuccess, totalFailed);
-        }
+    location.reload();
 
-        // 📊 ฟังก์ชันสร้างและอัปเดตกราฟ Chart.js
-        function renderCharts(total, success, failed) {
-            // Destroy กราฟเก่าหากมีอยู่ เพื่อป้องกันกราฟซ้อนทับ
-            if (barChartInstance) barChartInstance.destroy();
-            if (doughnutChartInstance) doughnutChartInstance.destroy();
+}
 
-            // 1. กราฟแท่ง (Bar Chart)
-            const ctxBar = document.getElementById('barChart').getContext('2d');
-            barChartInstance = new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: ['ยอดรวมทั้งหมด', 'ส่งสำเร็จ', 'ตีกลับ / ปฏิเสธ'],
-                    datasets: [{
-                        label: 'จำนวนพัสดุ (ชิ้น)',
-                        data: [total, success, failed],
-                        backgroundColor: ['#6366f1', '#10b981', '#f43f5e'],
-                        borderRadius: 12,
-                        barThickness: 36
-                    }]
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function initAdminDashboard() {
+
+    calculateFinancialsAndCharts();
+
+    renderUserList();
+
+}
+
+
+
+/* =========================================================
+   CALCULATE STATS
+========================================================= */
+
+function calculateFinancialsAndCharts() {
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        return;
+
+    }
+
+
+    const users = DB.getAll();
+
+    let totalSuccess = 0;
+    let totalFailed = 0;
+
+
+    users.forEach(user => {
+
+        totalSuccess += Number(user.success || 0);
+
+        totalFailed += Number(user.failed || 0);
+
+    });
+
+
+    const totalParcels =
+        totalSuccess + totalFailed;
+
+
+    const successRate =
+        totalParcels > 0
+        ?
+        ((totalSuccess / totalParcels) * 100).toFixed(1)
+        :
+        0;
+
+
+    document
+        .getElementById('stat-total-count')
+        .innerText =
+        totalParcels.toLocaleString();
+
+
+    document
+        .getElementById('stat-success-count')
+        .innerText =
+        `${totalSuccess.toLocaleString()}`;
+
+
+    document
+        .getElementById('stat-success-amount')
+        .innerText =
+        `ประมาณ ฿${(
+            totalSuccess *
+            ESTIMATED_PARCEL_PRICE
+        ).toLocaleString()}`;
+
+
+    document
+        .getElementById('stat-failed-count')
+        .innerText =
+        `${totalFailed.toLocaleString()}`;
+
+
+    document
+        .getElementById('stat-failed-amount')
+        .innerText =
+        `เสียหายประมาณ ฿${(
+            totalFailed *
+            ESTIMATED_PARCEL_PRICE
+        ).toLocaleString()}`;
+
+
+    document
+        .getElementById('stat-rate')
+        .innerText =
+        `${successRate}%`;
+
+
+    renderCharts(
+        totalParcels,
+        totalSuccess,
+        totalFailed
+    );
+
+}
+
+
+
+/* =========================================================
+   CHARTS
+========================================================= */
+
+function renderCharts(
+    total,
+    success,
+    failed
+) {
+
+    if (barChartInstance) {
+
+        barChartInstance.destroy();
+
+    }
+
+
+    if (doughnutChartInstance) {
+
+        doughnutChartInstance.destroy();
+
+    }
+
+
+    const ctxBar =
+        document
+        .getElementById('barChart')
+        .getContext('2d');
+
+
+    barChartInstance =
+        new Chart(ctxBar, {
+
+            type: 'bar',
+
+            data: {
+
+                labels: [
+                    'ทั้งหมด',
+                    'สำเร็จ',
+                    'ตีกลับ'
+                ],
+
+                datasets: [{
+
+                    data: [
+                        total,
+                        success,
+                        failed
+                    ],
+
+                    backgroundColor: [
+                        '#6366f1',
+                        '#10b981',
+                        '#f43f5e'
+                    ],
+
+                    borderRadius: 10,
+
+                    barThickness: 42
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    }
+
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+                            precision: 0
+                        }
+
                     },
-                    scales: {
-                        y: { beginAtZero: true }
-                    }
-                }
-            });
 
-            // 2. กราฟวงกลม (Doughnut Chart)
-            const ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
-            doughnutChartInstance = new Chart(ctxDoughnut, {
+                    x: {
+
+                        grid: {
+                            display: false
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+
+
+
+    const ctxDoughnut =
+        document
+        .getElementById('doughnutChart')
+        .getContext('2d');
+
+
+    doughnutChartInstance =
+        new Chart(
+            ctxDoughnut,
+            {
+
                 type: 'doughnut',
+
                 data: {
-                    labels: ['ส่งสำเร็จ', 'ตีกลับ / ปฏิเสธ'],
+
+                    labels: [
+                        'ส่งสำเร็จ',
+                        'ตีกลับ / ปฏิเสธ'
+                    ],
+
                     datasets: [{
-                        data: [success, failed],
-                        backgroundColor: ['#10b981', '#f43f5e'],
-                        borderWidth: 2,
-                        hoverOffset: 4
+
+                        data: [
+                            success,
+                            failed
+                        ],
+
+                        backgroundColor: [
+                            '#10b981',
+                            '#f43f5e'
+                        ],
+
+                        borderWidth: 3,
+
+                        hoverOffset: 6
+
                     }]
+
                 },
+
                 options: {
+
                     responsive: true,
+
                     maintainAspectRatio: false,
+
+                    cutout: '68%',
+
                     plugins: {
-                        legend: { position: 'bottom' }
+
+                        legend: {
+
+                            position: 'bottom',
+
+                            labels: {
+
+                                usePointStyle: true,
+
+                                padding: 18,
+
+                                font: {
+                                    family: 'Kanit'
+                                }
+
+                            }
+
+                        }
+
                     }
+
                 }
-            });
-        }
 
-        function renderUserList() {
-            const listContainer = document.getElementById('admin-user-list');
-            const searchKeyword = document.getElementById('admin-search').value.trim().toLowerCase();
-            if (!listContainer || typeof DB === 'undefined') return;
-
-            let users = DB.getAll();
-
-            if (searchKeyword) {
-                users = users.filter(u => u.name.toLowerCase().includes(searchKeyword));
             }
+        );
 
-            users = users.filter(u => (u.total && u.total > 0) || u.isBlacklisted);
+}
 
-            if (users.length === 0) {
-                listContainer.innerHTML = `<p class="text-slate-400 text-center py-6 text-sm">ไม่พบข้อมูลประวัติลูกค้าที่ค้นหา</p>`;
-                return;
-            }
 
-            listContainer.innerHTML = users.map(user => {
-                const risk = DB.calculateRisk(user);
-                const estRevenue = user.success * ESTIMATED_PARCEL_PRICE;
-                const estLoss = user.failed * ESTIMATED_PARCEL_PRICE;
 
-                return `
-                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-bold text-slate-800 text-base">${user.name}</span>
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${risk.colorClass}">${risk.label}</span>
+/* =========================================================
+   USER LIST
+========================================================= */
+
+function renderUserList() {
+
+    const listContainer =
+        document.getElementById(
+            'admin-user-list'
+        );
+
+
+    const searchInput =
+        document.getElementById(
+            'admin-search'
+        );
+
+
+    const searchKeyword =
+        searchInput
+        ?
+        searchInput.value.trim().toLowerCase()
+        :
+        '';
+
+
+    if (
+        !listContainer ||
+        typeof DB === 'undefined'
+    ) {
+
+        return;
+
+    }
+
+
+    let users = DB.getAll();
+
+
+    if (searchKeyword) {
+
+        users =
+            users.filter(user =>
+
+                String(user.name || '')
+                .toLowerCase()
+                .includes(searchKeyword)
+
+            );
+
+    }
+
+
+    users =
+        users.filter(user =>
+
+            (
+                user.total &&
+                user.total > 0
+            )
+
+            ||
+
+            user.isBlacklisted
+
+        );
+
+
+    if (users.length === 0) {
+
+        listContainer.innerHTML = `
+
+            <div class="text-center py-12">
+
+                <div
+                    class="w-16 h-16 mx-auto
+                    rounded-2xl
+                    bg-slate-100
+                    text-slate-400
+                    flex items-center
+                    justify-center
+                    text-2xl"
+                >
+                    <i class="fa-solid fa-user-slash"></i>
+                </div>
+
+                <p
+                    class="text-sm
+                    font-bold text-slate-600 mt-4"
+                >
+                    ไม่พบข้อมูล
+                </p>
+
+                <p
+                    class="text-xs
+                    text-slate-400 mt-1"
+                >
+                    ลองค้นหาด้วยชื่ออื่น
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    listContainer.innerHTML =
+
+        users.map(user => {
+
+            const risk =
+                DB.calculateRisk(user);
+
+
+            const estRevenue =
+                Number(user.success || 0) *
+                ESTIMATED_PARCEL_PRICE;
+
+
+            const estLoss =
+                Number(user.failed || 0) *
+                ESTIMATED_PARCEL_PRICE;
+
+
+            return `
+
+                <div
+                    class="p-4 sm:p-5
+                    rounded-2xl
+                    border border-slate-200
+                    bg-slate-50
+                    hover:bg-white
+                    hover:border-indigo-200
+                    transition"
+                >
+
+                    <div
+                        class="flex flex-col
+                        lg:flex-row
+                        lg:items-center
+                        justify-between gap-4"
+                    >
+
+                        <div class="min-w-0">
+
+                            <div
+                                class="flex items-center
+                                gap-2 flex-wrap"
+                            >
+
+                                <div
+                                    class="w-9 h-9
+                                    rounded-xl
+                                    bg-white
+                                    border
+                                    border-slate-200
+                                    flex items-center
+                                    justify-center
+                                    text-indigo-500"
+                                >
+
+                                    <i
+                                        class="fa-solid fa-user"
+                                    ></i>
+
+                                </div>
+
+
+                                <span
+                                    class="font-bold
+                                    text-slate-800"
+                                >
+                                    ${escapeHtml(user.name)}
+                                </span>
+
+
+                                <span
+                                    class="px-2.5 py-1
+                                    rounded-lg
+                                    text-[10px]
+                                    font-bold
+                                    ${risk.colorClass}"
+                                >
+                                    ${risk.label}
+                                </span>
+
+
+                                ${
+                                    user.isBlacklisted
+
+                                    ?
+
+                                    `
+                                    <span
+                                        class="px-2.5 py-1
+                                        rounded-lg
+                                        bg-rose-100
+                                        text-rose-600
+                                        text-[10px]
+                                        font-bold"
+                                    >
+                                        <i
+                                            class="fa-solid
+                                            fa-ban mr-1"
+                                        ></i>
+                                        BLACKLIST
+                                    </span>
+                                    `
+
+                                    :
+
+                                    ''
+                                }
+
                             </div>
-                            <p class="text-xs text-slate-500 mt-1">
-                                ส่งทั้งหมด: <b class="text-slate-700">${user.total}</b> | 
-                                สำเร็จ: <b class="text-emerald-600">${user.success}</b> | 
-                                ตีกลับ: <b class="text-rose-600">${user.failed}</b>
+
+
+                            <div
+                                class="flex flex-wrap
+                                gap-x-4 gap-y-1
+                                mt-3 text-xs"
+                            >
+
+                                <span class="text-slate-500">
+                                    ทั้งหมด
+                                    <b class="text-slate-800">
+                                        ${user.total || 0}
+                                    </b>
+                                </span>
+
+                                <span class="text-emerald-600">
+                                    สำเร็จ
+                                    <b>
+                                        ${user.success || 0}
+                                    </b>
+                                </span>
+
+                                <span class="text-rose-600">
+                                    ตีกลับ
+                                    <b>
+                                        ${user.failed || 0}
+                                    </b>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="lg:text-right
+                            lg:min-w-[180px]"
+                        >
+
+                            <p
+                                class="text-xs
+                                font-bold
+                                text-emerald-600"
+                            >
+                                <i
+                                    class="fa-solid
+                                    fa-coins mr-1"
+                                ></i>
+                                ฿${estRevenue.toLocaleString()}
                             </p>
+
+
+                            ${
+                                estLoss > 0
+
+                                ?
+
+                                `
+                                <p
+                                    class="text-[11px]
+                                    text-rose-500
+                                    font-semibold mt-1"
+                                >
+                                    ตีกลับ ฿${estLoss.toLocaleString()}
+                                </p>
+                                `
+
+                                :
+
+                                ''
+                            }
+
                         </div>
-                        <div class="text-left md:text-right border-t md:border-t-0 pt-2 md:pt-0 w-full md:w-auto">
-                            <p class="text-xs font-semibold text-emerald-600">รับแล้ว: ฿${estRevenue.toLocaleString()}</p>
-                            ${estLoss > 0 ? `<p class="text-[11px] font-semibold text-rose-500">ตีกลับเสียโอกาส: ฿${estLoss.toLocaleString()}</p>` : ''}
-                        </div>
+
                     </div>
-                `;
-            }).join('');
-        }
 
-        function handleImportCSV(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+                </div>
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const text = e.target.result;
-                const lines = text.split('\n');
-                let importedCount = 0;
+            `;
 
-                if (typeof DB === 'undefined') return;
-                const dbList = DB.getAll();
+        }).join('');
 
-                lines.forEach((line, index) => {
-                    if (index === 0 || !line.trim()) return;
+}
 
-                    const cols = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || line.split(',');
-                    if (cols.length >= 3) {
-                        const name = cols[0].replace(/"/g, '').trim();
-                        const success = parseInt(cols[1].replace(/"/g, '').trim()) || 0;
-                        const failed = parseInt(cols[2].replace(/"/g, '').trim()) || 0;
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replace(/&/g, '&amp;')
+
+        .replace(/</g, '&lt;')
+
+        .replace(/>/g, '&gt;')
+
+        .replace(/"/g, '&quot;')
+
+        .replace(/'/g, '&#039;');
+
+}
+
+
+
+/* =========================================================
+   IMPORT CSV
+========================================================= */
+
+function handleImportCSV(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e) {
+
+            const text =
+                e.target.result;
+
+
+            const lines =
+                text.split('\n');
+
+
+            let importedCount = 0;
+
+
+            if (
+                typeof DB === 'undefined'
+            ) {
+
+                return;
+
+            }
+
+
+            const dbList =
+                DB.getAll();
+
+
+            lines.forEach(
+                (line, index) => {
+
+                    if (
+                        index === 0 ||
+                        !line.trim()
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const cols =
+                        line.match(
+                            /(".*?"|[^",\s]+)(?=\s*,|\s*$)/g
+                        )
+                        ||
+                        line.split(',');
+
+
+                    if (
+                        cols.length >= 3
+                    ) {
+
+                        const name =
+                            cols[0]
+                            .replace(/"/g, '')
+                            .trim();
+
+
+                        const success =
+                            parseInt(
+                                cols[1]
+                                .replace(/"/g, '')
+                                .trim()
+                            )
+                            || 0;
+
+
+                        const failed =
+                            parseInt(
+                                cols[2]
+                                .replace(/"/g, '')
+                                .trim()
+                            )
+                            || 0;
+
 
                         if (name) {
-                            let user = dbList.find(u => u.name.trim().toLowerCase() === name.toLowerCase());
+
+                            let user =
+                                dbList.find(
+                                    u =>
+                                    u.name
+                                    .trim()
+                                    .toLowerCase()
+                                    ===
+                                    name
+                                    .toLowerCase()
+                                );
+
+
                             if (user) {
-                                user.success = success;
-                                user.failed = failed;
-                                user.total = success + failed;
-                            } else {
-                                dbList.push({
-                                    id: Date.now() + Math.random(),
-                                    name: name,
-                                    success: success,
-                                    failed: failed,
-                                    total: success + failed,
-                                    isBlacklisted: false,
-                                    blacklistReason: ""
-                                });
+
+                                user.success =
+                                    success;
+
+                                user.failed =
+                                    failed;
+
+                                user.total =
+                                    success + failed;
+
                             }
+
+                            else {
+
+                                dbList.push({
+
+                                    id:
+                                        Date.now()
+                                        +
+                                        Math.random(),
+
+                                    name:
+                                        name,
+
+                                    success:
+                                        success,
+
+                                    failed:
+                                        failed,
+
+                                    total:
+                                        success + failed,
+
+                                    isBlacklisted:
+                                        false,
+
+                                    blacklistReason:
+                                        ""
+
+                                });
+
+                            }
+
+
                             importedCount++;
+
                         }
+
                     }
-                });
 
-                DB.save(dbList);
-                alert(`นำเข้าข้อมูลสำเร็จทั้งหมด ${importedCount} รายการ!`);
-                initAdminDashboard();
-                event.target.value = '';
-            };
+                }
+            );
 
-            reader.readAsText(file, "UTF-8");
-        }
 
-        function exportToCSV() {
-            if (typeof DB === 'undefined') return;
-            const users = DB.getAll().filter(u => (u.total && u.total > 0) || u.isBlacklisted);
+            DB.save(dbList);
 
-            if (users.length === 0) {
-                alert('ไม่มีข้อมูลลูกค้าสำหรับการดาวน์โหลด');
-                return;
+
+            alert(
+                `นำเข้าข้อมูลสำเร็จ ${importedCount} รายการ`
+            );
+
+
+            initAdminDashboard();
+
+
+            event.target.value = '';
+
+        };
+
+
+    reader.readAsText(
+        file,
+        'UTF-8'
+    );
+
+}
+
+
+
+/* =========================================================
+   EXPORT CSV
+========================================================= */
+
+function exportToCSV() {
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        return;
+
+    }
+
+
+    const users =
+        DB.getAll()
+        .filter(
+            u =>
+            (
+                u.total &&
+                u.total > 0
+            )
+            ||
+            u.isBlacklisted
+        );
+
+
+    if (users.length === 0) {
+
+        alert(
+            'ไม่มีข้อมูลลูกค้าสำหรับการดาวน์โหลด'
+        );
+
+        return;
+
+    }
+
+
+    let csvContent =
+        '\uFEFF';
+
+
+    csvContent +=
+        'ชื่อผู้รับ,ส่งสำเร็จ,ตีกลับ,ส่งทั้งหมด,ระดับความเสี่ยง,แบล็กลิสต์\n';
+
+
+    users.forEach(u => {
+
+        const risk =
+            DB.calculateRisk(u);
+
+
+        const isBL =
+            u.isBlacklisted
+            ?
+            'ใช่'
+            :
+            'ไม่';
+
+
+        csvContent +=
+            `"${u.name}",${u.success},${u.failed},${u.total},"${risk.label}","${isBL}"\n`;
+
+    });
+
+
+    const blob =
+        new Blob(
+            [csvContent],
+            {
+                type:
+                    'text/csv;charset=utf-8;'
             }
+        );
 
-            let csvContent = "\uFEFF";
-            csvContent += "ชื่อผู้รับ,ส่งสำเร็จ,ตีกลับ,ส่งทั้งหมด,ระดับความเสี่ยง,แบล็กลิสต์\n";
 
-            users.forEach(u => {
-                const risk = DB.calculateRisk(u);
-                const isBL = u.isBlacklisted ? "ใช่" : "ไม่";
-                csvContent += `"${u.name}",${u.success},${u.failed},${u.total},"${risk.label}","${isBL}"\n`;
-            });
+    const url =
+        URL.createObjectURL(blob);
 
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.setAttribute("href", url);
-            link.setAttribute("download", `รายงานลูกค้า_DeliveryRiskPro_${new Date().toISOString().slice(0,10)}.csv`);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-    </script>
+
+    const link =
+        document.createElement('a');
+
+
+    link.href = url;
+
+
+    link.download =
+        `รายงานลูกค้า_DeliveryRiskPro_${new Date().toISOString().slice(0,10)}.csv`;
+
+
+    document
+        .body
+        .appendChild(link);
+
+
+    link.click();
+
+
+    document
+        .body
+        .removeChild(link);
+
+
+    URL.revokeObjectURL(url);
+
+}
+
+</script>
+
 </body>
 </html>
