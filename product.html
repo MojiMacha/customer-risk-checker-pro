@@ -1,275 +1,431 @@
-
 <!DOCTYPE html>
+
 <html lang="th">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>รายละเอียดสินค้า - Delivery Risk Market</title>
+<title>รายละเอียดสินค้า - Delivery Risk Market</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    >
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
 
-    <!-- Google Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+<!-- Google Font -->
+<link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
-    <style>
+<style>
 
-        body {
-            font-family: 'Kanit', sans-serif;
-        }
+    body {
+        font-family: 'Kanit', sans-serif;
+    }
 
-        .product-image {
-            transition: transform 0.3s ease;
-        }
+    .product-image {
+        transition: transform 0.3s ease;
+    }
 
-        .product-image:hover {
-            transform: scale(1.03);
-        }
+    .product-image:hover {
+        transform: scale(1.03);
+    }
 
-        .quantity-btn {
-            transition: all 0.15s ease;
-        }
+    .quantity-btn {
+        transition: all 0.15s ease;
+    }
 
-        .quantity-btn:active {
-            transform: scale(0.9);
-        }
+    .quantity-btn:active {
+        transform: scale(0.9);
+    }
 
-    </style>
+</style>
+```
 
 </head>
 
-
 <body class="bg-slate-100 min-h-screen text-slate-800">
 
-
-<!-- ===================================================== -->
-<!-- NAVBAR -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
 <nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
 
-    <div
-        class="max-w-6xl mx-auto px-4 py-3
-        flex items-center justify-between"
-    >
+```
+<div
+    class="max-w-6xl mx-auto px-4 py-3
+    flex items-center justify-between"
+>
 
-        <div class="flex items-center gap-3">
+    <!-- LEFT -->
 
-            <button
-                onclick="history.back()"
-                class="w-10 h-10
-                rounded-xl
-                bg-white/10
-                hover:bg-white/20
-                flex items-center justify-center
-                transition"
-            >
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
+    <div class="flex items-center gap-3">
 
+        <button
+            onclick="history.back()"
+            class="w-10 h-10 rounded-xl bg-white/10
+            hover:bg-white/20 flex items-center
+            justify-center transition"
+        >
 
-            <a
-                href="shop.html"
-                class="flex items-center gap-2"
-            >
+            <i class="fa-solid fa-arrow-left"></i>
 
-                <div
-                    class="w-9 h-9
-                    rounded-xl
-                    bg-gradient-to-br
-                    from-indigo-500
-                    to-indigo-700
-                    flex items-center justify-center"
-                >
-
-                    <i
-                        class="fa-solid fa-store
-                        text-amber-300"
-                    ></i>
-
-                </div>
+        </button>
 
 
-                <div class="hidden sm:block">
+        <a
+            href="shop.html"
+            class="flex items-center gap-2"
+        >
 
-                    <p class="font-black text-sm">
-                        Delivery Risk Market
-                    </p>
-
-                    <p class="text-[9px] text-slate-400">
-                        Marketplace
-                    </p>
-
-                </div>
-
-            </a>
-
-        </div>
-
-
-        <div class="flex items-center gap-2">
-
-            <a
-                href="tracking.html"
-                class="hidden sm:flex
-                items-center gap-2
-                px-3 py-2
-                rounded-xl
-                text-xs font-bold
-                text-slate-300
-                hover:text-white
-                hover:bg-white/10"
+            <div
+                class="w-9 h-9 rounded-xl
+                bg-gradient-to-br from-indigo-500
+                to-indigo-700 flex items-center
+                justify-center"
             >
 
-                <i class="fa-solid fa-box"></i>
+                <i
+                    class="fa-solid fa-store
+                    text-amber-300"
+                ></i>
 
-                ติดตามพัสดุ
-
-            </a>
+            </div>
 
 
-            <button
-                onclick="goShop()"
-                class="w-10 h-10
-                rounded-xl
-                bg-indigo-600
-                hover:bg-indigo-500
-                flex items-center justify-center
-                transition"
-                title="ไปที่ร้านค้า"
-            >
+            <div class="hidden sm:block">
 
-                <i class="fa-solid fa-store"></i>
+                <p class="font-black text-sm">
+                    Delivery Risk Market
+                </p>
 
-            </button>
+                <p class="text-[9px] text-slate-400">
+                    Marketplace
+                </p>
 
-        </div>
+            </div>
+
+        </a>
 
     </div>
 
+
+    <!-- RIGHT -->
+
+    <div class="flex items-center gap-2">
+
+        <a
+            href="tracking.html"
+            class="hidden sm:flex items-center gap-2
+            px-3 py-2 rounded-xl text-xs font-bold
+            text-slate-300 hover:text-white
+            hover:bg-white/10"
+        >
+
+            <i class="fa-solid fa-box"></i>
+
+            ติดตามพัสดุ
+
+        </a>
+
+
+        <button
+            onclick="goShop()"
+            class="w-10 h-10 rounded-xl
+            bg-indigo-600 hover:bg-indigo-500
+            flex items-center justify-center transition"
+            title="ไปที่ร้านค้า"
+        >
+
+            <i class="fa-solid fa-store"></i>
+
+        </button>
+
+    </div>
+
+</div>
+```
+
 </nav>
 
-
-
-<!-- ===================================================== -->
-<!-- MAIN -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
 <main
     id="product-page"
     class="max-w-6xl mx-auto px-4 py-6"
 >
 
+```
+<!-- LOADING -->
 
-    <!-- LOADING -->
+<div
+    id="loading"
+    class="bg-white rounded-3xl p-10
+    text-center shadow-sm"
+>
+
+    <i
+        class="fa-solid fa-spinner fa-spin
+        text-3xl text-indigo-600"
+    ></i>
+
+    <p class="text-sm text-slate-400 mt-3">
+        กำลังโหลดสินค้า...
+    </p>
+
+</div>
+
+
+
+<!-- PRODUCT -->
+
+<section
+    id="product-content"
+    class="hidden"
+>
 
     <div
-        id="loading"
-        class="bg-white
-        rounded-3xl
-        p-10
-        text-center
-        shadow-sm"
+        class="grid grid-cols-1 lg:grid-cols-2
+        gap-6"
     >
 
-        <i
-            class="fa-solid fa-spinner
-            fa-spin
-            text-3xl
-            text-indigo-600"
-        ></i>
 
-        <p class="text-sm text-slate-400 mt-3">
-            กำลังโหลดสินค้า...
-        </p>
+        <!-- =================================================
+             IMAGE
+        ================================================= -->
 
-    </div>
+        <div>
+
+            <div
+                class="bg-white rounded-3xl
+                border border-slate-200
+                shadow-sm overflow-hidden
+                relative"
+            >
+
+                <div
+                    class="aspect-square
+                    bg-slate-100
+                    overflow-hidden"
+                >
+
+                    <img
+                        id="product-image"
+                        src=""
+                        alt=""
+                        class="product-image
+                        w-full h-full
+                        object-cover"
+                    >
+
+                </div>
+
+
+                <!-- MALL BADGE -->
+
+                <div
+                    id="mall-badge"
+                    class="hidden absolute
+                    top-4 left-4
+                    bg-orange-500 text-white
+                    px-3 py-1.5
+                    rounded-xl text-xs
+                    font-black shadow-lg"
+                >
+
+                    <i
+                        class="fa-solid fa-shield-check mr-1"
+                    ></i>
+
+                    MALL
+
+                </div>
+
+            </div>
+
+        </div>
 
 
 
-    <!-- PRODUCT -->
-
-    <section
-        id="product-content"
-        class="hidden"
-    >
+        <!-- =================================================
+             INFO
+        ================================================= -->
 
         <div
-            class="grid
-            grid-cols-1
-            lg:grid-cols-2
-            gap-6"
+            class="bg-white rounded-3xl
+            border border-slate-200
+            shadow-sm p-6 md:p-8"
         >
 
 
-            <!-- IMAGE -->
+            <!-- CATEGORY -->
 
-            <div>
+            <div class="flex items-center gap-2">
+
+                <span
+                    id="product-category"
+                    class="px-3 py-1
+                    bg-indigo-50
+                    text-indigo-600
+                    rounded-lg
+                    text-[10px]
+                    font-bold"
+                >
+                    CATEGORY
+                </span>
+
+            </div>
+
+
+
+            <!-- NAME -->
+
+            <h1
+                id="product-name"
+                class="text-2xl md:text-3xl
+                font-black text-slate-800 mt-4"
+            >
+                -
+            </h1>
+
+
+
+            <!-- RATING -->
+
+            <div
+                class="flex items-center
+                gap-2 mt-3"
+            >
 
                 <div
-                    class="bg-white
-                    rounded-3xl
-                    border border-slate-200
-                    shadow-sm
-                    overflow-hidden
-                    relative"
+                    class="flex items-center gap-1"
                 >
 
-                    <div
-                        class="aspect-square
-                        bg-slate-100
-                        overflow-hidden"
+                    <i
+                        class="fa-solid fa-star
+                        text-amber-400"
+                    ></i>
+
+                    <span
+                        id="product-rating"
+                        class="font-bold"
                     >
+                        0.0
+                    </span>
 
-                        <img
-                            id="product-image"
-                            src=""
-                            alt=""
-                            class="product-image
-                            w-full h-full
-                            object-cover"
-                        >
-
-                    </div>
+                </div>
 
 
-                    <!-- MALL -->
+                <span class="text-slate-300">
+                    |
+                </span>
 
-                    <div
-                        id="mall-badge"
-                        class="hidden
-                        absolute
-                        top-4 left-4
-                        bg-orange-500
-                        text-white
-                        px-3 py-1.5
+
+                <span
+                    class="text-xs
+                    text-slate-400"
+                >
+                    คะแนนสินค้า
+                </span>
+
+            </div>
+
+
+
+            <!-- PRICE -->
+
+            <div
+                class="mt-6 p-4
+                bg-indigo-50
+                rounded-2xl
+                border border-indigo-100"
+            >
+
+                <p
+                    class="text-xs
+                    text-indigo-400"
+                >
+                    ราคา
+                </p>
+
+
+                <p
+                    id="product-price"
+                    class="text-3xl
+                    font-black
+                    text-indigo-600"
+                >
+                    ฿0
+                </p>
+
+            </div>
+
+
+
+            <!-- SHOP -->
+
+            <div
+                class="mt-6
+                border-t
+                border-slate-100
+                pt-5"
+            >
+
+                <p
+                    class="text-xs
+                    text-slate-400
+                    mb-3"
+                >
+                    ร้านค้า
+                </p>
+
+
+                <div
+                    class="flex items-center gap-3"
+                >
+
+                    <img
+                        id="shop-logo"
+                        src=""
+                        alt=""
+                        class="w-12 h-12
                         rounded-xl
-                        text-xs
-                        font-black
-                        shadow-lg"
+                        object-cover
+                        border border-slate-200"
                     >
 
-                        <i
-                            class="fa-solid fa-shield-check mr-1"
-                        ></i>
 
-                        MALL
+                    <div>
+
+                        <p
+                            id="shop-name"
+                            class="font-black text-sm"
+                        >
+                            -
+                        </p>
+
+
+                        <p
+                            id="shop-status"
+                            class="text-[10px] mt-0.5"
+                        >
+                            ร้านค้าทั่วไป
+                        </p>
 
                     </div>
 
@@ -279,477 +435,266 @@
 
 
 
-            <!-- INFO -->
+            <!-- DESCRIPTION -->
 
             <div
-                class="bg-white
-                rounded-3xl
-                border border-slate-200
-                shadow-sm
-                p-6
-                md:p-8"
+                class="mt-6
+                border-t
+                border-slate-100
+                pt-5"
             >
 
-
-                <!-- CATEGORY -->
-
-                <div class="flex items-center gap-2">
-
-                    <span
-                        id="product-category"
-                        class="px-3 py-1
-                        bg-indigo-50
-                        text-indigo-600
-                        rounded-lg
-                        text-[10px]
-                        font-bold"
-                    >
-                        CATEGORY
-                    </span>
-
-                </div>
+                <h3
+                    class="font-black text-sm"
+                >
+                    รายละเอียดสินค้า
+                </h3>
 
 
-
-                <!-- NAME -->
-
-                <h1
-                    id="product-name"
-                    class="text-2xl
-                    md:text-3xl
-                    font-black
-                    text-slate-800
-                    mt-4"
+                <p
+                    id="product-description"
+                    class="text-sm
+                    text-slate-500
+                    leading-7 mt-3"
                 >
                     -
-                </h1>
+                </p>
+
+            </div>
 
 
 
-                <!-- RATING -->
+            <!-- QUANTITY -->
+
+            <div
+                class="mt-6
+                border-t
+                border-slate-100
+                pt-5"
+            >
 
                 <div
                     class="flex items-center
-                    gap-2 mt-3"
-                >
-
-                    <div
-                        class="flex items-center
-                        gap-1"
-                    >
-
-                        <i
-                            class="fa-solid fa-star
-                            text-amber-400"
-                        ></i>
-
-                        <span
-                            id="product-rating"
-                            class="font-bold"
-                        >
-                            0.0
-                        </span>
-
-                    </div>
-
-
-                    <span class="text-slate-300">
-                        |
-                    </span>
-
-
-                    <span
-                        class="text-xs
-                        text-slate-400"
-                    >
-                        คะแนนสินค้า
-                    </span>
-
-                </div>
-
-
-
-                <!-- PRICE -->
-
-                <div
-                    class="mt-6
-                    p-4
-                    bg-indigo-50
-                    rounded-2xl
-                    border border-indigo-100"
-                >
-
-                    <p
-                        class="text-xs
-                        text-indigo-400"
-                    >
-                        ราคา
-                    </p>
-
-
-                    <p
-                        id="product-price"
-                        class="text-3xl
-                        font-black
-                        text-indigo-600"
-                    >
-                        ฿0
-                    </p>
-
-                </div>
-
-
-
-                <!-- SHOP -->
-
-                <div
-                    class="mt-6
-                    border-t
-                    border-slate-100
-                    pt-5"
-                >
-
-                    <p
-                        class="text-xs
-                        text-slate-400
-                        mb-3"
-                    >
-                        ร้านค้า
-                    </p>
-
-
-                    <div
-                        class="flex items-center
-                        gap-3"
-                    >
-
-                        <img
-                            id="shop-logo"
-                            src=""
-                            class="w-12 h-12
-                            rounded-xl
-                            object-cover
-                            border border-slate-200"
-                        >
-
-
-                        <div>
-
-                            <p
-                                id="shop-name"
-                                class="font-black
-                                text-sm"
-                            >
-                                -
-                            </p>
-
-
-                            <p
-                                id="shop-status"
-                                class="text-[10px]
-                                mt-0.5"
-                            >
-                                ร้านค้าทั่วไป
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- DESCRIPTION -->
-
-                <div
-                    class="mt-6
-                    border-t
-                    border-slate-100
-                    pt-5"
-                >
-
-                    <h3
-                        class="font-black
-                        text-sm"
-                    >
-                        รายละเอียดสินค้า
-                    </h3>
-
-
-                    <p
-                        id="product-description"
-                        class="text-sm
-                        text-slate-500
-                        leading-7
-                        mt-3"
-                    >
-                        -
-                    </p>
-
-                </div>
-
-
-
-                <!-- QUANTITY -->
-
-                <div
-                    class="mt-6
-                    border-t
-                    border-slate-100
-                    pt-5"
-                >
-
-                    <div
-                        class="flex items-center
-                        justify-between"
-                    >
-
-                        <span
-                            class="text-sm
-                            font-bold"
-                        >
-                            จำนวน
-                        </span>
-
-
-                        <div
-                            class="flex items-center
-                            gap-3
-                            bg-slate-100
-                            rounded-xl
-                            p-1"
-                        >
-
-                            <button
-                                onclick="changeQuantity(-1)"
-                                class="quantity-btn
-                                w-9 h-9
-                                rounded-lg
-                                bg-white
-                                border border-slate-200
-                                font-bold"
-                            >
-                                −
-                            </button>
-
-
-                            <span
-                                id="quantity"
-                                class="w-8
-                                text-center
-                                font-black"
-                            >
-                                1
-                            </span>
-
-
-                            <button
-                                onclick="changeQuantity(1)"
-                                class="quantity-btn
-                                w-9 h-9
-                                rounded-lg
-                                bg-white
-                                border border-slate-200
-                                font-bold"
-                            >
-                                +
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- TOTAL -->
-
-                <div
-                    class="mt-5
-                    flex items-center
                     justify-between"
                 >
 
                     <span
-                        class="text-sm
-                        text-slate-500"
+                        class="text-sm font-bold"
                     >
-                        รวม
+                        จำนวน
                     </span>
 
 
-                    <span
-                        id="total-price"
-                        class="text-xl
-                        font-black
-                        text-indigo-600"
-                    >
-                        ฿0
-                    </span>
-
-                </div>
-
-
-
-                <!-- BUTTONS -->
-
-                <div
-                    class="grid
-                    grid-cols-2
-                    gap-3
-                    mt-5"
-                >
-
-                    <button
-                        onclick="addProductToCart()"
-                        class="py-3.5
-                        rounded-2xl
-                        border-2
-                        border-indigo-600
-                        text-indigo-600
-                        hover:bg-indigo-50
-                        font-black
-                        transition
-                        active:scale-95"
+                    <div
+                        class="flex items-center
+                        gap-3 bg-slate-100
+                        rounded-xl p-1"
                     >
 
-                        <i
-                            class="fa-solid fa-cart-plus mr-1"
-                        ></i>
+                        <button
+                            onclick="changeQuantity(-1)"
+                            class="quantity-btn
+                            w-9 h-9 rounded-lg
+                            bg-white
+                            border border-slate-200
+                            font-bold"
+                        >
+                            −
+                        </button>
 
-                        เพิ่มลงตะกร้า
 
-                    </button>
+                        <span
+                            id="quantity"
+                            class="w-8 text-center
+                            font-black"
+                        >
+                            1
+                        </span>
 
 
-                    <button
-                        onclick="buyNow()"
-                        class="py-3.5
-                        rounded-2xl
-                        bg-indigo-600
-                        hover:bg-indigo-700
-                        text-white
-                        font-black
-                        shadow-lg
-                        shadow-indigo-200
-                        transition
-                        active:scale-95"
-                    >
+                        <button
+                            onclick="changeQuantity(1)"
+                            class="quantity-btn
+                            w-9 h-9 rounded-lg
+                            bg-white
+                            border border-slate-200
+                            font-bold"
+                        >
+                            +
+                        </button>
 
-                        <i
-                            class="fa-solid fa-bolt mr-1
-                            text-amber-300"
-                        ></i>
-
-                        ซื้อทันที
-
-                    </button>
+                    </div>
 
                 </div>
 
             </div>
 
+
+
+            <!-- TOTAL -->
+
+            <div
+                class="mt-5
+                flex items-center
+                justify-between"
+            >
+
+                <span
+                    class="text-sm
+                    text-slate-500"
+                >
+                    รวม
+                </span>
+
+
+                <span
+                    id="total-price"
+                    class="text-xl
+                    font-black
+                    text-indigo-600"
+                >
+                    ฿0
+                </span>
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+
+            <div
+                class="grid grid-cols-2
+                gap-3 mt-5"
+            >
+
+                <button
+                    onclick="addProductToCart()"
+                    class="py-3.5 rounded-2xl
+                    border-2 border-indigo-600
+                    text-indigo-600
+                    hover:bg-indigo-50
+                    font-black transition
+                    active:scale-95"
+                >
+
+                    <i
+                        class="fa-solid fa-cart-plus mr-1"
+                    ></i>
+
+                    เพิ่มลงตะกร้า
+
+                </button>
+
+
+                <button
+                    onclick="buyNow()"
+                    class="py-3.5 rounded-2xl
+                    bg-indigo-600
+                    hover:bg-indigo-700
+                    text-white font-black
+                    shadow-lg
+                    shadow-indigo-200
+                    transition active:scale-95"
+                >
+
+                    <i
+                        class="fa-solid fa-bolt
+                        mr-1 text-amber-300"
+                    ></i>
+
+                    ซื้อทันที
+
+                </button>
+
+            </div>
+
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
 
-    <!-- NOT FOUND -->
+<!-- =================================================
+     NOT FOUND
+================================================= -->
 
-    <section
-        id="not-found"
-        class="hidden
-        bg-white
+<section
+    id="not-found"
+    class="hidden bg-white
+    rounded-3xl p-10
+    text-center
+    border border-slate-200"
+>
+
+    <div
+        class="w-20 h-20
+        bg-rose-50
+        text-rose-500
         rounded-3xl
-        p-10
-        text-center
-        border border-slate-200"
+        flex items-center
+        justify-center
+        mx-auto text-3xl"
     >
 
-        <div
-            class="w-20 h-20
-            bg-rose-50
-            text-rose-500
-            rounded-3xl
-            flex items-center justify-center
-            mx-auto
-            text-3xl"
-        >
+        <i class="fa-solid fa-box-open"></i>
 
-            <i class="fa-solid fa-box-open"></i>
-
-        </div>
+    </div>
 
 
-        <h2
-            class="font-black
-            text-xl
-            mt-5"
-        >
-            ไม่พบสินค้านี้
-        </h2>
+    <h2
+        class="font-black text-xl mt-5"
+    >
+        ไม่พบสินค้านี้
+    </h2>
 
 
-        <p
-            class="text-sm
-            text-slate-400
-            mt-2"
-        >
-            อาจมีการลบสินค้าหรือ URL ไม่ถูกต้อง
-        </p>
+    <p
+        class="text-sm text-slate-400 mt-2"
+    >
+        อาจมีการลบสินค้าหรือ URL ไม่ถูกต้อง
+    </p>
 
 
-        <a
-            href="shop.html"
-            class="inline-flex
-            items-center
-            gap-2
-            mt-5
-            px-5 py-3
-            bg-indigo-600
-            hover:bg-indigo-700
-            text-white
-            rounded-2xl
-            font-bold
-            text-sm"
-        >
+    <a
+        href="shop.html"
+        class="inline-flex
+        items-center gap-2
+        mt-5 px-5 py-3
+        bg-indigo-600
+        hover:bg-indigo-700
+        text-white
+        rounded-2xl
+        font-bold text-sm"
+    >
 
-            <i class="fa-solid fa-store"></i>
+        <i class="fa-solid fa-store"></i>
 
-            กลับไป Marketplace
+        กลับไป Marketplace
 
-        </a>
+    </a>
 
-    </section>
+</section>
+```
 
 </main>
 
-
-
-<!-- TOAST -->
+<!-- =====================================================
+     TOAST
+===================================================== -->
 
 <div
     id="toast"
-    class="hidden
-    fixed
-    bottom-5
-    left-1/2
-    -translate-x-1/2
+    class="hidden fixed bottom-5
+    left-1/2 -translate-x-1/2
     z-[200]
     bg-slate-950
-    text-white
-    px-5 py-3
-    rounded-2xl
-    shadow-2xl
-    text-sm
-    font-bold"
+    text-white px-5 py-3
+    rounded-2xl shadow-2xl
+    text-sm font-bold"
 >
 </div>
-
-
 
 <script>
 
@@ -761,66 +706,43 @@ const shops = [
 
     {
         id: "S001",
-
         name: "Dr.PONG",
-
         logo: "images/shops/S001.jpeg",
-
         mall: true
     },
-
 
     {
         id: "S002",
-
         name: "Fashion Store",
-
         logo: "images/shops/shop2.jpg",
-
         mall: true
     },
-
 
     {
         id: "S003",
-
         name: "ร้านค้าทั่วไป",
-
         logo: "images/shops/shop1.jpg",
-
         mall: false
     },
 
-
     {
         id: "S004",
-
         name: "Book Academy",
-
         logo: "images/shops/shop2.jpg",
-
         mall: true
     },
-
 
     {
         id: "S005",
-
         name: "Everyday Store",
-
         logo: "images/shops/shop1.jpg",
-
         mall: true
     },
 
-
     {
         id: "S006",
-
         name: "Tech Mall",
-
         logo: "images/shops/shop2.jpg",
-
         mall: true
     }
 
@@ -839,8 +761,7 @@ const products = [
 
         image: "images/products/P001.jpeg",
 
-        name:
-        "Dr.PONG 28D Smart Whitening Drone Activein Serum",
+        name: "Dr.PONG 28D Smart Whitening Drone Activein Serum",
 
         description:
         "เซรั่มบำรุงผิวหน้าสูตรกระจ่างใส ช่วยลดเลือนจุดด่างดำและรอยสิวด้วยเทคโนโลยี activeIN™ ผสาน 5% Niacinamide, Arbutin และ Vitamin C ปราศจากสี พาราเบน น้ำหอม และสเตียรอยด์ เหมาะสำหรับทุกสภาพผิว",
@@ -860,8 +781,7 @@ const products = [
 
         image: "images/products/P002.jpg",
 
-        name:
-        "สินค้าแนะนำ #2",
+        name: "สินค้าแนะนำ #2",
 
         description:
         "รายละเอียดสินค้าของคุณสามารถแก้ตรงนี้ได้",
@@ -881,8 +801,7 @@ const products = [
 
         image: "images/products/P003.jpg",
 
-        name:
-        "สินค้าแนะนำ #3",
+        name: "สินค้าแนะนำ #3",
 
         description:
         "รายละเอียดสินค้าของคุณสามารถแก้ตรงนี้ได้",
@@ -902,8 +821,7 @@ const products = [
 
         image: "images/products/P004.jpg",
 
-        name:
-        "หนังสือเรียนคณิตศาสตร์",
+        name: "หนังสือเรียนคณิตศาสตร์",
 
         description:
         "หนังสือสำหรับทบทวนบทเรียนและเตรียมสอบ พร้อมแบบฝึกหัดสำหรับฝึกทำโจทย์",
@@ -923,8 +841,7 @@ const products = [
 
         image: "images/products/P005.jpg",
 
-        name:
-        "เซตแชมพูและครีมนวด",
+        name: "เซตแชมพูและครีมนวด",
 
         description:
         "ผลิตภัณฑ์ดูแลเส้นผมสำหรับใช้ในชีวิตประจำวัน ช่วยทำความสะอาดและบำรุงเส้นผม",
@@ -944,8 +861,7 @@ const products = [
 
         image: "images/products/P006.jpg",
 
-        name:
-        "หูฟังไร้สาย Bluetooth",
+        name: "หูฟังไร้สาย Bluetooth",
 
         description:
         "หูฟังไร้สายสำหรับฟังเพลง เรียนออนไลน์ และใช้งานทั่วไป",
@@ -993,7 +909,7 @@ function getProductId() {
 
 
 /* =====================================================
-   GET SHOP BY ID
+   GET SHOP
 ===================================================== */
 
 function getShopById(shopId) {
@@ -1007,7 +923,7 @@ function getShopById(shopId) {
 
 
 /* =====================================================
-   CATEGORY NAME
+   CATEGORY
 ===================================================== */
 
 function getCategoryName(category) {
@@ -1044,11 +960,8 @@ function loadProduct() {
         getProductId();
 
 
-    /*
-        สำคัญ:
-        ไม่ใช้ Number()
-        เพราะ ID เป็น P001, P002, P003
-    */
+    console.log("Product ID:", productId);
+
 
     currentProduct =
         products.find(
@@ -1067,14 +980,15 @@ function loadProduct() {
             .getElementById("not-found")
             .classList.remove("hidden");
 
+        console.error(
+            "ไม่พบสินค้า ID:",
+            productId
+        );
+
         return;
 
     }
 
-
-    /*
-        หา Shop จาก shopId
-    */
 
     currentShop =
         getShopById(
@@ -1087,6 +1001,11 @@ function loadProduct() {
         document
             .getElementById("not-found")
             .classList.remove("hidden");
+
+        console.error(
+            "ไม่พบร้านค้า:",
+            currentProduct.shopId
+        );
 
         return;
 
@@ -1110,20 +1029,16 @@ function loadProduct() {
 
 function renderProduct() {
 
-    const product =
-        currentProduct;
+    const product = currentProduct;
 
-
-    const shop =
-        currentShop;
+    const shop = currentShop;
 
 
     document.title =
         `${product.name} - Delivery Risk Market`;
 
 
-
-    /* IMAGE */
+    /* PRODUCT IMAGE */
 
     const image =
         document.getElementById(
@@ -1131,15 +1046,17 @@ function renderProduct() {
         );
 
 
-    image.src =
-        product.image;
+    image.src = product.image;
 
-
-    image.alt =
-        product.name;
+    image.alt = product.name;
 
 
     image.onerror = function() {
+
+        console.error(
+            "โหลดรูปสินค้าไม่ได้:",
+            product.image
+        );
 
         this.src =
         "https://placehold.co/800x800/e2e8f0/64748b?text=No+Image";
@@ -1195,9 +1112,7 @@ function renderProduct() {
 
 
 
-    /* =================================================
-       SHOP
-    ================================================= */
+    /* SHOP LOGO */
 
     const shopLogo =
         document.getElementById(
@@ -1205,15 +1120,17 @@ function renderProduct() {
         );
 
 
-    shopLogo.src =
-        shop.logo;
+    shopLogo.src = shop.logo;
 
-
-    shopLogo.alt =
-        shop.name;
+    shopLogo.alt = shop.name;
 
 
     shopLogo.onerror = function() {
+
+        console.error(
+            "โหลดโลโก้ร้านไม่ได้:",
+            shop.logo
+        );
 
         this.src =
         "https://placehold.co/100x100/e2e8f0/64748b?text=Shop";
@@ -1222,12 +1139,16 @@ function renderProduct() {
 
 
 
+    /* SHOP NAME */
+
     document
         .getElementById("shop-name")
         .innerText =
         shop.name;
 
 
+
+    /* SHOP STATUS */
 
     const shopStatus =
         document.getElementById(
@@ -1244,6 +1165,7 @@ function renderProduct() {
     if (shop.mall) {
 
         shopStatus.innerHTML = `
+
             <span class="text-orange-500 font-bold">
 
                 <i class="fa-solid fa-circle-check"></i>
@@ -1251,6 +1173,7 @@ function renderProduct() {
                 Mall ร้านค้าที่ผ่านการตรวจสอบ
 
             </span>
+
         `;
 
 
@@ -1262,6 +1185,7 @@ function renderProduct() {
 
         shopStatus.innerText =
             "ร้านค้าทั่วไป";
+
 
         mallBadge.classList.add(
             "hidden"
@@ -1335,7 +1259,7 @@ function updateTotal() {
 
 
 /* =====================================================
-   CART STORAGE
+   CART
 ===================================================== */
 
 function getCart() {
@@ -1408,13 +1332,17 @@ function addProductToCart() {
 
             price: currentProduct.price,
 
-            category: currentProduct.category,
+            category:
+                currentProduct.category,
 
-            rating: currentProduct.rating,
+            rating:
+                currentProduct.rating,
 
-            shopId: currentProduct.shopId,
+            shopId:
+                currentProduct.shopId,
 
-            quantity: quantity
+            quantity:
+                quantity
 
         });
 
@@ -1456,13 +1384,17 @@ function buyNow() {
 
             price: currentProduct.price,
 
-            category: currentProduct.category,
+            category:
+                currentProduct.category,
 
-            rating: currentProduct.rating,
+            rating:
+                currentProduct.rating,
 
-            shopId: currentProduct.shopId,
+            shopId:
+                currentProduct.shopId,
 
-            quantity: quantity
+            quantity:
+                quantity
 
         }
 
@@ -1540,5 +1472,5 @@ document.addEventListener(
 </script>
 
 </body>
-</html>
 
+</html>
