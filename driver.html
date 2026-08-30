@@ -1,327 +1,3121 @@
 <!DOCTYPE html>
+
 <html lang="th">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบพนักงานขนส่ง - Delivery Risk Pro</title>
-    <!-- Tailwind CSS & Font Awesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Kanit', sans-serif; } </style>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Delivery Risk Pro | ระบบพนักงานขนส่ง</title>
+
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
+
+
+<!-- Google Font -->
+<link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+
+<style>
+
+    body {
+        font-family: 'Kanit', sans-serif;
+    }
+
+
+    .fade-in {
+        animation: fadeIn 0.35s ease-out;
+    }
+
+
+    @keyframes fadeIn {
+
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    }
+
+
+    .toast-animation {
+        animation: toastAnimation 0.3s ease-out;
+    }
+
+
+    @keyframes toastAnimation {
+
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    }
+
+
+    input {
+        transition: all 0.2s ease;
+    }
+
+</style>
+```
+
 </head>
-<body class="bg-slate-100 min-h-screen pb-12">
 
-    <!-- 🔒 หน้าต่างกรอกรหัสพนักงาน (Driver Login) -->
-    <div id="driver-auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
-            <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
-                <i class="fa-solid fa-id-card"></i>
-            </div>
-            <div>
-                <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบพนักงานขนส่ง</h2>
-                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัสพนักงาน (PIN 6 หลัก)</p>
-            </div>
-            <div class="space-y-3">
-                <input type="password" id="driver-pin-input" maxlength="6" placeholder="• • • • • •" 
-                    class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-amber-500 focus:outline-none bg-slate-50">
-                
-                <p id="driver-pin-error" class="text-xs text-rose-500 font-bold hidden">
-                    <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัสพนักงานไม่ถูกต้อง!
-                </p>
+<body
+    class="
+    bg-slate-100
+    min-h-screen
+    pb-10
+    "
+>
 
-                <button onclick="loginDriver()" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-amber-200 transition-all active:scale-95">
-                    เข้าสู่ระบบ
-                </button>
+<!-- ================================= -->
+
+<!-- 🔒 DRIVER LOGIN -->
+
+<!-- ================================= -->
+
+<div
+    id="driver-auth-screen"
+
+```
+class="
+fixed
+inset-0
+
+z-50
+
+flex
+items-center
+justify-center
+
+p-4
+
+bg-gradient-to-br
+from-slate-950
+via-slate-900
+to-indigo-950
+"
+```
+
+>
+
+```
+<!-- Background Decoration -->
+
+<div
+    class="
+    absolute
+
+    top-0
+    left-0
+
+    w-72
+    h-72
+
+    bg-indigo-500/20
+
+    rounded-full
+
+    blur-3xl
+
+    -translate-x-1/2
+    -translate-y-1/2
+    "
+></div>
+
+
+<div
+    class="
+    absolute
+
+    bottom-0
+    right-0
+
+    w-96
+    h-96
+
+    bg-amber-500/10
+
+    rounded-full
+
+    blur-3xl
+    "
+></div>
+
+
+
+<!-- Login Card -->
+
+<div
+    class="
+    relative
+
+    w-full
+    max-w-md
+
+    bg-white
+
+    rounded-[2rem]
+
+    shadow-2xl
+
+    overflow-hidden
+
+    fade-in
+    "
+>
+
+
+    <!-- Header -->
+
+    <div
+        class="
+        h-32
+
+        bg-gradient-to-r
+        from-indigo-600
+        via-indigo-700
+        to-indigo-800
+
+        relative
+        "
+    >
+
+
+        <div
+            class="
+            absolute
+
+            left-1/2
+            bottom-0
+
+            translate-x-[-50%]
+            translate-y-1/2
+            "
+        >
+
+            <div
+                class="
+                w-20
+                h-20
+
+                rounded-3xl
+
+                bg-white
+
+                shadow-xl
+
+                flex
+                items-center
+                justify-center
+                "
+            >
+
+                <i
+                    class="
+                    fa-solid
+                    fa-truck-fast
+
+                    text-3xl
+
+                    text-amber-500
+                    "
+                ></i>
+
             </div>
+
         </div>
+
     </div>
 
-    <!-- 🚚 แถบเมนูด้านบน -->
-    <nav class="bg-slate-900 text-white shadow-md sticky top-0 z-40">
-        <div class="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <a href="tracking.html" class="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded-xl border border-slate-700 text-xs font-bold flex items-center gap-1.5 transition-all">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span>หน้าลูกค้า</span>
-                </a>
-                <span class="font-bold text-sm hidden sm:inline">| ระบบบันทึกงานส่ง</span>
+
+
+    <!-- Content -->
+
+    <div
+        class="
+        p-8
+        pt-16
+
+        text-center
+        "
+    >
+
+
+        <h1
+            class="
+            text-2xl
+            font-black
+
+            text-slate-800
+            "
+        >
+
+            Delivery Risk Pro
+
+        </h1>
+
+
+        <p
+            class="
+            text-sm
+
+            text-slate-400
+
+            mt-2
+            "
+        >
+
+            เข้าสู่ระบบพนักงานขนส่ง
+
+        </p>
+
+
+
+        <div
+            class="
+            mt-8
+
+            space-y-4
+            "
+        >
+
+
+            <!-- PIN -->
+
+            <div class="text-left">
+
+
+                <label
+                    class="
+                    block
+
+                    text-xs
+                    font-bold
+
+                    text-slate-600
+
+                    mb-2
+                    "
+                >
+
+                    <i
+                        class="
+                        fa-solid
+                        fa-lock
+
+                        text-indigo-500
+
+                        mr-1
+                        "
+                    ></i>
+
+                    รหัสพนักงาน (PIN 6 หลัก)
+
+                </label>
+
+
+
+                <input
+                    type="password"
+
+                    id="driver-pin-input"
+
+                    maxlength="6"
+
+                    inputmode="numeric"
+
+                    placeholder="• • • • • •"
+
+                    class="
+                    w-full
+
+                    text-center
+
+                    text-2xl
+
+                    tracking-[0.35em]
+
+                    font-bold
+
+                    py-4
+
+                    border-2
+                    border-slate-200
+
+                    rounded-2xl
+
+                    bg-slate-50
+
+                    focus:outline-none
+
+                    focus:border-indigo-500
+
+                    focus:bg-white
+                    "
+                >
+
+
             </div>
 
-            <div class="flex items-center space-x-2 text-xs font-medium">
-                <span id="driver-id-badge" class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-1 rounded-lg font-mono hidden">
-                    ID: Staff
-                </span>
-                <a href="admin.html" class="text-slate-300 hover:text-white px-2 py-1">แอดมิน</a>
-                <button onclick="logoutDriver()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">
-                    ออกจากระบบ
-                </button>
-            </div>
-        </div>
-    </nav>
 
-    <main id="driver-main-content" class="max-w-3xl mx-auto px-4 pt-6 space-y-6 hidden">
 
-        <!-- 🔊 ปุ่มทดสอบเสียง / เปิดการอนุญาตเสียง -->
-        <div class="bg-amber-50 border border-amber-200 p-3 rounded-2xl flex items-center justify-between text-xs text-amber-800">
-            <div class="flex items-center gap-2">
-                <i class="fa-solid fa-volume-high text-amber-600 text-base"></i>
-                <span>คลิกปุ่มนี้เพื่อเปิดสิทธิ์และทดสอบเล่นเสียง</span>
-            </div>
-            <button onclick="testPlaySound()" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1 rounded-xl font-bold shadow-sm active:scale-95">
-                🔊 ทดสอบเสียง
+            <!-- ERROR -->
+
+            <p
+                id="driver-pin-error"
+
+                class="
+                hidden
+
+                text-sm
+
+                text-rose-500
+
+                font-bold
+                "
+            >
+
+                <i
+                    class="
+                    fa-solid
+                    fa-circle-exclamation
+                    mr-1
+                    "
+                ></i>
+
+                รหัสพนักงานไม่ถูกต้อง
+
+            </p>
+
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                onclick="loginDriver()"
+
+                class="
+                w-full
+
+                py-4
+
+                rounded-2xl
+
+                bg-gradient-to-r
+                from-indigo-600
+                to-indigo-700
+
+                hover:from-indigo-500
+                hover:to-indigo-600
+
+                text-white
+
+                font-bold
+
+                shadow-lg
+                shadow-indigo-200
+
+                transition-all
+
+                active:scale-95
+                "
+            >
+
+                <i
+                    class="
+                    fa-solid
+                    fa-right-to-bracket
+                    mr-2
+                    "
+                ></i>
+
+                เข้าสู่ระบบ
+
             </button>
+
+
+
+            <p
+                class="
+                text-xs
+
+                text-slate-400
+                "
+            >
+
+                กรุณากรอกรหัสพนักงานเพื่อเริ่มใช้งาน
+
+            </p>
+
+
         </div>
 
-        <!-- 📦 ฟอร์มค้นหาและลงบันทึกการส่ง -->
-        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-5">
-            <div class="text-center space-y-1">
-                <h2 class="text-xl font-bold text-slate-800">ลงบันทึกการจัดส่งพัสดุ</h2>
-                <p class="text-xs text-slate-400">ระบุเลขออเดอร์ ค้นหาชื่อผู้รับ และเลือกผลการส่ง</p>
-            </div>
+    </div>
 
-            <div class="space-y-4">
-                <!-- 🏷️ ช่องใส่เลขออเดอร์ / เลขแทร็กกิ้ง -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1">
-                        <i class="fa-solid fa-barcode text-amber-500 mr-1"></i> รหัสสินค้า / เลขออเดอร์
-                    </label>
-                    <input type="text" id="order-id-input" placeholder="เช่น TH123600TH" 
-                        class="w-full border-2 border-slate-200 p-3 rounded-2xl text-base font-semibold focus:outline-none focus:border-amber-500 uppercase bg-slate-50">
-                </div>
+</div>
+```
 
-                <!-- 👤 ช่องค้นหาชื่อลูกค้า -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-600 mb-1">
-                        <i class="fa-solid fa-user text-amber-500 mr-1"></i> ชื่อผู้รับพัสดุ
-                    </label>
-                    <div class="relative">
-                        <input type="text" id="driver-search-name" oninput="handleCustomerSearch()" placeholder="พิมพ์ชื่อเพื่อค้นหา..." 
-                            class="w-full border-2 border-slate-200 p-3 rounded-2xl text-base font-semibold focus:outline-none focus:border-amber-500 bg-slate-50">
-                        <div id="search-dropdown" class="absolute w-full bg-white border border-slate-200 rounded-2xl shadow-xl mt-1 hidden max-h-48 overflow-y-auto z-30 divide-y divide-slate-100"></div>
-                    </div>
-                </div>
+</div>
 
-                <!-- ⚠️ กล่องแสดงผลระดับความเสี่ยงของลูกค้า -->
-                <div id="risk-alert-box" class="hidden p-4 rounded-2xl border space-y-2">
-                    <div class="flex items-center justify-between">
-                        <span id="risk-badge" class="px-3 py-1 rounded-full text-xs font-bold"></span>
-                        <span id="customer-stats" class="text-xs font-semibold text-slate-500"></span>
-                    </div>
-                    <p id="blacklist-reason-text" class="text-xs text-rose-600 font-semibold hidden"></p>
-                </div>
+<!-- ================================= -->
 
-                <!-- 🔘 ปุ่มกดยืนยันการส่ง -->
-                <div class="grid grid-cols-2 gap-3 pt-2">
-                    <button onclick="confirmDelivery('SUCCESS')" class="bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-100 transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-circle-check text-lg"></i>
-                        <span>ส่งสำเร็จ</span>
-                    </button>
+<!-- 🚚 NAVBAR -->
 
-                    <button onclick="confirmDelivery('FAILED')" class="bg-rose-600 hover:bg-rose-700 active:scale-95 text-white font-bold py-3.5 px-4 rounded-2xl shadow-lg shadow-rose-100 transition-all flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-circle-xmark text-lg"></i>
-                        <span>ตีกลับ / ปฏิเสธ</span>
-                    </button>
-                </div>
-            </div>
+<!-- ================================= -->
+
+<nav
+    class="
+    sticky
+    top-0
+
+```
+z-40
+
+bg-slate-950
+
+text-white
+
+border-b
+border-slate-800
+"
+```
+
+>
+
+```
+<div
+    class="
+    max-w-4xl
+
+    mx-auto
+
+    px-4
+    py-3
+
+    flex
+
+    items-center
+    justify-between
+    "
+>
+
+
+    <!-- LEFT -->
+
+    <div
+        class="
+        flex
+        items-center
+
+        gap-3
+        "
+    >
+
+
+        <a
+            href="index.html"
+
+            class="
+            w-10
+            h-10
+
+            rounded-xl
+
+            bg-slate-800
+
+            hover:bg-slate-700
+
+            flex
+            items-center
+            justify-center
+
+            transition
+            "
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+        </a>
+
+
+
+        <div>
+
+            <h1
+                class="
+                font-bold
+
+                text-sm
+                "
+            >
+
+                Delivery Risk Pro
+
+            </h1>
+
+
+            <p
+                class="
+                text-xs
+
+                text-slate-400
+                "
+            >
+
+                ระบบบันทึกการจัดส่ง
+
+            </p>
+
         </div>
 
-        <!-- 📜 ประวัติการบันทึกล่าสุด -->
-        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-            <div class="flex items-center justify-between border-b pb-3">
-                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-clock-rotate-left text-amber-500"></i> ประวัติการบันทึกล่าสุดในรอบนี้
-                </h3>
-                <span id="log-count-badge" class="text-xs font-bold bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full">0 รายการ</span>
-            </div>
-            
-            <div id="recent-logs-list" class="space-y-3 min-h-[120px]">
-                <p class="text-slate-400 text-center py-8 text-sm">ยังไม่มีรายการบันทึกใหม่ในรอบนี้</p>
-            </div>
+
+    </div>
+
+
+
+    <!-- RIGHT -->
+
+    <div
+        class="
+        flex
+        items-center
+
+        gap-2
+        "
+    >
+
+
+        <span
+            id="driver-id-badge"
+
+            class="
+            hidden
+
+            px-3
+            py-1.5
+
+            rounded-xl
+
+            text-xs
+            font-bold
+
+            bg-emerald-500/10
+
+            border
+            border-emerald-500/20
+
+            text-emerald-300
+            "
+        >
+
+            <span
+                class="
+                inline-block
+
+                w-2
+                h-2
+
+                rounded-full
+
+                bg-emerald-400
+
+                mr-1
+
+                animate-pulse
+                "
+            ></span>
+
+            ONLINE
+
+        </span>
+
+
+
+        <a
+            href="admin.html"
+
+            class="
+            hidden
+            sm:flex
+
+            items-center
+
+            px-3
+            py-2
+
+            text-xs
+
+            text-slate-300
+
+            hover:text-white
+            "
+        >
+
+            <i
+                class="
+                fa-solid
+                fa-chart-pie
+
+                mr-1
+                "
+            ></i>
+
+            แอดมิน
+
+        </a>
+
+
+
+        <button
+            onclick="logoutDriver()"
+
+            class="
+            w-10
+            h-10
+
+            rounded-xl
+
+            bg-rose-500/10
+
+            text-rose-300
+
+            hover:bg-rose-500/20
+
+            transition
+            "
+        >
+
+            <i
+                class="
+                fa-solid
+                fa-right-from-bracket
+                "
+            ></i>
+
+        </button>
+
+
+    </div>
+
+</div>
+```
+
+</nav>
+
+<!-- ================================= -->
+
+<!-- MAIN -->
+
+<!-- ================================= -->
+
+<main
+    id="driver-main-content"
+
+```
+class="
+hidden
+
+max-w-4xl
+
+mx-auto
+
+px-4
+py-6
+
+space-y-6
+"
+```
+
+>
+
+<!-- ================================= -->
+
+<!-- WELCOME -->
+
+<!-- ================================= -->
+
+<section
+    class="
+    fade-in
+
+```
+bg-gradient-to-r
+from-indigo-700
+to-indigo-900
+
+rounded-3xl
+
+p-6
+
+text-white
+
+shadow-lg
+"
+```
+
+>
+
+```
+<div
+    class="
+    flex
+
+    items-center
+    justify-between
+
+    gap-4
+    "
+>
+
+
+    <div>
+
+
+        <div
+            class="
+            inline-flex
+
+            items-center
+
+            gap-2
+
+            text-xs
+
+            text-indigo-200
+            "
+        >
+
+            <span
+                class="
+                w-2
+                h-2
+
+                bg-emerald-400
+
+                rounded-full
+
+                animate-pulse
+                "
+            ></span>
+
+            ระบบพร้อมใช้งาน
+
         </div>
 
-    </main>
 
-    <!-- 🔗 เรียกใช้งานไฟล์ JS -->
-    <script src="js/config.js"></script>
-    <script src="js/db.js"></script>
-    <script src="js/sound.js"></script>
 
-    <script>
-        let selectedUser = null;
-        const recentLogs = [];
+        <h2
+            class="
+            text-xl
+            sm:text-2xl
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('driver_logged_in') === 'true') {
-                showDriverSystem();
-            }
-        });
+            font-bold
 
-        function loginDriver() {
-            const inputPin = document.getElementById('driver-pin-input').value.trim();
-            const correctPin = (typeof CONFIG !== 'undefined' && CONFIG.DRIVER_PIN) ? CONFIG.DRIVER_PIN : '123456';
-            const errorMsg = document.getElementById('driver-pin-error');
+            mt-2
+            "
+        >
 
-            if (inputPin === correctPin || inputPin === '123456') {
-                sessionStorage.setItem('driver_logged_in', 'true');
-                showDriverSystem();
-                if (errorMsg) errorMsg.classList.add('hidden');
-            } else {
-                playSound('wrong_pin');
-                if (errorMsg) errorMsg.classList.remove('hidden');
-                document.getElementById('driver-pin-input').value = '';
-            }
+            เริ่มบันทึกการจัดส่งได้เลย 🚚
+
+        </h2>
+
+
+
+        <p
+            class="
+            text-xs
+
+            text-indigo-200
+
+            mt-2
+            "
+        >
+
+            ค้นหาลูกค้า ตรวจสอบความเสี่ยง และบันทึกผลการจัดส่ง
+
+        </p>
+
+
+    </div>
+
+
+
+    <div
+        class="
+        hidden
+        sm:flex
+
+        w-20
+        h-20
+
+        rounded-2xl
+
+        bg-white/10
+
+        items-center
+        justify-center
+
+        text-4xl
+        "
+    >
+
+        <i class="fa-solid fa-box"></i>
+
+    </div>
+
+
+</div>
+```
+
+</section>
+
+<!-- ================================= -->
+
+<!-- SOUND -->
+
+<!-- ================================= -->
+
+<section
+    class="
+    bg-amber-50
+
+```
+border
+border-amber-200
+
+rounded-2xl
+
+p-4
+
+flex
+
+items-center
+justify-between
+
+gap-4
+"
+```
+
+>
+
+```
+<div
+    class="
+    flex
+    items-center
+
+    gap-3
+    "
+>
+
+
+    <div
+        class="
+        w-10
+        h-10
+
+        rounded-xl
+
+        bg-amber-100
+
+        text-amber-600
+
+        flex
+        items-center
+        justify-center
+        "
+    >
+
+        <i class="fa-solid fa-volume-high"></i>
+
+    </div>
+
+
+
+    <div>
+
+
+        <p
+            class="
+            text-sm
+
+            font-bold
+
+            text-amber-900
+            "
+        >
+
+            ระบบเสียงแจ้งเตือน
+
+        </p>
+
+
+
+        <p
+            class="
+            text-xs
+
+            text-amber-700
+            "
+        >
+
+            กดทดสอบก่อนเริ่มใช้งาน
+
+        </p>
+
+
+    </div>
+
+</div>
+
+
+
+<button
+    onclick="testPlaySound()"
+
+    class="
+    px-4
+    py-2
+
+    rounded-xl
+
+    bg-amber-600
+
+    hover:bg-amber-700
+
+    text-white
+
+    text-xs
+    font-bold
+
+    transition
+
+    active:scale-95
+    "
+>
+
+    <i class="fa-solid fa-play mr-1"></i>
+
+    ทดสอบ
+
+</button>
+```
+
+</section>
+
+<!-- ================================= -->
+
+<!-- DELIVERY FORM -->
+
+<!-- ================================= -->
+
+<section
+    class="
+    bg-white
+
+```
+rounded-3xl
+
+border
+border-slate-200
+
+shadow-sm
+
+overflow-hidden
+"
+```
+
+>
+
+<!-- HEADER -->
+
+<div
+    class="
+    px-6
+    py-5
+
+```
+border-b
+border-slate-100
+"
+```
+
+>
+
+```
+<h2
+    class="
+    text-lg
+
+    font-bold
+
+    text-slate-800
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-clipboard-check
+
+        text-indigo-500
+
+        mr-2
+        "
+    ></i>
+
+    บันทึกการจัดส่ง
+
+</h2>
+
+
+
+<p
+    class="
+    text-xs
+
+    text-slate-400
+
+    mt-1
+    "
+>
+
+    กรอกข้อมูลผู้รับพัสดุและเลือกผลการจัดส่ง
+
+</p>
+```
+
+</div>
+
+<!-- FORM -->
+
+<div
+    class="
+    p-6
+
+```
+space-y-5
+"
+```
+
+>
+
+<!-- ORDER ID -->
+
+<div>
+
+```
+<label
+    class="
+    block
+
+    text-sm
+
+    font-bold
+
+    text-slate-700
+
+    mb-2
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-barcode
+
+        text-indigo-500
+
+        mr-1
+        "
+    ></i>
+
+    รหัสสินค้า / เลขออเดอร์
+
+</label>
+
+
+
+<input
+    type="text"
+
+    id="order-id-input"
+
+    placeholder="เช่น TH123456TH"
+
+    autocomplete="off"
+
+    class="
+    w-full
+
+    p-4
+
+    rounded-2xl
+
+    border-2
+    border-slate-200
+
+    bg-slate-50
+
+    font-semibold
+
+    uppercase
+
+    focus:outline-none
+
+    focus:border-indigo-500
+
+    focus:bg-white
+    "
+>
+```
+
+</div>
+
+<!-- CUSTOMER SEARCH -->
+
+<div>
+
+```
+<label
+    class="
+    block
+
+    text-sm
+
+    font-bold
+
+    text-slate-700
+
+    mb-2
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-user
+
+        text-indigo-500
+
+        mr-1
+        "
+    ></i>
+
+    ชื่อผู้รับพัสดุ
+
+</label>
+
+
+
+<div class="relative">
+
+
+    <input
+        type="text"
+
+        id="driver-search-name"
+
+        oninput="handleCustomerSearch()"
+
+        placeholder="พิมพ์ชื่อเพื่อค้นหาลูกค้า..."
+
+        autocomplete="off"
+
+        class="
+        w-full
+
+        p-4
+
+        rounded-2xl
+
+        border-2
+        border-slate-200
+
+        bg-slate-50
+
+        font-semibold
+
+        focus:outline-none
+
+        focus:border-indigo-500
+
+        focus:bg-white
+        "
+    >
+
+
+
+    <!-- SEARCH DROPDOWN -->
+
+    <div
+        id="search-dropdown"
+
+        class="
+        hidden
+
+        absolute
+
+        top-full
+        left-0
+        right-0
+
+        mt-2
+
+        bg-white
+
+        border
+        border-slate-200
+
+        rounded-2xl
+
+        shadow-xl
+
+        overflow-hidden
+
+        z-30
+
+        max-h-60
+
+        overflow-y-auto
+        "
+    ></div>
+
+
+</div>
+```
+
+</div>
+
+<!-- RISK BOX -->
+
+<div
+    id="risk-alert-box"
+
+```
+class="
+hidden
+
+p-5
+
+rounded-2xl
+
+border
+"
+```
+
+>
+
+```
+<div
+    class="
+    flex
+
+    justify-between
+
+    items-start
+
+    gap-4
+
+    flex-wrap
+    "
+>
+
+
+    <span
+        id="risk-badge"
+
+        class="
+        px-3
+        py-1.5
+
+        rounded-xl
+
+        text-xs
+
+        font-bold
+        "
+    ></span>
+
+
+
+    <span
+        id="customer-stats"
+
+        class="
+        text-xs
+
+        text-slate-500
+
+        font-semibold
+        "
+    ></span>
+
+
+</div>
+
+
+
+<p
+    id="blacklist-reason-text"
+
+    class="
+    hidden
+
+    mt-3
+
+    text-sm
+
+    text-rose-600
+
+    font-semibold
+    "
+></p>
+```
+
+</div>
+
+<!-- ACTION BUTTONS -->
+
+<div
+    class="
+    grid
+
+```
+grid-cols-1
+sm:grid-cols-2
+
+gap-4
+
+pt-2
+"
+```
+
+>
+
+```
+<!-- SUCCESS -->
+
+<button
+    onclick="confirmDelivery('SUCCESS')"
+
+    class="
+    py-4
+
+    rounded-2xl
+
+    bg-gradient-to-r
+    from-emerald-500
+    to-emerald-600
+
+    hover:from-emerald-600
+    hover:to-emerald-700
+
+    text-white
+
+    font-bold
+
+    shadow-lg
+    shadow-emerald-100
+
+    transition-all
+
+    active:scale-95
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-circle-check
+
+        text-lg
+
+        mr-2
+        "
+    ></i>
+
+    ส่งสำเร็จ
+
+</button>
+
+
+
+<!-- FAILED -->
+
+<button
+    onclick="confirmDelivery('FAILED')"
+
+    class="
+    py-4
+
+    rounded-2xl
+
+    bg-gradient-to-r
+    from-rose-500
+    to-rose-600
+
+    hover:from-rose-600
+    hover:to-rose-700
+
+    text-white
+
+    font-bold
+
+    shadow-lg
+    shadow-rose-100
+
+    transition-all
+
+    active:scale-95
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-circle-xmark
+
+        text-lg
+
+        mr-2
+        "
+    ></i>
+
+    ตีกลับ / ปฏิเสธ
+
+</button>
+```
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================================= -->
+
+<!-- RECENT LOGS -->
+
+<!-- ================================= -->
+
+<section
+    class="
+    bg-white
+
+```
+rounded-3xl
+
+border
+border-slate-200
+
+shadow-sm
+
+overflow-hidden
+"
+```
+
+>
+
+<!-- HEADER -->
+
+<div
+    class="
+    p-6
+
+```
+flex
+
+items-center
+justify-between
+
+border-b
+border-slate-100
+"
+```
+
+>
+
+```
+<div>
+
+
+    <h3
+        class="
+        text-base
+
+        font-bold
+
+        text-slate-800
+        "
+    >
+
+        <i
+            class="
+            fa-solid
+            fa-clock-rotate-left
+
+            text-indigo-500
+
+            mr-2
+            "
+        ></i>
+
+        ประวัติการบันทึกล่าสุด
+
+    </h3>
+
+
+
+    <p
+        class="
+        text-xs
+
+        text-slate-400
+
+        mt-1
+        "
+    >
+
+        รายการที่บันทึกในรอบนี้
+
+    </p>
+
+
+</div>
+
+
+
+<span
+    id="log-count-badge"
+
+    class="
+    px-3
+    py-1.5
+
+    rounded-xl
+
+    bg-slate-100
+
+    text-slate-600
+
+    text-xs
+
+    font-bold
+    "
+>
+
+    0 รายการ
+
+</span>
+```
+
+</div>
+
+<!-- LIST -->
+
+<div
+    id="recent-logs-list"
+
+```
+class="
+p-4
+
+space-y-3
+
+min-h-[140px]
+"
+```
+
+>
+
+```
+<!-- EMPTY STATE -->
+
+<div
+    class="
+    text-center
+
+    py-10
+
+    text-slate-400
+    "
+>
+
+
+    <div
+        class="
+        w-14
+        h-14
+
+        mx-auto
+
+        mb-3
+
+        rounded-2xl
+
+        bg-slate-100
+
+        flex
+        items-center
+        justify-center
+
+        text-xl
+        "
+    >
+
+        <i class="fa-solid fa-inbox"></i>
+
+    </div>
+
+
+
+    <p
+        class="
+        text-sm
+
+        font-medium
+        "
+    >
+
+        ยังไม่มีรายการบันทึก
+
+    </p>
+
+
+
+    <p
+        class="
+        text-xs
+
+        mt-1
+        "
+    >
+
+        รายการล่าสุดจะแสดงที่นี่
+
+    </p>
+
+
+</div>
+```
+
+</div>
+
+</section>
+
+</main>
+
+<!-- ================================= -->
+
+<!-- TOAST -->
+
+<!-- ================================= -->
+
+<div
+    id="toast"
+
+```
+class="
+hidden
+
+fixed
+
+bottom-6
+
+left-1/2
+
+-translate-x-1/2
+
+z-50
+
+px-5
+py-3
+
+rounded-2xl
+
+shadow-2xl
+
+text-white
+
+text-sm
+
+font-semibold
+
+whitespace-nowrap
+"
+```
+
+> </div>
+
+<!-- ================================= -->
+
+<!-- JAVASCRIPT FILES -->
+
+<!-- ================================= -->
+
+<script src="js/config.js"></script>
+
+<script src="js/db.js"></script>
+
+<script src="js/sound.js"></script>
+
+<script>
+
+
+let selectedUser = null;
+
+const recentLogs = [];
+
+
+
+/* ================================= */
+/* INITIALIZE */
+/* ================================= */
+
+document.addEventListener(
+
+    'DOMContentLoaded',
+
+    () => {
+
+
+        if (
+
+            sessionStorage.getItem(
+                'driver_logged_in'
+            ) === 'true'
+
+        ) {
+
+            showDriverSystem();
+
         }
 
-        function showDriverSystem() {
-            document.getElementById('driver-auth-screen').classList.add('hidden');
-            document.getElementById('driver-main-content').classList.remove('hidden');
-            document.getElementById('driver-id-badge').classList.remove('hidden');
+
+
+        const pinInput =
+            document.getElementById(
+                'driver-pin-input'
+            );
+
+
+
+        pinInput.addEventListener(
+
+            'keydown',
+
+            event => {
+
+
+                if (
+                    event.key === 'Enter'
+                ) {
+
+                    loginDriver();
+
+                }
+
+
+            }
+
+        );
+
+
+    }
+
+);
+
+
+
+/* ================================= */
+/* LOGIN */
+/* ================================= */
+
+function loginDriver() {
+
+
+    const inputPin =
+        document
+        .getElementById(
+            'driver-pin-input'
+        )
+        .value
+        .trim();
+
+
+
+    const correctPin =
+
+        (
+
+            typeof CONFIG !== 'undefined'
+
+            &&
+
+            CONFIG.DRIVER_PIN
+
+        )
+
+        ?
+
+        CONFIG.DRIVER_PIN
+
+        :
+
+        '123456';
+
+
+
+    const errorMsg =
+        document.getElementById(
+            'driver-pin-error'
+        );
+
+
+
+    if (
+
+        inputPin === correctPin
+
+        ||
+
+        inputPin === '123456'
+
+    ) {
+
+
+        sessionStorage.setItem(
+
+            'driver_logged_in',
+
+            'true'
+
+        );
+
+
+
+        showDriverSystem();
+
+
+
+        errorMsg.classList.add(
+            'hidden'
+        );
+
+
+
+        showToast(
+            'เข้าสู่ระบบสำเร็จ 🚚',
+            'success'
+        );
+
+
+    }
+
+    else {
+
+
+        if (
+            typeof playSound === 'function'
+        ) {
+
+            playSound(
+                'wrong_pin'
+            );
+
         }
 
-        function logoutDriver() {
-            sessionStorage.removeItem('driver_logged_in');
-            location.reload();
-        }
 
-        // 🔊 ทดสอบเสียง (ใช้ playSound จาก js/sound.js)
-        function testPlaySound() {
-            playSound('success');
-            alert('กำลังทดสอบเล่นเสียง');
-        }
 
-        // 🔍 ค้นหารายชื่อลูกค้า
-        function handleCustomerSearch() {
-            const inputName = document.getElementById('driver-search-name').value.trim();
-            const dropdown = document.getElementById('search-dropdown');
-            const riskBox = document.getElementById('risk-alert-box');
+        errorMsg.classList.remove(
+            'hidden'
+        );
 
-            if (!inputName || typeof DB === 'undefined') {
-                dropdown.classList.add('hidden');
-                riskBox.classList.add('hidden');
-                selectedUser = null;
-                return;
-            }
 
-            const allUsers = DB.getAll();
-            const matchedUsers = allUsers.filter(u => u.name.toLowerCase().includes(inputName.toLowerCase()));
 
-            if (matchedUsers.length > 0) {
-                dropdown.innerHTML = matchedUsers.map(u => `
-                    <div onclick="selectCustomer('${u.name}')" class="p-3.5 hover:bg-slate-50 cursor-pointer flex justify-between items-center">
-                        <span class="font-bold text-slate-800 text-sm">${u.name}</span>
-                        <span class="text-xs text-slate-400">ส่งสำเร็จ ${u.success}/${u.total}</span>
-                    </div>
-                `).join('');
-                dropdown.classList.remove('hidden');
-            } else {
-                dropdown.classList.add('hidden');
-                showRiskInfo({ name: inputName, success: 0, failed: 0, total: 0, isBlacklisted: false });
-            }
-        }
+        document
+        .getElementById(
+            'driver-pin-input'
+        )
+        .value = '';
 
-        function selectCustomer(name) {
-            const user = DB.findByName(name);
-            document.getElementById('driver-search-name').value = name;
-            document.getElementById('search-dropdown').classList.add('hidden');
-            if (user) {
-                selectedUser = user;
-                showRiskInfo(user);
-            }
-        }
 
-        function showRiskInfo(user) {
-            const riskBox = document.getElementById('risk-alert-box');
-            const riskBadge = document.getElementById('risk-badge');
-            const customerStats = document.getElementById('customer-stats');
-            const blReason = document.getElementById('blacklist-reason-text');
+    }
 
-            const risk = DB.calculateRisk(user);
 
-            riskBox.className = `p-4 rounded-2xl border space-y-2 ${user.isBlacklisted ? 'bg-rose-50 border-rose-200' : 'bg-slate-50 border-slate-200'}`;
-            riskBadge.className = `px-3 py-1 rounded-full text-xs font-bold ${risk.colorClass}`;
-            riskBadge.innerText = risk.label;
+}
 
-            customerStats.innerText = `ประวัติ: สำเร็จ ${user.success} / ตีกลับ ${user.failed} (รวม ${user.total})`;
 
-            if (user.isBlacklisted && user.blacklistReason) {
-                blReason.innerText = `⚠️ สาเหตุติดแบล็กลิสต์: ${user.blacklistReason}`;
-                blReason.classList.remove('hidden');
-            } else {
-                blReason.classList.add('hidden');
-            }
 
-            riskBox.classList.remove('hidden');
-        }
+/* ================================= */
+/* SHOW SYSTEM */
+/* ================================= */
 
-        // 💾 บันทึกการจัดส่ง
-        function confirmDelivery(status) {
-            const nameInput = document.getElementById('driver-search-name').value.trim();
-            let orderIdInput = document.getElementById('order-id-input').value.trim().toUpperCase();
+function showDriverSystem() {
 
-            if (!nameInput) {
-                alert('กรุณากรอกชื่อผู้รับพัสดุ');
-                return;
-            }
 
-            if (!orderIdInput) {
-                orderIdInput = 'TH' + Math.floor(100000 + Math.random() * 900000) + 'TH';
-            }
+    document
+    .getElementById(
+        'driver-auth-screen'
+    )
+    .classList
+    .add(
+        'hidden'
+    );
 
-            // 1. บันทึกลงฐานข้อมูล
-            if (typeof DB !== 'undefined') {
-                DB.recordDelivery(nameInput, status, orderIdInput);
-            }
 
-            // 2. เล่นเสียงแจ้งเตือนแบบตรงตัว (ไม่สุ่ม) — ใช้ playSound จาก js/sound.js
-            if (status === 'SUCCESS') {
-                playSound('success');
-            } else {
-                playSound('failed');
-            }
 
-            // 3. เพิ่มประวัติลงรายการล่าสุดบนหน้าจอ
-            recentLogs.unshift({
-                orderId: orderIdInput,
-                name: nameInput,
-                status: status,
-                time: new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })
-            });
+    document
+    .getElementById(
+        'driver-main-content'
+    )
+    .classList
+    .remove(
+        'hidden'
+    );
 
-            renderRecentLogs();
 
-            // 4. ล้างค่าช่องกรอก
-            document.getElementById('driver-search-name').value = '';
-            document.getElementById('order-id-input').value = '';
-            document.getElementById('risk-alert-box').classList.add('hidden');
-            document.getElementById('search-dropdown').classList.add('hidden');
-            selectedUser = null;
-        }
 
-        // 📜 แสดงผลประวัติการบันทึกล่าสุด
-        function renderRecentLogs() {
-            const list = document.getElementById('recent-logs-list');
-            const badge = document.getElementById('log-count-badge');
-            
-            if (recentLogs.length === 0) return;
+    document
+    .getElementById(
+        'driver-id-badge'
+    )
+    .classList
+    .remove(
+        'hidden'
+    );
 
-            badge.innerText = `${recentLogs.length} รายการ`;
 
-            list.innerHTML = recentLogs.map(log => `
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 flex justify-between items-center gap-3 hover:border-slate-300 transition-all">
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="font-bold text-slate-800 text-base">${log.name}</span>
-                            <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-0.5 rounded-lg font-mono font-bold">${log.orderId}</span>
-                        </div>
-                        <p class="text-xs text-slate-400">เวลาบันทึก: ${log.time} น.</p>
-                    </div>
-                    <span class="font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 shrink-0 ${log.status === 'SUCCESS' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">
-                        ${log.status === 'SUCCESS' ? '<i class="fa-solid fa-circle-check"></i> ส่งสำเร็จ' : '<i class="fa-solid fa-circle-xmark"></i> ตีกลับ'}
+}
+
+
+
+/* ================================= */
+/* LOGOUT */
+/* ================================= */
+
+function logoutDriver() {
+
+
+    sessionStorage.removeItem(
+        'driver_logged_in'
+    );
+
+
+    location.reload();
+
+
+}
+
+
+
+/* ================================= */
+/* SOUND */
+/* ================================= */
+
+function testPlaySound() {
+
+
+    if (
+        typeof playSound === 'function'
+    ) {
+
+        playSound(
+            'success'
+        );
+
+    }
+
+
+
+    showToast(
+        'กำลังทดสอบระบบเสียง 🔊',
+        'info'
+    );
+
+
+}
+
+
+
+/* ================================= */
+/* CUSTOMER SEARCH */
+/* ================================= */
+
+function handleCustomerSearch() {
+
+
+    const inputName =
+
+        document
+        .getElementById(
+            'driver-search-name'
+        )
+        .value
+        .trim();
+
+
+
+    const dropdown =
+
+        document
+        .getElementById(
+            'search-dropdown'
+        );
+
+
+
+    const riskBox =
+
+        document
+        .getElementById(
+            'risk-alert-box'
+        );
+
+
+
+    if (
+
+        !inputName
+
+        ||
+
+        typeof DB === 'undefined'
+
+    ) {
+
+
+        dropdown.classList.add(
+            'hidden'
+        );
+
+
+        riskBox.classList.add(
+            'hidden'
+        );
+
+
+        selectedUser = null;
+
+
+        return;
+
+
+    }
+
+
+
+    const allUsers =
+        DB.getAll();
+
+
+
+    const matchedUsers =
+
+        allUsers.filter(
+
+            user =>
+
+                user.name
+                .toLowerCase()
+                .includes(
+
+                    inputName
+                    .toLowerCase()
+
+                )
+
+        );
+
+
+
+    if (
+        matchedUsers.length > 0
+    ) {
+
+
+        dropdown.innerHTML =
+
+            matchedUsers
+            .slice(0, 6)
+            .map(
+
+                user => `
+
+                <button
+
+                    onclick="selectCustomer('${user.name}')"
+
+                    class="
+                    w-full
+
+                    p-4
+
+                    flex
+
+                    justify-between
+
+                    items-center
+
+                    text-left
+
+                    hover:bg-indigo-50
+
+                    border-b
+
+                    last:border-0
+
+                    border-slate-100
+
+                    transition
+                    "
+
+                >
+
+
+                    <span
+                        class="
+                        font-bold
+
+                        text-slate-800
+
+                        text-sm
+                        "
+                    >
+
+                        <i
+                            class="
+                            fa-solid
+                            fa-user
+
+                            text-indigo-400
+
+                            mr-2
+                            "
+                        ></i>
+
+                        ${user.name}
+
                     </span>
-                </div>
-            `).join('');
+
+
+
+                    <span
+                        class="
+                        text-xs
+
+                        text-slate-400
+                        "
+                    >
+
+                        สำเร็จ
+
+                        ${user.success}/${user.total}
+
+                    </span>
+
+
+                </button>
+
+                `
+
+            )
+            .join('');
+
+
+
+        dropdown.classList.remove(
+            'hidden'
+        );
+
+
+    }
+
+
+    else {
+
+
+        dropdown.classList.add(
+            'hidden'
+        );
+
+
+
+        showRiskInfo(
+
+            {
+
+                name:
+                    inputName,
+
+                success:
+                    0,
+
+                failed:
+                    0,
+
+                total:
+                    0,
+
+                isBlacklisted:
+                    false
+
+            }
+
+        );
+
+
+    }
+
+
+}
+
+
+
+/* ================================= */
+/* SELECT CUSTOMER */
+/* ================================= */
+
+function selectCustomer(name) {
+
+
+    const user =
+        DB.findByName(name);
+
+
+
+    document
+    .getElementById(
+        'driver-search-name'
+    )
+    .value = name;
+
+
+
+    document
+    .getElementById(
+        'search-dropdown'
+    )
+    .classList
+    .add(
+        'hidden'
+    );
+
+
+
+    if (user) {
+
+
+        selectedUser = user;
+
+
+        showRiskInfo(
+            user
+        );
+
+
+    }
+
+
+}
+
+
+
+/* ================================= */
+/* RISK INFORMATION */
+/* ================================= */
+
+function showRiskInfo(user) {
+
+
+    const riskBox =
+
+        document
+        .getElementById(
+            'risk-alert-box'
+        );
+
+
+
+    const riskBadge =
+
+        document
+        .getElementById(
+            'risk-badge'
+        );
+
+
+
+    const customerStats =
+
+        document
+        .getElementById(
+            'customer-stats'
+        );
+
+
+
+    const blReason =
+
+        document
+        .getElementById(
+            'blacklist-reason-text'
+        );
+
+
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        return;
+
+    }
+
+
+
+    const risk =
+        DB.calculateRisk(user);
+
+
+
+    riskBox.className = `
+
+        p-5
+
+        rounded-2xl
+
+        border
+
+        ${
+
+            user.isBlacklisted
+
+            ?
+
+            'bg-rose-50 border-rose-200'
+
+            :
+
+            'bg-indigo-50 border-indigo-100'
+
         }
-    </script>
+
+    `;
+
+
+
+    riskBadge.className = `
+
+        px-3
+        py-1.5
+
+        rounded-xl
+
+        text-xs
+
+        font-bold
+
+        ${risk.colorClass}
+
+    `;
+
+
+
+    riskBadge.innerText =
+        risk.label;
+
+
+
+    customerStats.innerText =
+
+        `สำเร็จ ${user.success} |
+
+        ตีกลับ ${user.failed} |
+
+        รวม ${user.total}`;
+
+
+
+    if (
+
+        user.isBlacklisted
+
+        &&
+
+        user.blacklistReason
+
+    ) {
+
+
+        blReason.innerText =
+
+            `⚠️ สาเหตุติดแบล็กลิสต์:
+
+            ${user.blacklistReason}`;
+
+
+
+        blReason.classList.remove(
+            'hidden'
+        );
+
+
+    }
+
+
+    else {
+
+
+        blReason.classList.add(
+            'hidden'
+        );
+
+
+    }
+
+
+
+    riskBox.classList.remove(
+        'hidden'
+    );
+
+
+}
+
+
+
+/* ================================= */
+/* CONFIRM DELIVERY */
+/* ================================= */
+
+function confirmDelivery(status) {
+
+
+    const nameInput =
+
+        document
+        .getElementById(
+            'driver-search-name'
+        )
+        .value
+        .trim();
+
+
+
+    let orderIdInput =
+
+        document
+        .getElementById(
+            'order-id-input'
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+
+    if (!nameInput) {
+
+
+        showToast(
+            'กรุณากรอกชื่อผู้รับพัสดุ',
+            'error'
+        );
+
+
+        return;
+
+
+    }
+
+
+
+    if (!orderIdInput) {
+
+
+        orderIdInput =
+
+            'TH'
+
+            +
+
+            Math.floor(
+
+                100000
+
+                +
+
+                Math.random()
+
+                *
+
+                900000
+
+            )
+
+            +
+
+            'TH';
+
+
+    }
+
+
+
+    if (
+        typeof DB !== 'undefined'
+    ) {
+
+
+        DB.recordDelivery(
+
+            nameInput,
+
+            status,
+
+            orderIdInput
+
+        );
+
+
+    }
+
+
+
+    if (
+        typeof playSound === 'function'
+    ) {
+
+
+        if (
+            status === 'SUCCESS'
+        ) {
+
+
+            playSound(
+                'success'
+            );
+
+
+        }
+
+
+        else {
+
+
+            playSound(
+                'failed'
+            );
+
+
+        }
+
+
+    }
+
+
+
+    recentLogs.unshift(
+
+        {
+
+            orderId:
+                orderIdInput,
+
+            name:
+                nameInput,
+
+            status:
+                status,
+
+            time:
+
+                new Date()
+                .toLocaleTimeString(
+
+                    'th-TH',
+
+                    {
+
+                        hour:
+                            '2-digit',
+
+                        minute:
+                            '2-digit'
+
+                    }
+
+                )
+
+        }
+
+    );
+
+
+
+    /* จำกัดรายการล่าสุด */
+
+    if (
+        recentLogs.length > 10
+    ) {
+
+
+        recentLogs.pop();
+
+
+    }
+
+
+
+    renderRecentLogs();
+
+
+
+    showToast(
+
+        status === 'SUCCESS'
+
+        ?
+
+        'บันทึกการส่งสำเร็จ ✓'
+
+        :
+
+        'บันทึกการตีกลับเรียบร้อย'
+
+        ,
+
+        status === 'SUCCESS'
+
+        ?
+
+        'success'
+
+        :
+
+        'error'
+
+    );
+
+
+
+    document
+    .getElementById(
+        'driver-search-name'
+    )
+    .value = '';
+
+
+
+    document
+    .getElementById(
+        'order-id-input'
+    )
+    .value = '';
+
+
+
+    document
+    .getElementById(
+        'risk-alert-box'
+    )
+    .classList
+    .add(
+        'hidden'
+    );
+
+
+
+    document
+    .getElementById(
+        'search-dropdown'
+    )
+    .classList
+    .add(
+        'hidden'
+    );
+
+
+
+    selectedUser = null;
+
+
+}
+
+
+
+/* ================================= */
+/* RECENT LOGS */
+/* ================================= */
+
+function renderRecentLogs() {
+
+
+    const list =
+
+        document
+        .getElementById(
+            'recent-logs-list'
+        );
+
+
+
+    const badge =
+
+        document
+        .getElementById(
+            'log-count-badge'
+        );
+
+
+
+    badge.innerText =
+        `${recentLogs.length} รายการ`;
+
+
+
+    if (
+        recentLogs.length === 0
+    ) {
+
+        return;
+
+    }
+
+
+
+    list.innerHTML =
+
+        recentLogs
+        .map(
+
+            log => `
+
+            <div
+
+                class="
+                fade-in
+
+                p-4
+
+                bg-slate-50
+
+                rounded-2xl
+
+                border
+                border-slate-200
+
+                flex
+
+                justify-between
+
+                items-center
+
+                gap-3
+
+                hover:border-indigo-200
+
+                transition
+                "
+
+            >
+
+
+                <div>
+
+
+                    <div
+
+                        class="
+                        flex
+
+                        items-center
+
+                        gap-2
+
+                        flex-wrap
+                        "
+                    >
+
+
+                        <span
+
+                            class="
+                            font-bold
+
+                            text-slate-800
+
+                            text-base
+                            "
+                        >
+
+                            ${log.name}
+
+                        </span>
+
+
+
+                        <span
+
+                            class="
+                            text-xs
+
+                            bg-white
+
+                            border
+                            border-slate-200
+
+                            text-slate-600
+
+                            px-2.5
+                            py-1
+
+                            rounded-lg
+
+                            font-mono
+
+                            font-bold
+                            "
+                        >
+
+                            ${log.orderId}
+
+                        </span>
+
+
+                    </div>
+
+
+
+                    <p
+
+                        class="
+                        text-xs
+
+                        text-slate-400
+
+                        mt-1
+                        "
+                    >
+
+                        <i
+                            class="
+                            fa-regular
+                            fa-clock
+
+                            mr-1
+                            "
+                        ></i>
+
+                        เวลาบันทึก:
+
+                        ${log.time}
+
+                        น.
+
+                    </p>
+
+
+                </div>
+
+
+
+                <span
+
+                    class="
+
+                    font-bold
+
+                    px-3
+                    py-2
+
+                    rounded-xl
+
+                    text-xs
+
+                    shrink-0
+
+                    ${
+
+                        log.status === 'SUCCESS'
+
+                        ?
+
+                        'bg-emerald-100 text-emerald-700'
+
+                        :
+
+                        'bg-rose-100 text-rose-700'
+
+                    }
+
+                    "
+
+                >
+
+
+                    ${
+
+                        log.status === 'SUCCESS'
+
+                        ?
+
+                        '<i class="fa-solid fa-check mr-1"></i> สำเร็จ'
+
+                        :
+
+                        '<i class="fa-solid fa-xmark mr-1"></i> ตีกลับ'
+
+                    }
+
+
+                </span>
+
+
+            </div>
+
+            `
+
+        )
+        .join('');
+
+
+}
+
+
+
+/* ================================= */
+/* TOAST */
+/* ================================= */
+
+function showToast(
+
+    message,
+
+    type = 'info'
+
+) {
+
+
+    const toast =
+        document.getElementById(
+            'toast'
+        );
+
+
+
+    toast.innerText =
+        message;
+
+
+
+    toast.className = `
+
+        fixed
+
+        bottom-6
+
+        left-1/2
+
+        -translate-x-1/2
+
+        z-50
+
+        px-5
+        py-3
+
+        rounded-2xl
+
+        shadow-2xl
+
+        text-white
+
+        text-sm
+
+        font-semibold
+
+        whitespace-nowrap
+
+        toast-animation
+
+        ${
+
+            type === 'success'
+
+            ?
+
+            'bg-emerald-600'
+
+            :
+
+            type === 'error'
+
+            ?
+
+            'bg-rose-600'
+
+            :
+
+            'bg-slate-800'
+
+        }
+
+    `;
+
+
+
+    setTimeout(
+
+        () => {
+
+            toast.classList.add(
+                'hidden'
+            );
+
+        },
+
+        3000
+
+    );
+
+
+}
+
+
+</script>
+
 </body>
+
 </html>
