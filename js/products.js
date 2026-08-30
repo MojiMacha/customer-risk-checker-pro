@@ -14,7 +14,7 @@ const products = [
     {
         id: "P002",
         name: "เสื้อยืดแฟชั่น",
-        image: "images/products/product2.jpg",
+        image: "images/products/P002.jpg",
         description: "เสื้อยืดแฟชั่น เนื้อผ้านุ่ม ใส่สบาย เหมาะสำหรับใส่ในชีวิตประจำวัน",
         price: 299,
         category: "fashion",
@@ -25,7 +25,7 @@ const products = [
     {
         id: "P003",
         name: "หูฟัง Bluetooth",
-        image: "images/products/product3.jpg",
+        image: "images/products/P003.jpg",
         description: "หูฟังไร้สาย Bluetooth เสียงคมชัด ใช้งานง่าย",
         price: 890,
         category: "electronics",
@@ -36,7 +36,7 @@ const products = [
     {
         id: "P004",
         name: "หนังสือเรียนคณิตศาสตร์",
-        image: "images/products/product4.jpg",
+        image: "images/products/P004.jpg",
         description: "หนังสือสำหรับทบทวนบทเรียนและเตรียมสอบ",
         price: 250,
         category: "books",
@@ -47,7 +47,7 @@ const products = [
     {
         id: "P005",
         name: "เซตแชมพูและครีมนวด",
-        image: "images/products/product5.jpg",
+        image: "images/products/P005.jpg",
         description: "ผลิตภัณฑ์ดูแลเส้นผมสำหรับใช้ในชีวิตประจำวัน",
         price: 299,
         category: "daily",
@@ -58,7 +58,7 @@ const products = [
     {
         id: "P006",
         name: "สมาร์ทวอทช์",
-        image: "images/products/product6.jpg",
+        image: "images/products/P006.jpg",
         description: "สมาร์ทวอทช์สำหรับใช้งานในชีวิตประจำวัน",
         price: 1590,
         category: "electronics",
