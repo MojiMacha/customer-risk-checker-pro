@@ -211,7 +211,7 @@
 
         <div class="flex items-center gap-3">
 
-            <a
+            
                 href="index.html"
                 class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition"
                 title="กลับหน้าหลัก"
@@ -250,7 +250,7 @@
             </span>
 
 
-            <a
+            
                 href="admin.html"
                 class="hidden sm:flex items-center px-3 py-2 text-xs text-slate-300 hover:text-white transition"
             >
@@ -662,34 +662,6 @@
 let selectedUser = null;
 
 const recentLogs = [];
-
-
-/* =========================================================
-   MENG.MP3
-   ไฟล์ต้องอยู่โฟลเดอร์เดียวกับ driver.html
-========================================================= */
-
-const mengSound = new Audio('meng.mp3');
-mengSound.preload = 'auto';
-
-
-function playMengSound() {
-
-    try {
-
-        mengSound.pause();
-        mengSound.currentTime = 0;
-        mengSound.play().catch(error => {
-            console.warn('ไม่สามารถเล่น meng.mp3 ได้:', error);
-        });
-
-    } catch (error) {
-
-        console.warn('Meng sound error:', error);
-
-    }
-
-}
 
 
 /* =========================================================
@@ -1213,7 +1185,7 @@ function confirmDelivery(status) {
 
     if (status === 'SUCCESS') {
 
-        /* ส่งสำเร็จ = เสียงเดิม */
+        /* ส่งสำเร็จ */
 
         if (
             typeof playSound === 'function'
@@ -1227,9 +1199,15 @@ function confirmDelivery(status) {
 
     else {
 
-        /* ตีกลับ = meng.mp3 */
+        /* ตีกลับ */
 
-        playMengSound();
+        if (
+            typeof playSound === 'function'
+        ) {
+
+            playSound('failed');
+
+        }
 
     }
 
