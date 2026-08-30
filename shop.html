@@ -28,13 +28,9 @@
         rel="stylesheet"
     >
 
-    <!-- =====================================================
-         DATA
-    ====================================================== -->
-
+    <!-- DATA -->
     <script src="js/shops.js"></script>
     <script src="js/products.js"></script>
-
 
     <style>
 
@@ -113,8 +109,6 @@
         flex items-center justify-between gap-4"
     >
 
-        <!-- BRAND -->
-
         <a
             href="index.html"
             class="flex items-center gap-3"
@@ -131,8 +125,7 @@
             >
 
                 <i
-                    class="fa-solid
-                    fa-store
+                    class="fa-solid fa-store
                     text-amber-300"
                 ></i>
 
@@ -153,11 +146,7 @@
         </a>
 
 
-        <!-- RIGHT -->
-
         <div class="flex items-center gap-2">
-
-            <!-- TRACKING -->
 
             <a
                 href="tracking.html"
@@ -179,8 +168,6 @@
             </a>
 
 
-            <!-- ORDERS -->
-
             <a
                 href="orders.html"
                 class="hidden md:flex
@@ -200,8 +187,6 @@
 
             </a>
 
-
-            <!-- CART -->
 
             <button
                 type="button"
@@ -245,7 +230,6 @@
 </nav>
 
 
-
 <!-- =====================================================
      MAIN
 ===================================================== -->
@@ -258,9 +242,7 @@
 >
 
 
-    <!-- =================================================
-         HERO
-    ================================================== -->
+    <!-- HERO -->
 
     <section
         class="bg-gradient-to-br
@@ -295,11 +277,8 @@
             blur-3xl"
         ></div>
 
-        <div
-            class="relative
-            z-10
-            max-w-2xl"
-        >
+
+        <div class="relative z-10 max-w-2xl">
 
             <span
                 class="inline-flex
@@ -331,6 +310,7 @@
             >
 
                 ช้อปง่าย
+
                 <span class="text-amber-300">
                     ส่งไว
                 </span>
@@ -404,10 +384,7 @@
     </section>
 
 
-
-    <!-- =================================================
-         SEARCH
-    ================================================== -->
+    <!-- SEARCH -->
 
     <section class="mt-6">
 
@@ -421,6 +398,7 @@
                 top-4
                 text-slate-400"
             ></i>
+
 
             <input
                 id="search-input"
@@ -444,10 +422,7 @@
     </section>
 
 
-
-    <!-- =================================================
-         CATEGORY
-    ================================================== -->
+    <!-- CATEGORY -->
 
     <section
         class="mt-5
@@ -483,8 +458,7 @@
             rounded-xl
             text-xs
             font-bold
-            whitespace-nowrap
-            hover:bg-indigo-50"
+            whitespace-nowrap"
         >
             📱 อิเล็กทรอนิกส์
         </button>
@@ -500,8 +474,7 @@
             rounded-xl
             text-xs
             font-bold
-            whitespace-nowrap
-            hover:bg-pink-50"
+            whitespace-nowrap"
         >
             👕 แฟชั่น
         </button>
@@ -517,8 +490,7 @@
             rounded-xl
             text-xs
             font-bold
-            whitespace-nowrap
-            hover:bg-rose-50"
+            whitespace-nowrap"
         >
             💄 ความงาม
         </button>
@@ -534,8 +506,7 @@
             rounded-xl
             text-xs
             font-bold
-            whitespace-nowrap
-            hover:bg-amber-50"
+            whitespace-nowrap"
         >
             📚 หนังสือและการเรียน
         </button>
@@ -551,8 +522,7 @@
             rounded-xl
             text-xs
             font-bold
-            whitespace-nowrap
-            hover:bg-emerald-50"
+            whitespace-nowrap"
         >
             🧴 ของใช้ประจำวัน
         </button>
@@ -568,8 +538,7 @@
             rounded-xl
             text-xs
             font-bold
-            whitespace-nowrap
-            hover:bg-slate-100"
+            whitespace-nowrap"
         >
             📦 อื่น ๆ
         </button>
@@ -577,10 +546,7 @@
     </section>
 
 
-
-    <!-- =================================================
-         PRODUCT HEADER
-    ================================================== -->
+    <!-- PRODUCT HEADER -->
 
     <section
         class="mt-6
@@ -617,10 +583,7 @@
     </section>
 
 
-
-    <!-- =================================================
-         PRODUCT GRID
-    ================================================== -->
+    <!-- PRODUCT GRID -->
 
     <section
         id="product-grid"
@@ -632,13 +595,11 @@
         mt-4"
     ></section>
 
-
 </main>
 
 
-
 <!-- =====================================================
-     PRODUCT DETAIL MODAL
+     PRODUCT MODAL
 ===================================================== -->
 
 <div
@@ -676,7 +637,6 @@
 </div>
 
 
-
 <!-- =====================================================
      CART MODAL
 ===================================================== -->
@@ -708,9 +668,6 @@
             shadow-2xl
             overflow-hidden"
         >
-
-
-            <!-- HEADER -->
 
             <div
                 class="p-5
@@ -755,9 +712,6 @@
             </div>
 
 
-
-            <!-- ITEMS -->
-
             <div
                 id="cart-items"
                 class="p-5
@@ -766,9 +720,6 @@
                 max-h-[50vh]"
             ></div>
 
-
-
-            <!-- FOOTER -->
 
             <div
                 class="p-5
@@ -835,7 +786,6 @@
 </div>
 
 
-
 <script>
 
 /* =====================================================
@@ -848,40 +798,34 @@ let currentCategory = "all";
 
 
 /* =====================================================
-   NORMALIZE ID
-   สำคัญมาก เพราะ Product ID เป็น P001, P002...
+   CHECK DATA
 ===================================================== */
 
-function normalizeId(id) {
+if (!Array.isArray(window.products)) {
 
-    return String(id ?? "").trim();
+    console.error("ไม่พบ products จาก js/products.js");
+
+}
+
+if (!Array.isArray(window.shops)) {
+
+    console.error("ไม่พบ shops จาก js/shops.js");
 
 }
 
 
 /* =====================================================
-   GET SHOP BY ID
+   GET SHOP
 ===================================================== */
 
 function getShopById(shopId) {
 
-    return shops.find(
-        shop =>
-            normalizeId(shop.id) === normalizeId(shopId)
-    );
+    if (!Array.isArray(window.shops)) {
+        return null;
+    }
 
-}
-
-
-/* =====================================================
-   GET PRODUCT BY ID
-===================================================== */
-
-function getProductById(productId) {
-
-    return products.find(
-        product =>
-            normalizeId(product.id) === normalizeId(productId)
+    return window.shops.find(
+        shop => String(shop.id) === String(shopId)
     );
 
 }
@@ -893,23 +837,10 @@ function getProductById(productId) {
 
 function saveCart() {
 
-    try {
-
-        localStorage.setItem(
-            "cart",
-            JSON.stringify(cart)
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "ไม่สามารถบันทึกตะกร้าได้",
-            error
-        );
-
-    }
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
 
 }
 
@@ -925,7 +856,6 @@ function loadCart() {
         const savedCart =
             localStorage.getItem("cart");
 
-
         if (!savedCart) {
 
             cart = [];
@@ -934,40 +864,27 @@ function loadCart() {
 
         }
 
-
         const parsedCart =
             JSON.parse(savedCart);
 
+        if (Array.isArray(parsedCart)) {
 
-        if (!Array.isArray(parsedCart)) {
-
-            cart = [];
-
-            return;
+            cart = parsedCart;
 
         }
 
+        else {
 
-        cart = parsedCart.map(item => ({
+            cart = [];
 
-            ...item,
-
-            id: normalizeId(item.id),
-
-            quantity:
-                Math.max(
-                    1,
-                    Number(item.quantity || 1)
-                )
-
-        }));
+        }
 
     }
 
     catch (error) {
 
         console.error(
-            "ไม่สามารถโหลดตะกร้าได้",
+            "โหลดตะกร้าไม่สำเร็จ:",
             error
         );
 
@@ -995,42 +912,19 @@ function escapeHtml(value) {
 
 
 /* =====================================================
-   SAFE JS STRING
-===================================================== */
-
-function safeJsString(value) {
-
-    return JSON.stringify(
-        String(value ?? "")
-    );
-
-}
-
-
-/* =====================================================
    RENDER PRODUCTS
 ===================================================== */
 
 function renderProducts() {
 
     const grid =
-        document.getElementById(
-            "product-grid"
-        );
+        document.getElementById("product-grid");
+
+    if (!grid) return;
 
 
     const searchInput =
-        document.getElementById(
-            "search-input"
-        );
-
-
-    if (!grid) {
-
-        return;
-
-    }
-
+        document.getElementById("search-input");
 
     const keyword =
         searchInput
@@ -1038,8 +932,26 @@ function renderProducts() {
             : "";
 
 
+    if (!Array.isArray(window.products)) {
+
+        grid.innerHTML = `
+            <div class="col-span-full bg-white rounded-3xl p-10 text-center">
+                <p class="text-rose-500 font-bold">
+                    ไม่พบข้อมูลสินค้า
+                </p>
+                <p class="text-xs text-slate-400 mt-2">
+                    กรุณาตรวจสอบไฟล์ js/products.js
+                </p>
+            </div>
+        `;
+
+        return;
+
+    }
+
+
     const filtered =
-        products.filter(product => {
+        window.products.filter(product => {
 
             const shop =
                 getShopById(product.shopId);
@@ -1054,25 +966,27 @@ function renderProducts() {
 
             const matchCategory =
                 currentCategory === "all" ||
-                product.category === currentCategory;
+                String(product.category) ===
+                String(currentCategory);
+
+
+            const name =
+                String(product.name || "")
+                    .toLowerCase();
+
+            const description =
+                String(product.description || "")
+                    .toLowerCase();
+
+            const shopName =
+                String(shop.name || "")
+                    .toLowerCase();
 
 
             const matchSearch =
-                String(product.name || "")
-                    .toLowerCase()
-                    .includes(keyword)
-
-                ||
-
-                String(product.description || "")
-                    .toLowerCase()
-                    .includes(keyword)
-
-                ||
-
-                String(shop.name || "")
-                    .toLowerCase()
-                    .includes(keyword);
+                name.includes(keyword) ||
+                description.includes(keyword) ||
+                shopName.includes(keyword);
 
 
             return (
@@ -1083,18 +997,10 @@ function renderProducts() {
         });
 
 
-    const countElement =
-        document.getElementById(
-            "product-count"
-        );
-
-
-    if (countElement) {
-
-        countElement.innerText =
-            `${filtered.length} สินค้า`;
-
-    }
+    document.getElementById(
+        "product-count"
+    ).innerText =
+        `${filtered.length} สินค้า`;
 
 
     if (filtered.length === 0) {
@@ -1139,13 +1045,20 @@ function renderProducts() {
         filtered.map(product => {
 
             const shop =
-                getShopById(
-                    product.shopId
-                );
+                getShopById(product.shopId);
 
+            /*
+             * สำคัญมาก
+             *
+             * product.id เป็น String
+             * เช่น P001
+             *
+             * ใช้ JSON.stringify()
+             * เพื่อสร้าง 'P001'
+             */
 
             const productId =
-                normalizeId(product.id);
+                JSON.stringify(String(product.id));
 
 
             return `
@@ -1157,7 +1070,7 @@ function renderProducts() {
                     border
                     border-slate-200
                     overflow-hidden"
-                    onclick="openProductDetail(${safeJsString(productId)})"
+                    onclick="openProductDetail(${productId})"
                 >
 
                     <!-- IMAGE -->
@@ -1176,7 +1089,6 @@ function renderProducts() {
                             w-full
                             h-full
                             object-cover"
-
                             onerror="
                                 this.src='https://placehold.co/600x600/e2e8f0/64748b?text=No+Image'
                             "
@@ -1218,7 +1130,6 @@ function renderProducts() {
                     </div>
 
 
-
                     <!-- CONTENT -->
 
                     <div class="p-4">
@@ -1227,11 +1138,10 @@ function renderProducts() {
                             class="font-black
                             text-base
                             text-slate-800
-                            line-clamp-1"
+                            line-clamp-2
+                            min-h-[3rem]"
                         >
-
                             ${escapeHtml(product.name)}
-
                         </h3>
 
 
@@ -1242,11 +1152,8 @@ function renderProducts() {
                             h-8
                             line-clamp-2"
                         >
-
                             ${escapeHtml(product.description || "")}
-
                         </p>
-
 
 
                         <!-- RATING -->
@@ -1270,13 +1177,10 @@ function renderProducts() {
                                 font-bold
                                 text-slate-600"
                             >
-
-                                ${escapeHtml(product.rating || "0")}
-
+                                ${product.rating || "0"}
                             </span>
 
                         </div>
-
 
 
                         <!-- SHOP -->
@@ -1294,19 +1198,16 @@ function renderProducts() {
                             <img
                                 src="${escapeHtml(shop.logo)}"
                                 alt="${escapeHtml(shop.name)}"
-
                                 class="w-8
                                 h-8
                                 rounded-lg
                                 object-cover
                                 border
                                 border-slate-200"
-
                                 onerror="
                                     this.src='https://placehold.co/100x100/e2e8f0/64748b?text=Shop'
                                 "
                             >
-
 
                             <div class="min-w-0">
 
@@ -1315,11 +1216,8 @@ function renderProducts() {
                                     font-bold
                                     truncate"
                                 >
-
                                     ${escapeHtml(shop.name)}
-
                                 </p>
-
 
                                 ${
                                     shop.mall
@@ -1330,14 +1228,11 @@ function renderProducts() {
                                             text-orange-500
                                             font-bold"
                                         >
-
                                             <i
                                                 class="fa-solid
                                                 fa-circle-check"
                                             ></i>
-
                                             Mall
-
                                         </p>
                                     `
                                     :
@@ -1354,7 +1249,6 @@ function renderProducts() {
                             </div>
 
                         </div>
-
 
 
                         <!-- PRICE -->
@@ -1375,15 +1269,14 @@ function renderProducts() {
                                     ราคา
                                 </p>
 
-
                                 <p
                                     class="text-xl
                                     font-black
                                     text-indigo-600"
                                 >
-
-                                    ฿${Number(product.price || 0).toLocaleString()}
-
+                                    ฿${Number(
+                                        product.price || 0
+                                    ).toLocaleString()}
                                 </p>
 
                             </div>
@@ -1393,12 +1286,10 @@ function renderProducts() {
 
                             <button
                                 type="button"
-
                                 onclick="
                                     event.stopPropagation();
-                                    addToCart(${safeJsString(productId)});
+                                    addToCart(${productId});
                                 "
-
                                 class="w-11
                                 h-11
                                 rounded-xl
@@ -1410,7 +1301,6 @@ function renderProducts() {
                                 justify-center
                                 transition
                                 active:scale-95"
-
                                 title="เพิ่มลงตะกร้า"
                             >
 
@@ -1440,8 +1330,7 @@ function renderProducts() {
 
 function setCategory(category) {
 
-    currentCategory =
-        String(category || "all");
+    currentCategory = category;
 
     updateCategoryButtons();
 
@@ -1480,17 +1369,11 @@ function updateCategoryButtons() {
     const activeIndex = {
 
         all: 0,
-
         electronics: 1,
-
         fashion: 2,
-
         beauty: 3,
-
         books: 4,
-
         daily: 5,
-
         other: 6
 
     }[currentCategory];
@@ -1524,25 +1407,34 @@ function updateCategoryButtons() {
 
 function addToCart(productId) {
 
-    const normalizedId =
-        normalizeId(productId);
+    /*
+     * แปลงเป็น String
+     * เพราะ ID ของเราคือ P001
+     */
+
+    const id =
+        String(productId);
 
 
     const product =
-        getProductById(normalizedId);
+        Array.isArray(window.products)
+        ?
+        window.products.find(
+            product =>
+                String(product.id) === id
+        )
+        :
+        null;
 
 
     if (!product) {
 
         console.error(
             "ไม่พบสินค้า:",
-            normalizedId,
-            products
+            productId
         );
 
-        alert(
-            "ไม่พบสินค้านี้"
-        );
+        alert("ไม่พบสินค้านี้");
 
         return;
 
@@ -1552,7 +1444,7 @@ function addToCart(productId) {
     const existing =
         cart.find(
             item =>
-                normalizeId(item.id) === normalizedId
+                String(item.id) === id
         );
 
 
@@ -1569,8 +1461,6 @@ function addToCart(productId) {
 
             ...product,
 
-            id: normalizedId,
-
             quantity: 1
 
         });
@@ -1586,19 +1476,19 @@ function addToCart(productId) {
 
 
 /* =====================================================
-   REMOVE FROM CART
+   REMOVE CART
 ===================================================== */
 
 function removeFromCart(productId) {
 
-    const normalizedId =
-        normalizeId(productId);
+    const id =
+        String(productId);
 
 
     cart =
         cart.filter(
             item =>
-                normalizeId(item.id) !== normalizedId
+                String(item.id) !== id
         );
 
 
@@ -1616,14 +1506,14 @@ function changeQuantity(
     amount
 ) {
 
-    const normalizedId =
-        normalizeId(productId);
+    const id =
+        String(productId);
 
 
     const item =
         cart.find(
             item =>
-                normalizeId(item.id) === normalizedId
+                String(item.id) === id
         );
 
 
@@ -1641,7 +1531,7 @@ function changeQuantity(
 
     if (item.quantity <= 0) {
 
-        removeFromCart(normalizedId);
+        removeFromCart(id);
 
         return;
 
@@ -1726,7 +1616,6 @@ function updateCart() {
             "cart-summary"
         );
 
-
     if (summary) {
 
         summary.innerText =
@@ -1739,7 +1628,6 @@ function updateCart() {
         document.getElementById(
             "cart-total"
         );
-
 
     if (totalElement) {
 
@@ -1766,11 +1654,7 @@ function renderCart() {
         );
 
 
-    if (!container) {
-
-        return;
-
-    }
+    if (!container) return;
 
 
     if (cart.length === 0) {
@@ -1789,15 +1673,12 @@ function renderCart() {
                     text-slate-200"
                 ></i>
 
-
                 <p
                     class="text-sm
                     text-slate-400
                     mt-3"
                 >
-
                     ยังไม่มีสินค้าในตะกร้า
-
                 </p>
 
             </div>
@@ -1812,23 +1693,17 @@ function renderCart() {
     container.innerHTML =
         cart.map(item => {
 
-            const productId =
-                normalizeId(item.id);
-
-
             const quantity =
-                Math.max(
-                    1,
-                    Number(item.quantity || 1)
-                );
-
+                Number(item.quantity || 1);
 
             const price =
                 Number(item.price || 0);
 
-
             const itemTotal =
                 price * quantity;
+
+            const id =
+                JSON.stringify(String(item.id));
 
 
             return `
@@ -1844,13 +1719,11 @@ function renderCart() {
                     <img
                         src="${escapeHtml(item.image)}"
                         alt="${escapeHtml(item.name)}"
-
                         class="w-16
                         h-16
                         rounded-xl
                         object-cover
                         bg-slate-200"
-
                         onerror="
                             this.src='https://placehold.co/100x100/e2e8f0/64748b?text=No+Image'
                         "
@@ -1867,9 +1740,7 @@ function renderCart() {
                             text-sm
                             truncate"
                         >
-
                             ${escapeHtml(item.name)}
-
                         </p>
 
 
@@ -1879,9 +1750,7 @@ function renderCart() {
                             font-bold
                             mt-1"
                         >
-
                             ฿${itemTotal.toLocaleString()}
-
                         </p>
 
 
@@ -1894,15 +1763,12 @@ function renderCart() {
 
                             <button
                                 type="button"
-
                                 onclick="
-                                    event.stopPropagation();
                                     changeQuantity(
-                                        ${safeJsString(productId)},
+                                        ${id},
                                         -1
-                                    );
+                                    )
                                 "
-
                                 class="w-6
                                 h-6
                                 rounded-lg
@@ -1925,15 +1791,12 @@ function renderCart() {
 
                             <button
                                 type="button"
-
                                 onclick="
-                                    event.stopPropagation();
                                     changeQuantity(
-                                        ${safeJsString(productId)},
+                                        ${id},
                                         1
-                                    );
+                                    )
                                 "
-
                                 class="w-6
                                 h-6
                                 rounded-lg
@@ -1952,18 +1815,12 @@ function renderCart() {
 
                     <button
                         type="button"
-
                         onclick="
-                            event.stopPropagation();
-                            removeFromCart(
-                                ${safeJsString(productId)}
-                            );
+                            removeFromCart(${id})
                         "
-
                         class="text-slate-300
                         hover:text-rose-500
                         transition"
-
                         title="ลบสินค้า"
                     >
 
@@ -1995,11 +1852,7 @@ function openCart() {
         );
 
 
-    if (!modal) {
-
-        return;
-
-    }
+    if (!modal) return;
 
 
     modal.classList.remove(
@@ -2029,11 +1882,7 @@ function closeCart() {
         );
 
 
-    if (!modal) {
-
-        return;
-
-    }
+    if (!modal) return;
 
 
     modal.classList.add(
@@ -2083,19 +1932,32 @@ function checkout() {
 
 function openProductDetail(productId) {
 
-    const normalizedId =
-        normalizeId(productId);
+    const id =
+        String(productId);
+
+
+    console.log(
+        "เปิดสินค้า:",
+        id
+    );
 
 
     const product =
-        getProductById(normalizedId);
+        Array.isArray(window.products)
+        ?
+        window.products.find(
+            product =>
+                String(product.id) === id
+        )
+        :
+        null;
 
 
     if (!product) {
 
         console.error(
             "ไม่พบสินค้า:",
-            normalizedId
+            id
         );
 
         alert(
@@ -2108,17 +1970,10 @@ function openProductDetail(productId) {
 
 
     const shop =
-        getShopById(
-            product.shopId
-        );
+        getShopById(product.shopId);
 
 
     if (!shop) {
-
-        console.error(
-            "ไม่พบร้านค้า:",
-            product.shopId
-        );
 
         alert(
             "ไม่พบข้อมูลร้านค้าของสินค้านี้"
@@ -2141,11 +1996,8 @@ function openProductDetail(productId) {
         );
 
 
-    if (!modal || !content) {
-
-        return;
-
-    }
+    const safeId =
+        JSON.stringify(id);
 
 
     content.innerHTML = `
@@ -2177,11 +2029,7 @@ function openProductDetail(productId) {
 
             <button
                 type="button"
-
-                onclick="
-                    closeProductDetail()
-                "
-
+                onclick="closeProductDetail()"
                 class="absolute
                 top-4
                 right-4
@@ -2193,7 +2041,8 @@ function openProductDetail(productId) {
                 shadow
                 flex
                 items-center
-                justify-center"
+                justify-center
+                z-10"
             >
 
                 <i
@@ -2239,10 +2088,10 @@ function openProductDetail(productId) {
         </div>
 
 
-
         <!-- BODY -->
 
         <div class="p-5 sm:p-7">
+
 
             <!-- SHOP -->
 
@@ -2291,7 +2140,6 @@ function openProductDetail(productId) {
             </div>
 
 
-
             <!-- NAME -->
 
             <h2
@@ -2299,11 +2147,8 @@ function openProductDetail(productId) {
                 sm:text-3xl
                 font-black"
             >
-
                 ${escapeHtml(product.name)}
-
             </h2>
-
 
 
             <!-- RATING -->
@@ -2325,7 +2170,7 @@ function openProductDetail(productId) {
                     class="text-sm
                     font-bold"
                 >
-                    ${escapeHtml(product.rating || "0")}
+                    ${product.rating || "0"}
                 </span>
 
                 <span
@@ -2336,7 +2181,6 @@ function openProductDetail(productId) {
                 </span>
 
             </div>
-
 
 
             <!-- DESCRIPTION -->
@@ -2362,16 +2206,13 @@ function openProductDetail(productId) {
                     text-slate-600
                     leading-6"
                 >
-
                     ${escapeHtml(
                         product.description ||
                         "ไม่มีรายละเอียดสินค้า"
                     )}
-
                 </p>
 
             </div>
-
 
 
             <!-- PRICE -->
@@ -2398,11 +2239,9 @@ function openProductDetail(productId) {
                         font-black
                         text-indigo-600"
                     >
-
                         ฿${Number(
                             product.price || 0
                         ).toLocaleString()}
-
                     </p>
 
                 </div>
@@ -2410,14 +2249,10 @@ function openProductDetail(productId) {
 
                 <button
                     type="button"
-
                     onclick="
-                        addToCart(
-                            ${safeJsString(normalizedId)}
-                        );
+                        addToCart(${safeId});
                         closeProductDetail();
                     "
-
                     class="flex
                     items-center
                     gap-2
@@ -2472,11 +2307,7 @@ function closeProductDetail() {
         );
 
 
-    if (!modal) {
-
-        return;
-
-    }
+    if (!modal) return;
 
 
     modal.classList.add(
@@ -2546,7 +2377,7 @@ document.addEventListener(
 
 
 /* =====================================================
-   ESC KEY
+   ESC
 ===================================================== */
 
 document.addEventListener(
@@ -2573,72 +2404,11 @@ document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        /*
-            ตรวจสอบ DATA
-        */
-
-        if (
-            typeof products === "undefined"
-        ) {
-
-            console.error(
-                "ไม่พบ products.js หรือไม่พบตัวแปร products"
-            );
-
-            return;
-
-        }
-
-
-        if (
-            typeof shops === "undefined"
-        ) {
-
-            console.error(
-                "ไม่พบ shops.js หรือไม่พบตัวแปร shops"
-            );
-
-            return;
-
-        }
-
-
-        console.log(
-            "Products loaded:",
-            products
-        );
-
-
-        console.log(
-            "Shops loaded:",
-            shops
-        );
-
-
-        /*
-            โหลดตะกร้า
-        */
-
         loadCart();
-
-
-        /*
-            แสดงสินค้า
-        */
 
         renderProducts();
 
-
-        /*
-            อัปเดตตะกร้า
-        */
-
         updateCart();
-
-
-        /*
-            ตั้งค่าหมวดหมู่
-        */
 
         updateCategoryButtons();
 
