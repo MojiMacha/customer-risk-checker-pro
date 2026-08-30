@@ -13,11 +13,11 @@ const products = [
 
     {
         id: "P002",
-        name: "Dr.PONG 28D Smart Whitening Drone Acne Activein Serum",
+        name: "Dr.PONG Activein MC1 Whitening Drone Melas Clear Serum",
         image: "images/products/P002.jpeg",
-        description: "เสื้อยืดแฟชั่น เนื้อผ้านุ่ม ใส่สบาย เหมาะสำหรับใส่ในชีวิตประจำวัน",
-        price: 299,
-        category: "fashion",
+        description: " เป็นเซรั่มบำรุงผิวหน้าสูตรเฉพาะจาก Dr.PONG ที่ออกแบบมาเพื่อช่วยลดเลือนฝ้า กระ และจุดด่างดำ โดยใช้เทคโนโลยีการนำ28D/activeIN delivery เข้ามาช่วยเพิ่มการซึมซาบเข้าสู่ผิว",
+        price: 599,
+        category: "beauty",
         rating: 4.8,
         shopId: "S002"
     },
