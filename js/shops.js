@@ -39,7 +39,7 @@ const shops = [
         id: "S006",
         name: "Tech Mall",
         logo: "images/shops/shop2.jpg",
-        mall: false
+        mall: true
     }
 
 ];
