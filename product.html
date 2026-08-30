@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="th">
 
@@ -68,8 +69,6 @@
         flex items-center justify-between"
     >
 
-        <!-- LEFT -->
-
         <div class="flex items-center gap-3">
 
             <button
@@ -81,9 +80,7 @@
                 flex items-center justify-center
                 transition"
             >
-
                 <i class="fa-solid fa-arrow-left"></i>
-
             </button>
 
 
@@ -125,8 +122,6 @@
 
         </div>
 
-
-        <!-- RIGHT -->
 
         <div class="flex items-center gap-2">
 
@@ -181,7 +176,8 @@
     class="max-w-6xl mx-auto px-4 py-6"
 >
 
-    <!-- Loading -->
+
+    <!-- LOADING -->
 
     <div
         id="loading"
@@ -206,6 +202,7 @@
     </div>
 
 
+
     <!-- PRODUCT -->
 
     <section
@@ -221,9 +218,7 @@
         >
 
 
-            <!-- ================================================= -->
             <!-- IMAGE -->
-            <!-- ================================================= -->
 
             <div>
 
@@ -284,9 +279,7 @@
 
 
 
-            <!-- ================================================= -->
             <!-- INFO -->
-            <!-- ================================================= -->
 
             <div
                 class="bg-white
@@ -297,11 +290,10 @@
                 md:p-8"
             >
 
+
                 <!-- CATEGORY -->
 
-                <div
-                    class="flex items-center gap-2"
-                >
+                <div class="flex items-center gap-2">
 
                     <span
                         id="product-category"
@@ -318,6 +310,7 @@
                 </div>
 
 
+
                 <!-- NAME -->
 
                 <h1
@@ -330,6 +323,7 @@
                 >
                     -
                 </h1>
+
 
 
                 <!-- RATING -->
@@ -374,6 +368,7 @@
                 </div>
 
 
+
                 <!-- PRICE -->
 
                 <div
@@ -402,6 +397,7 @@
                     </p>
 
                 </div>
+
 
 
                 <!-- SHOP -->
@@ -463,6 +459,7 @@
                 </div>
 
 
+
                 <!-- DESCRIPTION -->
 
                 <div
@@ -476,9 +473,7 @@
                         class="font-black
                         text-sm"
                     >
-
                         รายละเอียดสินค้า
-
                     </h3>
 
 
@@ -493,6 +488,7 @@
                     </p>
 
                 </div>
+
 
 
                 <!-- QUANTITY -->
@@ -567,6 +563,7 @@
                 </div>
 
 
+
                 <!-- TOTAL -->
 
                 <div
@@ -593,6 +590,7 @@
                     </span>
 
                 </div>
+
 
 
                 <!-- BUTTONS -->
@@ -659,9 +657,7 @@
 
 
 
-    <!-- ================================================= -->
     <!-- NOT FOUND -->
-    <!-- ================================================= -->
 
     <section
         id="not-found"
@@ -733,9 +729,7 @@
 
 
 
-<!-- ===================================================== -->
 <!-- TOAST -->
-<!-- ===================================================== -->
 
 <div
     id="toast"
@@ -760,47 +754,114 @@
 <script>
 
 /* =====================================================
+   SHOP DATA
+===================================================== */
+
+const shops = [
+
+    {
+        id: "S001",
+
+        name: "Dr.PONG",
+
+        logo: "images/shops/Dr.Pong.jpg",
+
+        mall: true
+    },
+
+
+    {
+        id: "S002",
+
+        name: "Fashion Store",
+
+        logo: "images/shops/shop2.jpg",
+
+        mall: true
+    },
+
+
+    {
+        id: "S003",
+
+        name: "ร้านค้าทั่วไป",
+
+        logo: "images/shops/shop1.jpg",
+
+        mall: false
+    },
+
+
+    {
+        id: "S004",
+
+        name: "Book Academy",
+
+        logo: "images/shops/shop2.jpg",
+
+        mall: true
+    },
+
+
+    {
+        id: "S005",
+
+        name: "Everyday Store",
+
+        logo: "images/shops/shop1.jpg",
+
+        mall: true
+    },
+
+
+    {
+        id: "S006",
+
+        name: "Tech Mall",
+
+        logo: "images/shops/shop2.jpg",
+
+        mall: true
+    }
+
+];
+
+
+
+/* =====================================================
    PRODUCT DATA
 ===================================================== */
 
 const products = [
 
-   {
-    id: "P001",
+    {
+        id: "P001",
 
-    image: "images/products/P001.jpeg",
+        image: "images/products/P001.jpeg",
 
-    name: "Dr.PONG 28D Smart Whitening Drone Activein Serum",
+        name:
+        "Dr.PONG 28D Smart Whitening Drone Activein Serum",
 
-    description: "เซรั่มบำรุงผิวหน้าสูตรกระจ่างใส",
+        description:
+        "เซรั่มบำรุงผิวหน้าสูตรกระจ่างใส ช่วยลดเลือนจุดด่างดำและรอยสิวด้วยเทคโนโลยี activeIN™ ผสาน 5% Niacinamide, Arbutin และ Vitamin C ปราศจากสี พาราเบน น้ำหอม และสเตียรอยด์ เหมาะสำหรับทุกสภาพผิว",
 
-    price: 599,
+        price: 599,
 
-    category: "beauty",
+        category: "beauty",
 
-    rating: 4.9,
+        rating: 4.9,
 
-    shopId: "S001"
-}
-
- {
-    id: "S001",
-
-    name: "Dr.PONG",
-
-    logo: "images/shops/Dr.Pong.jpg",
-
-    mall: true
-}
+        shopId: "S001"
     },
 
 
     {
-        id: 2,
+        id: "P002",
 
-        image: "images/products/product2.jpg",
+        image: "images/products/P002.jpg",
 
-        name: "สินค้าแนะนำ #2",
+        name:
+        "สินค้าแนะนำ #2",
 
         description:
         "รายละเอียดสินค้าของคุณสามารถแก้ตรงนี้ได้",
@@ -811,25 +872,17 @@ const products = [
 
         rating: 4.8,
 
-        shop: {
-
-            name: "Fashion Store",
-
-            logo: "images/shops/shop2.jpg",
-
-            mall: true
-
-        }
-
+        shopId: "S002"
     },
 
 
     {
-        id: 3,
+        id: "P003",
 
-        image: "images/products/product3.jpg",
+        image: "images/products/P003.jpg",
 
-        name: "สินค้าแนะนำ #3",
+        name:
+        "สินค้าแนะนำ #3",
 
         description:
         "รายละเอียดสินค้าของคุณสามารถแก้ตรงนี้ได้",
@@ -840,25 +893,17 @@ const products = [
 
         rating: 4.7,
 
-        shop: {
-
-            name: "ร้านค้าทั่วไป",
-
-            logo: "images/shops/shop1.jpg",
-
-            mall: false
-
-        }
-
+        shopId: "S003"
     },
 
 
     {
-        id: 4,
+        id: "P004",
 
-        image: "images/products/product4.jpg",
+        image: "images/products/P004.jpg",
 
-        name: "หนังสือเรียนคณิตศาสตร์",
+        name:
+        "หนังสือเรียนคณิตศาสตร์",
 
         description:
         "หนังสือสำหรับทบทวนบทเรียนและเตรียมสอบ พร้อมแบบฝึกหัดสำหรับฝึกทำโจทย์",
@@ -869,25 +914,17 @@ const products = [
 
         rating: 4.8,
 
-        shop: {
-
-            name: "Book Academy",
-
-            logo: "images/shops/shop2.jpg",
-
-            mall: true
-
-        }
-
+        shopId: "S004"
     },
 
 
     {
-        id: 5,
+        id: "P005",
 
-        image: "images/products/product5.jpg",
+        image: "images/products/P005.jpg",
 
-        name: "เซตแชมพูและครีมนวด",
+        name:
+        "เซตแชมพูและครีมนวด",
 
         description:
         "ผลิตภัณฑ์ดูแลเส้นผมสำหรับใช้ในชีวิตประจำวัน ช่วยทำความสะอาดและบำรุงเส้นผม",
@@ -898,25 +935,17 @@ const products = [
 
         rating: 4.7,
 
-        shop: {
-
-            name: "Everyday Store",
-
-            logo: "images/shops/shop1.jpg",
-
-            mall: true
-
-        }
-
+        shopId: "S005"
     },
 
 
     {
-        id: 6,
+        id: "P006",
 
-        image: "images/products/product6.jpg",
+        image: "images/products/P006.jpg",
 
-        name: "หูฟังไร้สาย Bluetooth",
+        name:
+        "หูฟังไร้สาย Bluetooth",
 
         description:
         "หูฟังไร้สายสำหรับฟังเพลง เรียนออนไลน์ และใช้งานทั่วไป",
@@ -927,19 +956,11 @@ const products = [
 
         rating: 4.9,
 
-        shop: {
-
-            name: "Tech Mall",
-
-            logo: "images/shops/shop2.jpg",
-
-            mall: true
-
-        }
-
+        shopId: "S006"
     }
 
 ];
+
 
 
 /* =====================================================
@@ -948,7 +969,10 @@ const products = [
 
 let currentProduct = null;
 
+let currentShop = null;
+
 let quantity = 1;
+
 
 
 /* =====================================================
@@ -958,11 +982,28 @@ let quantity = 1;
 function getProductId() {
 
     const params =
-        new URLSearchParams(window.location.search);
+        new URLSearchParams(
+            window.location.search
+        );
 
-    return Number(params.get("id"));
+    return params.get("id");
 
 }
+
+
+
+/* =====================================================
+   GET SHOP BY ID
+===================================================== */
+
+function getShopById(shopId) {
+
+    return shops.find(
+        shop => shop.id === shopId
+    );
+
+}
+
 
 
 /* =====================================================
@@ -992,6 +1033,7 @@ function getCategoryName(category) {
 }
 
 
+
 /* =====================================================
    LOAD PRODUCT
 ===================================================== */
@@ -1001,6 +1043,12 @@ function loadProduct() {
     const productId =
         getProductId();
 
+
+    /*
+        สำคัญ:
+        ไม่ใช้ Number()
+        เพราะ ID เป็น P001, P002, P003
+    */
 
     currentProduct =
         products.find(
@@ -1024,6 +1072,27 @@ function loadProduct() {
     }
 
 
+    /*
+        หา Shop จาก shopId
+    */
+
+    currentShop =
+        getShopById(
+            currentProduct.shopId
+        );
+
+
+    if (!currentShop) {
+
+        document
+            .getElementById("not-found")
+            .classList.remove("hidden");
+
+        return;
+
+    }
+
+
     document
         .getElementById("product-content")
         .classList.remove("hidden");
@@ -1032,6 +1101,7 @@ function loadProduct() {
     renderProduct();
 
 }
+
 
 
 /* =====================================================
@@ -1044,15 +1114,26 @@ function renderProduct() {
         currentProduct;
 
 
+    const shop =
+        currentShop;
+
+
     document.title =
         `${product.name} - Delivery Risk Market`;
 
 
+
+    /* IMAGE */
+
     const image =
-        document.getElementById("product-image");
+        document.getElementById(
+            "product-image"
+        );
+
 
     image.src =
         product.image;
+
 
     image.alt =
         product.name;
@@ -1066,11 +1147,17 @@ function renderProduct() {
     };
 
 
+
+    /* NAME */
+
     document
         .getElementById("product-name")
         .innerText =
         product.name;
 
+
+
+    /* DESCRIPTION */
 
     document
         .getElementById("product-description")
@@ -1078,11 +1165,17 @@ function renderProduct() {
         product.description;
 
 
+
+    /* RATING */
+
     document
         .getElementById("product-rating")
         .innerText =
         product.rating;
 
+
+
+    /* PRICE */
 
     document
         .getElementById("product-price")
@@ -1090,19 +1183,34 @@ function renderProduct() {
         `฿${product.price.toLocaleString()}`;
 
 
+
+    /* CATEGORY */
+
     document
         .getElementById("product-category")
         .innerText =
-        getCategoryName(product.category);
+        getCategoryName(
+            product.category
+        );
 
 
-    /* SHOP */
+
+    /* =================================================
+       SHOP
+    ================================================= */
 
     const shopLogo =
-        document.getElementById("shop-logo");
+        document.getElementById(
+            "shop-logo"
+        );
+
 
     shopLogo.src =
-        product.shop.logo;
+        shop.logo;
+
+
+    shopLogo.alt =
+        shop.name;
 
 
     shopLogo.onerror = function() {
@@ -1113,33 +1221,51 @@ function renderProduct() {
     };
 
 
+
     document
         .getElementById("shop-name")
         .innerText =
-        product.shop.name;
+        shop.name;
+
 
 
     const shopStatus =
-        document.getElementById("shop-status");
+        document.getElementById(
+            "shop-status"
+        );
 
 
-    if (product.shop.mall) {
+    const mallBadge =
+        document.getElementById(
+            "mall-badge"
+        );
+
+
+    if (shop.mall) {
 
         shopStatus.innerHTML = `
             <span class="text-orange-500 font-bold">
+
                 <i class="fa-solid fa-circle-check"></i>
+
                 Mall ร้านค้าที่ผ่านการตรวจสอบ
+
             </span>
         `;
 
-        document
-            .getElementById("mall-badge")
-            .classList.remove("hidden");
+
+        mallBadge.classList.remove(
+            "hidden"
+        );
 
     } else {
 
         shopStatus.innerText =
             "ร้านค้าทั่วไป";
+
+        mallBadge.classList.add(
+            "hidden"
+        );
 
     }
 
@@ -1147,6 +1273,7 @@ function renderProduct() {
     updateTotal();
 
 }
+
 
 
 /* =====================================================
@@ -1183,6 +1310,7 @@ function changeQuantity(amount) {
 }
 
 
+
 /* =====================================================
    UPDATE TOTAL
 ===================================================== */
@@ -1205,6 +1333,7 @@ function updateTotal() {
 }
 
 
+
 /* =====================================================
    CART STORAGE
 ===================================================== */
@@ -1214,7 +1343,9 @@ function getCart() {
     try {
 
         return JSON.parse(
-            localStorage.getItem("delivery_cart")
+            localStorage.getItem(
+                "delivery_cart"
+            )
         ) || [];
 
     } catch {
@@ -1226,6 +1357,7 @@ function getCart() {
 }
 
 
+
 function saveCart(cart) {
 
     localStorage.setItem(
@@ -1234,6 +1366,7 @@ function saveCart(cart) {
     );
 
 }
+
 
 
 /* =====================================================
@@ -1251,7 +1384,8 @@ function addProductToCart() {
 
     const existing =
         cart.find(
-            item => item.id === currentProduct.id
+            item =>
+                item.id === currentProduct.id
         );
 
 
@@ -1263,7 +1397,22 @@ function addProductToCart() {
 
         cart.push({
 
-            ...currentProduct,
+            id: currentProduct.id,
+
+            image: currentProduct.image,
+
+            name: currentProduct.name,
+
+            description:
+                currentProduct.description,
+
+            price: currentProduct.price,
+
+            category: currentProduct.category,
+
+            rating: currentProduct.rating,
+
+            shopId: currentProduct.shopId,
 
             quantity: quantity
 
@@ -1282,6 +1431,7 @@ function addProductToCart() {
 }
 
 
+
 /* =====================================================
    BUY NOW
 ===================================================== */
@@ -1295,7 +1445,22 @@ function buyNow() {
 
         {
 
-            ...currentProduct,
+            id: currentProduct.id,
+
+            image: currentProduct.image,
+
+            name: currentProduct.name,
+
+            description:
+                currentProduct.description,
+
+            price: currentProduct.price,
+
+            category: currentProduct.category,
+
+            rating: currentProduct.rating,
+
+            shopId: currentProduct.shopId,
 
             quantity: quantity
 
@@ -1316,6 +1481,7 @@ function buyNow() {
 }
 
 
+
 /* =====================================================
    GO SHOP
 ===================================================== */
@@ -1328,6 +1494,7 @@ function goShop() {
 }
 
 
+
 /* =====================================================
    TOAST
 ===================================================== */
@@ -1335,23 +1502,30 @@ function goShop() {
 function showToast(message) {
 
     const toast =
-        document.getElementById("toast");
+        document.getElementById(
+            "toast"
+        );
 
 
     toast.innerText =
         message;
 
 
-    toast.classList.remove("hidden");
+    toast.classList.remove(
+        "hidden"
+    );
 
 
     setTimeout(() => {
 
-        toast.classList.add("hidden");
+        toast.classList.add(
+            "hidden"
+        );
 
     }, 2200);
 
 }
+
 
 
 /* =====================================================
@@ -1366,7 +1540,5 @@ document.addEventListener(
 </script>
 
 </body>
-
 </html>
-
 
