@@ -3,7 +3,7 @@ const shops = [
     {
         id: "S001",
         name: "Dr.PONG",
-        logo: "images/shops/Dr.Pong.jpeg",
+        logo: "images/shops/S001.jpeg",
         mall: true,
         description: "ร้านผลิตภัณฑ์ดูแลผิวและความงาม",
         rating: 4.9
