@@ -24,44 +24,44 @@ const products = [
 
     {
         id: "P003",
-        name: "หูฟัง Bluetooth",
+        name: "Dr.PONG 911 Hya Late Night Recovery Serum",
         image: "images/products/P003.jpeg",
-        description: "หูฟังไร้สาย Bluetooth เสียงคมชัด ใช้งานง่าย",
-        price: 890,
-        category: "electronics",
+        description: "เซรั่มบำรุงผิวหน้าที่ออกแบบมาเพื่อฟื้นบำรุงผิวของคนที่นอนดึกหรือพักผ่อนไม่เพียงพอโดยเฉพาะ",
+        price: 599,
+        category: "beauty",
         rating: 4.7,
         shopId: "S003"
     },
 
     {
         id: "P004",
-        name: "หนังสือเรียนคณิตศาสตร์",
+        name: "Dr.PONG 28D Smart Whitening Drone Acne Activein Serum",
         image: "images/products/P004.jpeg",
-        description: "หนังสือสำหรับทบทวนบทเรียนและเตรียมสอบ",
-        price: 250,
-        category: "books",
+        description: "เซรั่มบำรุงผิวหน้าสูตรใหม่ Gen 2 ที่ช่วยลดปัญหาสิว ผิวอุดตัน พร้อมลดเลือนรอยสิวให้แลดูจางลงด้วยเทคโนโลยี activeIN",
+        price: 599,
+        category: "beauty",
         rating: 4.8,
         shopId: "S004"
     },
 
     {
         id: "P005",
-        name: "เซตแชมพูและครีมนวด",
+        name: "Dr.PONG Activein BarrierX Ultimate Defense Serum",
         image: "images/products/P005.jpeg",
-        description: "ผลิตภัณฑ์ดูแลเส้นผมสำหรับใช้ในชีวิตประจำวัน",
-        price: 299,
-        category: "daily",
+        description: "เป็นเซรั่มบำรุงผิวหน้าที่ช่วยเสริมเกราะป้องกันผิว (Skin Barrier) เพิ่มความชุ่มชื้น และฟื้นบำรุงผิวอ่อนแอแพ้ง่ายให้อย่างมีประสิทธิภาพ",
+        price: 599,
+        category: "beauty",
         rating: 4.7,
         shopId: "S005"
     },
 
     {
         id: "P006",
-        name: "สมาร์ทวอทช์",
+        name: "Dr.PONG Retinal-X Timeless Anti-Aging Serum",
         image: "images/products/P006.jpeg",
-        description: "สมาร์ทวอทช์สำหรับใช้งานในชีวิตประจำวัน",
-        price: 1590,
-        category: "electronics",
+        description: "เซรั่มลดเลือนริ้วรอยผสมเรติแนล (Retinal) 0.04% ช่วยกระชับผิวและลดเลือนริ้วรอยร่องลึก",
+        price: 599,
+        category: "beauty",
         rating: 4.9,
         shopId: "S006"
     }
