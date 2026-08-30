@@ -4,13 +4,13 @@
 
 const SoundSystem = {
     paths: {
-        blacklist: 'sounds/ghost.mp3',
-        high_risk: 'sounds/ghost.mp3',
+        blacklist: 'sounds/ghots.mp3',
+        high_risk: 'sounds/ghots.mp3',
         medium_risk: 'sounds/ohno.mp3',
         low_risk: 'sounds/meng.mp3',
         wrong_pin: 'sounds/stupid.mp3',
         success: 'sounds/meng.mp3',
-        failed: 'sounds/ghost.mp3'
+        failed: 'sounds/ghots.mp3'
     },
 
     play(soundType) {
