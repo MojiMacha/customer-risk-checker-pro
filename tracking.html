@@ -3,9 +3,9 @@
 <html lang="th">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ติดตามพัสดุ | Delivery Risk Market</title>
 
@@ -22,6 +22,7 @@
 >
 
 <style>
+
     body {
         font-family: 'Kanit', sans-serif;
     }
@@ -34,7 +35,7 @@
         position: absolute;
         left: 19px;
         top: 42px;
-        bottom: -20px;
+        bottom: -10px;
         width: 2px;
         background: #e2e8f0;
     }
@@ -48,35 +49,26 @@
         z-index: 2;
     }
 
-    .status-active {
-        animation: pulseStatus 2s infinite;
+    .order-card {
+        transition: all 0.2s ease;
     }
 
-    @keyframes pulseStatus {
-        0%, 100% {
-            box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.25);
-        }
-
-        50% {
-            box-shadow: 0 0 0 8px rgba(79, 70, 229, 0);
-        }
+    .order-card:hover {
+        transform: translateY(-2px);
     }
 
-    .fade-in {
-        animation: fadeIn 0.3s ease;
+    .status-badge {
+        white-space: nowrap;
     }
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(8px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .product-row {
+        transition: background 0.2s ease;
     }
+
+    .product-row:hover {
+        background: #f8fafc;
+    }
+
 </style>
 
 
@@ -84,861 +76,1519 @@
 
 <body class="bg-slate-100 min-h-screen text-slate-800">
 
-
 <!-- ===================================================== -->
+
 <!-- NAVBAR -->
+
 <!-- ===================================================== -->
 
 <nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
 
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
 
-        <a href="shop.html" class="flex items-center gap-3">
+<div
+    class="max-w-7xl mx-auto px-4 py-3
+    flex items-center justify-between gap-4"
+>
 
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center">
-                <i class="fa-solid fa-store text-amber-300"></i>
-            </div>
+    <a
+        href="shop.html"
+        class="flex items-center gap-3"
+    >
 
-            <div>
-                <p class="font-black text-sm">
-                    Delivery Risk Market
-                </p>
+        <div
+            class="w-10 h-10
+            rounded-xl
+            bg-gradient-to-br
+            from-indigo-500
+            to-indigo-700
+            flex items-center
+            justify-center"
+        >
 
-                <p class="text-[10px] text-slate-400">
-                    Order Tracking
-                </p>
-            </div>
-
-        </a>
-
-        <div class="flex items-center gap-2">
-
-            <a
-                href="orders.html"
-                class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold"
-            >
-                <i class="fa-solid fa-clock-rotate-left"></i>
-                ประวัติคำสั่งซื้อ
-            </a>
-
-            <a
-                href="shop.html"
-                class="w-10 h-10 rounded-xl bg-indigo-600 hover:bg-indigo-500 flex items-center justify-center"
-            >
-                <i class="fa-solid fa-store"></i>
-            </a>
+            <i
+                class="fa-solid
+                fa-store
+                text-amber-300"
+            ></i>
 
         </div>
 
-    </div>
+
+        <div>
+
+            <p class="font-black text-sm">
+                Delivery Risk Market
+            </p>
+
+            <p class="text-[10px] text-slate-400">
+                Tracking
+            </p>
+
+        </div>
+
+    </a>
+
+
+    <a
+        href="shop.html"
+        class="flex items-center gap-2
+        px-4 py-2
+        rounded-xl
+        bg-white/10
+        hover:bg-white/20
+        text-xs
+        font-bold
+        transition"
+    >
+
+        <i class="fa-solid fa-store"></i>
+
+        ไปช้อปสินค้า
+
+    </a>
+
+</div>
+
 
 </nav>
 
-
 <!-- ===================================================== -->
+
 <!-- MAIN -->
+
 <!-- ===================================================== -->
 
-<main class="max-w-5xl mx-auto px-4 py-6 pb-16">
+<main
+    class="max-w-7xl
+    mx-auto
+    px-4
+    py-6
+    pb-16"
+>
 
-    <!-- TITLE -->
 
-    <div class="mb-6">
+<!-- ================================================= -->
+<!-- TITLE -->
+<!-- ================================================= -->
 
-        <a
-            href="orders.html"
-            class="inline-flex items-center gap-2 text-xs text-slate-500 hover:text-indigo-600 mb-3"
+<div class="mb-6">
+
+    <a
+        href="shop.html"
+        class="inline-flex
+        items-center
+        gap-2
+        text-xs
+        text-slate-500
+        hover:text-indigo-600
+        mb-3"
+    >
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        กลับไปเลือกสินค้า
+
+    </a>
+
+
+    <h1
+        class="text-2xl
+        sm:text-3xl
+        font-black"
+    >
+
+        📦 ติดตามพัสดุ
+
+    </h1>
+
+
+    <p
+        class="text-sm
+        text-slate-400
+        mt-1"
+    >
+
+        ตรวจสอบสถานะคำสั่งซื้อและรายละเอียดการจัดส่ง
+
+    </p>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- SEARCH -->
+<!-- ================================================= -->
+
+<section
+    class="bg-white
+    rounded-3xl
+    border
+    border-slate-200
+    p-5
+    tracking-card
+    mb-5"
+>
+
+    <div
+        class="flex
+        items-center
+        gap-3
+        mb-4"
+    >
+
+        <div
+            class="w-10 h-10
+            rounded-xl
+            bg-indigo-50
+            text-indigo-600
+            flex
+            items-center
+            justify-center"
         >
-            <i class="fa-solid fa-arrow-left"></i>
-            กลับไปประวัติคำสั่งซื้อ
-        </a>
 
-        <h1 class="text-2xl sm:text-3xl font-black">
-            📦 ติดตามพัสดุ
-        </h1>
+            <i class="fa-solid fa-magnifying-glass"></i>
 
-        <p class="text-sm text-slate-400 mt-1">
-            ตรวจสอบสถานะคำสั่งซื้อและการจัดส่ง
-        </p>
+        </div>
+
+
+        <div>
+
+            <h2 class="font-black">
+                ค้นหา Order
+            </h2>
+
+            <p
+                class="text-xs
+                text-slate-400"
+            >
+                กรอกเลขคำสั่งซื้อเพื่อดูสถานะ
+            </p>
+
+        </div>
 
     </div>
 
 
-    <!-- ===================================================== -->
-    <!-- SEARCH -->
-    <!-- ===================================================== -->
-
-    <section class="bg-white rounded-3xl border border-slate-200 p-5 tracking-card mb-5">
-
-        <div class="flex items-center gap-3 mb-4">
-
-            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </div>
-
-            <div>
-                <h2 class="font-black">
-                    ค้นหาออเดอร์
-                </h2>
-
-                <p class="text-xs text-slate-400">
-                    กรอกเลข Order เพื่อติดตามพัสดุ
-                </p>
-            </div>
-
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-3">
-
-            <input
-                id="order-search"
-                type="text"
-                placeholder="เช่น DRM-20260830-1234"
-                class="flex-1 px-4 py-3 rounded-xl border border-slate-200 outline-none text-sm focus:ring-2 focus:ring-indigo-500"
-                onkeydown="handleSearchKey(event)"
-            >
-
-            <button
-                onclick="searchOrder()"
-                class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm transition"
-            >
-                <i class="fa-solid fa-magnifying-glass mr-2"></i>
-                ค้นหา
-            </button>
-
-        </div>
-
-        <p
-            id="search-error"
-            class="hidden text-xs text-rose-500 mt-3"
-        >
-            <i class="fa-solid fa-circle-exclamation mr-1"></i>
-            ไม่พบเลขออเดอร์นี้
-        </p>
-
-    </section>
-
-
-    <!-- ===================================================== -->
-    <!-- EMPTY -->
-    <!-- ===================================================== -->
-
-    <section
-        id="empty-state"
-        class="hidden bg-white rounded-3xl border border-slate-200 p-10 text-center tracking-card"
+    <div
+        class="flex
+        flex-col
+        sm:flex-row
+        gap-3"
     >
 
-        <div class="w-20 h-20 mx-auto rounded-full bg-slate-100 flex items-center justify-center">
-            <i class="fa-solid fa-box-open text-3xl text-slate-300"></i>
-        </div>
-
-        <h2 class="font-black text-xl mt-5">
-            ยังไม่มีคำสั่งซื้อ
-        </h2>
-
-        <p class="text-sm text-slate-400 mt-2">
-            เมื่อคุณสั่งซื้อสินค้า รายละเอียดคำสั่งซื้อจะแสดงที่นี่
-        </p>
-
-        <a
-            href="shop.html"
-            class="inline-flex items-center gap-2 mt-6 px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm"
+        <input
+            id="order-search"
+            type="text"
+            placeholder="เช่น DRM-20260830-1234"
+            class="flex-1
+            px-4
+            py-3
+            rounded-xl
+            border
+            border-slate-200
+            outline-none
+            text-sm
+            focus:ring-2
+            focus:ring-indigo-500"
+            onkeydown="handleSearchKey(event)"
         >
-            <i class="fa-solid fa-store"></i>
-            ไปเลือกสินค้า
-        </a>
 
-    </section>
 
-
-    <!-- ===================================================== -->
-    <!-- ORDER CONTENT -->
-    <!-- ===================================================== -->
-
-    <div id="tracking-content" class="hidden fade-in">
-
-        <!-- ORDER HEADER -->
-
-        <section class="bg-white rounded-3xl border border-slate-200 overflow-hidden tracking-card mb-5">
-
-            <div class="bg-gradient-to-br from-indigo-600 via-indigo-700 to-slate-950 p-6 text-white">
-
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-
-                    <div>
-
-                        <p class="text-xs text-indigo-200">
-                            เลขคำสั่งซื้อ
-                        </p>
-
-                        <h2
-                            id="order-id"
-                            class="text-xl sm:text-2xl font-black mt-1 break-all"
-                        >
-                            -
-                        </h2>
-
-                        <p
-                            id="order-date"
-                            class="text-xs text-indigo-200 mt-2"
-                        >
-                            -
-                        </p>
-
-                    </div>
-
-                    <div
-                        id="status-badge"
-                        class="self-start sm:self-center px-4 py-2 rounded-xl bg-white/10 border border-white/10 text-xs font-bold"
-                    >
-                        -
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="p-5">
-
-                <div class="grid sm:grid-cols-3 gap-4">
-
-                    <div class="bg-slate-50 rounded-2xl p-4">
-
-                        <p class="text-[10px] text-slate-400">
-                            วิธีชำระเงิน
-                        </p>
-
-                        <p
-                            id="payment-name"
-                            class="font-bold text-sm mt-1"
-                        >
-                            -
-                        </p>
-
-                    </div>
-
-
-                    <div class="bg-slate-50 rounded-2xl p-4">
-
-                        <p class="text-[10px] text-slate-400">
-                            จำนวนสินค้า
-                        </p>
-
-                        <p
-                            id="total-items"
-                            class="font-bold text-sm mt-1"
-                        >
-                            -
-                        </p>
-
-                    </div>
-
-
-                    <div class="bg-slate-50 rounded-2xl p-4">
-
-                        <p class="text-[10px] text-slate-400">
-                            ยอดชำระ
-                        </p>
-
-                        <p
-                            id="order-total"
-                            class="font-black text-lg text-indigo-600 mt-1"
-                        >
-                            ฿0
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ===================================================== -->
-        <!-- STATUS TIMELINE -->
-        <!-- ===================================================== -->
-
-        <section class="bg-white rounded-3xl border border-slate-200 p-5 tracking-card mb-5">
-
-            <div class="flex items-center gap-3 mb-6">
-
-                <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                    <i class="fa-solid fa-truck-fast"></i>
-                </div>
-
-                <div>
-
-                    <h2 class="font-black">
-                        สถานะการจัดส่ง
-                    </h2>
-
-                    <p class="text-xs text-slate-400">
-                        ความคืบหน้าของคำสั่งซื้อ
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div id="timeline"></div>
-
-        </section>
-
-
-        <!-- ===================================================== -->
-        <!-- PRODUCTS -->
-        <!-- ===================================================== -->
-
-        <section class="bg-white rounded-3xl border border-slate-200 p-5 tracking-card mb-5">
-
-            <div class="flex items-center gap-3 mb-5">
-
-                <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                    <i class="fa-solid fa-box"></i>
-                </div>
-
-                <div>
-
-                    <h2 class="font-black">
-                        รายการสินค้า
-                    </h2>
-
-                    <p class="text-xs text-slate-400">
-                        สินค้าในคำสั่งซื้อนี้
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="order-items"
-                class="space-y-3"
-            ></div>
-
-        </section>
-
-
-        <!-- ===================================================== -->
-        <!-- CUSTOMER -->
-        <!-- ===================================================== -->
-
-        <section class="bg-white rounded-3xl border border-slate-200 p-5 tracking-card mb-5">
-
-            <div class="flex items-center gap-3 mb-5">
-
-                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-
-                <div>
-
-                    <h2 class="font-black">
-                        ข้อมูลจัดส่ง
-                    </h2>
-
-                    <p class="text-xs text-slate-400">
-                        ข้อมูลผู้รับสินค้า
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="grid sm:grid-cols-2 gap-4">
-
-                <div class="bg-slate-50 rounded-2xl p-4">
-
-                    <p class="text-[10px] text-slate-400">
-                        ผู้รับ
-                    </p>
-
-                    <p
-                        id="customer-name"
-                        class="font-bold text-sm mt-1"
-                    >
-                        -
-                    </p>
-
-                </div>
-
-
-                <div class="bg-slate-50 rounded-2xl p-4">
-
-                    <p class="text-[10px] text-slate-400">
-                        เบอร์โทรศัพท์
-                    </p>
-
-                    <p
-                        id="customer-phone"
-                        class="font-bold text-sm mt-1"
-                    >
-                        -
-                    </p>
-
-                </div>
-
-
-                <div class="sm:col-span-2 bg-slate-50 rounded-2xl p-4">
-
-                    <p class="text-[10px] text-slate-400">
-                        ที่อยู่จัดส่ง
-                    </p>
-
-                    <p
-                        id="customer-address"
-                        class="font-bold text-sm mt-1 leading-relaxed"
-                    >
-                        -
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ===================================================== -->
-        <!-- PRICE -->
-        <!-- ===================================================== -->
-
-        <section class="bg-white rounded-3xl border border-slate-200 p-5 tracking-card">
-
-            <div class="flex items-center gap-3 mb-5">
-
-                <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center">
-                    <i class="fa-solid fa-receipt"></i>
-                </div>
-
-                <div>
-
-                    <h2 class="font-black">
-                        สรุปยอด
-                    </h2>
-
-                    <p class="text-xs text-slate-400">
-                        รายละเอียดค่าใช้จ่าย
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="space-y-3">
-
-                <div class="flex justify-between text-sm">
-
-                    <span class="text-slate-500">
-                        ค่าสินค้า
-                    </span>
-
-                    <span
-                        id="summary-subtotal"
-                        class="font-bold"
-                    >
-                        ฿0
-                    </span>
-
-                </div>
-
-
-                <div class="flex justify-between text-sm">
-
-                    <span class="text-slate-500">
-                        ค่าจัดส่ง
-                    </span>
-
-                    <span
-                        id="summary-shipping"
-                        class="font-bold"
-                    >
-                        ฿0
-                    </span>
-
-                </div>
-
-
-                <div class="border-t border-slate-100 pt-3 flex justify-between items-center">
-
-                    <span class="font-bold">
-                        รวมทั้งหมด
-                    </span>
-
-                    <span
-                        id="summary-total"
-                        class="text-2xl font-black text-indigo-600"
-                    >
-                        ฿0
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="order-note-box"
-                class="hidden mt-5 p-4 rounded-2xl bg-amber-50"
-            >
-
-                <p class="text-xs font-bold text-amber-800">
-                    <i class="fa-solid fa-note-sticky mr-1"></i>
-                    หมายเหตุถึงร้านค้า
-                </p>
+        <button
+            onclick="searchOrder()"
+            class="px-6
+            py-3
+            rounded-xl
+            bg-indigo-600
+            hover:bg-indigo-700
+            text-white
+            font-bold
+            text-sm
+            transition"
+        >
+
+            <i
+                class="fa-solid
+                fa-magnifying-glass
+                mr-2"
+            ></i>
+
+            ค้นหา
+
+        </button>
+
+    </div>
+
+
+    <p
+        id="search-message"
+        class="hidden
+        text-xs
+        text-rose-500
+        mt-3"
+    ></p>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- CONTENT -->
+<!-- ================================================= -->
+
+<div
+    id="tracking-content"
+    class="hidden"
+>
+
+
+    <!-- ================================================= -->
+    <!-- ORDER HEADER -->
+    <!-- ================================================= -->
+
+    <section
+        class="bg-white
+        rounded-3xl
+        border
+        border-slate-200
+        p-5
+        tracking-card
+        mb-5"
+    >
+
+        <div
+            class="flex
+            flex-col
+            sm:flex-row
+            sm:items-center
+            sm:justify-between
+            gap-4"
+        >
+
+            <div>
 
                 <p
-                    id="order-note"
-                    class="text-xs text-amber-700 mt-2"
+                    class="text-xs
+                    text-slate-400"
+                >
+                    เลขคำสั่งซื้อ
+                </p>
+
+                <div
+                    class="flex
+                    items-center
+                    gap-2
+                    mt-1"
+                >
+
+                    <h2
+                        id="order-id"
+                        class="text-xl
+                        sm:text-2xl
+                        font-black
+                        text-indigo-600"
+                    >
+                        -
+                    </h2>
+
+
+                    <button
+                        onclick="copyOrderId()"
+                        class="w-8 h-8
+                        rounded-lg
+                        bg-slate-100
+                        hover:bg-indigo-50
+                        hover:text-indigo-600
+                        text-slate-500"
+                        title="คัดลอกเลข Order"
+                    >
+
+                        <i class="fa-solid fa-copy"></i>
+
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="order-date"
+                    class="text-xs
+                    text-slate-400
+                    mt-1"
                 >
                     -
                 </p>
 
             </div>
 
-        </section>
+
+            <div
+                id="order-status"
+                class="status-badge
+                inline-flex
+                items-center
+                gap-2
+                px-4
+                py-2
+                rounded-xl
+                bg-indigo-50
+                text-indigo-600
+                text-xs
+                font-black"
+            >
+
+                <i class="fa-solid fa-box"></i>
+
+                -
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- GRID -->
+    <!-- ================================================= -->
+
+    <div
+        class="grid
+        lg:grid-cols-3
+        gap-5"
+    >
+
+
+        <!-- ================================================= -->
+        <!-- LEFT -->
+        <!-- ================================================= -->
+
+        <div
+            class="lg:col-span-2
+            space-y-5"
+        >
+
+
+            <!-- ================================================= -->
+            <!-- TRACKING TIMELINE -->
+            <!-- ================================================= -->
+
+            <section
+                class="bg-white
+                rounded-3xl
+                border
+                border-slate-200
+                p-5
+                tracking-card"
+            >
+
+                <div
+                    class="flex
+                    items-center
+                    gap-3
+                    mb-6"
+                >
+
+                    <div
+                        class="w-10 h-10
+                        rounded-xl
+                        bg-indigo-50
+                        text-indigo-600
+                        flex
+                        items-center
+                        justify-center"
+                    >
+
+                        <i class="fa-solid fa-truck-fast"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2 class="font-black">
+                            สถานะการจัดส่ง
+                        </h2>
+
+                        <p
+                            class="text-xs
+                            text-slate-400"
+                        >
+                            ความคืบหน้าของคำสั่งซื้อ
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="timeline"
+                    class="space-y-0"
+                ></div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- PRODUCTS -->
+            <!-- ================================================= -->
+
+            <section
+                class="bg-white
+                rounded-3xl
+                border
+                border-slate-200
+                overflow-hidden
+                tracking-card"
+            >
+
+                <div
+                    class="p-5
+                    border-b
+                    border-slate-100"
+                >
+
+                    <h2 class="font-black">
+                        🛍️ รายการสินค้า
+                    </h2>
+
+                    <p
+                        id="product-count"
+                        class="text-xs
+                        text-slate-400
+                        mt-1"
+                    >
+                        0 รายการ
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="tracking-products"
+                    class="divide-y
+                    divide-slate-100"
+                ></div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- NOTE -->
+            <!-- ================================================= -->
+
+            <section
+                id="note-section"
+                class="hidden
+                bg-white
+                rounded-3xl
+                border
+                border-slate-200
+                p-5
+                tracking-card"
+            >
+
+                <div
+                    class="flex
+                    items-start
+                    gap-3"
+                >
+
+                    <div
+                        class="w-10 h-10
+                        rounded-xl
+                        bg-amber-50
+                        text-amber-600
+                        flex
+                        items-center
+                        justify-center
+                        shrink-0"
+                    >
+
+                        <i class="fa-solid fa-note-sticky"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <p class="font-black text-sm">
+                            หมายเหตุถึงร้านค้า
+                        </p>
+
+                        <p
+                            id="order-note"
+                            class="text-sm
+                            text-slate-500
+                            mt-2"
+                        ></p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- RIGHT -->
+        <!-- ================================================= -->
+
+        <aside
+            class="space-y-5"
+        >
+
+
+            <!-- ================================================= -->
+            <!-- CUSTOMER -->
+            <!-- ================================================= -->
+
+            <section
+                class="bg-white
+                rounded-3xl
+                border
+                border-slate-200
+                p-5
+                tracking-card"
+            >
+
+                <div
+                    class="flex
+                    items-center
+                    gap-3
+                    mb-5"
+                >
+
+                    <div
+                        class="w-10 h-10
+                        rounded-xl
+                        bg-indigo-50
+                        text-indigo-600
+                        flex
+                        items-center
+                        justify-center"
+                    >
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2 class="font-black">
+                            ที่อยู่จัดส่ง
+                        </h2>
+
+                        <p
+                            class="text-xs
+                            text-slate-400"
+                        >
+                            ข้อมูลผู้รับสินค้า
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="space-y-4">
+
+                    <div>
+
+                        <p
+                            class="text-[10px]
+                            text-slate-400"
+                        >
+                            ผู้รับ
+                        </p>
+
+                        <p
+                            id="customer-name"
+                            class="text-sm
+                            font-bold
+                            mt-1"
+                        >
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <p
+                            class="text-[10px]
+                            text-slate-400"
+                        >
+                            เบอร์โทรศัพท์
+                        </p>
+
+                        <p
+                            id="customer-phone"
+                            class="text-sm
+                            font-bold
+                            mt-1"
+                        >
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <p
+                            class="text-[10px]
+                            text-slate-400"
+                        >
+                            ที่อยู่
+                        </p>
+
+                        <p
+                            id="customer-address"
+                            class="text-sm
+                            text-slate-600
+                            leading-6
+                            mt-1"
+                        >
+                            -
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- PAYMENT SUMMARY -->
+            <!-- ================================================= -->
+
+            <section
+                class="bg-white
+                rounded-3xl
+                border
+                border-slate-200
+                overflow-hidden
+                tracking-card"
+            >
+
+                <div
+                    class="p-5
+                    border-b
+                    border-slate-100"
+                >
+
+                    <h2 class="font-black">
+                        💳 สรุปการชำระเงิน
+                    </h2>
+
+                </div>
+
+
+                <div
+                    class="p-5
+                    space-y-3"
+                >
+
+                    <div
+                        class="flex
+                        justify-between
+                        text-sm"
+                    >
+
+                        <span class="text-slate-500">
+                            ค่าสินค้า
+                        </span>
+
+                        <span
+                            id="subtotal"
+                            class="font-bold"
+                        >
+                            ฿0
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="flex
+                        justify-between
+                        text-sm"
+                    >
+
+                        <span class="text-slate-500">
+                            ค่าจัดส่ง
+                        </span>
+
+                        <span
+                            id="shipping"
+                            class="font-bold"
+                        >
+                            ฿0
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="border-t
+                        border-slate-100
+                        pt-3
+                        flex
+                        justify-between
+                        items-center"
+                    >
+
+                        <span class="font-bold">
+                            รวมทั้งหมด
+                        </span>
+
+                        <span
+                            id="total"
+                            class="text-xl
+                            font-black
+                            text-indigo-600"
+                        >
+                            ฿0
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="mt-4
+                        p-3
+                        rounded-xl
+                        bg-slate-50"
+                    >
+
+                        <p
+                            class="text-[10px]
+                            text-slate-400"
+                        >
+                            วิธีชำระเงิน
+                        </p>
+
+                        <p
+                            id="payment-name"
+                            class="text-sm
+                            font-bold
+                            mt-1"
+                        >
+                            -
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================================================= -->
+            <!-- ORDER HISTORY -->
+            <!-- ================================================= -->
+
+            <section
+                class="bg-white
+                rounded-3xl
+                border
+                border-slate-200
+                overflow-hidden
+                tracking-card"
+            >
+
+                <div
+                    class="p-5
+                    border-b
+                    border-slate-100"
+                >
+
+                    <div
+                        class="flex
+                        items-center
+                        justify-between"
+                    >
+
+                        <div>
+
+                            <h2 class="font-black">
+                                📋 Order ของฉัน
+                            </h2>
+
+                            <p
+                                class="text-xs
+                                text-slate-400
+                                mt-1"
+                            >
+                                คำสั่งซื้อที่ผ่านมา
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            id="history-count"
+                            class="text-xs
+                            text-slate-400"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="order-history"
+                    class="p-3
+                    space-y-2
+                    max-h-[350px]
+                    overflow-y-auto"
+                ></div>
+
+            </section>
+
+
+        </aside>
 
     </div>
 
+</div>
+
+
+<!-- ================================================= -->
+<!-- NO ORDER -->
+<!-- ================================================= -->
+
+<section
+    id="no-order"
+    class="bg-white
+    rounded-3xl
+    border
+    border-slate-200
+    p-12
+    text-center
+    tracking-card"
+>
+
+    <div
+        class="w-20 h-20
+        mx-auto
+        rounded-full
+        bg-indigo-50
+        text-indigo-300
+        flex
+        items-center
+        justify-center"
+    >
+
+        <i
+            class="fa-solid
+            fa-truck-fast
+            text-3xl"
+        ></i>
+
+    </div>
+
+
+    <h2
+        class="font-black
+        text-xl
+        mt-5"
+    >
+        ยังไม่มีคำสั่งซื้อ
+    </h2>
+
+
+    <p
+        class="text-sm
+        text-slate-400
+        mt-2"
+    >
+        เมื่อคุณสั่งซื้อสินค้าแล้ว สามารถติดตามพัสดุได้ที่หน้านี้
+    </p>
+
+
+    <a
+        href="shop.html"
+        class="inline-flex
+        items-center
+        gap-2
+        mt-6
+        px-6
+        py-3
+        rounded-2xl
+        bg-indigo-600
+        hover:bg-indigo-700
+        text-white
+        font-bold
+        text-sm
+        transition"
+    >
+
+        <i class="fa-solid fa-store"></i>
+
+        ไปเลือกสินค้า
+
+    </a>
+
+</section>
+```
+
 </main>
 
-
 <!-- ===================================================== -->
+
 <!-- JAVASCRIPT -->
+
 <!-- ===================================================== -->
 
 <script>
 
-    let orders = [];
-    let currentOrder = null;
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let currentOrder = null;
 
 
-    /* =====================================================
-       LOAD ORDERS
-    ===================================================== */
+/* =====================================================
+   STATUS DATA
+===================================================== */
 
-    function loadOrders() {
+const statusSteps = [
 
-        try {
+    {
+        key: "กำลังเตรียมสินค้า",
+        title: "กำลังเตรียมสินค้า",
+        description: "ร้านค้ากำลังเตรียมสินค้าเพื่อจัดส่ง",
+        icon: "fa-box"
+    },
 
-            const savedOrders =
-                localStorage.getItem("orders");
+    {
+        key: "กำลังจัดส่ง",
+        title: "กำลังจัดส่ง",
+        description: "พัสดุถูกส่งออกจากร้านค้าแล้ว",
+        icon: "fa-truck"
+    },
 
-            if (savedOrders) {
+    {
+        key: "อยู่ระหว่างขนส่ง",
+        title: "อยู่ระหว่างขนส่ง",
+        description: "พัสดุกำลังเดินทางไปยังปลายทาง",
+        icon: "fa-route"
+    },
 
-                orders = JSON.parse(savedOrders);
+    {
+        key: "กำลังนำจ่าย",
+        title: "กำลังนำจ่าย",
+        description: "พัสดุกำลังถูกนำส่งไปยังผู้รับ",
+        icon: "fa-motorcycle"
+    },
 
-            } else {
+    {
+        key: "จัดส่งสำเร็จ",
+        title: "จัดส่งสำเร็จ",
+        description: "ผู้รับได้รับสินค้าเรียบร้อยแล้ว",
+        icon: "fa-circle-check"
+    }
 
-                orders = [];
+];
 
-            }
 
-        } catch (error) {
+/* =====================================================
+   LOAD ORDERS
+===================================================== */
 
-            console.error(
-                "ไม่สามารถโหลด orders ได้",
-                error
-            );
+function getOrders() {
 
-            orders = [];
+    try {
 
+        const saved =
+            localStorage.getItem("orders");
+
+        if (!saved) {
+            return [];
         }
+
+        const orders = JSON.parse(saved);
+
+        if (!Array.isArray(orders)) {
+            return [];
+        }
+
+        return orders;
 
     }
 
+    catch (error) {
 
-    /* =====================================================
-       LOAD LATEST ORDER
-    ===================================================== */
+        console.error(
+            "ไม่สามารถโหลด orders ได้",
+            error
+        );
 
-    function loadLatestOrder() {
+        return [];
 
-        try {
+    }
 
-            const savedLatest =
-                localStorage.getItem("latestOrder");
+}
 
-            if (!savedLatest) {
-                return null;
-            }
 
-            return JSON.parse(savedLatest);
+/* =====================================================
+   LOAD LATEST ORDER
+===================================================== */
 
-        } catch (error) {
+function getLatestOrder() {
 
-            console.error(
-                "ไม่สามารถโหลด latestOrder ได้",
-                error
-            );
+    try {
 
+        const saved =
+            localStorage.getItem("latestOrder");
+
+        if (!saved) {
             return null;
-
         }
 
-    }
-
-
-    /* =====================================================
-       FIND ORDER
-    ===================================================== */
-
-    function findOrder(orderId) {
-
-        if (!orderId) {
-            return null;
-        }
-
-        const cleanId =
-            orderId.trim().toLowerCase();
-
-        return orders.find(order =>
-            String(order.id).toLowerCase() === cleanId
-        ) || null;
+        return JSON.parse(saved);
 
     }
 
+    catch (error) {
 
-    /* =====================================================
-       SHOW ORDER
-    ===================================================== */
+        console.error(
+            "ไม่สามารถโหลด latestOrder ได้",
+            error
+        );
 
-    function showOrder(order) {
-
-        if (!order) {
-
-            document
-                .getElementById("tracking-content")
-                .classList.add("hidden");
-
-            document
-                .getElementById("empty-state")
-                .classList.remove("hidden");
-
-            return;
-
-        }
-
-
-        currentOrder = order;
-
-
-        document
-            .getElementById("empty-state")
-            .classList.add("hidden");
-
-        document
-            .getElementById("tracking-content")
-            .classList.remove("hidden");
-
-
-        renderOrderHeader(order);
-
-        renderTimeline(order);
-
-        renderItems(order);
-
-        renderCustomer(order);
-
-        renderSummary(order);
+        return null;
 
     }
 
+}
 
-    /* =====================================================
-       ORDER HEADER
-    ===================================================== */
 
-    function renderOrderHeader(order) {
+/* =====================================================
+   FIND ORDER
+===================================================== */
 
+function findOrder(orderId) {
+
+    const orders = getOrders();
+
+    const normalized =
+        String(orderId || "")
+        .trim()
+        .toLowerCase();
+
+    return orders.find(
+        order =>
+            String(order.id)
+            .toLowerCase() === normalized
+    ) || null;
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function searchOrder() {
+
+    const input =
         document
-            .getElementById("order-id")
-            .innerText =
-            order.id || "-";
+        .getElementById("order-search")
+        .value
+        .trim();
 
 
-        document
-            .getElementById("order-date")
-            .innerText =
-            formatDate(order.createdAt);
+    hideSearchMessage();
 
 
-        document
-            .getElementById("payment-name")
-            .innerText =
-            order.paymentName || getPaymentName(order.payment);
+    if (!input) {
 
+        showSearchMessage(
+            "กรุณากรอกเลข Order ก่อนค้นหา"
+        );
 
-        const itemCount =
-            (order.items || []).reduce(
-                (sum, item) =>
-                    sum + Number(item.quantity || 1),
-                0
-            );
-
-
-        document
-            .getElementById("total-items")
-            .innerText =
-            `${itemCount} ชิ้น`;
-
-
-        document
-            .getElementById("order-total")
-            .innerText =
-            formatMoney(order.total);
-
-
-        const statusBadge =
-            document.getElementById("status-badge");
-
-
-        statusBadge.innerText =
-            order.status || "กำลังเตรียมสินค้า";
+        return;
 
     }
 
 
-    /* =====================================================
-       TIMELINE
-    ===================================================== */
-
-    function renderTimeline(order) {
-
-        const timeline =
-            document.getElementById("timeline");
+    const order =
+        findOrder(input);
 
 
-        const status =
-            order.status || "กำลังเตรียมสินค้า";
+    if (!order) {
+
+        showSearchMessage(
+            "ไม่พบเลข Order นี้ในระบบ"
+        );
+
+        return;
+
+    }
 
 
-        const statuses = [
+    showOrder(order);
 
-            {
-                key: "กำลังเตรียมสินค้า",
-                title: "กำลังเตรียมสินค้า",
-                description: "ร้านค้ากำลังเตรียมสินค้าเพื่อจัดส่ง",
-                icon: "fa-box"
-            },
-
-            {
-                key: "กำลังจัดส่ง",
-                title: "กำลังจัดส่ง",
-                description: "พัสดุถูกส่งออกจากร้านค้าแล้ว",
-                icon: "fa-truck"
-            },
-
-            {
-                key: "ถึงศูนย์คัดแยก",
-                title: "ถึงศูนย์คัดแยก",
-                description: "พัสดุอยู่ระหว่างการคัดแยก",
-                icon: "fa-warehouse"
-            },
-
-            {
-                key: "กำลังนำจ่าย",
-                title: "กำลังนำจ่าย",
-                description: "พนักงานกำลังนำพัสดุไปยังที่อยู่ปลายทาง",
-                icon: "fa-motorcycle"
-            },
-
-            {
-                key: "จัดส่งสำเร็จ",
-                title: "จัดส่งสำเร็จ",
-                description: "ผู้รับได้รับสินค้าเรียบร้อยแล้ว",
-                icon: "fa-circle-check"
-            }
-
-        ];
+}
 
 
-        let currentIndex =
-            getStatusIndex(status);
+/* =====================================================
+   ENTER SEARCH
+===================================================== */
+
+function handleSearchKey(event) {
+
+    if (event.key === "Enter") {
+
+        searchOrder();
+
+    }
+
+}
 
 
-        timeline.innerHTML =
-            statuses.map((item, index) => {
+/* =====================================================
+   SEARCH MESSAGE
+===================================================== */
+
+function showSearchMessage(message) {
+
+    const element =
+        document.getElementById(
+            "search-message"
+        );
+
+    element.innerText = message;
+
+    element.classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+   HIDE SEARCH MESSAGE
+===================================================== */
+
+function hideSearchMessage() {
+
+    document
+        .getElementById("search-message")
+        .classList.add("hidden");
+
+}
+
+
+/* =====================================================
+   SHOW ORDER
+===================================================== */
+
+function showOrder(order) {
+
+    if (!order) {
+        return;
+    }
+
+    currentOrder = order;
+
+    document
+        .getElementById("no-order")
+        .classList.add("hidden");
+
+    document
+        .getElementById("tracking-content")
+        .classList.remove("hidden");
+
+    renderOrder(order);
+
+    renderHistory();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   RENDER ORDER
+===================================================== */
+
+function renderOrder(order) {
+
+    document
+        .getElementById("order-id")
+        .innerText =
+        order.id || "-";
+
+
+    document
+        .getElementById("order-date")
+        .innerText =
+        formatDate(order.createdAt);
+
+
+    renderStatus(order.status);
+
+    renderCustomer(order.customer);
+
+    renderProducts(order.items);
+
+    renderPayment(order);
+
+    renderNote(order);
+
+}
+
+
+/* =====================================================
+   RENDER STATUS
+===================================================== */
+
+function renderStatus(status) {
+
+    const statusElement =
+        document.getElementById(
+            "order-status"
+        );
+
+
+    const index =
+        getStatusIndex(status);
+
+
+    let current =
+        statusSteps[index];
+
+
+    if (!current) {
+
+        current =
+            statusSteps[0];
+
+    }
+
+
+    statusElement.innerHTML = `
+
+        <i class="fa-solid ${current.icon}"></i>
+
+        ${current.title}
+
+    `;
+
+
+    renderTimeline(index);
+
+}
+
+
+/* =====================================================
+   GET STATUS INDEX
+===================================================== */
+
+function getStatusIndex(status) {
+
+    const exact =
+        statusSteps.findIndex(
+            item => item.key === status
+        );
+
+
+    if (exact >= 0) {
+
+        return exact;
+
+    }
+
+
+    const normalized =
+        String(status || "")
+        .toLowerCase();
+
+
+    if (
+        normalized.includes("สำเร็จ") ||
+        normalized.includes("ได้รับ")
+    ) {
+
+        return 4;
+
+    }
+
+
+    if (
+        normalized.includes("นำจ่าย")
+    ) {
+
+        return 3;
+
+    }
+
+
+    if (
+        normalized.includes("ขนส่ง")
+    ) {
+
+        return 2;
+
+    }
+
+
+    if (
+        normalized.includes("จัดส่ง")
+    ) {
+
+        return 1;
+
+    }
+
+
+    return 0;
+
+}
+
+
+/* =====================================================
+   RENDER TIMELINE
+===================================================== */
+
+function renderTimeline(currentIndex) {
+
+    const container =
+        document.getElementById(
+            "timeline"
+        );
+
+
+    container.innerHTML =
+        statusSteps.map(
+            (step, index) => {
 
                 const completed =
-                    index < currentIndex;
+                    index <= currentIndex;
+
 
                 const active =
                     index === currentIndex;
 
 
-                let dotClass =
-                    "bg-slate-100 text-slate-400";
+                const dotClass =
+                    completed
+                    ? "bg-indigo-600 text-white"
+                    : "bg-slate-100 text-slate-300";
 
 
-                let titleClass =
-                    "text-slate-400";
+                const titleClass =
+                    completed
+                    ? "text-slate-800"
+                    : "text-slate-400";
 
 
-                let descriptionClass =
-                    "text-slate-400";
-
-
-                if (completed) {
-
-                    dotClass =
-                        "bg-emerald-500 text-white";
-
-                    titleClass =
-                        "text-emerald-600";
-
-                    descriptionClass =
-                        "text-slate-500";
-
-                }
-
-
-                if (active) {
-
-                    dotClass =
-                        "bg-indigo-600 text-white status-active";
-
-                    titleClass =
-                        "text-indigo-600";
-
-                    descriptionClass =
-                        "text-slate-500";
-
-                }
+                const descriptionClass =
+                    completed
+                    ? "text-slate-500"
+                    : "text-slate-300";
 
 
                 return `
 
-                    <div class="timeline-item relative flex gap-4 pb-7">
-
-                        <div class="timeline-line"></div>
+                    <div
+                        class="timeline-item
+                        relative
+                        flex
+                        gap-4
+                        pb-7"
+                    >
 
                         <div
-                            class="timeline-dot w-10 h-10 shrink-0 rounded-full ${dotClass} flex items-center justify-center"
+                            class="timeline-line"
+                        ></div>
+
+
+                        <div
+                            class="timeline-dot
+                            w-10 h-10
+                            shrink-0
+                            rounded-xl
+                            ${dotClass}
+                            flex
+                            items-center
+                            justify-center
+                            ${active ? "ring-4 ring-indigo-100" : ""}"
                         >
-                            <i class="fa-solid ${item.icon} text-sm"></i>
+
+                            <i
+                                class="fa-solid
+                                ${step.icon}
+                                text-sm"
+                            ></i>
+
                         </div>
 
-                        <div class="pt-1">
 
-                            <p class="font-black text-sm ${titleClass}">
-                                ${item.title}
+                        <div
+                            class="pt-1
+                            min-w-0"
+                        >
+
+                            <div
+                                class="flex
+                                flex-wrap
+                                items-center
+                                gap-2"
+                            >
+
+                                <p
+                                    class="font-black
+                                    text-sm
+                                    ${titleClass}"
+                                >
+                                    ${step.title}
+                                </p>
+
+
                                 ${
                                     active
-                                        ? `<span class="ml-2 text-[9px] px-2 py-1 rounded-full bg-indigo-50 text-indigo-600">สถานะปัจจุบัน</span>`
-                                        : ""
+                                    ?
+                                    `
+                                    <span
+                                        class="px-2
+                                        py-0.5
+                                        rounded-full
+                                        bg-indigo-50
+                                        text-indigo-600
+                                        text-[9px]
+                                        font-black"
+                                    >
+                                        สถานะปัจจุบัน
+                                    </span>
+                                    `
+                                    :
+                                    ""
                                 }
-                            </p>
 
-                            <p class="text-xs ${descriptionClass} mt-1">
-                                ${item.description}
+                            </div>
+
+
+                            <p
+                                class="text-xs
+                                mt-1
+                                ${descriptionClass}"
+                            >
+                                ${step.description}
                             </p>
 
                         </div>
@@ -947,95 +1597,121 @@
 
                 `;
 
-            }).join("");
+            }
+        ).join("");
+
+}
+
+
+/* =====================================================
+   RENDER CUSTOMER
+===================================================== */
+
+function renderCustomer(customer) {
+
+    if (!customer) {
+
+        document
+            .getElementById("customer-name")
+            .innerText = "-";
+
+        document
+            .getElementById("customer-phone")
+            .innerText = "-";
+
+        document
+            .getElementById("customer-address")
+            .innerText = "-";
+
+        return;
 
     }
 
 
-    /* =====================================================
-       STATUS INDEX
-    ===================================================== */
-
-    function getStatusIndex(status) {
-
-        const normalized =
-            String(status || "")
-                .trim()
-                .toLowerCase();
+    document
+        .getElementById("customer-name")
+        .innerText =
+        customer.name || "-";
 
 
-        if (
-            normalized.includes("สำเร็จ") ||
-            normalized.includes("ได้รับ")
-        ) {
-            return 4;
-        }
+    document
+        .getElementById("customer-phone")
+        .innerText =
+        customer.phone || "-";
 
 
-        if (
-            normalized.includes("นำจ่าย")
-        ) {
-            return 3;
-        }
+    document
+        .getElementById("customer-address")
+        .innerText =
+        customer.address || "-";
+
+}
 
 
-        if (
-            normalized.includes("คัดแยก")
-        ) {
-            return 2;
-        }
+/* =====================================================
+   RENDER PRODUCTS
+===================================================== */
+
+function renderProducts(items) {
+
+    const container =
+        document.getElementById(
+            "tracking-products"
+        );
 
 
-        if (
-            normalized.includes("จัดส่ง") &&
-            !normalized.includes("สำเร็จ")
-        ) {
-            return 1;
-        }
+    if (!Array.isArray(items) || items.length === 0) {
 
+        container.innerHTML = `
 
-        return 0;
+            <div
+                class="p-8
+                text-center
+                text-sm
+                text-slate-400"
+            >
+
+                ไม่พบรายการสินค้า
+
+            </div>
+
+        `;
+
+        document
+            .getElementById("product-count")
+            .innerText = "0 รายการ";
+
+        return;
 
     }
 
 
-    /* =====================================================
-       ITEMS
-    ===================================================== */
-
-    function renderItems(order) {
-
-        const container =
-            document.getElementById("order-items");
-
-
-        const items =
-            order.items || [];
+    const count =
+        items.reduce(
+            (sum, item) =>
+                sum +
+                Number(item.quantity || 1),
+            0
+        );
 
 
-        if (!items.length) {
-
-            container.innerHTML = `
-
-                <div class="text-center py-8 text-slate-400">
-                    ไม่พบรายการสินค้า
-                </div>
-
-            `;
-
-            return;
-
-        }
+    document
+        .getElementById("product-count")
+        .innerText =
+        `${count} รายการ`;
 
 
-        container.innerHTML =
-            items.map(item => {
+    container.innerHTML =
+        items.map(
+            item => {
 
                 const quantity =
                     Number(item.quantity || 1);
 
+
                 const price =
                     Number(item.price || 0);
+
 
                 const total =
                     price * quantity;
@@ -1043,27 +1719,74 @@
 
                 return `
 
-                    <div class="flex gap-3 p-3 bg-slate-50 rounded-2xl">
+                    <div
+                        class="product-row
+                        p-4
+                        flex
+                        gap-3"
+                    >
 
                         <img
-                            src="${escapeHtml(item.image || '')}"
-                            alt="${escapeHtml(item.name || 'สินค้า')}"
-                            class="w-20 h-20 rounded-xl object-cover bg-slate-200 shrink-0"
-                            onerror="this.src='https://placehold.co/100x100/e2e8f0/64748b?text=No+Image'"
+                            src="${escapeHtml(item.image || "")}"
+                            alt="${escapeHtml(item.name || "สินค้า")}"
+                            class="w-16 h-16
+                            rounded-xl
+                            object-cover
+                            bg-slate-100
+                            shrink-0"
+                            onerror="
+                                this.src='https://placehold.co/100x100/e2e8f0/64748b?text=No+Image'
+                            "
                         >
 
-                        <div class="flex-1 min-w-0">
 
-                            <p class="font-bold text-sm line-clamp-2">
+                        <div
+                            class="flex-1
+                            min-w-0"
+                        >
+
+                            <p
+                                class="text-sm
+                                font-bold
+                                line-clamp-2"
+                            >
                                 ${escapeHtml(item.name || "สินค้า")}
                             </p>
 
-                            <p class="text-xs text-slate-400 mt-1">
+
+                            <p
+                                class="text-xs
+                                text-slate-400
+                                mt-1"
+                            >
                                 จำนวน ${quantity} ชิ้น
                             </p>
 
-                            <p class="text-sm font-black text-indigo-600 mt-2">
-                                ${formatMoney(total)}
+
+                            <p
+                                class="text-xs
+                                text-indigo-600
+                                font-bold
+                                mt-1"
+                            >
+                                ฿${price.toLocaleString()}
+                                / ชิ้น
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="text-right
+                            shrink-0"
+                        >
+
+                            <p
+                                class="text-sm
+                                font-black
+                                text-indigo-600"
+                            >
+                                ฿${total.toLocaleString()}
                             </p>
 
                         </div>
@@ -1072,379 +1795,563 @@
 
                 `;
 
-            }).join("");
+            }
+        ).join("");
 
-    }
+}
 
 
-    /* =====================================================
-       CUSTOMER
-    ===================================================== */
+/* =====================================================
+   RENDER PAYMENT
+===================================================== */
 
-    function renderCustomer(order) {
+function renderPayment(order) {
 
-        const customer =
-            order.customer || {};
+    const subtotal =
+        Number(order.subtotal || 0);
 
 
-        document
-            .getElementById("customer-name")
-            .innerText =
-            customer.name || "-";
+    const shipping =
+        Number(order.shipping || 0);
 
 
-        document
-            .getElementById("customer-phone")
-            .innerText =
-            customer.phone || "-";
-
-
-        document
-            .getElementById("customer-address")
-            .innerText =
-            customer.address || "-";
-
-    }
-
-
-    /* =====================================================
-       SUMMARY
-    ===================================================== */
-
-    function renderSummary(order) {
-
-        const subtotal =
-            Number(order.subtotal || 0);
-
-
-        const shipping =
-            Number(order.shipping || 0);
-
-
-        const total =
-            Number(
-                order.total ||
-                subtotal + shipping
-            );
-
-
-        document
-            .getElementById("summary-subtotal")
-            .innerText =
-            formatMoney(subtotal);
-
-
-        document
-            .getElementById("summary-shipping")
-            .innerText =
-            shipping === 0
-                ? "ฟรี"
-                : formatMoney(shipping);
-
-
-        document
-            .getElementById("summary-total")
-            .innerText =
-            formatMoney(total);
-
-
-        const note =
-            String(order.note || "").trim();
-
-
-        const noteBox =
-            document.getElementById("order-note-box");
-
-
-        if (note) {
-
-            noteBox.classList.remove("hidden");
-
-            document
-                .getElementById("order-note")
-                .innerText =
-                note;
-
-        } else {
-
-            noteBox.classList.add("hidden");
-
-        }
-
-    }
-
-
-    /* =====================================================
-       SEARCH
-    ===================================================== */
-
-    function searchOrder() {
-
-        const input =
-            document.getElementById("order-search");
-
-
-        const orderId =
-            input.value.trim();
-
-
-        const error =
-            document.getElementById("search-error");
-
-
-        if (!orderId) {
-
-            error.innerText =
-                "กรุณากรอกเลข Order";
-
-            error.classList.remove("hidden");
-
-            return;
-
-        }
-
-
-        const order =
-            findOrder(orderId);
-
-
-        if (!order) {
-
-            error.innerHTML =
-                `<i class="fa-solid fa-circle-exclamation mr-1"></i>ไม่พบเลขออเดอร์นี้`;
-
-            error.classList.remove("hidden");
-
-            return;
-
-        }
-
-
-        error.classList.add("hidden");
-
-        showOrder(order);
-
-
-        const url =
-            new URL(window.location.href);
-
-        url.searchParams.set(
-            "order",
-            order.id
+    const total =
+        Number(
+            order.total ??
+            subtotal + shipping
         );
 
-        window.history.replaceState(
-            {},
-            "",
-            url
+
+    document
+        .getElementById("subtotal")
+        .innerText =
+        `฿${subtotal.toLocaleString()}`;
+
+
+    document
+        .getElementById("shipping")
+        .innerText =
+        shipping === 0
+        ? "ฟรี"
+        : `฿${shipping.toLocaleString()}`;
+
+
+    document
+        .getElementById("total")
+        .innerText =
+        `฿${total.toLocaleString()}`;
+
+
+    document
+        .getElementById("payment-name")
+        .innerText =
+        order.paymentName ||
+        getPaymentName(order.payment);
+
+}
+
+
+/* =====================================================
+   PAYMENT NAME
+===================================================== */
+
+function getPaymentName(payment) {
+
+    if (payment === "card") {
+
+        return "บัตรเครดิต / เดบิต";
+
+    }
+
+
+    if (payment === "qr") {
+
+        return "QR พร้อมเพย์";
+
+    }
+
+
+    if (payment === "cod") {
+
+        return "เก็บเงินปลายทาง";
+
+    }
+
+
+    return "ไม่ระบุ";
+
+}
+
+
+/* =====================================================
+   RENDER NOTE
+===================================================== */
+
+function renderNote(order) {
+
+    const section =
+        document.getElementById(
+            "note-section"
         );
 
-    }
+
+    const note =
+        String(order.note || "")
+        .trim();
 
 
-    /* =====================================================
-       KEYBOARD SEARCH
-    ===================================================== */
+    if (!note) {
 
-    function handleSearchKey(event) {
+        section.classList.add("hidden");
 
-        if (event.key === "Enter") {
-
-            searchOrder();
-
-        }
+        return;
 
     }
 
 
-    /* =====================================================
-       PAYMENT NAME
-    ===================================================== */
+    section.classList.remove("hidden");
 
-    function getPaymentName(payment) {
 
-        if (payment === "card") {
-            return "บัตรเครดิต / เดบิต";
+    document
+        .getElementById("order-note")
+        .innerText =
+        note;
+
+}
+
+
+/* =====================================================
+   RENDER HISTORY
+===================================================== */
+
+function renderHistory() {
+
+    const orders =
+        getOrders();
+
+
+    const container =
+        document.getElementById(
+            "order-history"
+        );
+
+
+    document
+        .getElementById("history-count")
+        .innerText =
+        orders.length;
+
+
+    if (orders.length === 0) {
+
+        container.innerHTML = `
+
+            <div
+                class="p-5
+                text-center
+                text-xs
+                text-slate-400"
+            >
+
+                ยังไม่มีประวัติคำสั่งซื้อ
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        orders.map(
+            order => {
+
+                const active =
+                    currentOrder &&
+                    currentOrder.id === order.id;
+
+
+                const status =
+                    order.status ||
+                    "กำลังเตรียมสินค้า";
+
+
+                return `
+
+                    <button
+                        onclick="selectHistoryOrder('${escapeJs(order.id)}')"
+                        class="order-card
+                        w-full
+                        text-left
+                        p-3
+                        rounded-2xl
+                        border
+                        ${
+                            active
+                            ? "border-indigo-300 bg-indigo-50"
+                            : "border-slate-100 bg-slate-50 hover:bg-slate-100"
+                        }"
+                    >
+
+                        <div
+                            class="flex
+                            items-center
+                            justify-between
+                            gap-2"
+                        >
+
+                            <p
+                                class="text-xs
+                                font-black
+                                text-indigo-600
+                                truncate"
+                            >
+                                ${escapeHtml(order.id || "-")}
+                            </p>
+
+
+                            <span
+                                class="text-[9px]
+                                font-bold
+                                text-slate-400
+                                whitespace-nowrap"
+                            >
+                                ${formatDateShort(order.createdAt)}
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="flex
+                            items-center
+                            justify-between
+                            gap-2
+                            mt-2"
+                        >
+
+                            <p
+                                class="text-[10px]
+                                text-slate-500
+                                truncate"
+                            >
+                                ${escapeHtml(status)}
+                            </p>
+
+
+                            <p
+                                class="text-xs
+                                font-black
+                                text-slate-700"
+                            >
+                                ฿${Number(order.total || 0).toLocaleString()}
+                            </p>
+
+                        </div>
+
+                    </button>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =====================================================
+   SELECT HISTORY ORDER
+===================================================== */
+
+function selectHistoryOrder(orderId) {
+
+    const order =
+        findOrder(orderId);
+
+
+    if (!order) {
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("order-search")
+        .value =
+        order.id;
+
+
+    showOrder(order);
+
+}
+
+
+/* =====================================================
+   COPY ORDER ID
+===================================================== */
+
+function copyOrderId() {
+
+    if (!currentOrder) {
+
+        return;
+
+    }
+
+
+    const id =
+        String(currentOrder.id || "");
+
+
+    if (!id) {
+
+        return;
+
+    }
+
+
+    if (
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+    ) {
+
+        navigator.clipboard
+            .writeText(id)
+            .then(() => {
+
+                alert(
+                    "คัดลอกเลข Order แล้ว"
+                );
+
+            })
+            .catch(() => {
+
+                fallbackCopy(id);
+
+            });
+
+    }
+
+    else {
+
+        fallbackCopy(id);
+
+    }
+
+}
+
+
+/* =====================================================
+   FALLBACK COPY
+===================================================== */
+
+function fallbackCopy(text) {
+
+    const textarea =
+        document.createElement("textarea");
+
+
+    textarea.value = text;
+
+    document.body.appendChild(textarea);
+
+    textarea.select();
+
+    document.execCommand("copy");
+
+    textarea.remove();
+
+    alert(
+        "คัดลอกเลข Order แล้ว"
+    );
+
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+
+        return "ไม่ระบุวันที่";
+
+    }
+
+
+    const date =
+        new Date(dateValue);
+
+
+    if (isNaN(date.getTime())) {
+
+        return "ไม่ระบุวันที่";
+
+    }
+
+
+    return date.toLocaleString(
+        "th-TH",
+        {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
         }
+    );
 
-        if (payment === "qr") {
-            return "QR พร้อมเพย์";
-        }
+}
 
-        if (payment === "cod") {
-            return "เก็บเงินปลายทาง";
-        }
+
+/* =====================================================
+   FORMAT SHORT DATE
+===================================================== */
+
+function formatDateShort(dateValue) {
+
+    if (!dateValue) {
 
         return "-";
 
     }
 
 
-    /* =====================================================
-       FORMAT MONEY
-    ===================================================== */
-
-    function formatMoney(value) {
-
-        const number =
-            Number(value || 0);
+    const date =
+        new Date(dateValue);
 
 
-        return `฿${number.toLocaleString("th-TH")}`;
+    if (isNaN(date.getTime())) {
+
+        return "-";
 
     }
 
 
-    /* =====================================================
-       FORMAT DATE
-    ===================================================== */
-
-    function formatDate(value) {
-
-        if (!value) {
-            return "ไม่ระบุวันที่";
-        }
-
-
-        const date =
-            new Date(value);
-
-
-        if (Number.isNaN(date.getTime())) {
-            return "ไม่ระบุวันที่";
-        }
-
-
-        return date.toLocaleString(
-            "th-TH",
-            {
-                dateStyle: "long",
-                timeStyle: "short"
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       ESCAPE HTML
-    ===================================================== */
-
-    function escapeHtml(value) {
-
-        return String(value || "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
-    }
-
-
-    /* =====================================================
-       INIT
-    ===================================================== */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        () => {
-
-            loadOrders();
-
-
-            const params =
-                new URLSearchParams(
-                    window.location.search
-                );
-
-
-            const orderId =
-                params.get("order");
-
-
-            if (orderId) {
-
-                document
-                    .getElementById("order-search")
-                    .value =
-                    orderId;
-
-
-                const order =
-                    findOrder(orderId);
-
-
-                if (order) {
-
-                    showOrder(order);
-
-                } else {
-
-                    document
-                        .getElementById("search-error")
-                        .classList
-                        .remove("hidden");
-
-                }
-
-                return;
-
-            }
-
-
-            const latestOrder =
-                loadLatestOrder();
-
-
-            if (latestOrder) {
-
-                document
-                    .getElementById("order-search")
-                    .value =
-                    latestOrder.id || "";
-
-
-                const storedLatest =
-                    findOrder(latestOrder.id);
-
-
-                if (storedLatest) {
-
-                    showOrder(storedLatest);
-
-                } else {
-
-                    showOrder(latestOrder);
-
-                }
-
-                return;
-
-            }
-
-
-            if (orders.length > 0) {
-
-                showOrder(orders[0]);
-
-                document
-                    .getElementById("order-search")
-                    .value =
-                    orders[0].id || "";
-
-                return;
-
-            }
-
-
-            document
-                .getElementById("empty-state")
-                .classList
-                .remove("hidden");
-
+    return date.toLocaleDateString(
+        "th-TH",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
         }
     );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   ESCAPE JAVASCRIPT
+===================================================== */
+
+function escapeJs(value) {
+
+    return String(value ?? "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r");
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const latest =
+            getLatestOrder();
+
+
+        const orders =
+            getOrders();
+
+
+        renderHistory();
+
+
+        /*
+         * ถ้ามี latestOrder
+         * ให้เปิดออเดอร์ล่าสุดอัตโนมัติ
+         */
+
+        if (latest) {
+
+            document
+                .getElementById("order-search")
+                .value =
+                latest.id || "";
+
+
+            showOrder(latest);
+
+            return;
+
+        }
+
+
+        /*
+         * ถ้าไม่มี latestOrder
+         * แต่มี orders
+         * ให้เปิดออเดอร์แรก
+         */
+
+        if (orders.length > 0) {
+
+            document
+                .getElementById("order-search")
+                .value =
+                orders[0].id || "";
+
+
+            showOrder(orders[0]);
+
+            return;
+
+        }
+
+
+        /*
+         * ไม่มี Order เลย
+         */
+
+        document
+            .getElementById("tracking-content")
+            .classList.add("hidden");
+
+
+        document
+            .getElementById("no-order")
+            .classList.remove("hidden");
+
+    }
+);
 
 </script>
 
