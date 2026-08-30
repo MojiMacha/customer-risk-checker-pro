@@ -38,37 +38,46 @@
             font-family: 'Kanit', sans-serif;
         }
 
+
         .product-card {
             transition: all 0.25s ease;
             cursor: pointer;
         }
+
 
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(15, 23, 42, 0.10);
         }
 
+
         .product-image {
             transition: transform 0.4s ease;
         }
+
 
         .product-card:hover .product-image {
             transform: scale(1.05);
         }
 
+
         .cart-badge {
             animation: pop 0.25s ease;
         }
+
 
         .modal-animation {
             animation: modalIn 0.25s ease;
         }
 
+
         .fade-animation {
             animation: fadeIn 0.25s ease;
         }
 
+
         @keyframes pop {
+
             0% {
                 transform: scale(0.7);
             }
@@ -76,9 +85,12 @@
             100% {
                 transform: scale(1);
             }
+
         }
 
+
         @keyframes modalIn {
+
             from {
                 opacity: 0;
                 transform: scale(0.95) translateY(10px);
@@ -88,9 +100,12 @@
                 opacity: 1;
                 transform: scale(1) translateY(0);
             }
+
         }
 
+
         @keyframes fadeIn {
+
             from {
                 opacity: 0;
             }
@@ -98,6 +113,7 @@
             to {
                 opacity: 1;
             }
+
         }
 
     </style>
@@ -163,6 +179,7 @@
         <!-- RIGHT -->
 
         <div class="flex items-center gap-2">
+
 
             <!-- TRACKING -->
 
@@ -341,7 +358,6 @@
             >
 
                 ช้อปง่าย
-
                 <span class="text-amber-300">
                     ส่งไว
                 </span>
@@ -470,7 +486,6 @@
     >
 
         <button
-            type="button"
             onclick="setCategory('all')"
             class="category-btn
             shrink-0
@@ -487,7 +502,6 @@
 
 
         <button
-            type="button"
             onclick="setCategory('electronics')"
             class="category-btn
             shrink-0
@@ -505,7 +519,6 @@
 
 
         <button
-            type="button"
             onclick="setCategory('fashion')"
             class="category-btn
             shrink-0
@@ -523,7 +536,6 @@
 
 
         <button
-            type="button"
             onclick="setCategory('beauty')"
             class="category-btn
             shrink-0
@@ -541,7 +553,6 @@
 
 
         <button
-            type="button"
             onclick="setCategory('books')"
             class="category-btn
             shrink-0
@@ -559,7 +570,6 @@
 
 
         <button
-            type="button"
             onclick="setCategory('daily')"
             class="category-btn
             shrink-0
@@ -577,7 +587,6 @@
 
 
         <button
-            type="button"
             onclick="setCategory('other')"
             class="category-btn
             shrink-0
@@ -690,6 +699,8 @@
             modal-animation"
         >
 
+            <!-- CONTENT CREATED BY JS -->
+
         </div>
 
     </div>
@@ -729,6 +740,7 @@
             shadow-2xl
             overflow-hidden"
         >
+
 
             <!-- HEADER -->
 
@@ -863,33 +875,13 @@
 <script>
 
 /* =====================================================
-   GLOBAL VARIABLES
+   VARIABLES
 ===================================================== */
 
 let cart = [];
 
 let currentCategory = "all";
 
-
-/* =====================================================
-   CHECK DATA
-===================================================== */
-
-if (!Array.isArray(window.products)) {
-
-    console.error(
-        "ไม่พบ products หรือ products ไม่ใช่ Array"
-    );
-
-}
-
-if (!Array.isArray(window.shops)) {
-
-    console.error(
-        "ไม่พบ shops หรือ shops ไม่ใช่ Array"
-    );
-
-}
 
 
 /* =====================================================
@@ -898,38 +890,12 @@ if (!Array.isArray(window.shops)) {
 
 function getShopById(shopId) {
 
-    if (!Array.isArray(window.shops)) {
-
-        return null;
-
-    }
-
     return shops.find(
-        shop =>
-            String(shop.id) === String(shopId)
-    ) || null;
+        shop => shop.id === shopId
+    );
 
 }
 
-
-/* =====================================================
-   GET PRODUCT BY ID
-===================================================== */
-
-function getProductById(productId) {
-
-    if (!Array.isArray(window.products)) {
-
-        return null;
-
-    }
-
-    return products.find(
-        product =>
-            String(product.id) === String(productId)
-    ) || null;
-
-}
 
 
 /* =====================================================
@@ -959,6 +925,7 @@ function saveCart() {
 }
 
 
+
 /* =====================================================
    LOAD CART
 ===================================================== */
@@ -970,41 +937,20 @@ function loadCart() {
         const savedCart =
             localStorage.getItem("cart");
 
-        if (!savedCart) {
 
-            cart = [];
+        if (savedCart) {
 
-            return;
-
-        }
+            const parsedCart =
+                JSON.parse(savedCart);
 
 
-        const parsedCart =
-            JSON.parse(savedCart);
+            if (Array.isArray(parsedCart)) {
 
+                cart = parsedCart;
 
-        if (!Array.isArray(parsedCart)) {
-
-            cart = [];
-
-            return;
+            }
 
         }
-
-
-        cart = parsedCart
-            .filter(item => item && item.id !== undefined)
-            .map(item => ({
-
-                ...item,
-
-                quantity:
-                    Math.max(
-                        1,
-                        Number(item.quantity || 1)
-                    )
-
-            }));
 
     }
 
@@ -1017,11 +963,10 @@ function loadCart() {
 
         cart = [];
 
-        localStorage.removeItem("cart");
-
     }
 
 }
+
 
 
 /* =====================================================
@@ -1034,12 +979,6 @@ function renderProducts() {
         document.getElementById(
             "product-grid"
         );
-
-    if (!grid) {
-
-        return;
-
-    }
 
 
     const searchInput =
@@ -1054,61 +993,8 @@ function renderProducts() {
             : "";
 
 
-    if (!Array.isArray(window.products)) {
-
-        grid.innerHTML = `
-
-            <div
-                class="col-span-full
-                bg-white
-                rounded-3xl
-                border
-                border-rose-200
-                p-10
-                text-center"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-triangle-exclamation
-                    text-4xl
-                    text-rose-400"
-                ></i>
-
-                <p
-                    class="font-bold
-                    text-rose-500
-                    mt-3"
-                >
-                    ไม่สามารถโหลดข้อมูลสินค้าได้
-                </p>
-
-                <p
-                    class="text-xs
-                    text-slate-400
-                    mt-1"
-                >
-                    กรุณาตรวจสอบไฟล์ js/products.js
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
     const filtered =
         products.filter(product => {
-
-            if (!product) {
-
-                return false;
-
-            }
-
 
             const shop =
                 getShopById(product.shopId);
@@ -1123,7 +1009,7 @@ function renderProducts() {
 
             const matchCategory =
                 currentCategory === "all" ||
-                String(product.category) === String(currentCategory);
+                product.category === currentCategory;
 
 
             const matchSearch =
@@ -1152,18 +1038,12 @@ function renderProducts() {
         });
 
 
-    const countElement =
-        document.getElementById(
-            "product-count"
-        );
 
+    document
+        .getElementById("product-count")
+        .innerText =
+        `${filtered.length} สินค้า`;
 
-    if (countElement) {
-
-        countElement.innerText =
-            `${filtered.length} สินค้า`;
-
-    }
 
 
     if (filtered.length === 0) {
@@ -1205,15 +1085,14 @@ function renderProducts() {
     }
 
 
+
     grid.innerHTML =
         filtered.map(product => {
 
             const shop =
-                getShopById(product.shopId);
-
-
-            const productId =
-                JSON.stringify(product.id);
+                getShopById(
+                    product.shopId
+                );
 
 
             return `
@@ -1225,7 +1104,7 @@ function renderProducts() {
                     border
                     border-slate-200
                     overflow-hidden"
-                    onclick="openProductDetail(${productId})"
+                    onclick="openProductDetail(${product.id})"
                 >
 
                     <!-- IMAGE -->
@@ -1238,12 +1117,13 @@ function renderProducts() {
                     >
 
                         <img
-                            src="${escapeHtml(product.image || "")}"
+                            src="${product.image}"
                             alt="${escapeHtml(product.name)}"
                             class="product-image
                             w-full
                             h-full
                             object-cover"
+
                             onerror="
                                 this.src='https://placehold.co/600x600/e2e8f0/64748b?text=No+Image'
                             "
@@ -1339,7 +1219,7 @@ function renderProducts() {
                                 text-slate-600"
                             >
 
-                                ${escapeHtml(product.rating || "0")}
+                                ${product.rating || "0"}
 
                             </span>
 
@@ -1360,7 +1240,7 @@ function renderProducts() {
                         >
 
                             <img
-                                src="${escapeHtml(shop.logo || "")}"
+                                src="${shop.logo}"
                                 alt="${escapeHtml(shop.name)}"
 
                                 class="w-8
@@ -1461,12 +1341,10 @@ function renderProducts() {
 
                             <button
                                 type="button"
-
                                 onclick="
                                     event.stopPropagation();
-                                    addToCart(${productId});
+                                    addToCart(${product.id});
                                 "
-
                                 class="w-11
                                 h-11
                                 rounded-xl
@@ -1478,7 +1356,6 @@ function renderProducts() {
                                 justify-center
                                 transition
                                 active:scale-95"
-
                                 title="เพิ่มลงตะกร้า"
                             >
 
@@ -1502,6 +1379,7 @@ function renderProducts() {
 }
 
 
+
 /* =====================================================
    ESCAPE HTML
 ===================================================== */
@@ -1518,20 +1396,21 @@ function escapeHtml(value) {
 }
 
 
+
 /* =====================================================
    CATEGORY
 ===================================================== */
 
 function setCategory(category) {
 
-    currentCategory =
-        String(category || "all");
+    currentCategory = category;
 
     updateCategoryButtons();
 
     renderProducts();
 
 }
+
 
 
 /* =====================================================
@@ -1602,33 +1481,23 @@ function updateCategoryButtons() {
 }
 
 
+
 /* =====================================================
    ADD TO CART
 ===================================================== */
 
 function addToCart(productId) {
 
-    console.log(
-        "[CART] เพิ่มสินค้า:",
-        productId
-    );
-
-
     const product =
-        getProductById(productId);
+        products.find(
+            product =>
+                Number(product.id) === Number(productId)
+        );
 
 
     if (!product) {
 
-        console.error(
-            "[CART] ไม่พบสินค้า ID:",
-            productId
-        );
-
-        alert(
-            "ไม่พบสินค้านี้\nID: " +
-            productId
-        );
+        alert("ไม่พบสินค้านี้");
 
         return;
 
@@ -1638,8 +1507,7 @@ function addToCart(productId) {
     const existing =
         cart.find(
             item =>
-                String(item.id) ===
-                String(product.id)
+                Number(item.id) === Number(productId)
         );
 
 
@@ -1665,11 +1533,10 @@ function addToCart(productId) {
 
     updateCart();
 
-
-    // เปิดตะกร้าหลังจากเพิ่มสินค้า
     openCart();
 
 }
+
 
 
 /* =====================================================
@@ -1681,14 +1548,14 @@ function removeFromCart(productId) {
     cart =
         cart.filter(
             item =>
-                String(item.id) !==
-                String(productId)
+                Number(item.id) !== Number(productId)
         );
 
 
     updateCart();
 
 }
+
 
 
 /* =====================================================
@@ -1703,17 +1570,11 @@ function changeQuantity(
     const item =
         cart.find(
             item =>
-                String(item.id) ===
-                String(productId)
+                Number(item.id) === Number(productId)
         );
 
 
     if (!item) {
-
-        console.warn(
-            "[CART] ไม่พบสินค้าในตะกร้า:",
-            productId
-        );
 
         return;
 
@@ -1737,6 +1598,7 @@ function changeQuantity(
     updateCart();
 
 }
+
 
 
 /* =====================================================
@@ -1773,71 +1635,56 @@ function updateCart() {
         );
 
 
-    if (badge) {
-
-        badge.innerText = count;
+    badge.innerText = count;
 
 
-        if (count > 0) {
+    if (count > 0) {
 
-            badge.classList.remove(
-                "hidden"
-            );
+        badge.classList.remove(
+            "hidden"
+        );
 
-            badge.classList.remove(
-                "cart-badge"
-            );
+        badge.classList.remove(
+            "cart-badge"
+        );
 
-            void badge.offsetWidth;
+        void badge.offsetWidth;
 
-            badge.classList.add(
-                "cart-badge"
-            );
+        badge.classList.add(
+            "cart-badge"
+        );
 
-        }
+    }
 
-        else {
+    else {
 
-            badge.classList.add(
-                "hidden"
-            );
-
-        }
+        badge.classList.add(
+            "hidden"
+        );
 
     }
 
 
-    const summary =
-        document.getElementById(
+    document
+        .getElementById(
             "cart-summary"
-        );
+        )
+        .innerText =
+        `${count} รายการ`;
 
 
-    if (summary) {
-
-        summary.innerText =
-            `${count} รายการ`;
-
-    }
-
-
-    const totalElement =
-        document.getElementById(
+    document
+        .getElementById(
             "cart-total"
-        );
-
-
-    if (totalElement) {
-
-        totalElement.innerText =
-            `฿${total.toLocaleString()}`;
-
-    }
+        )
+        .innerText =
+        `฿${total.toLocaleString()}`;
 
 
     renderCart();
 
 }
+
 
 
 /* =====================================================
@@ -1850,13 +1697,6 @@ function renderCart() {
         document.getElementById(
             "cart-items"
         );
-
-
-    if (!container) {
-
-        return;
-
-    }
 
 
     if (cart.length === 0) {
@@ -1895,14 +1735,12 @@ function renderCart() {
     }
 
 
+
     container.innerHTML =
         cart.map(item => {
 
             const quantity =
-                Math.max(
-                    1,
-                    Number(item.quantity || 1)
-                );
+                Number(item.quantity || 1);
 
 
             const price =
@@ -1911,10 +1749,6 @@ function renderCart() {
 
             const itemTotal =
                 price * quantity;
-
-
-            const itemId =
-                JSON.stringify(item.id);
 
 
             return `
@@ -1928,7 +1762,7 @@ function renderCart() {
                 >
 
                     <img
-                        src="${escapeHtml(item.image || "")}"
+                        src="${item.image}"
                         alt="${escapeHtml(item.name)}"
 
                         class="w-16
@@ -1978,18 +1812,14 @@ function renderCart() {
                             mt-2"
                         >
 
-                            <!-- MINUS -->
-
                             <button
                                 type="button"
-
                                 onclick="
                                     changeQuantity(
-                                        ${itemId},
+                                        ${item.id},
                                         -1
                                     )
                                 "
-
                                 class="w-6
                                 h-6
                                 rounded-lg
@@ -1998,38 +1828,26 @@ function renderCart() {
                                 text-xs
                                 hover:bg-slate-100"
                             >
-
                                 −
-
                             </button>
 
 
-                            <!-- QUANTITY -->
-
                             <span
                                 class="text-xs
-                                font-bold
-                                min-w-5
-                                text-center"
+                                font-bold"
                             >
-
                                 ${quantity}
-
                             </span>
 
 
-                            <!-- PLUS -->
-
                             <button
                                 type="button"
-
                                 onclick="
                                     changeQuantity(
-                                        ${itemId},
+                                        ${item.id},
                                         1
                                     )
                                 "
-
                                 class="w-6
                                 h-6
                                 rounded-lg
@@ -2038,9 +1856,7 @@ function renderCart() {
                                 text-xs
                                 hover:bg-slate-100"
                             >
-
                                 +
-
                             </button>
 
                         </div>
@@ -2048,19 +1864,14 @@ function renderCart() {
                     </div>
 
 
-                    <!-- DELETE -->
-
                     <button
                         type="button"
-
                         onclick="
-                            removeFromCart(${itemId})
+                            removeFromCart(${item.id})
                         "
-
                         class="text-slate-300
                         hover:text-rose-500
                         transition"
-
                         title="ลบสินค้า"
                     >
 
@@ -2080,6 +1891,7 @@ function renderCart() {
 }
 
 
+
 /* =====================================================
    OPEN CART
 ===================================================== */
@@ -2090,13 +1902,6 @@ function openCart() {
         document.getElementById(
             "cart-modal"
         );
-
-
-    if (!modal) {
-
-        return;
-
-    }
 
 
     modal.classList.remove(
@@ -2114,6 +1919,7 @@ function openCart() {
 }
 
 
+
 /* =====================================================
    CLOSE CART
 ===================================================== */
@@ -2124,13 +1930,6 @@ function closeCart() {
         document.getElementById(
             "cart-modal"
         );
-
-
-    if (!modal) {
-
-        return;
-
-    }
 
 
     modal.classList.add(
@@ -2145,16 +1944,14 @@ function closeCart() {
 }
 
 
+
 /* =====================================================
    CHECKOUT
 ===================================================== */
 
 function checkout() {
 
-    if (
-        !Array.isArray(cart) ||
-        cart.length === 0
-    ) {
+    if (!cart || cart.length === 0) {
 
         alert(
             "กรุณาเพิ่มสินค้าลงตะกร้าก่อน"
@@ -2165,13 +1962,24 @@ function checkout() {
     }
 
 
+    /*
+        บันทึกตะกร้าก่อน
+        เพื่อให้ checkout.html
+        สามารถอ่านข้อมูลได้
+    */
+
     saveCart();
 
+
+    /*
+        ไปหน้า Checkout
+    */
 
     window.location.href =
         "checkout.html";
 
 }
+
 
 
 /* =====================================================
@@ -2180,22 +1988,14 @@ function checkout() {
 
 function openProductDetail(productId) {
 
-    console.log(
-        "[PRODUCT] เปิดรายละเอียด:",
-        productId
-    );
-
-
     const product =
-        getProductById(productId);
+        products.find(
+            product =>
+                Number(product.id) === Number(productId)
+        );
 
 
     if (!product) {
-
-        console.error(
-            "[PRODUCT] ไม่พบสินค้า:",
-            productId
-        );
 
         return;
 
@@ -2207,11 +2007,6 @@ function openProductDetail(productId) {
 
 
     if (!shop) {
-
-        console.error(
-            "[PRODUCT] ไม่พบร้านค้า:",
-            product.shopId
-        );
 
         return;
 
@@ -2230,17 +2025,6 @@ function openProductDetail(productId) {
         );
 
 
-    if (!modal || !content) {
-
-        return;
-
-    }
-
-
-    const productIdForButton =
-        JSON.stringify(product.id);
-
-
     content.innerHTML = `
 
         <!-- IMAGE -->
@@ -2253,7 +2037,7 @@ function openProductDetail(productId) {
         >
 
             <img
-                src="${escapeHtml(product.image || "")}"
+                src="${product.image}"
                 alt="${escapeHtml(product.name)}"
 
                 class="w-full
@@ -2271,7 +2055,6 @@ function openProductDetail(productId) {
             <button
                 type="button"
                 onclick="closeProductDetail()"
-
                 class="absolute
                 top-4
                 right-4
@@ -2344,7 +2127,7 @@ function openProductDetail(productId) {
             >
 
                 <img
-                    src="${escapeHtml(shop.logo || "")}"
+                    src="${shop.logo}"
                     alt="${escapeHtml(shop.name)}"
 
                     class="w-11
@@ -2415,7 +2198,7 @@ function openProductDetail(productId) {
                     class="text-sm
                     font-bold"
                 >
-                    ${escapeHtml(product.rating || "0")}
+                    ${product.rating || "0"}
                 </span>
 
                 <span
@@ -2453,10 +2236,7 @@ function openProductDetail(productId) {
                     leading-6"
                 >
 
-                    ${escapeHtml(
-                        product.description ||
-                        "ไม่มีรายละเอียดสินค้า"
-                    )}
+                    ${escapeHtml(product.description || "ไม่มีรายละเอียดสินค้า")}
 
                 </p>
 
@@ -2489,25 +2269,19 @@ function openProductDetail(productId) {
                         text-indigo-600"
                     >
 
-                        ฿${Number(
-                            product.price || 0
-                        ).toLocaleString()}
+                        ฿${Number(product.price || 0).toLocaleString()}
 
                     </p>
 
                 </div>
 
 
-                <!-- ADD CART -->
-
                 <button
                     type="button"
-
                     onclick="
-                        addToCart(${productIdForButton});
+                        addToCart(${product.id});
                         closeProductDetail();
                     "
-
                     class="flex
                     items-center
                     gap-2
@@ -2550,28 +2324,20 @@ function openProductDetail(productId) {
 }
 
 
+
 /* =====================================================
    CLOSE PRODUCT DETAIL
 ===================================================== */
 
 function closeProductDetail() {
 
-    const modal =
-        document.getElementById(
+    document
+        .getElementById(
             "product-modal"
+        )
+        .classList.add(
+            "hidden"
         );
-
-
-    if (!modal) {
-
-        return;
-
-    }
-
-
-    modal.classList.add(
-        "hidden"
-    );
 
 
     document.body.classList.remove(
@@ -2579,6 +2345,7 @@ function closeProductDetail() {
     );
 
 }
+
 
 
 /* =====================================================
@@ -2596,7 +2363,6 @@ document.addEventListener(
 
 
         if (
-            modal &&
             event.target === modal
         ) {
 
@@ -2606,6 +2372,7 @@ document.addEventListener(
 
     }
 );
+
 
 
 /* =====================================================
@@ -2623,7 +2390,6 @@ document.addEventListener(
 
 
         if (
-            modal &&
             event.target === modal
         ) {
 
@@ -2633,6 +2399,7 @@ document.addEventListener(
 
     }
 );
+
 
 
 /* =====================================================
@@ -2655,6 +2422,7 @@ document.addEventListener(
 );
 
 
+
 /* =====================================================
    INIT
 ===================================================== */
@@ -2663,50 +2431,31 @@ document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        console.log(
-            "================================="
-        );
+        /*
+            โหลดตะกร้าจาก localStorage
+        */
 
-        console.log(
-            "Delivery Risk Market"
-        );
-
-        console.log(
-            "Shop page initialized"
-        );
-
-        console.log(
-            "Products:",
-            Array.isArray(window.products)
-                ? products.length
-                : "ERROR"
-        );
-
-        console.log(
-            "Shops:",
-            Array.isArray(window.shops)
-                ? shops.length
-                : "ERROR"
-        );
-
-        console.log(
-            "================================="
-        );
-
-
-        // โหลดตะกร้า
         loadCart();
 
 
-        // แสดงสินค้า
+        /*
+            แสดงสินค้า
+        */
+
         renderProducts();
 
 
-        // อัปเดตตะกร้า
+        /*
+            แสดงจำนวนสินค้า
+        */
+
         updateCart();
 
 
-        // ตั้งค่าหมวดหมู่
+        /*
+            ตั้งค่าหมวดหมู่
+        */
+
         updateCategoryButtons();
 
     }
