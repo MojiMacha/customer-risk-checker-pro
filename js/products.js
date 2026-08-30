@@ -5,7 +5,7 @@ const products = [
 
         name: "Dr.PONG 28D Smart Whitening Drone Activein Serum",
 
-        image: "images/products/dr.pongSmart28D.jpeg",
+        image: "images/products/P001.jpeg",
 
         description:
             "เซรั่มบำรุงผิวหน้าสูตรกระจ่างใส ช่วยลดเลือนจุดด่างดำและรอยสิว",
