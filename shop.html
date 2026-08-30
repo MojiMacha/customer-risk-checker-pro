@@ -885,13 +885,57 @@ let currentCategory = "all";
 
 
 /* =====================================================
+   SAFETY NET: ป้องกัน error ถ้ายังไม่ได้โหลด
+   js/shops.js หรือ js/products.js
+===================================================== */
+
+if (typeof shops === "undefined") {
+
+    console.error(
+        "ไม่พบตัวแปร 'shops' กรุณาตรวจสอบว่าไฟล์ js/shops.js " +
+        "ถูกโหลดสำเร็จ (เปิด DevTools > Network / Console เพื่อดู error)"
+    );
+
+    var shops = [];
+
+}
+
+
+if (typeof products === "undefined") {
+
+    console.error(
+        "ไม่พบตัวแปร 'products' กรุณาตรวจสอบว่าไฟล์ js/products.js " +
+        "ถูกโหลดสำเร็จ (เปิด DevTools > Network / Console เพื่อดู error)"
+    );
+
+    var products = [];
+
+}
+
+
+
+/* =====================================================
    GET SHOP BY ID
 ===================================================== */
 
 function getShopById(shopId) {
 
     return shops.find(
-        shop => shop.id === shopId
+        shop => String(shop.id) === String(shopId)
+    );
+
+}
+
+
+
+/* =====================================================
+   GET PRODUCT BY ID
+===================================================== */
+
+function getProductById(productId) {
+
+    return products.find(
+        product => String(product.id) === String(productId)
     );
 
 }
@@ -971,6 +1015,17 @@ function loadCart() {
 
 /* =====================================================
    RENDER PRODUCTS
+
+   หมายเหตุ: เดิมโค้ดฝัง product.id ลงใน
+   onclick="addToCart(${product.id})" ตรง ๆ
+   ถ้า id เป็น string (เช่น "p001") จะกลายเป็นโค้ด
+   onclick="addToCart(p001)" ซึ่งไม่ใช่ syntax ที่ถูกต้อง
+   ทำให้กดแล้วไม่มีอะไรเกิดขึ้น (ดู error ใน console ว่า
+   "p001 is not defined")
+
+   แก้โดยเปลี่ยนมาใช้ data-* attribute แล้วผูก event
+   ด้วย addEventListener (event delegation) แทน ซึ่งจะ
+   ใช้ได้ไม่ว่า id จะเป็นตัวเลขหรือ string ก็ตาม
 ===================================================== */
 
 function renderProducts() {
@@ -1104,7 +1159,8 @@ function renderProducts() {
                     border
                     border-slate-200
                     overflow-hidden"
-                    onclick="openProductDetail(${product.id})"
+                    data-role="open-detail"
+                    data-id="${escapeHtml(product.id)}"
                 >
 
                     <!-- IMAGE -->
@@ -1341,10 +1397,8 @@ function renderProducts() {
 
                             <button
                                 type="button"
-                                onclick="
-                                    event.stopPropagation();
-                                    addToCart(${product.id});
-                                "
+                                data-role="add-to-cart"
+                                data-id="${escapeHtml(product.id)}"
                                 class="w-11
                                 h-11
                                 rounded-xl
@@ -1377,6 +1431,51 @@ function renderProducts() {
         }).join("");
 
 }
+
+
+
+/* =====================================================
+   PRODUCT GRID: EVENT DELEGATION
+
+   ผูก event เดียวที่ container แทนการฝัง onclick
+   ในทุกการ์ด ทำให้ id ไม่ต้องแปลงเป็น string ใน HTML
+   และคลิกปุ่ม "เพิ่มลงตะกร้า" จะไม่ไปเปิด modal
+   รายละเอียดสินค้าซ้อนด้วย (แทนที่ event.stopPropagation
+   แบบเดิมที่อยู่ใน inline onclick)
+===================================================== */
+
+document
+    .getElementById("product-grid")
+    .addEventListener("click", function(event) {
+
+        const addBtn =
+            event.target.closest(
+                '[data-role="add-to-cart"]'
+            );
+
+
+        if (addBtn) {
+
+            addToCart(addBtn.dataset.id);
+
+            return;
+
+        }
+
+
+        const card =
+            event.target.closest(
+                '[data-role="open-detail"]'
+            );
+
+
+        if (card) {
+
+            openProductDetail(card.dataset.id);
+
+        }
+
+    });
 
 
 
@@ -1489,10 +1588,7 @@ function updateCategoryButtons() {
 function addToCart(productId) {
 
     const product =
-        products.find(
-            product =>
-                Number(product.id) === Number(productId)
-        );
+        getProductById(productId);
 
 
     if (!product) {
@@ -1507,7 +1603,7 @@ function addToCart(productId) {
     const existing =
         cart.find(
             item =>
-                Number(item.id) === Number(productId)
+                String(item.id) === String(productId)
         );
 
 
@@ -1548,7 +1644,7 @@ function removeFromCart(productId) {
     cart =
         cart.filter(
             item =>
-                Number(item.id) !== Number(productId)
+                String(item.id) !== String(productId)
         );
 
 
@@ -1570,7 +1666,7 @@ function changeQuantity(
     const item =
         cart.find(
             item =>
-                Number(item.id) === Number(productId)
+                String(item.id) === String(productId)
         );
 
 
@@ -1814,12 +1910,8 @@ function renderCart() {
 
                             <button
                                 type="button"
-                                onclick="
-                                    changeQuantity(
-                                        ${item.id},
-                                        -1
-                                    )
-                                "
+                                data-role="qty-minus"
+                                data-id="${escapeHtml(item.id)}"
                                 class="w-6
                                 h-6
                                 rounded-lg
@@ -1842,12 +1934,8 @@ function renderCart() {
 
                             <button
                                 type="button"
-                                onclick="
-                                    changeQuantity(
-                                        ${item.id},
-                                        1
-                                    )
-                                "
+                                data-role="qty-plus"
+                                data-id="${escapeHtml(item.id)}"
                                 class="w-6
                                 h-6
                                 rounded-lg
@@ -1866,9 +1954,8 @@ function renderCart() {
 
                     <button
                         type="button"
-                        onclick="
-                            removeFromCart(${item.id})
-                        "
+                        data-role="remove-item"
+                        data-id="${escapeHtml(item.id)}"
                         class="text-slate-300
                         hover:text-rose-500
                         transition"
@@ -1889,6 +1976,60 @@ function renderCart() {
         }).join("");
 
 }
+
+
+
+/* =====================================================
+   CART ITEMS: EVENT DELEGATION
+===================================================== */
+
+document
+    .getElementById("cart-items")
+    .addEventListener("click", function(event) {
+
+        const minusBtn =
+            event.target.closest(
+                '[data-role="qty-minus"]'
+            );
+
+
+        if (minusBtn) {
+
+            changeQuantity(minusBtn.dataset.id, -1);
+
+            return;
+
+        }
+
+
+        const plusBtn =
+            event.target.closest(
+                '[data-role="qty-plus"]'
+            );
+
+
+        if (plusBtn) {
+
+            changeQuantity(plusBtn.dataset.id, 1);
+
+            return;
+
+        }
+
+
+        const removeBtn =
+            event.target.closest(
+                '[data-role="remove-item"]'
+            );
+
+
+        if (removeBtn) {
+
+            removeFromCart(removeBtn.dataset.id);
+
+        }
+
+    });
 
 
 
@@ -1989,10 +2130,7 @@ function checkout() {
 function openProductDetail(productId) {
 
     const product =
-        products.find(
-            product =>
-                Number(product.id) === Number(productId)
-        );
+        getProductById(productId);
 
 
     if (!product) {
@@ -2278,10 +2416,8 @@ function openProductDetail(productId) {
 
                 <button
                     type="button"
-                    onclick="
-                        addToCart(${product.id});
-                        closeProductDetail();
-                    "
+                    data-role="modal-add-to-cart"
+                    data-id="${escapeHtml(product.id)}"
                     class="flex
                     items-center
                     gap-2
@@ -2322,6 +2458,33 @@ function openProductDetail(productId) {
     );
 
 }
+
+
+
+/* =====================================================
+   PRODUCT MODAL: EVENT DELEGATION (ปุ่ม "เพิ่มลงตะกร้า"
+   ในหน้ารายละเอียดสินค้า)
+===================================================== */
+
+document
+    .getElementById("product-modal-content")
+    .addEventListener("click", function(event) {
+
+        const addBtn =
+            event.target.closest(
+                '[data-role="modal-add-to-cart"]'
+            );
+
+
+        if (addBtn) {
+
+            addToCart(addBtn.dataset.id);
+
+            closeProductDetail();
+
+        }
+
+    });
 
 
 
