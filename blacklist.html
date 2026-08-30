@@ -1,142 +1,1732 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รายชื่อแบล็กลิสต์ - Delivery Risk Pro</title>
+
+    <title>Blacklist | Delivery Risk Pro</title>
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style> body { font-family: 'Kanit', sans-serif; } </style>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        .fade-in {
+            animation: fadeIn .35s ease-out;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .card-hover {
+            transition: all .2s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            transition: all .2s ease;
+        }
+
+        .btn:active {
+            transform: scale(.95);
+        }
+
+    </style>
+
 </head>
+
+
 <body class="bg-slate-50 min-h-screen pb-12">
 
-    <!-- 🔒 หน้าต่างบังคับกรอก PIN -->
-    <div id="auth-screen" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl text-center space-y-5 border border-slate-100">
-            <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
-                <i class="fa-solid fa-user-slash"></i>
+
+<!-- ========================================================= -->
+<!-- AUTH SCREEN -->
+<!-- ========================================================= -->
+
+<div
+    id="auth-screen"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4
+           bg-slate-950/90 backdrop-blur-md"
+>
+
+    <!-- Decoration -->
+
+    <div
+        class="absolute top-0 left-0 w-72 h-72
+               bg-rose-500/10 rounded-full blur-3xl
+               -translate-x-1/2 -translate-y-1/2"
+    ></div>
+
+    <div
+        class="absolute bottom-0 right-0 w-96 h-96
+               bg-indigo-500/10 rounded-full blur-3xl"
+    ></div>
+
+
+    <!-- Login Card -->
+
+    <div
+        class="relative w-full max-w-md
+               bg-white rounded-[2rem]
+               shadow-2xl overflow-hidden fade-in"
+    >
+
+        <!-- Header -->
+
+        <div
+            class="h-32 bg-gradient-to-r
+                   from-rose-600 via-rose-700 to-indigo-800
+                   relative"
+        >
+
+            <div
+                class="absolute left-1/2 bottom-0
+                       -translate-x-1/2 translate-y-1/2"
+            >
+
+                <div
+                    class="w-20 h-20 rounded-3xl
+                           bg-white shadow-xl
+                           flex items-center justify-center"
+                >
+
+                    <i
+                        class="fa-solid fa-user-slash
+                               text-3xl text-rose-600"
+                    ></i>
+
+                </div>
+
             </div>
-            <div>
-                <h2 class="text-xl font-bold text-slate-800">เข้าสู่ระบบแบล็กลิสต์</h2>
-                <p class="text-xs text-slate-500 mt-1">กรุณากรอกรหัส PIN 6 หลักเพื่อเข้าใช้งาน</p>
-            </div>
-            <div class="space-y-3">
-                <input type="password" id="pin-input" maxlength="6" placeholder="• • • • • •" 
-                    class="w-full text-center text-2xl tracking-[0.4em] font-bold py-3 border-2 border-slate-200 rounded-2xl focus:border-rose-500 focus:outline-none bg-slate-50">
-                <p id="pin-error" class="text-xs text-rose-500 font-bold hidden">
-                    <i class="fa-solid fa-circle-exclamation mr-1"></i> รหัส PIN ไม่ถูกต้อง
-                </p>
-                <button onclick="loginStaff()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-3 rounded-2xl shadow-lg shadow-rose-200 transition-all active:scale-95">
-                    เข้าสู่ระบบ
-                </button>
-            </div>
+
         </div>
+
+
+        <!-- Content -->
+
+        <div class="p-8 pt-16 text-center">
+
+            <h1 class="text-2xl font-black text-slate-800">
+                Blacklist System
+            </h1>
+
+            <p class="text-sm text-slate-400 mt-2">
+                ระบบจัดการรายชื่อผู้รับที่มีความเสี่ยง
+            </p>
+
+
+            <div class="mt-8 space-y-4">
+
+                <div class="text-left">
+
+                    <label
+                        class="block text-xs font-bold
+                               text-slate-600 mb-2"
+                    >
+
+                        <i
+                            class="fa-solid fa-lock
+                                   text-rose-500 mr-1"
+                        ></i>
+
+                        รหัส PIN เจ้าหน้าที่
+
+                    </label>
+
+
+                    <input
+                        type="password"
+                        id="pin-input"
+                        maxlength="6"
+                        inputmode="numeric"
+                        autocomplete="off"
+                        placeholder="• • • • • •"
+                        class="w-full text-center
+                               text-2xl tracking-[0.35em]
+                               font-bold py-4
+                               border-2 border-slate-200
+                               rounded-2xl
+                               bg-slate-50
+                               focus:outline-none
+                               focus:border-rose-500
+                               focus:bg-white"
+                    >
+
+                </div>
+
+
+                <p
+                    id="pin-error"
+                    class="hidden text-sm
+                           text-rose-500 font-bold"
+                >
+
+                    <i
+                        class="fa-solid fa-circle-exclamation mr-1"
+                    ></i>
+
+                    รหัส PIN ไม่ถูกต้อง
+
+                </p>
+
+
+                <button
+                    type="button"
+                    onclick="loginStaff()"
+                    class="btn w-full py-4 rounded-2xl
+                           bg-gradient-to-r
+                           from-rose-600 to-rose-700
+                           hover:from-rose-500
+                           hover:to-rose-600
+                           text-white font-bold
+                           shadow-lg shadow-rose-200"
+                >
+
+                    <i
+                        class="fa-solid fa-right-to-bracket mr-2"
+                    ></i>
+
+                    เข้าสู่ระบบ
+
+                </button>
+
+
+                <p class="text-xs text-slate-400">
+                    สำหรับเจ้าหน้าที่ที่ได้รับอนุญาตเท่านั้น
+                </p>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <!-- ⛔ เนื้อหาหลักหน้าแบล็กลิสต์ -->
-    <div id="main-content" class="hidden">
-        <nav class="bg-indigo-900 text-white shadow-md sticky top-0 z-40">
-            <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-                <div class="flex items-center space-x-3">
-                    <button onclick="history.back()" class="flex items-center gap-1.5 text-xs bg-indigo-800/80 hover:bg-indigo-700 px-3 py-1.5 rounded-lg border border-indigo-700/60 transition-all active:scale-95">
-                        <i class="fa-solid fa-arrow-left"></i> <span>ย้อนกลับ</span>
-                    </button>
-                    <span class="font-bold text-base md:text-lg">🚫 รายชื่อแบล็กลิสต์</span>
-                </div>
-                <div class="flex items-center space-x-3 text-xs md:text-sm font-medium">
-                    <a href="driver.html" class="text-indigo-200 hover:text-white px-2 py-1">พนักงานส่ง</a>
-                    <a href="admin.html" class="text-indigo-200 hover:text-white px-2 py-1">แอดมิน</a>
-                    <a href="blacklist.html" class="text-white bg-indigo-800/90 px-3 py-1 rounded-lg border border-indigo-700/50 font-bold">แบล็กลิสต์</a>
-                    <a href="tracking.html" class="text-indigo-200 hover:text-white px-2 py-1">ลูกค้า</a>
-                    <button onclick="logoutStaff()" class="text-rose-300 hover:text-rose-100 bg-rose-950/40 px-2.5 py-1 rounded-lg border border-rose-800/50">ออกจากระบบ</button>
-                </div>
-            </div>
-        </nav>
+</div>
 
-        <main class="max-w-5xl mx-auto px-4 pt-6 space-y-6">
-            <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-200 space-y-4">
-                <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-ban text-rose-600"></i> รายชื่อผู้รับที่ติดแบล็กลิสต์
+
+
+<!-- ========================================================= -->
+<!-- MAIN CONTENT -->
+<!-- ========================================================= -->
+
+<div id="main-content" class="hidden">
+
+
+<!-- ========================================================= -->
+<!-- NAVBAR -->
+<!-- ========================================================= -->
+
+<nav
+    class="sticky top-0 z-40
+           bg-slate-950 text-white
+           border-b border-slate-800
+           shadow-md"
+>
+
+    <div
+        class="max-w-6xl mx-auto
+               px-4 py-3
+               flex items-center justify-between"
+    >
+
+        <!-- LEFT -->
+
+        <div class="flex items-center gap-3">
+
+            <button
+                onclick="history.back()"
+                class="w-10 h-10 rounded-xl
+                       bg-slate-800
+                       hover:bg-slate-700
+                       flex items-center justify-center
+                       transition"
+                title="ย้อนกลับ"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+            </button>
+
+
+            <div>
+
+                <h1 class="font-bold text-sm md:text-base">
+                    Delivery Risk Pro
+                </h1>
+
+                <p class="text-xs text-slate-400">
+                    ระบบจัดการ Blacklist
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="flex items-center gap-2">
+
+            <a
+                href="driver.html"
+                class="hidden sm:flex
+                       px-3 py-2
+                       text-xs text-slate-300
+                       hover:text-white"
+            >
+
+                <i class="fa-solid fa-truck mr-1"></i>
+                พนักงานส่ง
+
+            </a>
+
+
+            <a
+                href="admin.html"
+                class="hidden sm:flex
+                       px-3 py-2
+                       text-xs text-slate-300
+                       hover:text-white"
+            >
+
+                <i class="fa-solid fa-chart-pie mr-1"></i>
+                แอดมิน
+
+            </a>
+
+
+            <span
+                class="px-3 py-1.5
+                       rounded-xl
+                       bg-rose-500/10
+                       border border-rose-500/20
+                       text-rose-300
+                       text-xs font-bold"
+            >
+
+                <i class="fa-solid fa-ban mr-1"></i>
+                BLACKLIST
+
+            </span>
+
+
+            <button
+                onclick="logoutStaff()"
+                class="w-10 h-10
+                       rounded-xl
+                       bg-rose-500/10
+                       text-rose-300
+                       hover:bg-rose-500/20"
+                title="ออกจากระบบ"
+            >
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- ========================================================= -->
+<!-- MAIN -->
+<!-- ========================================================= -->
+
+<main
+    class="max-w-6xl mx-auto
+           px-4 py-6 space-y-6"
+>
+
+
+<!-- ========================================================= -->
+<!-- HERO -->
+<!-- ========================================================= -->
+
+<section
+    class="relative overflow-hidden
+           rounded-[2rem]
+           bg-gradient-to-br
+           from-slate-950
+           via-indigo-950
+           to-rose-950
+           p-6 md:p-8
+           text-white shadow-xl"
+>
+
+    <div
+        class="absolute -right-16 -top-16
+               w-48 h-48
+               bg-rose-500/20
+               rounded-full blur-3xl"
+    ></div>
+
+
+    <div
+        class="relative flex
+               flex-col md:flex-row
+               md:items-center
+               justify-between gap-6"
+    >
+
+        <div>
+
+            <div
+                class="inline-flex items-center gap-2
+                       px-3 py-1.5
+                       rounded-full
+                       bg-rose-500/10
+                       border border-rose-400/20
+                       text-rose-300
+                       text-xs font-bold"
+            >
+
+                <span
+                    class="w-2 h-2
+                           rounded-full
+                           bg-rose-400
+                           animate-pulse"
+                ></span>
+
+                RISK MANAGEMENT
+
+            </div>
+
+
+            <h2
+                class="text-2xl md:text-3xl
+                       font-black mt-4"
+            >
+
+                รายชื่อ Blacklist 🚫
+
+            </h2>
+
+
+            <p
+                class="text-sm
+                       text-slate-300
+                       mt-2 max-w-xl"
+            >
+
+                ตรวจสอบและจัดการผู้รับที่มีประวัติ
+                การจัดส่งที่มีความเสี่ยงสูง
+
+            </p>
+
+        </div>
+
+
+        <div
+            class="hidden md:flex
+                   w-24 h-24
+                   rounded-3xl
+                   bg-white/10
+                   border border-white/10
+                   items-center justify-center"
+        >
+
+            <i
+                class="fa-solid fa-user-shield
+                       text-4xl text-rose-300"
+            ></i>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- STAT CARDS -->
+<!-- ========================================================= -->
+
+<section
+    class="grid grid-cols-1
+           sm:grid-cols-2
+           lg:grid-cols-3
+           gap-4"
+>
+
+
+    <!-- BLACKLIST COUNT -->
+
+    <div
+        class="bg-white
+               rounded-3xl
+               border border-slate-200
+               shadow-sm
+               p-5
+               flex items-center
+               justify-between"
+    >
+
+        <div>
+
+            <p
+                class="text-xs
+                       font-bold
+                       text-slate-400"
+            >
+                ผู้ติด Blacklist
+            </p>
+
+
+            <h3
+                id="blacklist-count"
+                class="text-3xl
+                       font-black
+                       text-rose-600
+                       mt-1"
+            >
+                0
+            </h3>
+
+
+            <p
+                class="text-xs
+                       text-slate-400
+                       mt-1"
+            >
+                รายชื่อในระบบ
+            </p>
+
+        </div>
+
+
+        <div
+            class="w-14 h-14
+                   rounded-2xl
+                   bg-rose-50
+                   text-rose-600
+                   flex items-center
+                   justify-center
+                   text-xl"
+        >
+
+            <i class="fa-solid fa-ban"></i>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- TOTAL CUSTOMERS -->
+
+    <div
+        class="bg-white
+               rounded-3xl
+               border border-slate-200
+               shadow-sm
+               p-5
+               flex items-center
+               justify-between"
+    >
+
+        <div>
+
+            <p
+                class="text-xs
+                       font-bold
+                       text-slate-400"
+            >
+                ลูกค้าทั้งหมด
+            </p>
+
+
+            <h3
+                id="total-customers"
+                class="text-3xl
+                       font-black
+                       text-indigo-600
+                       mt-1"
+            >
+                0
+            </h3>
+
+
+            <p
+                class="text-xs
+                       text-slate-400
+                       mt-1"
+            >
+                รายชื่อในฐานข้อมูล
+            </p>
+
+        </div>
+
+
+        <div
+            class="w-14 h-14
+                   rounded-2xl
+                   bg-indigo-50
+                   text-indigo-600
+                   flex items-center
+                   justify-center
+                   text-xl"
+        >
+
+            <i class="fa-solid fa-users"></i>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- STATUS -->
+
+    <div
+        class="bg-white
+               rounded-3xl
+               border border-slate-200
+               shadow-sm
+               p-5
+               flex items-center
+               justify-between"
+    >
+
+        <div>
+
+            <p
+                class="text-xs
+                       font-bold
+                       text-slate-400"
+            >
+                สถานะระบบ
+            </p>
+
+
+            <h3
+                class="text-xl
+                       font-black
+                       text-emerald-600
+                       mt-2"
+            >
+                ONLINE
+            </h3>
+
+
+            <p
+                class="text-xs
+                       text-slate-400
+                       mt-1"
+            >
+                ฐานข้อมูลพร้อมใช้งาน
+            </p>
+
+        </div>
+
+
+        <div
+            class="w-14 h-14
+                   rounded-2xl
+                   bg-emerald-50
+                   text-emerald-600
+                   flex items-center
+                   justify-center
+                   text-xl"
+        >
+
+            <i class="fa-solid fa-database"></i>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================================= -->
+<!-- BLACKLIST LIST -->
+<!-- ========================================================= -->
+
+<section
+    class="bg-white
+           rounded-[2rem]
+           border border-slate-200
+           shadow-sm
+           overflow-hidden"
+>
+
+
+    <!-- HEADER -->
+
+    <div
+        class="p-6
+               border-b border-slate-100"
+    >
+
+        <div
+            class="flex flex-col
+                   md:flex-row
+                   md:items-center
+                   justify-between gap-4"
+        >
+
+            <div>
+
+                <h2
+                    class="text-lg
+                           font-black
+                           text-slate-800"
+                >
+
+                    <i
+                        class="fa-solid fa-user-slash
+                               text-rose-500 mr-2"
+                    ></i>
+
+                    รายชื่อผู้ติด Blacklist
+
                 </h2>
-                <div id="blacklist-container" class="space-y-3">
-                    <!-- รายชื่อจะขึ้นตรงนี้ -->
-                </div>
+
+
+                <p
+                    class="text-xs
+                           text-slate-400
+                           mt-1"
+                >
+
+                    รายชื่อที่ระบบกำหนดให้มีความเสี่ยง
+
+                </p>
+
             </div>
-        </main>
+
+
+            <button
+                onclick="renderBlacklist()"
+                class="btn px-4 py-2.5
+                       rounded-xl
+                       bg-slate-100
+                       hover:bg-slate-200
+                       text-slate-600
+                       text-xs
+                       font-bold"
+            >
+
+                <i
+                    class="fa-solid fa-rotate-right mr-1"
+                ></i>
+
+                รีเฟรช
+
+            </button>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="relative mt-5">
+
+            <i
+                class="fa-solid fa-magnifying-glass
+                       absolute left-4 top-1/2
+                       -translate-y-1/2
+                       text-slate-400"
+            ></i>
+
+
+            <input
+                type="text"
+                id="blacklist-search"
+                oninput="renderBlacklist()"
+                placeholder="ค้นหาชื่อผู้รับ..."
+                class="w-full
+                       pl-11 pr-4 py-3.5
+                       rounded-2xl
+                       border border-slate-200
+                       bg-slate-50
+                       text-sm
+                       font-medium
+                       focus:outline-none
+                       focus:border-rose-400
+                       focus:bg-white"
+            >
+
+        </div>
+
     </div>
 
-    <script src="js/config.js"></script>
-    <script src="js/db.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if (sessionStorage.getItem('staff_logged_in') === 'true') {
-                showPage();
+
+
+    <!-- LIST -->
+
+    <div
+        id="blacklist-container"
+        class="p-4 md:p-6 space-y-3"
+    >
+
+        <!-- Dynamic -->
+
+    </div>
+
+</section>
+
+</main>
+
+</div>
+
+
+
+<!-- ========================================================= -->
+<!-- CONFIRM MODAL -->
+<!-- ========================================================= -->
+
+<div
+    id="confirm-modal"
+    class="hidden fixed inset-0
+           z-[60]
+           bg-slate-950/70
+           backdrop-blur-sm
+           flex items-center
+           justify-center p-4"
+>
+
+    <div
+        class="bg-white
+               w-full max-w-sm
+               rounded-[2rem]
+               shadow-2xl
+               p-6
+               text-center
+               fade-in"
+    >
+
+        <div
+            class="w-16 h-16
+                   mx-auto
+                   rounded-2xl
+                   bg-amber-100
+                   text-amber-600
+                   flex items-center
+                   justify-center
+                   text-2xl"
+        >
+
+            <i class="fa-solid fa-triangle-exclamation"></i>
+
+        </div>
+
+
+        <h3
+            class="text-lg
+                   font-black
+                   text-slate-800
+                   mt-4"
+        >
+
+            ปลด Blacklist?
+
+        </h3>
+
+
+        <p
+            id="confirm-name"
+            class="text-sm
+                   text-slate-500
+                   mt-2"
+        ></p>
+
+
+        <div class="grid grid-cols-2 gap-3 mt-6">
+
+            <button
+                onclick="closeConfirmModal()"
+                class="btn py-3
+                       rounded-xl
+                       bg-slate-100
+                       hover:bg-slate-200
+                       text-slate-600
+                       font-bold text-sm"
+            >
+
+                ยกเลิก
+
+            </button>
+
+
+            <button
+                onclick="confirmRemoveBlacklist()"
+                class="btn py-3
+                       rounded-xl
+                       bg-emerald-600
+                       hover:bg-emerald-700
+                       text-white
+                       font-bold text-sm"
+            >
+
+                <i
+                    class="fa-solid fa-check mr-1"
+                ></i>
+
+                ยืนยัน
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================================================= -->
+<!-- TOAST -->
+<!-- ========================================================= -->
+
+<div
+    id="toast"
+    class="hidden fixed
+           bottom-6 left-1/2
+           -translate-x-1/2
+           z-[70]
+           px-5 py-3
+           rounded-2xl
+           shadow-2xl
+           text-white
+           text-sm
+           font-semibold
+           whitespace-nowrap"
+></div>
+
+
+
+<!-- ========================================================= -->
+<!-- JS -->
+<!-- ========================================================= -->
+
+<script src="js/config.js"></script>
+<script src="js/db.js"></script>
+<script src="js/sound.js"></script>
+
+
+<script>
+
+let pendingRemoveName = null;
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const pinInput =
+        document.getElementById('pin-input');
+
+    if (pinInput) {
+
+        pinInput.addEventListener('keydown', event => {
+
+            if (event.key === 'Enter') {
+
+                loginStaff();
+
             }
+
         });
 
-        document.getElementById('pin-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') loginStaff();
-        });
+    }
 
-        function loginStaff() {
-            const inputPin = document.getElementById('pin-input').value.trim();
-            if (inputPin === CONFIG.STAFF_PIN) {
-                sessionStorage.setItem('staff_logged_in', 'true');
-                showPage();
-            } else {
-                document.getElementById('pin-error').classList.remove('hidden');
-                document.getElementById('pin-input').value = '';
-            }
+
+    if (
+        sessionStorage.getItem('staff_logged_in') === 'true'
+    ) {
+
+        showPage();
+
+    }
+
+});
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function loginStaff() {
+
+    const pinInput =
+        document.getElementById('pin-input');
+
+
+    const inputPin =
+        pinInput.value.trim();
+
+
+    const correctPin =
+
+        (
+            typeof CONFIG !== 'undefined'
+            &&
+            CONFIG.STAFF_PIN
+        )
+
+        ?
+
+        CONFIG.STAFF_PIN
+
+        :
+
+        '888888';
+
+
+    if (inputPin === correctPin) {
+
+        sessionStorage.setItem(
+            'staff_logged_in',
+            'true'
+        );
+
+
+        document
+            .getElementById('pin-error')
+            .classList
+            .add('hidden');
+
+
+        showPage();
+
+    }
+
+    else {
+
+        if (
+            typeof playSound === 'function'
+        ) {
+
+            playSound('wrong_pin');
+
         }
 
-        function logoutStaff() {
-            sessionStorage.removeItem('staff_logged_in');
-            location.reload();
-        }
 
-        function showPage() {
-            document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('main-content').classList.remove('hidden');
-            renderBlacklist();
-        }
+        document
+            .getElementById('pin-error')
+            .classList
+            .remove('hidden');
 
-        function renderBlacklist() {
-            const users = DB.getAll().filter(u => u.isBlacklisted);
-            const container = document.getElementById('blacklist-container');
-            container.innerHTML = '';
 
-            if (users.length === 0) {
-                container.innerHTML = `<p class="text-center text-slate-400 py-8 text-sm">ไม่มีรายชื่อที่ติดแบล็กลิสต์ในขณะนี้</p>`;
-                return;
-            }
+        pinInput.value = '';
 
-            users.forEach(u => {
-                const item = document.createElement('div');
-                item.className = "bg-rose-50/50 border border-rose-100 p-4 rounded-2xl flex justify-between items-center";
-                item.innerHTML = `
-                    <div>
-                        <h4 class="font-bold text-slate-800">${u.name}</h4>
-                        <p class="text-xs text-rose-600 mt-0.5"><i class="fa-solid fa-triangle-exclamation mr-1"></i>${u.blacklistReason || 'ปฏิเสธการรับชำระเงิน / ติดต่อไม่ได้'}</p>
+        pinInput.focus();
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logoutStaff() {
+
+    sessionStorage.removeItem(
+        'staff_logged_in'
+    );
+
+    location.reload();
+
+}
+
+
+/* =========================================================
+   SHOW PAGE
+========================================================= */
+
+function showPage() {
+
+    document
+        .getElementById('auth-screen')
+        .classList
+        .add('hidden');
+
+
+    document
+        .getElementById('main-content')
+        .classList
+        .remove('hidden');
+
+
+    renderBlacklist();
+
+}
+
+
+/* =========================================================
+   RENDER BLACKLIST
+========================================================= */
+
+function renderBlacklist() {
+
+    const container =
+        document.getElementById(
+            'blacklist-container'
+        );
+
+
+    const searchInput =
+        document.getElementById(
+            'blacklist-search'
+        );
+
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        container.innerHTML = `
+
+            <div class="text-center py-12">
+
+                <i
+                    class="fa-solid fa-database
+                           text-4xl
+                           text-rose-300"
+                ></i>
+
+                <p
+                    class="text-sm
+                           font-bold
+                           text-slate-500
+                           mt-3"
+                >
+                    ไม่พบฐานข้อมูล DB
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const allUsers =
+        DB.getAll();
+
+
+    const blacklistUsers =
+        allUsers.filter(
+            user => user.isBlacklisted
+        );
+
+
+    /* COUNT */
+
+    document
+        .getElementById('blacklist-count')
+        .innerText =
+            blacklistUsers.length.toLocaleString();
+
+
+    document
+        .getElementById('total-customers')
+        .innerText =
+            allUsers.length.toLocaleString();
+
+
+    /* SEARCH */
+
+    const keyword =
+        searchInput
+            ? searchInput.value
+                .trim()
+                .toLowerCase()
+            : '';
+
+
+    let users =
+        blacklistUsers;
+
+
+    if (keyword) {
+
+        users =
+            users.filter(user =>
+
+                String(user.name || '')
+                    .toLowerCase()
+                    .includes(keyword)
+
+            );
+
+    }
+
+
+    /* EMPTY */
+
+    if (users.length === 0) {
+
+        container.innerHTML = `
+
+            <div
+                class="text-center
+                       py-12
+                       text-slate-400"
+            >
+
+                <div
+                    class="w-16 h-16
+                           mx-auto
+                           rounded-2xl
+                           bg-slate-100
+                           flex items-center
+                           justify-center
+                           text-2xl"
+                >
+
+                    <i
+                        class="fa-solid
+                               ${
+                                   keyword
+                                   ?
+                                   'fa-magnifying-glass'
+                                   :
+                                   'fa-shield-heart'
+                               }"
+                    ></i>
+
+                </div>
+
+
+                <p
+                    class="text-sm
+                           font-bold
+                           mt-4"
+                >
+
+                    ${
+                        keyword
+                        ?
+                        'ไม่พบรายชื่อที่ค้นหา'
+                        :
+                        'ไม่มีรายชื่อที่ติด Blacklist'
+                    }
+
+                </p>
+
+
+                <p
+                    class="text-xs
+                           mt-1"
+                >
+
+                    ${
+                        keyword
+                        ?
+                        'ลองค้นหาด้วยชื่ออื่น'
+                        :
+                        'ระบบยังไม่มีลูกค้าที่ถูกขึ้นบัญชี'
+                    }
+
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* RENDER */
+
+    container.innerHTML = users
+        .map((user, index) => {
+
+            const reason =
+                user.blacklistReason
+                ||
+                'ไม่ระบุสาเหตุ';
+
+
+            const success =
+                Number(user.success || 0);
+
+
+            const failed =
+                Number(user.failed || 0);
+
+
+            const total =
+                Number(user.total || 0);
+
+
+            return `
+
+                <div
+                    class="card-hover
+                           fade-in
+                           bg-rose-50/60
+                           border border-rose-100
+                           rounded-2xl
+                           p-4 md:p-5"
+                >
+
+                    <div
+                        class="flex flex-col
+                               md:flex-row
+                               md:items-center
+                               justify-between
+                               gap-4"
+                    >
+
+                        <!-- USER -->
+
+                        <div
+                            class="flex items-start
+                                   gap-3
+                                   min-w-0"
+                        >
+
+                            <div
+                                class="shrink-0
+                                       w-12 h-12
+                                       rounded-2xl
+                                       bg-rose-100
+                                       text-rose-600
+                                       flex items-center
+                                       justify-center
+                                       text-lg"
+                            >
+
+                                <i
+                                    class="fa-solid
+                                           fa-user-slash"
+                                ></i>
+
+                            </div>
+
+
+                            <div class="min-w-0">
+
+                                <div
+                                    class="flex items-center
+                                           gap-2
+                                           flex-wrap"
+                                >
+
+                                    <h3
+                                        class="font-black
+                                               text-slate-800
+                                               text-base"
+                                    >
+
+                                        ${escapeHtml(user.name)}
+
+                                    </h3>
+
+
+                                    <span
+                                        class="px-2.5 py-1
+                                               rounded-full
+                                               bg-rose-100
+                                               text-rose-700
+                                               text-[10px]
+                                               font-black"
+                                    >
+
+                                        BLACKLIST
+
+                                    </span>
+
+                                </div>
+
+
+                                <p
+                                    class="text-xs
+                                           text-rose-600
+                                           font-semibold
+                                           mt-1"
+                                >
+
+                                    <i
+                                        class="fa-solid
+                                               fa-triangle-exclamation
+                                               mr-1"
+                                    ></i>
+
+                                    ${escapeHtml(reason)}
+
+                                </p>
+
+
+                                <div
+                                    class="flex flex-wrap
+                                           gap-2
+                                           mt-3"
+                                >
+
+                                    <span
+                                        class="px-2.5 py-1
+                                               rounded-lg
+                                               bg-white
+                                               border
+                                               border-slate-200
+                                               text-[11px]
+                                               text-slate-600
+                                               font-semibold"
+                                    >
+
+                                        รวม ${total}
+
+                                    </span>
+
+
+                                    <span
+                                        class="px-2.5 py-1
+                                               rounded-lg
+                                               bg-emerald-50
+                                               border
+                                               border-emerald-100
+                                               text-[11px]
+                                               text-emerald-700
+                                               font-semibold"
+                                    >
+
+                                        สำเร็จ ${success}
+
+                                    </span>
+
+
+                                    <span
+                                        class="px-2.5 py-1
+                                               rounded-lg
+                                               bg-rose-100
+                                               border
+                                               border-rose-200
+                                               text-[11px]
+                                               text-rose-700
+                                               font-semibold"
+                                    >
+
+                                        ตีกลับ ${failed}
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ACTION -->
+
+                        <div
+                            class="shrink-0
+                                   w-full md:w-auto"
+                        >
+
+                            <button
+                                onclick="openConfirmModal('${escapeJs(user.name)}')"
+                                class="btn
+                                       w-full md:w-auto
+                                       px-4 py-2.5
+                                       rounded-xl
+                                       bg-white
+                                       border
+                                       border-slate-200
+                                       hover:border-emerald-300
+                                       hover:text-emerald-600
+                                       text-slate-600
+                                       text-xs
+                                       font-bold
+                                       shadow-sm"
+                            >
+
+                                <i
+                                    class="fa-solid
+                                           fa-shield-halved
+                                           mr-1"
+                                ></i>
+
+                                ปลด Blacklist
+
+                            </button>
+
+                        </div>
+
                     </div>
-                    <button onclick="removeBlacklist('${u.name}')" class="text-xs bg-white text-slate-600 hover:text-emerald-600 border px-3 py-1.5 rounded-xl font-bold shadow-sm">
-                        ปลดแบล็กลิสต์
-                    </button>
-                `;
-                container.appendChild(item);
-            });
+
+                </div>
+
+            `;
+
+        })
+        .join('');
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+}
+
+
+/* =========================================================
+   ESCAPE JS STRING
+========================================================= */
+
+function escapeJs(value) {
+
+    return String(value)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, '\\n')
+        .replace(/\r/g, '\\r');
+
+}
+
+
+/* =========================================================
+   OPEN CONFIRM
+========================================================= */
+
+function openConfirmModal(name) {
+
+    pendingRemoveName = name;
+
+
+    document
+        .getElementById('confirm-name')
+        .innerText =
+            `คุณต้องการปลด "${name}" ออกจาก Blacklist ใช่หรือไม่?`;
+
+
+    document
+        .getElementById('confirm-modal')
+        .classList
+        .remove('hidden');
+
+}
+
+
+/* =========================================================
+   CLOSE CONFIRM
+========================================================= */
+
+function closeConfirmModal() {
+
+    pendingRemoveName = null;
+
+
+    document
+        .getElementById('confirm-modal')
+        .classList
+        .add('hidden');
+
+}
+
+
+/* =========================================================
+   CONFIRM REMOVE
+========================================================= */
+
+function confirmRemoveBlacklist() {
+
+    if (!pendingRemoveName) {
+
+        return;
+
+    }
+
+
+    const list =
+        DB.getAll();
+
+
+    const user =
+        list.find(
+            u => u.name === pendingRemoveName
+        );
+
+
+    if (!user) {
+
+        showToast(
+            'ไม่พบข้อมูลผู้ใช้งาน',
+            'error'
+        );
+
+        closeConfirmModal();
+
+        return;
+
+    }
+
+
+    user.isBlacklisted = false;
+
+    user.blacklistReason = '';
+
+
+    DB.save(list);
+
+
+    closeConfirmModal();
+
+
+    renderBlacklist();
+
+
+    if (
+        typeof playSound === 'function'
+    ) {
+
+        playSound('success');
+
+    }
+
+
+    showToast(
+        `ปลด Blacklist ${pendingRemoveName} สำเร็จ ✓`,
+        'success'
+    );
+
+
+    pendingRemoveName = null;
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message, type = 'info') {
+
+    const toast =
+        document.getElementById('toast');
+
+
+    toast.innerText =
+        message;
+
+
+    toast.className = `
+
+        fixed
+        bottom-6
+        left-1/2
+        -translate-x-1/2
+        z-[70]
+
+        px-5
+        py-3
+
+        rounded-2xl
+        shadow-2xl
+
+        text-white
+        text-sm
+        font-semibold
+
+        whitespace-nowrap
+
+        ${
+            type === 'success'
+            ?
+            'bg-emerald-600'
+            :
+            type === 'error'
+            ?
+            'bg-rose-600'
+            :
+            'bg-slate-800'
         }
 
-        function removeBlacklist(name) {
-            const list = DB.getAll();
-            const user = list.find(u => u.name === name);
-            if (user) {
-                user.isBlacklisted = false;
-                user.blacklistReason = '';
-                DB.save(list);
-                renderBlacklist();
-            }
-        }
-    </script>
+    `;
+
+
+    toast.classList.remove('hidden');
+
+
+    setTimeout(() => {
+
+        toast.classList.add('hidden');
+
+    }, 3000);
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener('keydown', event => {
+
+    if (
+        event.key === 'Escape'
+    ) {
+
+        closeConfirmModal();
+
+    }
+
+});
+
+</script>
+
 </body>
 </html>
+
