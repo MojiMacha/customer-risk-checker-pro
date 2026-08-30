@@ -1,20 +1,13 @@
 // ==========================================
-// 🔊 ระบบจัดการเสียงแจ้งเตือน
-// Delivery Risk Pro
+// 🔊 Delivery Risk Pro - Sound System
+// js/sound.js
 // ==========================================
 
 const SoundSystem = {
 
-    // ==========================================
-    // 🎵 ตำแหน่งไฟล์เสียง
-    // ==========================================
-
     paths: {
-
-        // 🚨 ลูกค้าติด Blacklist
+        // 🔴 ความเสี่ยง / แบล็กลิสต์
         blacklist: 'sounds/ghots.mp3',
-
-        // 🔴 ความเสี่ยงสูง
         high_risk: 'sounds/ghots.mp3',
 
         // 🟠 ความเสี่ยงปานกลาง
@@ -23,69 +16,55 @@ const SoundSystem = {
         // 🟢 ความเสี่ยงต่ำ
         low_risk: 'sounds/meng.mp3',
 
-        // ❌ PIN ไม่ถูกต้อง
+        // ❌ PIN ผิด
         wrong_pin: 'sounds/stupid.mp3',
 
-        // 🟢 ส่งสำเร็จ
+        // ✅ ส่งสำเร็จ
         success: 'sounds/meng.mp3',
 
-        // 🔴 ตีกลับ / ปฏิเสธ
+        // ❌ ตีกลับ / ปฏิเสธ
         failed: 'sounds/ghots.mp3'
     },
 
+    audioUnlocked: false,
 
-    // ==========================================
-    // 🔊 เล่นเสียง
-    // ==========================================
-
-    play(soundType) {
-
-        const path = this.paths[soundType];
-
-        // ตรวจสอบว่ามีประเภทเสียงหรือไม่
-        if (!path) {
-
-            console.warn(
-                `[SoundSystem] ไม่พบเสียงประเภท: ${soundType}`
-            );
-
-            return;
-        }
-
+    /**
+     * ปลดล็อกเสียงจากการกระทำของผู้ใช้
+     */
+    initAudioContext() {
 
         try {
 
-            const audio = new Audio();
+            if (
+                window.AudioContext ||
+                window.webkitAudioContext
+            ) {
 
-            audio.src = path;
+                const AudioContext =
+                    window.AudioContext ||
+                    window.webkitAudioContext;
 
-            audio.preload = 'auto';
+                if (!this.audioContext) {
+                    this.audioContext =
+                        new AudioContext();
+                }
 
-            audio.currentTime = 0;
+                if (
+                    this.audioContext.state === 'suspended'
+                ) {
 
+                    this.audioContext.resume();
 
-            const playPromise = audio.play();
+                }
 
-
-            // Browser บางตัวจะคืน Promise
-            if (playPromise !== undefined) {
-
-                playPromise.catch(error => {
-
-                    console.warn(
-                        `[SoundSystem] ไม่สามารถเล่นเสียง ${soundType}:`,
-                        error
-                    );
-
-                });
+                this.audioUnlocked = true;
 
             }
 
-        }
-        catch (error) {
+        } catch (error) {
 
-            console.error(
-                `[SoundSystem] เกิดข้อผิดพลาดในการเล่นเสียง:`,
+            console.warn(
+                'ไม่สามารถเริ่ม AudioContext:',
                 error
             );
 
@@ -94,77 +73,177 @@ const SoundSystem = {
     },
 
 
-    // ==========================================
-    // 🚨 เล่นเสียงตามระดับความเสี่ยง
-    // ==========================================
+    /**
+     * เล่นเสียงตามประเภท
+     */
+    play(soundType) {
 
-    playByRisk(user, riskLevel) {
+        const path =
+            this.paths[soundType];
 
-        if (!user) {
+        if (!path) {
+
             console.warn(
-                '[SoundSystem] ไม่พบข้อมูลลูกค้า'
+                `ไม่พบประเภทเสียง: ${soundType}`
             );
 
             return;
+
         }
 
+        console.log(
+            `🔊 กำลังเล่นเสียง: ${soundType} → ${path}`
+        );
 
-        // 🚨 Blacklist มีความสำคัญสูงสุด
+
+        const audio =
+            new Audio(path);
+
+
+        audio.preload = 'auto';
+
+        audio.volume = 1.0;
+
+
+        audio.currentTime = 0;
+
+
+        const playPromise =
+            audio.play();
+
+
+        if (
+            playPromise !== undefined
+        ) {
+
+            playPromise
+                .then(() => {
+
+                    console.log(
+                        `✅ เล่นเสียงสำเร็จ: ${path}`
+                    );
+
+                })
+                .catch(error => {
+
+                    console.warn(
+                        `❌ เล่นเสียงไม่ได้: ${path}`,
+                        error
+                    );
+
+                    console.warn(
+                        'ตรวจสอบว่าไฟล์อยู่ในโฟลเดอร์ sounds หรือไม่'
+                    );
+
+                });
+
+        }
+
+    },
+
+
+    /**
+     * เล่นเสียงตามระดับความเสี่ยง
+     */
+    playByRisk(user, riskLevel) {
+
+        if (!user) return;
+
+
         if (user.isBlacklisted) {
 
             this.play('blacklist');
 
-            return;
         }
 
-
-        // 🔴 HIGH
-        if (riskLevel === 'HIGH') {
+        else if (riskLevel === 'HIGH') {
 
             this.play('high_risk');
 
-            return;
         }
 
-
-        // 🟠 MEDIUM
-        if (riskLevel === 'MEDIUM') {
+        else if (riskLevel === 'MEDIUM') {
 
             this.play('medium_risk');
 
-            return;
         }
 
+        else {
 
-        // 🟢 LOW
-        this.play('low_risk');
+            this.play('low_risk');
+
+        }
 
     }
 
 };
 
 
-// ==========================================
-// 🔗 ฟังก์ชันสำหรับเรียกจาก HTML
-// ==========================================
-
+/**
+ * ฟังก์ชันกลางสำหรับเรียกจาก HTML
+ */
 function playSound(type) {
 
     if (
         typeof SoundSystem !== 'undefined'
-        &&
-        typeof SoundSystem.play === 'function'
     ) {
 
         SoundSystem.play(type);
 
     }
-    else {
-
-        console.warn(
-            '[SoundSystem] ระบบเสียงยังไม่พร้อมใช้งาน'
-        );
-
-    }
 
 }
+
+
+/**
+ * ปลดล็อกเสียงเมื่อผู้ใช้แตะ/คลิกครั้งแรก
+ */
+document.addEventListener(
+    'click',
+    function unlockSoundOnce() {
+
+        if (
+            typeof SoundSystem !== 'undefined'
+        ) {
+
+            SoundSystem.initAudioContext();
+
+        }
+
+        document.removeEventListener(
+            'click',
+            unlockSoundOnce
+        );
+
+    },
+    {
+        once: true
+    }
+);
+
+
+/**
+ * รองรับการกดแป้นพิมพ์
+ */
+document.addEventListener(
+    'keydown',
+    function unlockSoundKeyboard() {
+
+        if (
+            typeof SoundSystem !== 'undefined'
+        ) {
+
+            SoundSystem.initAudioContext();
+
+        }
+
+        document.removeEventListener(
+            'keydown',
+            unlockSoundKeyboard
+        );
+
+    },
+    {
+        once: true
+    }
+);
