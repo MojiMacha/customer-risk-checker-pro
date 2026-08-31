@@ -1,309 +1,837 @@
-<!DOCTYPE html>
-<html lang="th">
+<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Delivery Risk Market</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    >
-
-    <!-- Google Font -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <!-- DATA -->
-    <script src="js/shops.js"></script>
-    <script src="js/products.js"></script>
-
-    <style>
-
-        body {
-            font-family: 'Kanit', sans-serif;
-        }
-
-        .product-card {
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease;
-
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-
-            box-shadow:
-                0 15px 35px
-                rgba(15, 23, 42, 0.10);
-        }
-
-        .product-image {
-            transition:
-                transform 0.4s ease;
-        }
-
-        .product-card:hover .product-image {
-            transform: scale(1.05);
-        }
-
-        .cart-badge {
-            animation: pop 0.25s ease;
-        }
-
-        .modal-animation {
-            animation: modalIn 0.25s ease;
-        }
-
-        .fade-animation {
-            animation: fadeIn 0.25s ease;
-        }
-
-        @keyframes pop {
-
-            0% {
-                transform: scale(0.7);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-
-        }
-
-        @keyframes modalIn {
-
-            from {
-                opacity: 0;
-                transform:
-                    scale(0.95)
-                    translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform:
-                    scale(1)
-                    translateY(0);
-            }
-
-        }
-
-        @keyframes fadeIn {
-
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-
-        }
-
-    </style>
-
-</head>
-
-
-<body class="bg-slate-100 min-h-screen text-slate-800">
-
-
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
-
-<nav
-    class="
-        bg-slate-950
-        text-white
-        sticky
-        top-0
-        z-50
-        shadow-lg
-    "
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
 >
 
-    <div
-        class="
-            max-w-7xl
-            mx-auto
-            px-4
-            py-3
-            flex
-            items-center
-            justify-between
-            gap-4
-        "
+<title>Delivery Risk Market</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
+
+<!-- Google Font -->
+<link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+<!-- DATA -->
+<script src="js/shops.js"></script>
+<script src="js/products.js"></script>
+
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Kanit', sans-serif;
+    }
+
+    .product-card {
+        transition: all 0.25s ease;
+        cursor: pointer;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.10);
+    }
+
+    .product-image {
+        transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-image {
+        transform: scale(1.05);
+    }
+
+    .cart-badge {
+        animation: pop 0.25s ease;
+    }
+
+    .modal-animation {
+        animation: modalIn 0.25s ease;
+    }
+
+    @keyframes pop {
+
+        0% {
+            transform: scale(0.7);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+
+    }
+
+    @keyframes modalIn {
+
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+    }
+
+</style>
+
+</head><body class="bg-slate-100 min-h-screen text-slate-800"><!-- =====================================================
+     NAVBAR
+===================================================== --><nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg"><div
+    class="max-w-7xl mx-auto px-4 py-3
+    flex items-center justify-between gap-4"
+>
+
+    <!-- BRAND -->
+
+    <a
+        href="index.html"
+        class="flex items-center gap-3"
     >
 
-        <!-- BRAND -->
-
-        <a
-            href="index.html"
-            class="flex items-center gap-3"
+        <div
+            class="w-10 h-10
+            rounded-xl
+            bg-gradient-to-br
+            from-indigo-500
+            to-indigo-700
+            flex items-center
+            justify-center"
         >
 
-            <div
-                class="
-                    w-10
-                    h-10
-                    rounded-xl
-                    bg-gradient-to-br
-                    from-indigo-500
-                    to-indigo-700
-                    flex
-                    items-center
-                    justify-center
-                "
-            >
+            <i
+                class="fa-solid fa-store
+                text-amber-300"
+            ></i>
 
-                <i
-                    class="
-                        fa-solid
-                        fa-store
-                        text-amber-300
-                    "
-                ></i>
-
-            </div>
+        </div>
 
 
-            <div>
+        <div>
 
-                <p class="font-black text-sm">
-                    Delivery Risk Market
-                </p>
+            <p class="font-black text-sm">
+                Delivery Risk Market
+            </p>
 
-                <p class="text-[10px] text-slate-400">
-                    Marketplace
-                </p>
+            <p class="text-[10px] text-slate-400">
+                Marketplace
+            </p>
 
-            </div>
+        </div>
+
+    </a>
+
+
+    <!-- RIGHT -->
+
+    <div class="flex items-center gap-2">
+
+        <a
+            href="tracking.html"
+            class="hidden sm:flex
+            items-center gap-2
+            px-3 py-2
+            rounded-xl
+            text-xs font-bold
+            text-slate-300
+            hover:text-white
+            hover:bg-white/10
+            transition"
+        >
+
+            <i class="fa-solid fa-box"></i>
+
+            ติดตามพัสดุ
 
         </a>
 
 
-        <!-- RIGHT -->
+        <a
+            href="orders.html"
+            class="hidden md:flex
+            items-center gap-2
+            px-3 py-2
+            rounded-xl
+            text-xs font-bold
+            text-slate-300
+            hover:text-white
+            hover:bg-white/10
+            transition"
+        >
 
-        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-receipt"></i>
 
-            <!-- TRACKING -->
+            คำสั่งซื้อ
 
-            <a
-                href="tracking.html"
-                class="
-                    hidden
-                    sm:flex
-                    items-center
-                    gap-2
-                    px-3
-                    py-2
-                    rounded-xl
-                    text-xs
-                    font-bold
-                    text-slate-300
-                    hover:text-white
-                    hover:bg-white/10
-                    transition
-                "
+        </a>
+
+
+        <!-- CART -->
+
+        <button
+            type="button"
+            onclick="openCart()"
+            class="relative
+            w-10 h-10
+            rounded-xl
+            bg-indigo-600
+            hover:bg-indigo-500
+            flex items-center
+            justify-center
+            transition
+            active:scale-95"
+        >
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+
+            <span
+                id="cart-count"
+                class="hidden
+                absolute -top-2 -right-2
+                min-w-5 h-5
+                px-1
+                rounded-full
+                bg-rose-500
+                text-white
+                text-[10px]
+                font-black
+                flex items-center
+                justify-center"
+            >
+                0
+            </span>
+
+        </button>
+
+    </div>
+
+</div>
+
+</nav><!-- =====================================================
+     MAIN
+===================================================== --><main
+    class="max-w-7xl
+    mx-auto
+    px-4
+    py-6"
+><!-- =================================================
+     HERO
+================================================== -->
+
+<section
+    class="bg-gradient-to-br
+    from-indigo-600
+    via-indigo-700
+    to-slate-950
+    rounded-[2rem]
+    p-6 sm:p-10
+    text-white
+    overflow-hidden
+    relative
+    shadow-xl"
+>
+
+    <div
+        class="absolute
+        -right-20
+        -top-20
+        w-72 h-72
+        rounded-full
+        bg-white/10
+        blur-3xl"
+    ></div>
+
+
+    <div
+        class="absolute
+        -left-20
+        -bottom-20
+        w-60 h-60
+        rounded-full
+        bg-amber-400/10
+        blur-3xl"
+    ></div>
+
+
+    <div
+        class="relative
+        z-10
+        max-w-2xl"
+    >
+
+        <span
+            class="inline-flex
+            items-center
+            gap-2
+            px-3 py-1.5
+            rounded-full
+            bg-white/10
+            border border-white/10
+            text-xs font-bold"
+        >
+
+            <i
+                class="fa-solid
+                fa-bag-shopping
+                text-amber-300"
+            ></i>
+
+            DELIVERY RISK MARKET
+
+        </span>
+
+
+        <h1
+            class="text-3xl
+            sm:text-5xl
+            font-black
+            mt-4"
+        >
+
+            ช้อปง่าย
+            <span class="text-amber-300">
+                ส่งไว
+            </span>
+
+        </h1>
+
+
+        <p
+            class="text-sm
+            sm:text-base
+            text-indigo-100
+            mt-3"
+        >
+
+            เลือกซื้อสินค้าจากร้านค้าต่าง ๆ
+            พร้อมระบบจัดการคำสั่งซื้อและติดตามพัสดุ
+
+        </p>
+
+
+        <div
+            class="mt-6
+            flex
+            flex-wrap
+            gap-3"
+        >
+
+            <span
+                class="px-3 py-2
+                rounded-xl
+                bg-white/10
+                text-xs
+                font-semibold"
             >
 
-                <i class="fa-solid fa-box"></i>
+                <i
+                    class="fa-solid
+                    fa-shield-halved
+                    mr-1
+                    text-emerald-300"
+                ></i>
 
-                ติดตามพัสดุ
+                ร้านค้าที่ตรวจสอบแล้ว
 
-            </a>
+            </span>
 
 
-            <!-- ORDERS -->
-
-            <a
-                href="orders.html"
-                class="
-                    hidden
-                    md:flex
-                    items-center
-                    gap-2
-                    px-3
-                    py-2
-                    rounded-xl
-                    text-xs
-                    font-bold
-                    text-slate-300
-                    hover:text-white
-                    hover:bg-white/10
-                    transition
-                "
+            <span
+                class="px-3 py-2
+                rounded-xl
+                bg-white/10
+                text-xs
+                font-semibold"
             >
 
-                <i class="fa-solid fa-receipt"></i>
+                <i
+                    class="fa-solid
+                    fa-truck-fast
+                    mr-1
+                    text-amber-300"
+                ></i>
 
-                คำสั่งซื้อ
+                ติดตามพัสดุได้
 
-            </a>
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
 
 
-            <!-- CART -->
+
+<!-- =================================================
+     SEARCH
+================================================== -->
+
+<section class="mt-6">
+
+    <div class="relative">
+
+        <i
+            class="fa-solid
+            fa-magnifying-glass
+            absolute
+            left-4
+            top-4
+            text-slate-400"
+        ></i>
+
+
+        <input
+            id="search-input"
+            type="text"
+            placeholder="ค้นหาสินค้า หรือชื่อร้าน..."
+            class="w-full
+            bg-white
+            border border-slate-200
+            rounded-2xl
+            pl-11 pr-4
+            py-3.5
+            outline-none
+            focus:ring-2
+            focus:ring-indigo-500
+            shadow-sm"
+        >
+
+    </div>
+
+</section>
+
+
+
+<!-- =================================================
+     CATEGORY
+================================================== -->
+
+<section
+    class="mt-5
+    flex
+    gap-2
+    overflow-x-auto
+    pb-2"
+>
+
+    <button
+        type="button"
+        data-category="all"
+        onclick="setCategory('all')"
+        class="category-btn
+        shrink-0
+        bg-indigo-600
+        text-white
+        px-4 py-2
+        rounded-xl
+        text-xs
+        font-bold
+        whitespace-nowrap"
+    >
+        🛍️ ทั้งหมด
+    </button>
+
+
+    <button
+        type="button"
+        data-category="electronics"
+        onclick="setCategory('electronics')"
+        class="category-btn
+        shrink-0
+        bg-white
+        border border-slate-200
+        px-4 py-2
+        rounded-xl
+        text-xs
+        font-bold
+        whitespace-nowrap"
+    >
+        📱 อิเล็กทรอนิกส์
+    </button>
+
+
+    <button
+        type="button"
+        data-category="fashion"
+        onclick="setCategory('fashion')"
+        class="category-btn
+        shrink-0
+        bg-white
+        border border-slate-200
+        px-4 py-2
+        rounded-xl
+        text-xs
+        font-bold
+        whitespace-nowrap"
+    >
+        👕 แฟชั่น
+    </button>
+
+
+    <button
+        type="button"
+        data-category="beauty"
+        onclick="setCategory('beauty')"
+        class="category-btn
+        shrink-0
+        bg-white
+        border border-slate-200
+        px-4 py-2
+        rounded-xl
+        text-xs
+        font-bold
+        whitespace-nowrap"
+    >
+        💄 ความงาม
+    </button>
+
+
+    <button
+        type="button"
+        data-category="books"
+        onclick="setCategory('books')"
+        class="category-btn
+        shrink-0
+        bg-white
+        border border-slate-200
+        px-4 py-2
+        rounded-xl
+        text-xs
+        font-bold
+        whitespace-nowrap"
+    >
+        📚 หนังสือและการเรียน
+    </button>
+
+
+    <button
+        type="button"
+        data-category="daily"
+        onclick="setCategory('daily')"
+        class="category-btn
+        shrink-0
+        bg-white
+        border border-slate-200
+        px-4 py-2
+        rounded-xl
+        text-xs
+        font-bold
+        whitespace-nowrap"
+    >
+        🧴 ของใช้ประจำวัน
+    </button>
+
+
+    <button
+        type="button"
+        data-category="other"
+        onclick="setCategory('other')"
+        class="category-btn
+        shrink-0
+        bg-white
+        border border-slate-200
+        px-4 py-2
+        rounded-xl
+        text-xs
+        font-bold
+        whitespace-nowrap"
+    >
+        📦 อื่น ๆ
+    </button>
+
+</section>
+
+
+
+<!-- =================================================
+     PRODUCT HEADER
+================================================== -->
+
+<section
+    class="mt-6
+    flex
+    items-end
+    justify-between"
+>
+
+    <div>
+
+        <h2 class="text-xl font-black">
+            สินค้าแนะนำ
+        </h2>
+
+        <p
+            class="text-xs
+            text-slate-400
+            mt-1"
+        >
+            สินค้าจากร้านค้าภายใน Marketplace
+        </p>
+
+    </div>
+
+
+    <span
+        id="product-count"
+        class="text-xs
+        text-slate-400"
+    >
+        0 สินค้า
+    </span>
+
+</section>
+
+
+
+<!-- =================================================
+     ERROR BOX
+================================================== -->
+
+<div
+    id="data-error"
+    class="hidden
+    mt-4
+    bg-rose-50
+    border
+    border-rose-200
+    text-rose-700
+    rounded-2xl
+    p-4"
+>
+
+    <div class="flex items-start gap-3">
+
+        <i
+            class="fa-solid
+            fa-triangle-exclamation
+            mt-1"
+        ></i>
+
+        <div>
+
+            <p class="font-bold">
+                ไม่สามารถโหลดข้อมูลสินค้าได้
+            </p>
+
+            <p
+                id="data-error-message"
+                class="text-xs mt-1"
+            ></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =================================================
+     PRODUCT GRID
+================================================== -->
+
+<section
+    id="product-grid"
+    class="grid
+    grid-cols-1
+    sm:grid-cols-2
+    lg:grid-cols-4
+    gap-4
+    mt-4"
+></section>
+
+</main><!-- =====================================================
+     PRODUCT DETAIL MODAL
+===================================================== --><div
+    id="product-modal"
+    class="hidden
+    fixed
+    inset-0
+    bg-slate-950/70
+    backdrop-blur-sm
+    z-[110]
+    p-4
+    overflow-y-auto"
+><div
+    class="min-h-full
+    flex
+    items-center
+    justify-center"
+>
+
+    <div
+        id="product-modal-content"
+        class="bg-white
+        w-full
+        max-w-2xl
+        rounded-3xl
+        shadow-2xl
+        overflow-hidden
+        modal-animation"
+    ></div>
+
+</div>
+
+</div><!-- =====================================================
+     CART MODAL
+===================================================== --><div
+    id="cart-modal"
+    class="hidden
+    fixed
+    inset-0
+    bg-slate-950/60
+    backdrop-blur-sm
+    z-[100]
+    p-4
+    overflow-y-auto"
+><div
+    class="min-h-full
+    flex
+    items-center
+    justify-center"
+>
+
+    <div
+        class="bg-white
+        w-full
+        max-w-lg
+        max-h-[85vh]
+        rounded-3xl
+        shadow-2xl
+        overflow-hidden"
+    >
+
+        <!-- HEADER -->
+
+        <div
+            class="p-5
+            border-b
+            border-slate-100
+            flex
+            items-center
+            justify-between"
+        >
+
+            <div>
+
+                <h2 class="font-black text-lg">
+                    🛒 ตะกร้าสินค้า
+                </h2>
+
+                <p
+                    id="cart-summary"
+                    class="text-xs
+                    text-slate-400
+                    mt-1"
+                >
+                    0 รายการ
+                </p>
+
+            </div>
+
 
             <button
                 type="button"
-                id="open-cart-btn"
-                class="
-                    relative
-                    w-10
-                    h-10
-                    rounded-xl
-                    bg-indigo-600
-                    hover:bg-indigo-500
-                    flex
-                    items-center
-                    justify-center
-                    transition
-                    active:scale-95
-                "
+                onclick="closeCart()"
+                class="w-9 h-9
+                rounded-xl
+                bg-slate-100
+                hover:bg-slate-200"
             >
 
-                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- ITEMS -->
+
+        <div
+            id="cart-items"
+            class="p-5
+            space-y-3
+            overflow-y-auto
+            max-h-[50vh]"
+        ></div>
+
+
+
+        <!-- FOOTER -->
+
+        <div
+            class="p-5
+            border-t
+            border-slate-100"
+        >
+
+            <div
+                class="flex
+                justify-between
+                items-center"
+            >
+
+                <span
+                    class="text-sm
+                    text-slate-500"
+                >
+                    รวมทั้งหมด
+                </span>
 
 
                 <span
-                    id="cart-count"
-                    class="
-                        hidden
-                        absolute
-                        -top-2
-                        -right-2
-                        min-w-5
-                        h-5
-                        px-1
-                        rounded-full
-                        bg-rose-500
-                        text-white
-                        text-[10px]
-                        font-black
-                        flex
-                        items-center
-                        justify-center
-                    "
+                    id="cart-total"
+                    class="text-xl
+                    font-black
+                    text-indigo-600"
                 >
-                    0
+                    ฿0
                 </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                onclick="checkout()"
+                class="w-full
+                mt-4
+                bg-indigo-600
+                hover:bg-indigo-700
+                text-white
+                font-bold
+                py-3
+                rounded-2xl
+                transition"
+            >
+
+                <i
+                    class="fa-solid
+                    fa-credit-card
+                    mr-2"
+                ></i>
+
+                ดำเนินการสั่งซื้อ
 
             </button>
 
@@ -311,659 +839,296 @@
 
     </div>
 
-</nav>
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main
-    class="
-        max-w-7xl
-        mx-auto
-        px-4
-        py-6
-    "
->
-
-
-    <!-- =================================================
-         HERO
-    ================================================= -->
-
-    <section
-        class="
-            bg-gradient-to-br
-            from-indigo-600
-            via-indigo-700
-            to-slate-950
-            rounded-[2rem]
-            p-6
-            sm:p-10
-            text-white
-            overflow-hidden
-            relative
-            shadow-xl
-        "
-    >
-
-        <div
-            class="
-                absolute
-                -right-20
-                -top-20
-                w-72
-                h-72
-                rounded-full
-                bg-white/10
-                blur-3xl
-            "
-        ></div>
-
-
-        <div
-            class="
-                absolute
-                -left-20
-                -bottom-20
-                w-60
-                h-60
-                rounded-full
-                bg-amber-400/10
-                blur-3xl
-            "
-        ></div>
-
-
-        <div
-            class="
-                relative
-                z-10
-                max-w-2xl
-            "
-        >
-
-            <span
-                class="
-                    inline-flex
-                    items-center
-                    gap-2
-                    px-3
-                    py-1.5
-                    rounded-full
-                    bg-white/10
-                    border
-                    border-white/10
-                    text-xs
-                    font-bold
-                "
-            >
-
-                <i
-                    class="
-                        fa-solid
-                        fa-bag-shopping
-                        text-amber-300
-                    "
-                ></i>
-
-                DELIVERY RISK MARKET
-
-            </span>
-
-
-            <h1
-                class="
-                    text-3xl
-                    sm:text-5xl
-                    font-black
-                    mt-4
-                "
-            >
-
-                ช้อปง่าย
-
-                <span class="text-amber-300">
-                    ส่งไว
-                </span>
-
-            </h1>
-
-
-            <p
-                class="
-                    text-sm
-                    sm:text-base
-                    text-indigo-100
-                    mt-3
-                "
-            >
-
-                เลือกซื้อสินค้าจากร้านค้าต่าง ๆ
-                พร้อมระบบจัดการคำสั่งซื้อและติดตามพัสดุ
-
-            </p>
-
-
-            <div
-                class="
-                    mt-6
-                    flex
-                    flex-wrap
-                    gap-3
-                "
-            >
-
-                <span
-                    class="
-                        px-3
-                        py-2
-                        rounded-xl
-                        bg-white/10
-                        text-xs
-                        font-semibold
-                    "
-                >
-
-                    <i
-                        class="
-                            fa-solid
-                            fa-shield-halved
-                            mr-1
-                            text-emerald-300
-                        "
-                    ></i>
-
-                    ร้านค้าที่ตรวจสอบแล้ว
-
-                </span>
-
-
-                <span
-                    class="
-                        px-3
-                        py-2
-                        rounded-xl
-                        bg-white/10
-                        text-xs
-                        font-semibold
-                    "
-                >
-
-                    <i
-                        class="
-                            fa-solid
-                            fa-truck-fast
-                            mr-1
-                            text-amber-300
-                        "
-                    ></i>
-
-                    ติดตามพัสดุได้
-
-                </span>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
-         SEARCH
-    ================================================= -->
-
-    <section class="mt-6">
-
-        <div class="relative">
-
-            <i
-                class="
-                    fa-solid
-                    fa-magnifying-glass
-                    absolute
-                    left-4
-                    top-4
-                    text-slate-400
-                "
-            ></i>
-
-
-            <input
-                id="search-input"
-                type="text"
-                placeholder="ค้นหาสินค้า หรือชื่อร้าน..."
-                autocomplete="off"
-                class="
-                    w-full
-                    bg-white
-                    border
-                    border-slate-200
-                    rounded-2xl
-                    pl-11
-                    pr-4
-                    py-3.5
-                    outline-none
-                    focus:ring-2
-                    focus:ring-indigo-500
-                    shadow-sm
-                "
-            >
-
-        </div>
-
-    </section>
-
-
-    <!-- =================================================
-         CATEGORY
-    ================================================= -->
-
-    <section
-        class="
-            mt-5
-            flex
-            gap-2
-            overflow-x-auto
-            pb-2
-        "
-    >
-
-        <button
-            type="button"
-            data-category="all"
-            class="
-                category-btn
-                shrink-0
-                bg-indigo-600
-                text-white
-                px-4
-                py-2
-                rounded-xl
-                text-xs
-                font-bold
-                whitespace-nowrap
-            "
-        >
-            🛍️ ทั้งหมด
-        </button>
-
-
-        <button
-            type="button"
-            data-category="electronics"
-            class="
-                category-btn
-                shrink-0
-                bg-white
-                border
-                border-slate-200
-                px-4
-                py-2
-                rounded-xl
-                text-xs
-                font-bold
-                whitespace-nowrap
-            "
-        >
-            📱 อิเล็กทรอนิกส์
-        </button>
-
-
-        <button
-            type="button"
-            data-category="fashion"
-            class="
-                category-btn
-                shrink-0
-                bg-white
-                border
-                border-slate-200
-                px-4
-                py-2
-                rounded-xl
-                text-xs
-                font-bold
-                whitespace-nowrap
-            "
-        >
-            👕 แฟชั่น
-        </button>
-
-
-        <button
-            type="button"
-            data-category="beauty"
-            class="
-                category-btn
-                shrink-0
-                bg-white
-                border
-                border-slate-200
-                px-4
-                py-2
-                rounded-xl
-                text-xs
-                font-bold
-                whitespace-nowrap
-            "
-        >
-            💄 ความงาม
-        </button>
-
-
-        <button
-            type="button"
-            data-category="books"
-            class="
-                category-btn
-                shrink-0
-                bg-white
-                border
-                border-slate-200
-                px-4
-                py-2
-                rounded-xl
-                text-xs
-                font-bold
-                whitespace-nowrap
-            "
-        >
-            📚 หนังสือและการเรียน
-        </button>
-
-
-        <button
-            type="button"
-            data-category="daily"
-            class="
-                category-btn
-                shrink-0
-                bg-white
-                border
-                border-slate-200
-                px-4
-                py-2
-                rounded-xl
-                text-xs
-                font-bold
-                whitespace-nowrap
-            "
-        >
-            🧴 ของใช้ประจำวัน
-        </button>
-
-
-        <button
-            type="button"
-            data-category="other"
-            class="
-                category-btn
-                shrink-0
-                bg-white
-                border
-                border-slate-200
-                px-4
-                py-2
-                rounded-xl
-                text-xs
-                font-bold
-                whitespace-nowrap
-            "
-        >
-            📦 อื่น ๆ
-        </button>
-
-    </section>
-
-
-    <!-- =================================================
-         PRODUCT HEADER
-    ================================================= -->
-
-    <section
-        class="
-            mt-6
-            flex
-            items-end
-            justify-between
-        "
-    >
-
-        <div>
-
-            <h2 class="text-xl font-black">
-                สินค้าแนะนำ
-            </h2>
-
-
-            <p
-                class="
-                    text-xs
-                    text-slate-400
-                    mt-1
-                "
-            >
-                สินค้าจากร้านค้าภายใน Marketplace
-            </p>
-
-        </div>
-
-
-        <span
-            id="product-count"
-            class="
-                text-xs
-                text-slate-400
-            "
-        >
-            0 สินค้า
-        </span>
-
-    </section>
-
-
-    <!-- =================================================
-         PRODUCT GRID
-    ================================================= -->
-
-    <section
-        id="product-grid"
-        class="
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            lg:grid-cols-4
-            gap-4
-            mt-4
-        "
-    ></section>
-
-</main>
-
-
-<!-- =====================================================
-     PRODUCT MODAL
-===================================================== -->
-
-<div
-    id="product-modal"
-    class="
-        hidden
-        fixed
-        inset-0
-        bg-slate-950/70
-        backdrop-blur-sm
-        z-[110]
-        p-4
-        overflow-y-auto
-    "
->
-
-    <div
-        class="
-            min-h-full
-            flex
-            items-center
-            justify-center
-        "
-    >
-
-        <div
-            id="product-modal-content"
-            class="
-                bg-white
-                w-full
-                max-w-2xl
-                rounded-3xl
-                shadow-2xl
-                overflow-hidden
-                modal-animation
-            "
-        ></div>
-
-    </div>
-
 </div>
 
+</div><script>
 
-<!-- =====================================================
-     CART MODAL
-===================================================== -->
+/* =====================================================
+   STATE
+===================================================== */
 
-<div
-    id="cart-modal"
-    class="
-        hidden
-        fixed
-        inset-0
-        bg-slate-950/60
-        backdrop-blur-sm
-        z-[100]
-        p-4
-    "
->
+let cart = [];
 
-    <div
-        class="
-            min-h-full
-            flex
-            items-center
-            justify-center
-        "
-    >
-
-        <div
-            class="
-                bg-white
-                w-full
-                max-w-lg
-                max-h-[85vh]
-                rounded-3xl
-                shadow-2xl
-                overflow-hidden
-            "
-        >
-
-            <!-- CART HEADER -->
-
-            <div
-                class="
-                    p-5
-                    border-b
-                    border-slate-100
-                    flex
-                    items-center
-                    justify-between
-                "
-            >
-
-                <div>
-
-                    <h2 class="font-black text-lg">
-                        🛒 ตะกร้าสินค้า
-                    </h2>
+let currentCategory = "all";
 
 
-                    <p
-                        id="cart-summary"
-                        class="
-                            text-xs
-                            text-slate-400
-                            mt-1
-                        "
-                    >
-                        0 รายการ
-                    </p>
 
-                </div>
+/* =====================================================
+   SAFE DATA
+===================================================== */
 
+/*
+    ป้องกันกรณี products.js หรือ shops.js
+    โหลดไม่ได้
+*/
 
-                <button
-                    type="button"
-                    id="close-cart-btn"
-                    class="
-                        w-9
-                        h-9
-                        rounded-xl
-                        bg-slate-100
-                        hover:bg-slate-200
-                    "
-                >
+function getProducts() {
 
-                    <i
-                        class="
-                            fa-solid
-                            fa-xmark
-                        "
-                    ></i>
+    if (typeof products === "undefined") {
 
-                </button>
+        return [];
 
-            </div>
+    }
+
+    if (!Array.isArray(products)) {
+
+        return [];
+
+    }
+
+    return products;
+
+}
 
 
-            <!-- CART ITEMS -->
+function getShops() {
 
-            <div
-                id="cart-items"
-                class="
-                    p-5
-                    space-y-3
-                    overflow-y-auto
-                    max-h-[50vh]
-                "
-            ></div>
+    if (typeof shops === "undefined") {
 
+        return [];
 
-            <!-- CART FOOTER -->
+    }
 
-            <div
-                class="
-                    p-5
-                    border-t
-                    border-slate-100
-                "
-            >
+    if (!Array.isArray(shops)) {
 
-                <div
-                    class="
-                        flex
-                        justify-between
-                        items-center
-                    "
-                >
+        return [];
 
-                    <span
-                        class="
-                            text-sm
-                            text-slate-500
-                        "
-                    >
-                        รวมทั้งหมด
-                    </span>
+    }
+
+    return shops;
+
+}
 
 
-                 
+
+/* =====================================================
+   GET SHOP
+===================================================== */
+
+function getShopById(shopId) {
+
+    const shopList = getShops();
+
+    return shopList.find(
+        shop =>
+            String(shop.id).trim() ===
+            String(shopId).trim()
+    );
+
+}
+
+
+
+/* =====================================================
+   GET PRODUCT
+===================================================== */
+
+function getProductById(productId) {
+
+    const productList = getProducts();
+
+    return productList.find(
+        product =>
+            String(product.id).trim() ===
+            String(productId).trim()
+    );
+
+}
+
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+
+/* =====================================================
+   IMAGE FALLBACK
+===================================================== */
+
+function imageFallback(type = "product") {
+
+    if (type === "shop") {
+
+        return "https://placehold.co/100x100/e2e8f0/64748b?text=Shop";
+
+    }
+
+    return "https://placehold.co/600x600/e2e8f0/64748b?text=No+Image";
+
+}
+
+
+
+/* =====================================================
+   SAVE CART
+===================================================== */
+
+function saveCart() {
+
+    try {
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Cannot save cart:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   LOAD CART
+===================================================== */
+
+function loadCart() {
+
+    try {
+
+        const savedCart =
+            localStorage.getItem("cart");
+
+
+        if (!savedCart) {
+
+            cart = [];
+
+            return;
+
+        }
+
+
+        const parsedCart =
+            JSON.parse(savedCart);
+
+
+        if (!Array.isArray(parsedCart)) {
+
+            cart = [];
+
+            return;
+
+        }
+
+
+        /*
+            ตรวจข้อมูลเก่า
+            และ normalize ID เป็น String
+        */
+
+        cart = parsedCart
+            .filter(item => item && item.id)
+            .map(item => ({
+
+                ...item,
+
+                id: String(item.id),
+
+                quantity:
+                    Math.max(
+                        1,
+                        parseInt(
+                            item.quantity,
+                            10
+                        ) || 1
+                    )
+
+            }));
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Cannot load cart:",
+            error
+        );
+
+        cart = [];
+
+    }
+
+}
+
+
+
+/* =====================================================
+   SHOW DATA ERROR
+===================================================== */
+
+function showDataError(message) {
+
+    const box =
+        document.getElementById(
+            "data-error"
+        );
+
+    const messageBox =
+        document.getElementById(
+            "data-error-message"
+        );
+
+
+    if (!box || !messageBox) {
+
+        return;
+
+    }
+
+
+    messageBox.innerText = message;
+
+    box.classList.remove("hidden");
+
+}
+
+
+
+/* =====================================================
+   HIDE DATA ERROR
+===================================================== */
+
+function hideDataError() {
+
+    const box =
+        document.getElementById(
+            "data-error"
+        );
+
+
+    if (box) {
+
+        box.classList.add("hidden");
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RENDER PRODUCTS
+======================
