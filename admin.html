@@ -3,20 +3,31 @@
 <html lang="th">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Admin | Delivery Risk Market</title>
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
+
+<title>Admin Dashboard | Delivery Risk Market</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
 
-<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet">
+<link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
 <style>
+
 * {
     box-sizing: border-box;
 }
@@ -30,7 +41,7 @@ body {
 }
 
 .card:hover {
-    box-shadow: 0 12px 30px rgba(15,23,42,.07);
+    box-shadow: 0 12px 30px rgba(15,23,42,.08);
 }
 
 .modal-animation {
@@ -50,31 +61,22 @@ body {
 }
 
 .bar {
-    transition: height .4s ease;
+    transition: height .5s ease;
 }
 
 ::-webkit-scrollbar {
     width: 7px;
 }
 
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
 ::-webkit-scrollbar-thumb {
     background: #cbd5e1;
-    border-radius: 99px;
+    border-radius: 999px;
 }
 
-.line-clamp-1 {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
 </style>
 
 </head>
@@ -88,20 +90,28 @@ body {
 <nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
 
 ```
-<div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+<div
+    class="max-w-7xl mx-auto px-4 py-3
+    flex items-center justify-between gap-4"
+>
 
-    <a href="shop.html"
-       class="flex items-center gap-3">
+    <a
+        href="shop.html"
+        class="flex items-center gap-3"
+    >
 
-        <div class="w-10 h-10 rounded-xl
-                    bg-gradient-to-br from-indigo-500 to-indigo-700
-                    flex items-center justify-center">
+        <div
+            class="w-10 h-10 rounded-xl
+            bg-gradient-to-br from-indigo-500 to-indigo-700
+            flex items-center justify-center"
+        >
 
             <i class="fa-solid fa-store text-amber-300"></i>
 
         </div>
 
         <div>
+
             <p class="font-black text-sm">
                 Delivery Risk Market
             </p>
@@ -109,34 +119,40 @@ body {
             <p class="text-[10px] text-slate-400">
                 Admin Dashboard
             </p>
+
         </div>
 
     </a>
 
+
     <div class="flex items-center gap-2">
 
-        <a href="shop.html"
-           class="hidden sm:flex items-center gap-2
-                  px-3 py-2 rounded-xl
-                  text-xs font-bold text-slate-300
-                  hover:text-white hover:bg-white/10">
+        <a
+            href="shop.html"
+            class="hidden sm:flex items-center gap-2
+            px-3 py-2 rounded-xl
+            text-xs font-bold text-slate-300
+            hover:text-white hover:bg-white/10"
+        >
 
             <i class="fa-solid fa-store"></i>
+
             ร้านค้า
 
         </a>
 
-        <a href="orders.html"
-           class="flex items-center gap-2
-                  px-3 py-2 rounded-xl
-                  bg-indigo-600 hover:bg-indigo-500
-                  text-xs font-bold">
+
+        <a
+            href="orders.html"
+            class="flex items-center gap-2
+            px-3 py-2 rounded-xl
+            bg-indigo-600 hover:bg-indigo-500
+            text-xs font-bold"
+        >
 
             <i class="fa-solid fa-receipt"></i>
 
-            <span class="hidden sm:inline">
-                คำสั่งซื้อ
-            </span>
+            คำสั่งซื้อ
 
         </a>
 
@@ -151,50 +167,107 @@ body {
      MAIN
 ====================================================== -->
 
-<main class="max-w-7xl mx-auto px-4 py-6 pb-16">
+<main
+    class="max-w-7xl mx-auto px-4 py-6 pb-16"
+>
 
 ```
-<!-- HEADER -->
+<!-- =================================================
+     HEADER
+================================================== -->
 
-<div class="flex flex-col lg:flex-row lg:items-center
-            justify-between gap-4 mb-6">
+<div
+    class="flex flex-col lg:flex-row
+    lg:items-center lg:justify-between
+    gap-4 mb-6"
+>
 
     <div>
 
-        <p class="text-xs font-bold text-indigo-600">
-            ADMIN CONTROL CENTER
-        </p>
+        <div
+            class="inline-flex items-center gap-2
+            px-3 py-1.5 rounded-full
+            bg-indigo-50 text-indigo-600
+            text-[10px] font-black"
+        >
 
-        <h1 class="text-2xl sm:text-3xl font-black mt-1">
+            <i class="fa-solid fa-shield-halved"></i>
+
+            ADMIN CONTROL CENTER
+
+        </div>
+
+
+        <h1
+            class="text-2xl sm:text-3xl
+            font-black mt-3"
+        >
+
             จัดการระบบ
+
         </h1>
 
+
         <p class="text-sm text-slate-500 mt-1">
-            จัดการคำสั่งซื้อ ลูกค้า Blacklist และข้อมูลระบบ
+
+            จัดการลูกค้า Blacklist คำสั่งซื้อ
+            และวิเคราะห์ความเสี่ยง
+
         </p>
 
     </div>
 
+
     <div class="flex flex-wrap gap-2">
 
-        <button onclick="openImportModal()"
-                class="px-4 py-2.5 rounded-xl
-                       bg-white border border-slate-200
-                       hover:border-indigo-300
-                       text-sm font-bold">
+        <button
+            onclick="exportCSV()"
+            class="px-4 py-3 rounded-2xl
+            bg-emerald-600 hover:bg-emerald-700
+            text-white text-sm font-bold"
+        >
 
-            <i class="fa-solid fa-file-import mr-1"></i>
-            นำเข้า CSV
+            <i class="fa-solid fa-file-export mr-1"></i>
+
+            Export CSV
 
         </button>
 
-        <button onclick="exportOrdersCSV()"
-                class="px-4 py-2.5 rounded-xl
-                       bg-indigo-600 hover:bg-indigo-700
-                       text-white text-sm font-bold">
 
-            <i class="fa-solid fa-file-export mr-1"></i>
-            ส่งออก CSV
+        <label
+            class="cursor-pointer
+            px-4 py-3 rounded-2xl
+            bg-indigo-600 hover:bg-indigo-700
+            text-white text-sm font-bold"
+        >
+
+            <i class="fa-solid fa-file-import mr-1"></i>
+
+            Import CSV
+
+            <input
+                type="file"
+                id="csv-input"
+                accept=".csv,text/csv"
+                class="hidden"
+                onchange="importCSV(event)"
+            >
+
+        </label>
+
+
+        <button
+            onclick="resetInitialData()"
+            class="px-4 py-3 rounded-2xl
+            bg-white border border-slate-200
+            hover:border-rose-300
+            hover:text-rose-600
+            text-sm font-bold"
+        >
+
+            <i class="fa-solid fa-rotate-left mr-1"></i>
+
+            รีเซ็ตข้อมูล
 
         </button>
 
@@ -203,190 +276,153 @@ body {
 </div>
 
 
+
 <!-- =================================================
      STAT CARDS
 ================================================== -->
 
-<section class="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+<section
+    class="grid grid-cols-1
+    sm:grid-cols-2
+    lg:grid-cols-4
+    gap-4 mb-6"
+>
 
-    <div class="card bg-white rounded-2xl border border-slate-200 p-5">
+    <div class="card bg-white rounded-3xl border border-slate-200 p-5">
 
-        <div class="flex items-center justify-between">
+        <div class="flex justify-between items-center">
 
-            <div class="w-10 h-10 rounded-xl
-                        bg-indigo-50 text-indigo-600
-                        flex items-center justify-center">
+            <div>
 
-                <i class="fa-solid fa-receipt"></i>
+                <p class="text-xs text-slate-400">
+                    ลูกค้าทั้งหมด
+                </p>
+
+                <p
+                    id="stat-customers"
+                    class="text-3xl font-black mt-1"
+                >
+                    0
+                </p>
 
             </div>
 
-            <span class="text-[10px] font-bold text-slate-400">
-                ORDERS
-            </span>
 
-        </div>
-
-        <p id="stat-orders"
-           class="text-2xl font-black mt-4">
-            0
-        </p>
-
-        <p class="text-xs text-slate-400">
-            คำสั่งซื้อทั้งหมด
-        </p>
-
-    </div>
-
-
-    <div class="card bg-white rounded-2xl border border-slate-200 p-5">
-
-        <div class="flex items-center justify-between">
-
-            <div class="w-10 h-10 rounded-xl
-                        bg-emerald-50 text-emerald-600
-                        flex items-center justify-center">
+            <div
+                class="w-12 h-12 rounded-2xl
+                bg-indigo-50 text-indigo-600
+                flex items-center justify-center"
+            >
 
                 <i class="fa-solid fa-users"></i>
 
             </div>
 
-            <span class="text-[10px] font-bold text-slate-400">
-                CUSTOMERS
-            </span>
-
         </div>
-
-        <p id="stat-customers"
-           class="text-2xl font-black mt-4">
-            0
-        </p>
-
-        <p class="text-xs text-slate-400">
-            ลูกค้า
-        </p>
 
     </div>
 
 
-    <div class="card bg-white rounded-2xl border border-slate-200 p-5">
+    <div class="card bg-white rounded-3xl border border-slate-200 p-5">
 
-        <div class="flex items-center justify-between">
+        <div class="flex justify-between items-center">
 
-            <div class="w-10 h-10 rounded-xl
-                        bg-amber-50 text-amber-600
-                        flex items-center justify-center">
+            <div>
 
-                <i class="fa-solid fa-baht-sign"></i>
+                <p class="text-xs text-slate-400">
+                    สำเร็จทั้งหมด
+                </p>
+
+                <p
+                    id="stat-success"
+                    class="text-3xl font-black mt-1 text-emerald-600"
+                >
+                    0
+                </p>
 
             </div>
 
-            <span class="text-[10px] font-bold text-slate-400">
-                SALES
-            </span>
+
+            <div
+                class="w-12 h-12 rounded-2xl
+                bg-emerald-50 text-emerald-600
+                flex items-center justify-center"
+            >
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
 
         </div>
-
-        <p id="stat-sales"
-           class="text-xl sm:text-2xl font-black mt-4">
-            ฿0
-        </p>
-
-        <p class="text-xs text-slate-400">
-            ยอดขายรวม
-        </p>
 
     </div>
 
 
-    <div class="card bg-white rounded-2xl border border-slate-200 p-5">
+    <div class="card bg-white rounded-3xl border border-slate-200 p-5">
 
-        <div class="flex items-center justify-between">
+        <div class="flex justify-between items-center">
 
-            <div class="w-10 h-10 rounded-xl
-                        bg-rose-50 text-rose-600
-                        flex items-center justify-center">
+            <div>
+
+                <p class="text-xs text-slate-400">
+                    ล้มเหลวทั้งหมด
+                </p>
+
+                <p
+                    id="stat-failed"
+                    class="text-3xl font-black mt-1 text-rose-600"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <div
+                class="w-12 h-12 rounded-2xl
+                bg-rose-50 text-rose-600
+                flex items-center justify-center"
+            >
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card bg-white rounded-3xl border border-slate-200 p-5">
+
+        <div class="flex justify-between items-center">
+
+            <div>
+
+                <p class="text-xs text-slate-400">
+                    Blacklist
+                </p>
+
+                <p
+                    id="stat-blacklist"
+                    class="text-3xl font-black mt-1 text-amber-600"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <div
+                class="w-12 h-12 rounded-2xl
+                bg-amber-50 text-amber-600
+                flex items-center justify-center"
+            >
 
                 <i class="fa-solid fa-ban"></i>
 
             </div>
 
-            <span class="text-[10px] font-bold text-slate-400">
-                BLACKLIST
-            </span>
-
-        </div>
-
-        <p id="stat-blacklist"
-           class="text-2xl font-black mt-4">
-            0
-        </p>
-
-        <p class="text-xs text-slate-400">
-            ลูกค้าที่ถูกระงับ
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- =================================================
-     CHART + STATUS
-================================================== -->
-
-<section class="grid lg:grid-cols-3 gap-5 mb-5">
-
-    <!-- CHART -->
-
-    <div class="lg:col-span-2 bg-white rounded-3xl
-                border border-slate-200 p-5 sm:p-6">
-
-        <div class="flex items-center justify-between mb-5">
-
-            <div>
-
-                <h2 class="font-black text-lg">
-                    ภาพรวมคำสั่งซื้อ
-                </h2>
-
-                <p class="text-xs text-slate-400 mt-1">
-                    จำนวนคำสั่งซื้อตามสถานะ
-                </p>
-
-            </div>
-
-            <i class="fa-solid fa-chart-column
-                      text-indigo-500 text-xl"></i>
-
-        </div>
-
-        <div id="chart"
-             class="h-64 flex items-end
-                    justify-around gap-3
-                    border-b border-slate-100
-                    px-2">
-
-        </div>
-
-    </div>
-
-
-    <!-- STATUS -->
-
-    <div class="bg-white rounded-3xl
-                border border-slate-200 p-5 sm:p-6">
-
-        <h2 class="font-black text-lg">
-            สถานะคำสั่งซื้อ
-        </h2>
-
-        <p class="text-xs text-slate-400 mt-1">
-            สรุปสถานะปัจจุบัน
-        </p>
-
-        <div id="status-summary"
-             class="space-y-3 mt-5">
         </div>
 
     </div>
@@ -394,72 +430,219 @@ body {
 </section>
 
 
+
 <!-- =================================================
-     BLACKLIST
+     CHART
 ================================================== -->
 
-<section class="bg-white rounded-3xl
-                border border-slate-200
-                p-5 sm:p-6 mb-5">
+<section
+    class="bg-white rounded-3xl
+    border border-slate-200
+    p-5 sm:p-6 mb-6"
+>
 
-    <div class="flex flex-col sm:flex-row
-                sm:items-center justify-between
-                gap-3 mb-5">
+    <div
+        class="flex flex-col sm:flex-row
+        sm:items-center sm:justify-between
+        gap-3 mb-6"
+    >
 
         <div>
 
             <h2 class="font-black text-lg">
 
-                <i class="fa-solid fa-ban text-rose-500 mr-1"></i>
+                <i
+                    class="fa-solid fa-chart-column
+                    text-indigo-600 mr-1"
+                ></i>
 
-                Blacklist
+                สถิติการจัดส่ง
 
             </h2>
 
             <p class="text-xs text-slate-400 mt-1">
-                จัดการลูกค้าที่ถูกระงับการใช้งาน
+
+                เปรียบเทียบจำนวนรายการสำเร็จและล้มเหลวของลูกค้า
+
             </p>
 
         </div>
 
-        <button onclick="openBlacklistModal()"
-                class="px-4 py-2.5 rounded-xl
-                       bg-rose-600 hover:bg-rose-700
-                       text-white text-sm font-bold">
 
-            <i class="fa-solid fa-user-slash mr-1"></i>
-            เพิ่ม Blacklist
+        <div class="flex gap-4 text-xs font-bold">
 
-        </button>
+            <span class="text-emerald-600">
+
+                <i class="fa-solid fa-square mr-1"></i>
+                สำเร็จ
+
+            </span>
+
+            <span class="text-rose-600">
+
+                <i class="fa-solid fa-square mr-1"></i>
+                ล้มเหลว
+
+            </span>
+
+        </div>
 
     </div>
 
+
+    <div
+        id="chart"
+        class="h-72 overflow-x-auto"
+    ></div>
+
+</section>
+
+
+
+<!-- =================================================
+     CUSTOMER MANAGEMENT
+================================================== -->
+
+<section
+    class="bg-white rounded-3xl
+    border border-slate-200
+    overflow-hidden"
+>
+
+    <div
+        class="p-5 sm:p-6
+        border-b border-slate-100"
+    >
+
+        <div
+            class="flex flex-col lg:flex-row
+            lg:items-center
+            lg:justify-between
+            gap-4"
+        >
+
+            <div>
+
+                <h2 class="font-black text-lg">
+
+                    <i
+                        class="fa-solid fa-users
+                        text-indigo-600 mr-1"
+                    ></i>
+
+                    รายชื่อลูกค้า
+
+                </h2>
+
+                <p
+                    id="customer-count-label"
+                    class="text-xs text-slate-400 mt-1"
+                >
+                    0 คน
+                </p>
+
+            </div>
+
+
+            <div
+                class="flex flex-col sm:flex-row
+                gap-2"
+            >
+
+                <div class="relative">
+
+                    <i
+                        class="fa-solid fa-magnifying-glass
+                        absolute left-3 top-1/2
+                        -translate-y-1/2
+                        text-slate-400 text-sm"
+                    ></i>
+
+                    <input
+                        id="search-input"
+                        type="text"
+                        placeholder="ค้นหาชื่อลูกค้า..."
+                        oninput="renderCustomers()"
+                        class="w-full sm:w-64
+                        pl-9 pr-4 py-3
+                        rounded-2xl
+                        bg-slate-100
+                        border border-transparent
+                        focus:bg-white
+                        focus:border-indigo-300
+                        outline-none text-sm"
+                    >
+
+                </div>
+
+
+                <select
+                    id="filter-select"
+                    onchange="renderCustomers()"
+                    class="px-4 py-3
+                    rounded-2xl
+                    bg-slate-100
+                    border border-transparent
+                    outline-none
+                    text-sm font-bold"
+                >
+
+                    <option value="all">
+                        ลูกค้าทั้งหมด
+                    </option>
+
+                    <option value="blacklist">
+                        Blacklist
+                    </option>
+
+                    <option value="normal">
+                        ปกติ
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TABLE -->
 
     <div class="overflow-x-auto">
 
         <table class="w-full text-sm">
 
-            <thead>
+            <thead class="bg-slate-50">
 
-                <tr class="border-b border-slate-100 text-left">
+                <tr>
 
-                    <th class="py-3 px-2">
+                    <th class="text-left px-5 py-4 font-bold text-slate-500">
                         ลูกค้า
                     </th>
 
-                    <th class="py-3 px-2">
-                        เบอร์โทร
+                    <th class="text-center px-4 py-4 font-bold text-slate-500">
+                        สำเร็จ
                     </th>
 
-                    <th class="py-3 px-2">
-                        เหตุผล
+                    <th class="text-center px-4 py-4 font-bold text-slate-500">
+                        ล้มเหลว
                     </th>
 
-                    <th class="py-3 px-2">
-                        วันที่
+                    <th class="text-center px-4 py-4 font-bold text-slate-500">
+                        ทั้งหมด
                     </th>
 
-                    <th class="py-3 px-2 text-right">
+                    <th class="text-center px-4 py-4 font-bold text-slate-500">
+                        อัตราสำเร็จ
+                    </th>
+
+                    <th class="text-center px-4 py-4 font-bold text-slate-500">
+                        สถานะ
+                    </th>
+
+                    <th class="text-right px-5 py-4 font-bold text-slate-500">
                         จัดการ
                     </th>
 
@@ -467,106 +650,162 @@ body {
 
             </thead>
 
-            <tbody id="blacklist-table"></tbody>
+
+            <tbody
+                id="customer-table"
+                class="divide-y divide-slate-100"
+            ></tbody>
 
         </table>
+
+    </div>
+
+
+    <div
+        id="empty-customers"
+        class="hidden text-center py-12"
+    >
+
+        <i
+            class="fa-solid fa-users-slash
+            text-4xl text-slate-200"
+        ></i>
+
+        <p class="text-sm text-slate-400 mt-3">
+
+            ไม่พบลูกค้าที่ค้นหา
+
+        </p>
 
     </div>
 
 </section>
 
 
+
 <!-- =================================================
-     CUSTOMERS
+     BLACKLIST
 ================================================== -->
 
-<section class="bg-white rounded-3xl
-                border border-slate-200
-                p-5 sm:p-6">
+<section
+    class="bg-white rounded-3xl
+    border border-slate-200
+    p-5 sm:p-6 mt-6"
+>
 
-    <div class="flex flex-col lg:flex-row
-                lg:items-center
-                justify-between gap-4 mb-5">
+    <div
+        class="flex items-center justify-between
+        gap-3 mb-5"
+    >
 
         <div>
 
             <h2 class="font-black text-lg">
 
-                <i class="fa-solid fa-users text-indigo-500 mr-1"></i>
+                <i
+                    class="fa-solid fa-ban
+                    text-rose-600 mr-1"
+                ></i>
 
-                รายชื่อลูกค้า
+                Blacklist
 
             </h2>
 
             <p class="text-xs text-slate-400 mt-1">
-                ดูข้อมูลลูกค้าจากคำสั่งซื้อ
+
+                รายชื่อลูกค้าที่ถูกระงับหรือเฝ้าระวัง
+
             </p>
 
         </div>
 
-        <div class="relative w-full lg:w-80">
+        <span
+            id="blacklist-badge"
+            class="px-3 py-1.5
+            rounded-full
+            bg-rose-50
+            text-rose-600
+            text-xs font-black"
+        >
+            0 ราย
+        </span>
 
-            <i class="fa-solid fa-search
-                      absolute left-3 top-3
-                      text-slate-400 text-sm"></i>
+    </div>
 
-            <input id="customer-search"
-                   type="text"
-                   placeholder="ค้นหาชื่อ / เบอร์โทร / ที่อยู่"
-                   oninput="renderCustomers()"
-                   class="w-full pl-9 pr-4 py-2.5
-                          rounded-xl
-                          bg-slate-50
-                          border border-slate-200
-                          outline-none
-                          focus:border-indigo-400">
+
+    <div
+        id="blacklist-list"
+        class="space-y-3"
+    ></div>
+
+</section>
+
+
+
+<!-- =================================================
+     ORDERS SUMMARY
+================================================== -->
+
+<section
+    class="bg-white rounded-3xl
+    border border-slate-200
+    p-5 sm:p-6 mt-6"
+>
+
+    <div
+        class="flex items-center justify-between
+        gap-3 mb-5"
+    >
+
+        <div>
+
+            <h2 class="font-black text-lg">
+
+                <i
+                    class="fa-solid fa-boxes-stacked
+                    text-indigo-600 mr-1"
+                ></i>
+
+                คำสั่งซื้อในระบบ
+
+            </h2>
+
+            <p
+                id="orders-summary"
+                class="text-xs text-slate-400 mt-1"
+            >
+                -
+            </p>
 
         </div>
 
-    </div>
 
+        <a
+            href="orders.html"
+            class="px-4 py-2.5
+            rounded-xl
+            bg-indigo-50
+            text-indigo-600
+            text-xs font-bold"
+        >
 
-    <div class="overflow-x-auto">
+            ดูคำสั่งซื้อ
 
-        <table class="w-full text-sm">
+            <i class="fa-solid fa-arrow-right ml-1"></i>
 
-            <thead>
-
-                <tr class="border-b border-slate-100 text-left">
-
-                    <th class="py-3 px-2">
-                        ลูกค้า
-                    </th>
-
-                    <th class="py-3 px-2">
-                        เบอร์โทร
-                    </th>
-
-                    <th class="py-3 px-2">
-                        จำนวนออเดอร์
-                    </th>
-
-                    <th class="py-3 px-2">
-                        ยอดซื้อ
-                    </th>
-
-                    <th class="py-3 px-2">
-                        สถานะ
-                    </th>
-
-                    <th class="py-3 px-2 text-right">
-                        ดู
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="customers-table"></tbody>
-
-        </table>
+        </a>
 
     </div>
+
+
+    <div
+        id="orders-admin-list"
+        class="grid
+        grid-cols-1
+        md:grid-cols-2
+        lg:grid-cols-3
+        gap-3"
+    ></div>
 
 </section>
 ```
@@ -574,183 +813,56 @@ body {
 </main>
 
 <!-- =====================================================
-     IMPORT MODAL
-====================================================== -->
-
-<div id="import-modal"
-     class="hidden fixed inset-0
-            bg-slate-950/60
-            z-[100]
-            items-center justify-center
-            p-4">
-
-```
-<div class="modal-animation
-            bg-white rounded-3xl
-            max-w-lg w-full p-6">
-
-    <div class="flex items-center justify-between">
-
-        <h2 class="font-black text-lg">
-            นำเข้าข้อมูล CSV
-        </h2>
-
-        <button onclick="closeImportModal()"
-                class="w-9 h-9 rounded-xl
-                       bg-slate-100 hover:bg-slate-200">
-
-            <i class="fa-solid fa-xmark"></i>
-
-        </button>
-
-    </div>
-
-    <p class="text-xs text-slate-400 mt-2">
-        CSV ต้องมีหัวคอลัมน์ เช่น id, customerName, phone, address, total, status
-    </p>
-
-    <input id="csv-file"
-           type="file"
-           accept=".csv,text/csv"
-           class="w-full mt-5
-                  border border-slate-200
-                  rounded-xl p-3 text-sm">
-
-    <div class="flex gap-2 mt-5">
-
-        <button onclick="importCSV()"
-                class="flex-1 py-3 rounded-xl
-                       bg-indigo-600
-                       hover:bg-indigo-700
-                       text-white font-bold">
-
-            นำเข้า
-
-        </button>
-
-        <button onclick="closeImportModal()"
-                class="flex-1 py-3 rounded-xl
-                       bg-slate-100
-                       hover:bg-slate-200
-                       font-bold">
-
-            ยกเลิก
-
-        </button>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<!-- =====================================================
-     BLACKLIST MODAL
-====================================================== -->
-
-<div id="blacklist-modal"
-     class="hidden fixed inset-0
-            bg-slate-950/60
-            z-[100]
-            items-center justify-center
-            p-4">
-
-```
-<div class="modal-animation
-            bg-white rounded-3xl
-            max-w-lg w-full p-6">
-
-    <div class="flex items-center justify-between">
-
-        <h2 class="font-black text-lg">
-            เพิ่ม Blacklist
-        </h2>
-
-        <button onclick="closeBlacklistModal()"
-                class="w-9 h-9 rounded-xl
-                       bg-slate-100">
-
-            <i class="fa-solid fa-xmark"></i>
-
-        </button>
-
-    </div>
-
-    <div class="space-y-3 mt-5">
-
-        <input id="blacklist-name"
-               placeholder="ชื่อลูกค้า"
-               class="w-full px-4 py-3 rounded-xl
-                      bg-slate-50 border border-slate-200">
-
-        <input id="blacklist-phone"
-               placeholder="เบอร์โทรศัพท์"
-               class="w-full px-4 py-3 rounded-xl
-                      bg-slate-50 border border-slate-200">
-
-        <textarea id="blacklist-reason"
-                  rows="3"
-                  placeholder="เหตุผลที่ระงับ"
-                  class="w-full px-4 py-3 rounded-xl
-                         bg-slate-50 border border-slate-200"></textarea>
-
-    </div>
-
-    <div class="flex gap-2 mt-5">
-
-        <button onclick="saveBlacklist()"
-                class="flex-1 py-3 rounded-xl
-                       bg-rose-600
-                       hover:bg-rose-700
-                       text-white font-bold">
-
-            <i class="fa-solid fa-ban mr-1"></i>
-            เพิ่ม Blacklist
-
-        </button>
-
-        <button onclick="closeBlacklistModal()"
-                class="flex-1 py-3 rounded-xl
-                       bg-slate-100
-                       font-bold">
-
-            ยกเลิก
-
-        </button>
-
-    </div>
-
-</div>
-```
-
-</div>
-
-<!-- =====================================================
      CUSTOMER MODAL
 ====================================================== -->
 
-<div id="customer-modal"
-     class="hidden fixed inset-0
-            bg-slate-950/60
-            z-[100]
-            items-center justify-center
-            p-4">
+<div
+    id="customer-modal"
+    class="hidden fixed inset-0 z-[100]
+    bg-slate-950/60
+    p-4
+    items-center justify-center"
+>
 
 ```
-<div class="modal-animation
-            bg-white rounded-3xl
-            max-w-lg w-full p-6">
+<div
+    class="modal-animation
+    bg-white
+    rounded-3xl
+    w-full max-w-lg
+    max-h-[90vh]
+    overflow-y-auto
+    shadow-2xl"
+>
 
-    <div class="flex items-center justify-between">
+    <div
+        class="p-5
+        border-b border-slate-100
+        flex items-center justify-between"
+    >
 
-        <h2 class="font-black text-lg">
-            รายละเอียดลูกค้า
-        </h2>
+        <div>
 
-        <button onclick="closeCustomerModal()"
-                class="w-9 h-9 rounded-xl
-                       bg-slate-100">
+            <p class="text-[10px] text-slate-400">
+                CUSTOMER DETAILS
+            </p>
+
+            <h2
+                id="modal-name"
+                class="font-black text-xl mt-1"
+            >
+                -
+            </h2>
+
+        </div>
+
+
+        <button
+            onclick="closeModal()"
+            class="w-10 h-10 rounded-xl
+            bg-slate-100
+            hover:bg-slate-200"
+        >
 
             <i class="fa-solid fa-xmark"></i>
 
@@ -758,8 +870,144 @@ body {
 
     </div>
 
-    <div id="customer-detail"
-         class="mt-5">
+
+    <div class="p-5">
+
+        <div
+            class="grid grid-cols-2
+            gap-3 mb-5"
+        >
+
+            <div class="bg-emerald-50 rounded-2xl p-4">
+
+                <p class="text-xs text-emerald-600">
+                    สำเร็จ
+                </p>
+
+                <p
+                    id="modal-success"
+                    class="text-2xl font-black text-emerald-700"
+                >
+                    0
+                </p>
+
+            </div>
+
+
+            <div class="bg-rose-50 rounded-2xl p-4">
+
+                <p class="text-xs text-rose-600">
+                    ล้มเหลว
+                </p>
+
+                <p
+                    id="modal-failed"
+                    class="text-2xl font-black text-rose-700"
+                >
+                    0
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="space-y-4">
+
+            <div>
+
+                <label
+                    class="text-xs
+                    font-bold
+                    text-slate-500"
+                >
+                    สถานะ Blacklist
+                </label>
+
+                <select
+                    id="modal-blacklist"
+                    class="w-full mt-2
+                    px-4 py-3
+                    rounded-2xl
+                    bg-slate-100
+                    border border-slate-200
+                    outline-none"
+                >
+
+                    <option value="false">
+                        ปกติ
+                    </option>
+
+                    <option value="true">
+                        Blacklist
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label
+                    class="text-xs
+                    font-bold
+                    text-slate-500"
+                >
+                    เหตุผล Blacklist
+                </label>
+
+                <textarea
+                    id="modal-reason"
+                    rows="4"
+                    placeholder="ระบุเหตุผล..."
+                    class="w-full mt-2
+                    px-4 py-3
+                    rounded-2xl
+                    bg-slate-100
+                    border border-slate-200
+                    outline-none resize-none"
+                ></textarea>
+
+            </div>
+
+        </div>
+
+
+        <div class="flex gap-2 mt-5">
+
+            <button
+                onclick="saveCustomerChanges()"
+                class="flex-1 py-3
+                rounded-2xl
+                bg-indigo-600
+                hover:bg-indigo-700
+                text-white
+                font-bold"
+            >
+
+                <i class="fa-solid fa-floppy-disk mr-1"></i>
+
+                บันทึก
+
+            </button>
+
+
+            <button
+                onclick="closeModal()"
+                class="px-5 py-3
+                rounded-2xl
+                bg-slate-100
+                hover:bg-slate-200
+                font-bold"
+            >
+
+                ยกเลิก
+
+            </button>
+
+        </div>
+
     </div>
 
 </div>
@@ -767,19 +1015,118 @@ body {
 
 </div>
 
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
 <script>
+
+/* =====================================================
+   INITIAL CUSTOMER DATA
+===================================================== */
+
+const initialUserData = [
+
+    { id: 1, name: "ธณกร", success: 28, failed: 27, total: 55, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 2, name: "นรินทร์", success: 59, failed: 16, total: 75, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 3, name: "ปาลิดา", success: 28, failed: 2, total: 30, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 4, name: "นฤบดินทร์", success: 140, failed: 0, total: 140, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 5, name: "เพชรทักษิณ", success: 41, failed: 21, total: 62, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 6, name: "มินติยา", success: 38, failed: 1, total: 39, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 7, name: "ญาณิณ", success: 1, failed: 1, total: 2, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 8, name: "อนันทพร", success: 32, failed: 4, total: 36, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 9, name: "ชลดา", success: 8, failed: 10, total: 18, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 10, name: "วรโชติ", success: 53, failed: 9, total: 62, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 11, name: "กิตติคุณ", success: 47, failed: 13, total: 60, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 12, name: "ปัณณิชาภรณ์", success: 1, failed: 0, total: 1, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 13, name: "พรเมธี", success: 12, failed: 23, total: 35, isBlacklisted: true, blacklistReason: "ปฏิเสธการชำระเงิน COD และปิดเครื่องใส่พนักงานขนส่ง 3 ครั้งติด" },
+
+    { id: 14, name: "อารยา", success: 14, failed: 9, total: 23, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 15, name: "ชลธิศ", success: 28, failed: 19, total: 47, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 16, name: "ปิยะฉัตร", success: 20, failed: 7, total: 27, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 17, name: "จิรายุ", success: 36, failed: 16, total: 52, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 18, name: "แอลวิน", success: 0, failed: 13, total: 13, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 19, name: "เกศณี", success: 19, failed: 9, total: 28, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 20, name: "ระภีภัทร", success: 60, failed: 2, total: 62, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 21, name: "กีรติ", success: 23, failed: 4, total: 27, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 22, name: "ปิณณิชาภรณ์", success: 74, failed: 5, total: 79, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 23, name: "สิงหรัตน์", success: 44, failed: 8, total: 52, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 24, name: "ขติยา", success: 2, failed: 0, total: 2, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 25, name: "ธัญธร", success: 33, failed: 20, total: 53, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 26, name: "ธีรภัทร์", success: 30, failed: 8, total: 38, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 27, name: "จรรยาภรณ์", success: 64, failed: 9, total: 73, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 28, name: "กมลรัตน์", success: 10, failed: 9, total: 19, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 29, name: "อารยาพร", success: 24, failed: 15, total: 39, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 30, name: "ประภาพร", success: 45, failed: 15, total: 60, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 31, name: "นิภาพร", success: 24, failed: 24, total: 48, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 32, name: "อริษา", success: 25, failed: 13, total: 38, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 33, name: "มินทร์ลดา", success: 25, failed: 0, total: 25, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 34, name: "ปนัดดา", success: 41, failed: 0, total: 41, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 35, name: "บัญญพนธ์", success: 4, failed: 4, total: 8, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 36, name: "วันวิสา", success: 16, failed: 6, total: 22, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 37, name: "ณัฐนิชา", success: 16, failed: 12, total: 28, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 38, name: "ยาซีน", success: 14, failed: 35, total: 49, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 39, name: "ศุภวิชญ์", success: 20, failed: 17, total: 37, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 40, name: "พฤฒิตนัย", success: 20, failed: 12, total: 32, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 41, name: "ศุภชัย", success: 37, failed: 21, total: 58, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 42, name: "สิริกร", success: 1, failed: 1, total: 2, isBlacklisted: false, blacklistReason: "" },
+
+    { id: 43, name: "คอปเปอร์", success: 100, failed: 0, total: 100, isBlacklisted: false, blacklistReason: "" }
+
+];
+
 
 /* =====================================================
    STATE
 ===================================================== */
 
-let orders = [];
-let blacklist = [];
 let customers = [];
+
+let editingCustomerId = null;
 
 
 /* =====================================================
-   HELPERS
+   ESCAPE HTML
 ===================================================== */
 
 function escapeHTML(value) {
@@ -794,227 +1141,101 @@ function escapeHTML(value) {
 }
 
 
-function formatMoney(value) {
-
-    return "฿" +
-        (Number(value) || 0)
-        .toLocaleString("th-TH");
-
-}
-
-
-function formatDate(value) {
-
-    if (!value) return "-";
-
-    const date = new Date(value);
-
-    if (isNaN(date.getTime())) return "-";
-
-    return date.toLocaleDateString(
-        "th-TH",
-        {
-            year: "numeric",
-            month: "short",
-            day: "numeric"
-        }
-    );
-
-}
-
-
 /* =====================================================
-   LOAD DATA
+   LOAD CUSTOMERS
 ===================================================== */
 
-function loadData() {
+function loadCustomers() {
 
     try {
 
-        const savedOrders =
-            localStorage.getItem("orders");
+        const saved =
+            localStorage.getItem("customerData");
 
-        orders = savedOrders
-            ? JSON.parse(savedOrders)
-            : [];
+        if (saved) {
 
-        if (!Array.isArray(orders)) {
-            orders = [];
+            const parsed =
+                JSON.parse(saved);
+
+            if (Array.isArray(parsed)) {
+
+                customers =
+                    normalizeCustomers(parsed);
+
+                saveCustomers();
+
+                return;
+
+            }
+
         }
-
-    } catch {
-
-        orders = [];
 
     }
 
+    catch (error) {
 
-    try {
-
-        const savedBlacklist =
-            localStorage.getItem("blacklist");
-
-        blacklist = savedBlacklist
-            ? JSON.parse(savedBlacklist)
-            : [];
-
-        if (!Array.isArray(blacklist)) {
-            blacklist = [];
-        }
-
-    } catch {
-
-        blacklist = [];
-
-    }
-
-
-    buildCustomers();
-
-    renderAll();
-
-}
-
-
-/* =====================================================
-   BUILD CUSTOMERS
-===================================================== */
-
-function buildCustomers() {
-
-    const map = new Map();
-
-
-    orders.forEach(order => {
-
-        const customer =
-            order.customer || {};
-
-
-        const name =
-            customer.name ||
-            order.customerName ||
-            "ไม่ระบุชื่อ";
-
-
-        const phone =
-            customer.phone ||
-            order.phone ||
-            "-";
-
-
-        const address =
-            customer.address ||
-            order.address ||
-            "-";
-
-
-        const key =
-            phone !== "-"
-                ? phone
-                : name + "|" + address;
-
-
-        if (!map.has(key)) {
-
-            map.set(key, {
-
-                key,
-                name,
-                phone,
-                address,
-                orders: 0,
-                total: 0,
-                lastOrder: order.createdAt,
-                orderIds: []
-
-            });
-
-        }
-
-
-        const item =
-            map.get(key);
-
-
-        item.orders++;
-
-        item.total +=
-            Number(order.total) || 0;
-
-        item.orderIds.push(
-            order.id
+        console.error(
+            "โหลด customerData ไม่สำเร็จ:",
+            error
         );
 
-
-        if (
-            new Date(order.createdAt) >
-            new Date(item.lastOrder || 0)
-        ) {
-
-            item.lastOrder =
-                order.createdAt;
-
-        }
-
-    });
+    }
 
 
     customers =
-        Array.from(map.values());
+        normalizeCustomers(
+            structuredClone(initialUserData)
+        );
+
+    saveCustomers();
 
 }
 
 
 /* =====================================================
-   BLACKLIST CHECK
+   NORMALIZE CUSTOMERS
 ===================================================== */
 
-function isBlacklisted(customer) {
+function normalizeCustomers(data) {
 
-    const phone =
-        String(customer.phone || "").trim();
+    return data.map((customer, index) => {
 
+        const success =
+            Number(customer.success) || 0;
 
-    const name =
-        String(customer.name || "").trim()
-        .toLowerCase();
+        const failed =
+            Number(customer.failed) || 0;
 
+        const total =
+            Number(customer.total) ||
+            success + failed;
 
-    return blacklist.some(item => {
+        return {
 
-        const itemPhone =
-            String(item.phone || "").trim();
+            id:
+                Number(customer.id) ||
+                index + 1,
 
+            name:
+                String(customer.name || "ไม่ระบุ"),
 
-        const itemName =
-            String(item.name || "").trim()
-            .toLowerCase();
+            success,
 
+            failed,
 
-        if (
-            phone &&
-            itemPhone &&
-            phone === itemPhone
-        ) {
+            total,
 
-            return true;
+            isBlacklisted:
+                customer.isBlacklisted === true ||
+                String(customer.isBlacklisted)
+                    .toLowerCase() === "true",
 
-        }
+            blacklistReason:
+                String(
+                    customer.blacklistReason || ""
+                )
 
-
-        if (
-            name &&
-            itemName &&
-            name === itemName
-        ) {
-
-            return true;
-
-        }
-
-
-        return false;
+        };
 
     });
 
@@ -1022,20 +1243,15 @@ function isBlacklisted(customer) {
 
 
 /* =====================================================
-   RENDER ALL
+   SAVE
 ===================================================== */
 
-function renderAll() {
+function saveCustomers() {
 
-    renderStats();
-
-    renderChart();
-
-    renderStatusSummary();
-
-    renderBlacklist();
-
-    renderCustomers();
+    localStorage.setItem(
+        "customerData",
+        JSON.stringify(customers)
+    );
 
 }
 
@@ -1046,383 +1262,382 @@ function renderAll() {
 
 function renderStats() {
 
-    const sales =
-        orders.reduce(
-            (sum, order) =>
-                sum + (Number(order.total) || 0),
+    const totalCustomers =
+        customers.length;
+
+    const totalSuccess =
+        customers.reduce(
+            (sum, customer) =>
+                sum + customer.success,
             0
         );
 
+    const totalFailed =
+        customers.reduce(
+            (sum, customer) =>
+                sum + customer.failed,
+            0
+        );
 
-    document.getElementById("stat-orders")
-        .textContent = orders.length;
-
-
-    document.getElementById("stat-customers")
-        .textContent = customers.length;
-
-
-    document.getElementById("stat-sales")
-        .textContent = formatMoney(sales);
-
-
-    document.getElementById("stat-blacklist")
-        .textContent = blacklist.length;
-
-}
+    const blacklist =
+        customers.filter(
+            customer =>
+                customer.isBlacklisted
+        ).length;
 
 
-/* =====================================================
-   STATUS
-===================================================== */
-
-function normalizeStatus(status) {
-
-    const aliases = {
-
-        "เตรียมสินค้า": "กำลังเตรียมสินค้า",
-        "กำลังเตรียม": "กำลังเตรียมสินค้า",
-        "จัดส่ง": "กำลังจัดส่ง",
-        "ขนส่ง": "อยู่ระหว่างขนส่ง",
-        "ส่งสำเร็จ": "จัดส่งสำเร็จ",
-        "สำเร็จ": "จัดส่งสำเร็จ",
-        "cancelled": "ยกเลิก",
-        "canceled": "ยกเลิก"
-
-    };
-
-    const value =
-        String(status || "").trim();
-
-    return aliases[value] ||
-           value ||
-           "กำลังเตรียมสินค้า";
-
-}
+    document
+        .getElementById("stat-customers")
+        .textContent =
+        totalCustomers.toLocaleString("th-TH");
 
 
-function getStatusData() {
-
-    const result = {
-
-        "กำลังเตรียมสินค้า": 0,
-        "กำลังจัดส่ง": 0,
-        "อยู่ระหว่างขนส่ง": 0,
-        "จัดส่งสำเร็จ": 0,
-        "ยกเลิก": 0
-
-    };
+    document
+        .getElementById("stat-success")
+        .textContent =
+        totalSuccess.toLocaleString("th-TH");
 
 
-    orders.forEach(order => {
-
-        const status =
-            normalizeStatus(order.status);
-
-        if (result[status] !== undefined) {
-
-            result[status]++;
-
-        } else {
-
-            result[status] =
-                (result[status] || 0) + 1;
-
-        }
-
-    });
+    document
+        .getElementById("stat-failed")
+        .textContent =
+        totalFailed.toLocaleString("th-TH");
 
 
-    return result;
+    document
+        .getElementById("stat-blacklist")
+        .textContent =
+        blacklist.toLocaleString("th-TH");
+
+
+    document
+        .getElementById("blacklist-badge")
+        .textContent =
+        `${blacklist} ราย`;
 
 }
 
 
 /* =====================================================
-   BAR CHART
+   CUSTOMER TABLE
 ===================================================== */
 
-function renderChart() {
+function renderCustomers() {
 
-    const chart =
-        document.getElementById("chart");
+    const table =
+        document.getElementById(
+            "customer-table"
+        );
 
-
-    const data =
-        getStatusData();
-
-
-    const entries =
-        Object.entries(data);
-
-
-    const max =
-        Math.max(
-            ...entries.map(
-                ([, value]) => value
-            ),
-            1
+    const empty =
+        document.getElementById(
+            "empty-customers"
         );
 
 
-    chart.innerHTML =
-        entries.map(
-            ([label, value]) => {
-
-                const height =
-                    Math.max(
-                        value === 0
-                            ? 3
-                            : (value / max) * 90,
-                        3
-                    );
-
-
-                return `
-
-                    <div class="flex-1 h-full
-                                flex flex-col
-                                items-center
-                                justify-end
-                                min-w-[45px]">
-
-                        <span class="text-xs
-                                     font-black
-                                     mb-2">
-
-                            ${value}
-
-                        </span>
-
-                        <div
-                            class="bar w-full
-                                   max-w-14
-                                   rounded-t-xl
-                                   bg-indigo-500"
-                            style="height:${height}%"
-                        ></div>
-
-                        <p
-                            class="text-[9px]
-                                   text-slate-400
-                                   mt-2
-                                   text-center
-                                   leading-tight"
-                        >
-
-                            ${escapeHTML(label)}
-
-                        </p>
-
-                    </div>
-
-                `;
-
-            }
+    const search =
+        String(
+            document.getElementById(
+                "search-input"
+            ).value || ""
         )
-        .join("");
+        .trim()
+        .toLowerCase();
 
-}
 
-
-/* =====================================================
-   STATUS SUMMARY
-===================================================== */
-
-function renderStatusSummary() {
-
-    const container =
+    const filter =
         document.getElementById(
-            "status-summary"
-        );
+            "filter-select"
+        ).value;
 
 
-    const data =
-        getStatusData();
+    let filtered =
+        customers.filter(customer => {
+
+            const matchSearch =
+                !search ||
+                customer.name
+                    .toLowerCase()
+                    .includes(search);
 
 
-    const icons = {
+            const matchFilter =
+                filter === "all" ||
 
-        "กำลังเตรียมสินค้า":
-            "fa-box",
+                (
+                    filter === "blacklist" &&
+                    customer.isBlacklisted
+                ) ||
 
-        "กำลังจัดส่ง":
-            "fa-truck-fast",
-
-        "อยู่ระหว่างขนส่ง":
-            "fa-truck",
-
-        "จัดส่งสำเร็จ":
-            "fa-circle-check",
-
-        "ยกเลิก":
-            "fa-circle-xmark"
-
-    };
+                (
+                    filter === "normal" &&
+                    !customer.isBlacklisted
+                );
 
 
-    container.innerHTML =
-        Object.entries(data)
-            .map(
-                ([status, count]) => `
+            return matchSearch && matchFilter;
 
-                    <div
-                        class="flex
-                               items-center
-                               justify-between
-                               p-3
-                               rounded-xl
-                               bg-slate-50"
-                    >
-
-                        <div class="flex
-                                    items-center
-                                    gap-3">
-
-                            <div
-                                class="w-9 h-9
-                                       rounded-xl
-                                       bg-white
-                                       text-indigo-600
-                                       flex
-                                       items-center
-                                       justify-center"
-                            >
-
-                                <i
-                                    class="fa-solid
-                                    ${icons[status] || "fa-clock"}"
-                                ></i>
-
-                            </div>
-
-                            <span class="text-xs font-bold">
-
-                                ${escapeHTML(status)}
-
-                            </span>
-
-                        </div>
-
-                        <span class="font-black text-sm">
-
-                            ${count}
-
-                        </span>
-
-                    </div>
-
-                `
-            )
-            .join("");
-
-}
+        });
 
 
-/* =====================================================
-   BLACKLIST
-===================================================== */
-
-function renderBlacklist() {
-
-    const tbody =
-        document.getElementById(
-            "blacklist-table"
-        );
+    document
+        .getElementById(
+            "customer-count-label"
+        )
+        .textContent =
+        `${filtered.length} จาก ${customers.length} คน`;
 
 
-    if (!blacklist.length) {
+    if (!filtered.length) {
 
-        tbody.innerHTML = `
+        table.innerHTML = "";
 
-            <tr>
-
-                <td colspan="5"
-                    class="py-10
-                           text-center
-                           text-slate-400">
-
-                    <i class="fa-solid
-                              fa-shield-heart
-                              text-3xl
-                              text-slate-200"></i>
-
-                    <p class="text-sm mt-2">
-                        ยังไม่มีลูกค้าใน Blacklist
-                    </p>
-
-                </td>
-
-            </tr>
-
-        `;
+        empty.classList.remove("hidden");
 
         return;
 
     }
 
 
-    tbody.innerHTML =
-        blacklist.map(
-            (item, index) => `
+    empty.classList.add("hidden");
 
-                <tr class="border-b
-                           border-slate-50">
 
-                    <td class="py-3 px-2">
+    table.innerHTML =
+        filtered.map(customer => {
 
-                        <p class="font-bold text-sm">
+            const total =
+                customer.success +
+                customer.failed;
 
-                            ${escapeHTML(
-                                item.name || "-"
-                            )}
+            const successRate =
+                total > 0
+                    ? (customer.success / total) * 100
+                    : 0;
 
-                        </p>
+
+            const rateText =
+                successRate.toFixed(1) + "%";
+
+
+            let rateClass =
+                "text-rose-600";
+
+            if (successRate >= 80) {
+
+                rateClass =
+                    "text-emerald-600";
+
+            }
+
+            else if (successRate >= 60) {
+
+                rateClass =
+                    "text-amber-600";
+
+            }
+
+
+            return `
+
+                <tr class="
+                    hover:bg-slate-50
+                    transition
+                ">
+
+                    <td class="px-5 py-4">
+
+                        <div class="flex items-center gap-3">
+
+                            <div
+                                class="
+                                w-10 h-10
+                                rounded-xl
+                                ${
+                                    customer.isBlacklisted
+                                    ? "bg-rose-100 text-rose-600"
+                                    : "bg-indigo-100 text-indigo-600"
+                                }
+                                flex items-center justify-center
+                                font-black
+                                shrink-0
+                                "
+                            >
+
+                                ${
+                                    customer.isBlacklisted
+                                    ? `<i class="fa-solid fa-ban"></i>`
+                                    : escapeHTML(
+                                        customer.name
+                                            .charAt(0)
+                                    )
+                                }
+
+                            </div>
+
+
+                            <div class="min-w-0">
+
+                                <p class="
+                                    font-bold
+                                    truncate
+                                    max-w-[180px]
+                                ">
+
+                                    ${escapeHTML(customer.name)}
+
+                                </p>
+
+                                <p class="
+                                    text-[10px]
+                                    text-slate-400
+                                ">
+
+                                    ID #${customer.id}
+
+                                </p>
+
+                            </div>
+
+                        </div>
 
                     </td>
 
-                    <td class="py-3 px-2 text-xs">
 
-                        ${escapeHTML(
-                            item.phone || "-"
-                        )}
+                    <td class="
+                        px-4 py-4
+                        text-center
+                        font-bold
+                        text-emerald-600
+                    ">
 
-                    </td>
-
-                    <td class="py-3 px-2 text-xs
-                               text-slate-500">
-
-                        ${escapeHTML(
-                            item.reason || "-"
-                        )}
+                        ${customer.success}
 
                     </td>
 
-                    <td class="py-3 px-2 text-xs
-                               text-slate-400">
 
-                        ${formatDate(
-                            item.createdAt
-                        )}
+                    <td class="
+                        px-4 py-4
+                        text-center
+                        font-bold
+                        text-rose-600
+                    ">
+
+                        ${customer.failed}
 
                     </td>
 
-                    <td class="py-3 px-2 text-right">
+
+                    <td class="
+                        px-4 py-4
+                        text-center
+                        font-bold
+                    ">
+
+                        ${total}
+
+                    </td>
+
+
+                    <td class="
+                        px-4 py-4
+                        text-center
+                        font-black
+                        ${rateClass}
+                    ">
+
+                        ${rateText}
+
+                    </td>
+
+
+                    <td class="px-4 py-4 text-center">
+
+                        ${
+                            customer.isBlacklisted
+
+                            ?
+
+                            `
+                            <span
+                                class="
+                                inline-flex
+                                items-center gap-1
+                                px-2.5 py-1
+                                rounded-full
+                                bg-rose-50
+                                text-rose-600
+                                text-[10px]
+                                font-black
+                                "
+                            >
+
+                                <i class="
+                                    fa-solid
+                                    fa-ban
+                                "></i>
+
+                                BLACKLIST
+
+                            </span>
+                            `
+
+                            :
+
+                            `
+                            <span
+                                class="
+                                inline-flex
+                                items-center gap-1
+                                px-2.5 py-1
+                                rounded-full
+                                bg-emerald-50
+                                text-emerald-600
+                                text-[10px]
+                                font-bold
+                                "
+                            >
+
+                                <i class="
+                                    fa-solid
+                                    fa-circle-check
+                                "></i>
+
+                                ปกติ
+
+                            </span>
+                            `
+
+                        }
+
+                    </td>
+
+
+                    <td class="
+                        px-5 py-4
+                        text-right
+                        whitespace-nowrap
+                    ">
 
                         <button
-                            onclick="removeBlacklist(${index})"
-                            class="px-3 py-1.5
-                                   rounded-lg
-                                   bg-emerald-50
-                                   text-emerald-600
-                                   hover:bg-emerald-100
-                                   text-xs font-bold"
+                            onclick="openCustomerModal(${customer.id})"
+                            class="
+                            px-3 py-2
+                            rounded-xl
+                            bg-indigo-50
+                            text-indigo-600
+                            hover:bg-indigo-100
+                            text-xs
+                            font-bold
+                            "
                         >
 
-                            <i class="fa-solid
-                                      fa-user-check mr-1"></i>
+                            <i class="
+                                fa-solid
+                                fa-pen-to-square
+                                mr-1
+                            "></i>
 
-                            ปลด
+                            จัดการ
 
                         </button>
 
@@ -1430,69 +1645,67 @@ function renderBlacklist() {
 
                 </tr>
 
-            `
-        )
-        .join("");
+            `;
+
+        }).join("");
 
 }
 
 
 /* =====================================================
-   CUSTOMERS
+   BLACKLIST LIST
 ===================================================== */
 
-function renderCustomers() {
+function renderBlacklist() {
 
-    const tbody =
+    const container =
         document.getElementById(
-            "customers-table"
+            "blacklist-list"
         );
 
 
-    const query =
-        String(
-            document.getElementById(
-                "customer-search"
-            )?.value || ""
-        )
-        .trim()
-        .toLowerCase();
+    const blacklisted =
+        customers.filter(
+            customer =>
+                customer.isBlacklisted
+        );
 
 
-    const filtered =
-        customers.filter(customer => {
+    if (!blacklisted.length) {
 
-            const text =
-                [
-                    customer.name,
-                    customer.phone,
-                    customer.address
-                ]
-                .join(" ")
-                .toLowerCase();
+        container.innerHTML = `
 
+            <div
+                class="
+                text-center
+                py-8
+                rounded-2xl
+                bg-slate-50
+                "
+            >
 
-            return !query ||
-                   text.includes(query);
+                <i
+                    class="
+                    fa-solid
+                    fa-shield-check
+                    text-3xl
+                    text-emerald-300
+                    "
+                ></i>
 
-        });
+                <p
+                    class="
+                    text-sm
+                    text-slate-400
+                    mt-2
+                    "
+                >
 
+                    ยังไม่มีลูกค้าใน Blacklist
 
-    if (!filtered.length) {
+                </p>
 
-        tbody.innerHTML = `
-
-            <tr>
-
-                <td colspan="6"
-                    class="py-10 text-center
-                           text-slate-400">
-
-                    ไม่พบข้อมูลลูกค้า
-
-                </td>
-
-            </tr>
+            </div>
 
         `;
 
@@ -1501,945 +1714,545 @@ function renderCustomers() {
     }
 
 
-    tbody.innerHTML =
-        filtered.map(
-            customer => {
+    container.innerHTML =
+        blacklisted.map(customer => {
 
-                const blocked =
-                    isBlacklisted(customer);
+            return `
+
+                <div
+                    class="
+                    flex flex-col sm:flex-row
+                    sm:items-center
+                    sm:justify-between
+                    gap-4
+                    p-4
+                    rounded-2xl
+                    bg-rose-50
+                    border border-rose-100
+                    "
+                >
+
+                    <div class="
+                        flex items-start
+                        gap-3
+                        min-w-0
+                    ">
+
+                        <div
+                            class="
+                            w-10 h-10
+                            rounded-xl
+                            bg-rose-100
+                            text-rose-600
+                            flex
+                            items-center
+                            justify-center
+                            shrink-0
+                            "
+                        >
+
+                            <i class="
+                                fa-solid
+                                fa-ban
+                            "></i>
+
+                        </div>
 
 
-                return `
+                        <div class="min-w-0">
 
-                    <tr
-                        class="border-b
-                               border-slate-50"
+                            <p
+                                class="
+                                font-black
+                                text-sm
+                                "
+                            >
+
+                                ${escapeHTML(customer.name)}
+
+                            </p>
+
+
+                            <p
+                                class="
+                                text-xs
+                                text-rose-600
+                                mt-1
+                                leading-relaxed
+                                "
+                            >
+
+                                ${
+                                    escapeHTML(
+                                        customer.blacklistReason ||
+                                        "ไม่ระบุเหตุผล"
+                                    )
+                                }
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        onclick="removeBlacklist(${customer.id})"
+                        class="
+                        px-4 py-2.5
+                        rounded-xl
+                        bg-white
+                        border border-rose-200
+                        text-rose-600
+                        hover:bg-rose-100
+                        text-xs
+                        font-bold
+                        shrink-0
+                        "
                     >
 
-                        <td class="py-3 px-2">
+                        <i
+                            class="
+                            fa-solid
+                            fa-user-check
+                            mr-1
+                            "
+                        ></i>
 
-                            <div class="flex
-                                        items-center
-                                        gap-3">
+                        ถอด Blacklist
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   CHART
+===================================================== */
+
+function renderChart() {
+
+    const container =
+        document.getElementById("chart");
+
+
+    if (!customers.length) {
+
+        container.innerHTML = "";
+
+        return;
+
+    }
+
+
+    const maxValue =
+        Math.max(
+            ...customers.map(
+                customer =>
+                    Math.max(
+                        customer.success,
+                        customer.failed
+                    )
+            ),
+            1
+        );
+
+
+    container.innerHTML = `
+
+        <div
+            class="
+            h-full
+            flex
+            items-end
+            gap-3
+            min-w-max
+            px-3
+            pb-7
+            "
+        >
+
+            ${
+                customers.map(customer => {
+
+                    const successHeight =
+                        Math.max(
+                            4,
+                            (customer.success / maxValue) * 210
+                        );
+
+
+                    const failedHeight =
+                        Math.max(
+                            4,
+                            (customer.failed / maxValue) * 210
+                        );
+
+
+                    return `
+
+                        <div
+                            class="
+                            w-10
+                            h-full
+                            flex
+                            flex-col
+                            justify-end
+                            items-center
+                            group
+                            "
+                        >
+
+                            <div
+                                class="
+                                flex
+                                items-end
+                                gap-1
+                                h-[220px]
+                                "
+                            >
 
                                 <div
-                                    class="w-9 h-9
-                                           rounded-xl
-                                           bg-indigo-50
-                                           text-indigo-600
-                                           flex
-                                           items-center
-                                           justify-center
-                                           shrink-0"
+                                    class="
+                                    w-4
+                                    rounded-t-lg
+                                    bg-emerald-500
+                                    bar
+                                    relative
+                                    "
+                                    style="
+                                        height:${successHeight}px
+                                    "
+                                    title="
+                                        ${escapeHTML(customer.name)}
+                                        สำเร็จ ${customer.success}
+                                    "
                                 >
 
-                                    <i class="fa-solid
-                                              fa-user"></i>
+                                    <span
+                                        class="
+                                        absolute
+                                        bottom-full
+                                        left-1/2
+                                        -translate-x-1/2
+                                        mb-1
+                                        hidden
+                                        group-hover:block
+                                        whitespace-nowrap
+                                        px-2 py-1
+                                        rounded-lg
+                                        bg-slate-900
+                                        text-white
+                                        text-[9px]
+                                        z-10
+                                        "
+                                    >
+
+                                        ${customer.success}
+
+                                    </span>
 
                                 </div>
 
-                                <div class="min-w-0">
 
-                                    <p
-                                        class="font-bold
-                                               text-sm
-                                               line-clamp-1"
-                                    >
-
-                                        ${escapeHTML(
-                                            customer.name
-                                        )}
-
-                                    </p>
-
-                                    <p
-                                        class="text-[10px]
-                                               text-slate-400
-                                               line-clamp-1"
-                                    >
-
-                                        ${escapeHTML(
-                                            customer.address
-                                        )}
-
-                                    </p>
-
-                                </div>
+                                <div
+                                    class="
+                                    w-4
+                                    rounded-t-lg
+                                    bg-rose-500
+                                    bar
+                                    "
+                                    style="
+                                        height:${failedHeight}px
+                                    "
+                                    title="
+                                        ${escapeHTML(customer.name)}
+                                        ล้มเหลว ${customer.failed}
+                                    "
+                                ></div>
 
                             </div>
 
-                        </td>
 
-
-                        <td class="py-3 px-2 text-xs">
-
-                            ${escapeHTML(
-                                customer.phone
-                            )}
-
-                        </td>
-
-
-                        <td class="py-3 px-2">
-
-                            <span
-                                class="px-2 py-1
-                                       rounded-lg
-                                       bg-indigo-50
-                                       text-indigo-600
-                                       text-xs font-bold"
+                            <div
+                                class="
+                                mt-2
+                                text-[9px]
+                                text-slate-500
+                                whitespace-nowrap
+                                max-w-[45px]
+                                overflow-hidden
+                                text-ellipsis
+                                "
+                                title="${escapeHTML(customer.name)}"
                             >
 
-                                ${customer.orders}
+                                ${escapeHTML(customer.name)}
 
-                            </span>
+                            </div>
 
-                        </td>
+                        </div>
 
+                    `;
 
-                        <td class="py-3 px-2
-                                   font-black
-                                   text-sm">
-
-                            ${formatMoney(
-                                customer.total
-                            )}
-
-                        </td>
-
-
-                        <td class="py-3 px-2">
-
-                            ${
-                                blocked
-
-                                ?
-
-                                `
-                                    <span
-                                        class="px-2 py-1
-                                               rounded-lg
-                                               bg-rose-50
-                                               text-rose-600
-                                               text-[10px]
-                                               font-bold"
-                                    >
-                                        BLACKLIST
-                                    </span>
-                                `
-
-                                :
-
-                                `
-                                    <span
-                                        class="px-2 py-1
-                                               rounded-lg
-                                               bg-emerald-50
-                                               text-emerald-600
-                                               text-[10px]
-                                               font-bold"
-                                    >
-                                        ปกติ
-                                    </span>
-                                `
-                            }
-
-                        </td>
-
-
-                        <td class="py-3 px-2 text-right">
-
-                            <button
-                                onclick='openCustomerModal(${JSON.stringify(
-                                    customer
-                                )})'
-                                class="w-9 h-9
-                                       rounded-xl
-                                       bg-slate-100
-                                       hover:bg-indigo-50
-                                       hover:text-indigo-600"
-                            >
-
-                                <i class="fa-solid
-                                          fa-eye"></i>
-
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                `;
+                }).join("")
 
             }
-        )
-        .join("");
-
-}
-
-
-/* =====================================================
-   BLACKLIST MODAL
-===================================================== */
-
-function openBlacklistModal() {
-
-    document
-        .getElementById("blacklist-modal")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("blacklist-modal")
-        .classList.add("flex");
-
-}
-
-
-function closeBlacklistModal() {
-
-    document
-        .getElementById("blacklist-modal")
-        .classList.add("hidden");
-
-    document
-        .getElementById("blacklist-modal")
-        .classList.remove("flex");
-
-}
-
-
-function saveBlacklist() {
-
-    const name =
-        document
-            .getElementById("blacklist-name")
-            .value
-            .trim();
-
-
-    const phone =
-        document
-            .getElementById("blacklist-phone")
-            .value
-            .trim();
-
-
-    const reason =
-        document
-            .getElementById("blacklist-reason")
-            .value
-            .trim();
-
-
-    if (!name && !phone) {
-
-        alert(
-            "กรุณาระบุชื่อลูกค้าหรือเบอร์โทร"
-        );
-
-        return;
-
-    }
-
-
-    const exists =
-        blacklist.some(item => {
-
-            return (
-                phone &&
-                item.phone &&
-                String(item.phone) === phone
-            ) ||
-            (
-                name &&
-                item.name &&
-                String(item.name)
-                    .toLowerCase() ===
-                name.toLowerCase()
-            );
-
-        });
-
-
-    if (exists) {
-
-        alert("ลูกค้ารายนี้อยู่ใน Blacklist แล้ว");
-
-        return;
-
-    }
-
-
-    blacklist.push({
-
-        id:
-            "BL-" +
-            Date.now(),
-
-        name,
-
-        phone,
-
-        reason,
-
-        createdAt:
-            new Date().toISOString()
-
-    });
-
-
-    localStorage.setItem(
-        "blacklist",
-        JSON.stringify(blacklist)
-    );
-
-
-    closeBlacklistModal();
-
-    document.getElementById("blacklist-name").value = "";
-
-    document.getElementById("blacklist-phone").value = "";
-
-    document.getElementById("blacklist-reason").value = "";
-
-
-    renderAll();
-
-}
-
-
-function removeBlacklist(index) {
-
-    const item =
-        blacklist[index];
-
-
-    if (!item) return;
-
-
-    const confirmed =
-        confirm(
-            `ต้องการปลด Blacklist "${item.name || item.phone}" หรือไม่?`
-        );
-
-
-    if (!confirmed) return;
-
-
-    blacklist.splice(index, 1);
-
-
-    localStorage.setItem(
-        "blacklist",
-        JSON.stringify(blacklist)
-    );
-
-
-    renderAll();
-
-}
-
-
-/* =====================================================
-   CUSTOMER MODAL
-===================================================== */
-
-function openCustomerModal(customer) {
-
-    const blocked =
-        isBlacklisted(customer);
-
-
-    const customerOrders =
-        orders.filter(order => {
-
-            const c =
-                order.customer || {};
-
-
-            const phone =
-                c.phone ||
-                order.phone ||
-                "-";
-
-
-            return String(phone) ===
-                   String(customer.phone);
-
-        });
-
-
-    document.getElementById(
-        "customer-detail"
-    ).innerHTML = `
-
-        <div class="space-y-4">
-
-            <div class="p-4 rounded-2xl
-                        bg-slate-50">
-
-                <div class="flex items-center gap-3">
-
-                    <div
-                        class="w-12 h-12
-                               rounded-2xl
-                               bg-indigo-100
-                               text-indigo-600
-                               flex
-                               items-center
-                               justify-center"
-                    >
-
-                        <i class="fa-solid fa-user text-lg"></i>
-
-                    </div>
-
-                    <div>
-
-                        <p class="font-black">
-
-                            ${escapeHTML(
-                                customer.name
-                            )}
-
-                        </p>
-
-                        <p class="text-xs
-                                  text-slate-400">
-
-                            ${escapeHTML(
-                                customer.phone
-                            )}
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <p class="text-[10px]
-                          text-slate-400">
-                    ที่อยู่
-                </p>
-
-                <p class="text-sm font-medium mt-1">
-
-                    ${escapeHTML(
-                        customer.address
-                    )}
-
-                </p>
-
-            </div>
-
-
-            <div class="grid grid-cols-2 gap-3">
-
-                <div class="p-3 rounded-xl
-                            bg-indigo-50">
-
-                    <p class="text-[10px]
-                              text-indigo-400">
-
-                        ออเดอร์
-
-                    </p>
-
-                    <p class="font-black
-                              text-lg">
-
-                        ${customer.orders}
-
-                    </p>
-
-                </div>
-
-
-                <div class="p-3 rounded-xl
-                            bg-amber-50">
-
-                    <p class="text-[10px]
-                              text-amber-500">
-
-                        ยอดซื้อ
-
-                    </p>
-
-                    <p class="font-black
-                              text-lg">
-
-                        ${formatMoney(
-                            customer.total
-                        )}
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="p-3 rounded-xl
-                        ${
-                            blocked
-                            ? "bg-rose-50"
-                            : "bg-emerald-50"
-                        }">
-
-                <p class="text-xs font-bold
-                          ${
-                              blocked
-                              ? "text-rose-600"
-                              : "text-emerald-600"
-                          }">
-
-                    <i class="fa-solid
-                              ${
-                                  blocked
-                                  ? "fa-ban"
-                                  : "fa-circle-check"
-                              } mr-1"></i>
-
-                    ${
-                        blocked
-                        ? "ลูกค้าถูก Blacklist"
-                        : "ลูกค้าปกติ"
-                    }
-
-                </p>
-
-            </div>
-
-
-            <div>
-
-                <p class="font-black text-sm mb-2">
-                    คำสั่งซื้อของลูกค้า
-                </p>
-
-                <div class="space-y-2">
-
-                    ${
-                        customerOrders.length
-
-                        ?
-
-                        customerOrders
-                            .slice()
-                            .reverse()
-                            .slice(0, 10)
-                            .map(
-                                order => `
-
-                                    <div
-                                        class="flex
-                                               justify-between
-                                               gap-3
-                                               p-3
-                                               rounded-xl
-                                               bg-slate-50"
-                                    >
-
-                                        <div>
-
-                                            <p
-                                                class="font-bold
-                                                       text-xs"
-                                            >
-
-                                                ${escapeHTML(
-                                                    order.id || "-"
-                                                )}
-
-                                            </p>
-
-                                            <p
-                                                class="text-[10px]
-                                                       text-slate-400
-                                                       mt-1"
-                                            >
-
-                                                ${escapeHTML(
-                                                    normalizeStatus(
-                                                        order.status
-                                                    )
-                                                )}
-
-                                            </p>
-
-                                        </div>
-
-                                        <p
-                                            class="font-black
-                                                   text-xs"
-                                        >
-
-                                            ${formatMoney(
-                                                order.total
-                                            )}
-
-                                        </p>
-
-                                    </div>
-
-                                `
-                            )
-                            .join("")
-
-                        :
-
-                        `
-                            <p class="text-xs
-                                      text-slate-400">
-                                ไม่พบคำสั่งซื้อ
-                            </p>
-                        `
-                    }
-
-                </div>
-
-            </div>
 
         </div>
 
     `;
 
-
-    document
-        .getElementById("customer-modal")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("customer-modal")
-        .classList.add("flex");
-
-}
-
-
-function closeCustomerModal() {
-
-    document
-        .getElementById("customer-modal")
-        .classList.add("hidden");
-
-    document
-        .getElementById("customer-modal")
-        .classList.remove("flex");
-
 }
 
 
 /* =====================================================
-   IMPORT CSV
+   OPEN CUSTOMER MODAL
 ===================================================== */
 
-function openImportModal() {
+function openCustomerModal(id) {
 
-    document
-        .getElementById("import-modal")
-        .classList.remove("hidden");
-
-    document
-        .getElementById("import-modal")
-        .classList.add("flex");
-
-}
+    const customer =
+        customers.find(
+            item =>
+                Number(item.id) === Number(id)
+        );
 
 
-function closeImportModal() {
-
-    document
-        .getElementById("import-modal")
-        .classList.add("hidden");
-
-    document
-        .getElementById("import-modal")
-        .classList.remove("flex");
-
-}
-
-
-function parseCSVLine(line) {
-
-    const result = [];
-
-    let current = "";
-
-    let insideQuotes = false;
-
-
-    for (
-        let i = 0;
-        i < line.length;
-        i++
-    ) {
-
-        const char = line[i];
-
-        const next = line[i + 1];
-
-
-        if (char === '"' && insideQuotes && next === '"') {
-
-            current += '"';
-
-            i++;
-
-            continue;
-
-        }
-
-
-        if (char === '"') {
-
-            insideQuotes =
-                !insideQuotes;
-
-            continue;
-
-        }
-
-
-        if (char === "," && !insideQuotes) {
-
-            result.push(current);
-
-            current = "";
-
-            continue;
-
-        }
-
-
-        current += char;
-
-    }
-
-
-    result.push(current);
-
-    return result;
-
-}
-
-
-function importCSV() {
-
-    const input =
-        document.getElementById("csv-file");
-
-
-    const file =
-        input.files[0];
-
-
-    if (!file) {
-
-        alert("กรุณาเลือกไฟล์ CSV");
+    if (!customer) {
 
         return;
 
     }
 
 
-    const reader =
-        new FileReader();
+    editingCustomerId =
+        customer.id;
 
 
-    reader.onload = function(event) {
-
-        try {
-
-            let text =
-                String(
-                    event.target.result || ""
-                );
+    document
+        .getElementById("modal-name")
+        .textContent =
+        customer.name;
 
 
-            text =
-                text.replace(
-                    /^\uFEFF/,
-                    ""
-                );
+    document
+        .getElementById("modal-success")
+        .textContent =
+        customer.success;
 
 
-            const lines =
-                text
-                    .split(/\r?\n/)
-                    .filter(
-                        line =>
-                            line.trim()
-                    );
+    document
+        .getElementById("modal-failed")
+        .textContent =
+        customer.failed;
 
 
-            if (lines.length < 2) {
-
-                alert("ไฟล์ CSV ไม่มีข้อมูล");
-
-                return;
-
-            }
-
-
-            const headers =
-                parseCSVLine(
-                    lines[0]
-                )
-                .map(
-                    h =>
-                        h.trim()
-                );
+    document
+        .getElementById("modal-blacklist")
+        .value =
+        customer.isBlacklisted
+            ? "true"
+            : "false";
 
 
-            const imported = [];
+    document
+        .getElementById("modal-reason")
+        .value =
+        customer.blacklistReason || "";
 
 
-            for (
-                let i = 1;
-                i < lines.length;
-                i++
-            ) {
-
-                const values =
-                    parseCSVLine(
-                        lines[i]
-                    );
+    const modal =
+        document.getElementById(
+            "customer-modal"
+        );
 
 
-                const row = {};
+    modal.classList.remove("hidden");
+
+    modal.classList.add("flex");
+
+}
 
 
-                headers.forEach(
-                    (header, index) => {
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
 
-                        row[header] =
-                            values[index] ?? "";
+function closeModal() {
 
-                    }
-                );
-
-
-                const order = {
-
-                    id:
-                        row.id ||
-                        row.orderId ||
-                        (
-                            "DRM-" +
-                            Date.now() +
-                            "-" +
-                            i
-                        ),
-
-                    customerName:
-                        row.customerName ||
-                        row.name ||
-                        "",
-
-                    phone:
-                        row.phone ||
-                        "",
-
-                    address:
-                        row.address ||
-                        "",
-
-                    total:
-                        Number(
-                            row.total || 0
-                        ),
-
-                    subtotal:
-                        Number(
-                            row.subtotal || 0
-                        ),
-
-                    shipping:
-                        Number(
-                            row.shipping || 0
-                        ),
-
-                    paymentName:
-                        row.paymentName ||
-                        row.payment ||
-                        "",
-
-                    status:
-                        normalizeStatus(
-                            row.status
-                        ),
-
-                    note:
-                        row.note ||
-                        "",
-
-                    createdAt:
-                        row.createdAt ||
-                        new Date().toISOString(),
-
-                    items: []
-
-                };
+    const modal =
+        document.getElementById(
+            "customer-modal"
+        );
 
 
-                imported.push(order);
+    modal.classList.add("hidden");
 
-            }
+    modal.classList.remove("flex");
 
+    editingCustomerId = null;
 
-            orders =
-                imported.concat(orders);
-
-
-            localStorage.setItem(
-                "orders",
-                JSON.stringify(orders)
-            );
+}
 
 
-            buildCustomers();
+/* =====================================================
+   SAVE CUSTOMER CHANGES
+===================================================== */
 
-            renderAll();
+function saveCustomerChanges() {
 
-            closeImportModal();
+    if (editingCustomerId === null) {
 
-            input.value = "";
+        return;
 
-
-            alert(
-                `นำเข้าสำเร็จ ${imported.length} รายการ`
-            );
-
-        }
-
-        catch (error) {
-
-            console.error(error);
-
-            alert(
-                "ไม่สามารถอ่านไฟล์ CSV ได้"
-            );
-
-        }
-
-    };
+    }
 
 
-    reader.readAsText(
-        file,
-        "UTF-8"
+    const customer =
+        customers.find(
+            item =>
+                Number(item.id) ===
+                Number(editingCustomerId)
+        );
+
+
+    if (!customer) {
+
+        return;
+
+    }
+
+
+    const blacklist =
+        document.getElementById(
+            "modal-blacklist"
+        ).value === "true";
+
+
+    const reason =
+        document.getElementById(
+            "modal-reason"
+        ).value.trim();
+
+
+    customer.isBlacklisted =
+        blacklist;
+
+
+    customer.blacklistReason =
+        blacklist
+            ? reason
+            : "";
+
+
+    saveCustomers();
+
+
+    renderAll();
+
+    closeModal();
+
+
+    alert(
+        blacklist
+            ? `เพิ่ม ${customer.name} เข้า Blacklist แล้ว`
+            : `อัปเดต ${customer.name} เรียบร้อยแล้ว`
     );
 
 }
 
 
 /* =====================================================
-   EXPORT CSV
+   REMOVE BLACKLIST
+===================================================== */
+
+function removeBlacklist(id) {
+
+    const customer =
+        customers.find(
+            item =>
+                Number(item.id) === Number(id)
+        );
+
+
+    if (!customer) {
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            `ต้องการถอด "${customer.name}" ออกจาก Blacklist หรือไม่?`
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    customer.isBlacklisted = false;
+
+    customer.blacklistReason = "";
+
+
+    saveCustomers();
+
+    renderAll();
+
+}
+
+
+/* =====================================================
+   RESET DATA
+===================================================== */
+
+function resetInitialData() {
+
+    const confirmed =
+        confirm(
+            "ต้องการรีเซ็ตข้อมูลลูกค้าทั้งหมดกลับเป็นข้อมูลตั้งต้น 43 คนหรือไม่?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    customers =
+        normalizeCustomers(
+            structuredClone(initialUserData)
+        );
+
+
+    saveCustomers();
+
+    renderAll();
+
+
+    alert(
+        "รีเซ็ตข้อมูลลูกค้าเรียบร้อยแล้ว"
+    );
+
+}
+
+
+/* =====================================================
+   CSV ESCAPE
 ===================================================== */
 
 function csvEscape(value) {
@@ -2448,104 +2261,74 @@ function csvEscape(value) {
         String(value ?? "");
 
 
-    return '"' +
-        text
-            .replace(/"/g, '""') +
-        '"';
+    if (
+        text.includes(",") ||
+        text.includes('"') ||
+        text.includes("\n")
+    ) {
 
-}
-
-
-function exportOrdersCSV() {
-
-    if (!orders.length) {
-
-        alert(
-            "ยังไม่มีข้อมูลคำสั่งซื้อสำหรับส่งออก"
-        );
-
-        return;
+        return `"${text.replace(/"/g, '""')}"`;
 
     }
 
 
+    return text;
+
+}
+
+
+/* =====================================================
+   EXPORT CSV
+===================================================== */
+
+function exportCSV() {
+
     const headers = [
 
         "id",
-        "customerName",
-        "phone",
-        "address",
-        "subtotal",
-        "shipping",
+        "name",
+        "success",
+        "failed",
         "total",
-        "paymentName",
-        "status",
-        "note",
-        "createdAt"
+        "isBlacklisted",
+        "blacklistReason"
 
     ];
 
 
     const rows =
-        orders.map(order => {
+        customers.map(customer => [
 
-            const customer =
-                order.customer || {};
+            customer.id,
+            customer.name,
+            customer.success,
+            customer.failed,
+            customer.success + customer.failed,
+            customer.isBlacklisted ? "true" : "false",
+            customer.blacklistReason || ""
 
-
-            return [
-
-                order.id || "",
-
-                customer.name ||
-                order.customerName ||
-                "",
-
-                customer.phone ||
-                order.phone ||
-                "",
-
-                customer.address ||
-                order.address ||
-                "",
-
-                order.subtotal || 0,
-
-                order.shipping || 0,
-
-                order.total || 0,
-
-                order.paymentName || "",
-
-                normalizeStatus(
-                    order.status
-                ),
-
-                order.note || "",
-
-                order.createdAt || ""
-
-            ];
-
-        });
+        ]);
 
 
     const csv = [
 
-        headers.map(csvEscape).join(","),
+        headers,
 
-        ...rows.map(
-            row =>
-                row.map(csvEscape).join(",")
-        )
+        ...rows
 
     ]
+
+    .map(
+        row =>
+            row.map(csvEscape).join(",")
+    )
+
     .join("\r\n");
 
 
     const blob =
         new Blob(
-            ["\uFEFF" + csv],
+            ["\ufeff" + csv],
             {
                 type:
                     "text/csv;charset=utf-8;"
@@ -2563,13 +2346,8 @@ function exportOrdersCSV() {
 
     link.href = url;
 
-
     link.download =
-        "delivery-risk-orders-" +
-        new Date()
-            .toISOString()
-            .slice(0,10) +
-        ".csv";
+        `customers-${new Date().toISOString().slice(0,10)}.csv`;
 
 
     document.body.appendChild(link);
@@ -2585,7 +2363,573 @@ function exportOrdersCSV() {
 
 
 /* =====================================================
-   STORAGE SYNC
+   CSV PARSER
+===================================================== */
+
+function parseCSVLine(line) {
+
+    const result = [];
+
+    let current = "";
+
+    let insideQuotes = false;
+
+
+    for (
+        let i = 0;
+        i < line.length;
+        i++
+    ) {
+
+        const char =
+            line[i];
+
+
+        if (char === '"') {
+
+            if (
+                insideQuotes &&
+                line[i + 1] === '"'
+            ) {
+
+                current += '"';
+
+                i++;
+
+            }
+
+            else {
+
+                insideQuotes =
+                    !insideQuotes;
+
+            }
+
+        }
+
+        else if (
+            char === "," &&
+            !insideQuotes
+        ) {
+
+            result.push(current);
+
+            current = "";
+
+        }
+
+        else {
+
+            current += char;
+
+        }
+
+    }
+
+
+    result.push(current);
+
+
+    return result;
+
+}
+
+
+/* =====================================================
+   IMPORT CSV
+===================================================== */
+
+function importCSV(event) {
+
+    const file =
+        event.target.files?.[0];
+
+
+    if (!file) {
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(e) {
+
+            try {
+
+                const text =
+                    String(
+                        e.target.result || ""
+                    )
+                    .replace(/^\uFEFF/, "");
+
+
+                const lines =
+                    text
+                        .split(/\r?\n/)
+                        .filter(
+                            line =>
+                                line.trim() !== ""
+                        );
+
+
+                if (lines.length < 2) {
+
+                    alert(
+                        "ไฟล์ CSV ไม่มีข้อมูล"
+                    );
+
+                    return;
+
+                }
+
+
+                const headers =
+                    parseCSVLine(
+                        lines[0]
+                    )
+                    .map(
+                        header =>
+                            header
+                                .trim()
+                                .toLowerCase()
+                    );
+
+
+                const requiredHeaders = [
+
+                    "id",
+                    "name",
+                    "success",
+                    "failed",
+                    "total",
+                    "isblacklisted",
+                    "blacklistreason"
+
+                ];
+
+
+                const missing =
+                    requiredHeaders.filter(
+                        header =>
+                            !headers.includes(header)
+                    );
+
+
+                if (missing.length) {
+
+                    alert(
+                        "CSV ไม่ถูกต้อง\n\nขาดคอลัมน์: " +
+                        missing.join(", ")
+                    );
+
+                    return;
+
+                }
+
+
+                const imported =
+                    lines
+                        .slice(1)
+                        .map(line => {
+
+                            const values =
+                                parseCSVLine(line);
+
+
+                            const get =
+                                key => {
+
+                                    const index =
+                                        headers.indexOf(
+                                            key
+                                        );
+
+                                    return (
+                                        values[index] ??
+                                        ""
+                                    );
+
+                                };
+
+
+                            return {
+
+                                id:
+                                    Number(
+                                        get("id")
+                                    ),
+
+                                name:
+                                    get("name"),
+
+                                success:
+                                    Number(
+                                        get("success")
+                                    ) || 0,
+
+                                failed:
+                                    Number(
+                                        get("failed")
+                                    ) || 0,
+
+                                total:
+                                    Number(
+                                        get("total")
+                                    ) || 0,
+
+                                isBlacklisted:
+                                    String(
+                                        get(
+                                            "isblacklisted"
+                                        )
+                                    )
+                                    .toLowerCase() ===
+                                    "true",
+
+                                blacklistReason:
+                                    get(
+                                        "blacklistreason"
+                                    )
+
+                            };
+
+                        })
+                        .filter(
+                            customer =>
+                                customer.name
+                        );
+
+
+                if (!imported.length) {
+
+                    alert(
+                        "ไม่พบข้อมูลลูกค้าใน CSV"
+                    );
+
+                    return;
+
+                }
+
+
+                const confirmed =
+                    confirm(
+                        `พบข้อมูลลูกค้า ${imported.length} ราย\n\nต้องการนำเข้าและแทนที่ข้อมูลเดิมหรือไม่?`
+                    );
+
+
+                if (!confirmed) {
+
+                    return;
+
+                }
+
+
+                customers =
+                    normalizeCustomers(
+                        imported
+                    );
+
+
+                saveCustomers();
+
+                renderAll();
+
+
+                alert(
+                    `นำเข้าข้อมูล ${customers.length} รายเรียบร้อยแล้ว`
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "CSV Import Error:",
+                    error
+                );
+
+
+                alert(
+                    "ไม่สามารถอ่านไฟล์ CSV ได้"
+                );
+
+            }
+
+            finally {
+
+                event.target.value = "";
+
+            }
+
+        };
+
+
+    reader.readAsText(
+        file,
+        "UTF-8"
+    );
+
+}
+
+
+/* =====================================================
+   LOAD ORDERS
+===================================================== */
+
+function renderOrders() {
+
+    const container =
+        document.getElementById(
+            "orders-admin-list"
+        );
+
+
+    let orders = [];
+
+
+    try {
+
+        const saved =
+            localStorage.getItem("orders");
+
+
+        if (saved) {
+
+            const parsed =
+                JSON.parse(saved);
+
+
+            if (Array.isArray(parsed)) {
+
+                orders = parsed;
+
+            }
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "โหลด orders ไม่สำเร็จ:",
+            error
+        );
+
+    }
+
+
+    const totalOrders =
+        orders.length;
+
+
+    const totalValue =
+        orders.reduce(
+            (sum, order) =>
+                sum +
+                (
+                    Number(order.total) ||
+                    0
+                ),
+            0
+        );
+
+
+    document
+        .getElementById("orders-summary")
+        .textContent =
+        `${totalOrders} คำสั่งซื้อ • มูลค่ารวม ฿${totalValue.toLocaleString("th-TH")}`;
+
+
+    if (!orders.length) {
+
+        container.innerHTML = `
+
+            <div
+                class="
+                col-span-full
+                text-center
+                py-8
+                bg-slate-50
+                rounded-2xl
+                "
+            >
+
+                <i
+                    class="
+                    fa-solid
+                    fa-box-open
+                    text-3xl
+                    text-slate-300
+                    "
+                ></i>
+
+                <p
+                    class="
+                    text-sm
+                    text-slate-400
+                    mt-2
+                    "
+                >
+
+                    ยังไม่มีคำสั่งซื้อ
+
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const latest =
+        orders
+            .slice()
+            .reverse()
+            .slice(0, 6);
+
+
+    container.innerHTML =
+        latest.map(order => {
+
+            const status =
+                order.status ||
+                "กำลังเตรียมสินค้า";
+
+
+            const name =
+                order.customer?.name ||
+                order.customerName ||
+                "ไม่ระบุลูกค้า";
+
+
+            return `
+
+                <div
+                    class="
+                    p-4
+                    rounded-2xl
+                    bg-slate-50
+                    border
+                    border-slate-100
+                    "
+                >
+
+                    <div
+                        class="
+                        flex
+                        items-center
+                        justify-between
+                        gap-3
+                        "
+                    >
+
+                        <p
+                            class="
+                            font-black
+                            text-sm
+                            "
+                        >
+
+                            ${escapeHTML(
+                                order.id || "-"
+                            )}
+
+                        </p>
+
+
+                        <span
+                            class="
+                            px-2 py-1
+                            rounded-lg
+                            bg-indigo-50
+                            text-indigo-600
+                            text-[9px]
+                            font-bold
+                            "
+                        >
+
+                            ${escapeHTML(status)}
+
+                        </span>
+
+                    </div>
+
+
+                    <p
+                        class="
+                        text-xs
+                        text-slate-500
+                        mt-2
+                        "
+                    >
+
+                        <i
+                            class="
+                            fa-solid
+                            fa-user
+                            mr-1
+                            "
+                        ></i>
+
+                        ${escapeHTML(name)}
+
+                    </p>
+
+
+                    <p
+                        class="
+                        font-black
+                        text-indigo-600
+                        mt-2
+                        "
+                    >
+
+                        ฿${(
+                            Number(order.total) ||
+                            0
+                        ).toLocaleString("th-TH")}
+
+                    </p>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =====================================================
+   RENDER ALL
+===================================================== */
+
+function renderAll() {
+
+    renderStats();
+
+    renderCustomers();
+
+    renderBlacklist();
+
+    renderChart();
+
+    renderOrders();
+
+}
+
+
+/* =====================================================
+   STORAGE EVENT
 ===================================================== */
 
 window.addEventListener(
@@ -2593,31 +2937,13 @@ window.addEventListener(
     function(event) {
 
         if (
-            event.key === "orders" ||
-            event.key === "blacklist"
+            event.key === "customerData" ||
+            event.key === "orders"
         ) {
 
-            loadData();
+            loadCustomers();
 
-        }
-
-    }
-);
-
-
-/* =====================================================
-   PAGE VISIBILITY
-===================================================== */
-
-document.addEventListener(
-    "visibilitychange",
-    function() {
-
-        if (
-            document.visibilityState === "visible"
-        ) {
-
-            loadData();
+            renderAll();
 
         }
 
@@ -2633,7 +2959,9 @@ document.addEventListener(
     "DOMContentLoaded",
     function() {
 
-        loadData();
+        loadCustomers();
+
+        renderAll();
 
     }
 );
@@ -2641,4 +2969,5 @@ document.addEventListener(
 </script>
 
 </body>
+
 </html>
