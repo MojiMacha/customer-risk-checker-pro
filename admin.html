@@ -69,7 +69,8 @@
 
         }
 
-        input {
+        input,
+        textarea {
             transition: all 0.2s ease;
         }
 
@@ -94,6 +95,14 @@
             display: none;
         }
 
+        .customer-card {
+            transition: all 0.2s ease;
+        }
+
+        .customer-card:hover {
+            transform: translateY(-2px);
+        }
+
     </style>
 
 </head>
@@ -111,8 +120,6 @@
     class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950"
 >
 
-    <!-- Background -->
-
     <div
         class="absolute top-0 left-0 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
     ></div>
@@ -122,13 +129,9 @@
     ></div>
 
 
-    <!-- Login Card -->
-
     <div
         class="relative w-full max-w-md bg-white rounded-[2rem] shadow-2xl overflow-hidden fade-in"
     >
-
-        <!-- Header -->
 
         <div
             class="h-32 bg-gradient-to-r from-purple-600 via-indigo-700 to-indigo-800 relative"
@@ -153,8 +156,6 @@
         </div>
 
 
-        <!-- Login Content -->
-
         <div class="p-8 pt-16 text-center">
 
             <h1 class="text-2xl font-black text-slate-800">
@@ -167,8 +168,6 @@
 
 
             <div class="mt-8 space-y-4">
-
-                <!-- PIN -->
 
                 <div class="text-left">
 
@@ -198,8 +197,6 @@
                 </div>
 
 
-                <!-- Error -->
-
                 <p
                     id="admin-pin-error"
                     class="hidden text-sm text-rose-500 font-bold"
@@ -213,8 +210,6 @@
 
                 </p>
 
-
-                <!-- Login -->
 
                 <button
                     type="button"
@@ -256,8 +251,6 @@
         class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between"
     >
 
-        <!-- LEFT -->
-
         <div class="flex items-center gap-3">
 
             <a
@@ -285,8 +278,6 @@
 
         </div>
 
-
-        <!-- RIGHT -->
 
         <div class="flex items-center gap-2">
 
@@ -651,8 +642,6 @@
         </div>
 
 
-        <!-- CHART -->
-
         <div
             id="sales-chart"
             class="mt-8 h-72 flex items-end gap-2 sm:gap-4 overflow-x-auto px-2 pb-2"
@@ -694,17 +683,13 @@
                 </h2>
 
                 <p class="text-xs text-slate-400 mt-1">
-                    ค้นหา นำเข้า และส่งออกข้อมูลลูกค้า
+                    ค้นหา นำเข้า ส่งออก และจัดการ Blacklist ลูกค้า
                 </p>
 
             </div>
 
 
-            <!-- BUTTONS -->
-
             <div class="flex flex-wrap gap-2">
-
-                <!-- IMPORT -->
 
                 <input
                     type="file"
@@ -730,8 +715,6 @@
                 </button>
 
 
-                <!-- EXPORT -->
-
                 <button
                     type="button"
                     onclick="exportCSV()"
@@ -746,8 +729,6 @@
 
                 </button>
 
-
-                <!-- REFRESH -->
 
                 <button
                     type="button"
@@ -841,8 +822,6 @@
         class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden"
     >
 
-        <!-- HEADER -->
-
         <div
             class="p-6 flex items-center justify-between border-b border-slate-100"
         >
@@ -860,7 +839,7 @@
                 </h3>
 
                 <p class="text-xs text-slate-400 mt-1">
-                    ข้อมูลความเสี่ยง ประวัติการจัดส่ง และยอดขาย
+                    ข้อมูลความเสี่ยง ประวัติการจัดส่ง ยอดขาย และ Blacklist
                 </p>
 
             </div>
@@ -875,8 +854,6 @@
 
         </div>
 
-
-        <!-- LIST -->
 
         <div
             id="customer-list"
@@ -947,6 +924,120 @@
 
 
 <!-- ========================================================= -->
+<!-- BLACKLIST MODAL -->
+<!-- ========================================================= -->
+
+<div
+    id="blacklist-modal"
+    class="hidden fixed inset-0 z-[90] flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm"
+>
+
+    <div
+        class="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden fade-in"
+    >
+
+        <!-- MODAL HEADER -->
+
+        <div
+            class="p-6 bg-gradient-to-r from-rose-600 to-red-700 text-white"
+        >
+
+            <div class="flex items-center gap-3">
+
+                <div
+                    class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center"
+                >
+
+                    <i class="fa-solid fa-user-slash text-xl"></i>
+
+                </div>
+
+
+                <div>
+
+                    <h3 class="font-bold text-lg">
+                        ขึ้น Blacklist
+                    </h3>
+
+                    <p
+                        id="blacklist-modal-name"
+                        class="text-xs text-rose-100 mt-1"
+                    >
+                        ลูกค้า
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MODAL BODY -->
+
+        <div class="p-6">
+
+            <label
+                for="blacklist-reason-input"
+                class="block text-sm font-bold text-slate-700 mb-2"
+            >
+
+                <i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1"></i>
+
+                เหตุผลในการขึ้น Blacklist
+
+            </label>
+
+
+            <textarea
+                id="blacklist-reason-input"
+                rows="4"
+                maxlength="300"
+                placeholder="เช่น ลูกค้าปฏิเสธรับสินค้า / ตีกลับสินค้าหลายครั้ง / พฤติกรรมน่าสงสัย..."
+                class="w-full resize-none p-4 rounded-2xl border-2 border-slate-200 bg-slate-50 focus:outline-none focus:border-rose-500 focus:bg-white text-sm font-medium"
+            ></textarea>
+
+
+            <p class="text-[11px] text-slate-400 mt-2">
+                กรุณาระบุเหตุผลเพื่อให้ Admin คนอื่นตรวจสอบได้
+            </p>
+
+
+            <div class="flex gap-2 mt-5">
+
+                <button
+                    type="button"
+                    onclick="closeBlacklistModal()"
+                    class="flex-1 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm transition"
+                >
+
+                    ยกเลิก
+
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="confirmBlacklist()"
+                    class="flex-1 py-3 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm transition active:scale-95"
+                >
+
+                    <i class="fa-solid fa-user-slash mr-1"></i>
+
+                    ยืนยัน Blacklist
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================= -->
 <!-- TOAST -->
 <!-- ========================================================= -->
 
@@ -964,14 +1055,19 @@
 
 <script src="js/db.js"></script>
 
-<script src="js/sound.js"></script>
-
 
 <!-- ========================================================= -->
 <!-- ADMIN JAVASCRIPT -->
 <!-- ========================================================= -->
 
 <script>
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+let selectedBlacklistUserId = null;
 
 
 /* =========================================================
@@ -1010,6 +1106,33 @@ document.addEventListener(
                     ) {
 
                         loginAdmin();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        const blacklistReason =
+            document.getElementById(
+                'blacklist-reason-input'
+            );
+
+
+        if (blacklistReason) {
+
+            blacklistReason.addEventListener(
+                'keydown',
+                event => {
+
+                    if (
+                        event.ctrlKey &&
+                        event.key === 'Enter'
+                    ) {
+
+                        confirmBlacklist();
 
                     }
 
@@ -1130,17 +1253,6 @@ function loginAdmin() {
         pinInput.value = '';
 
 
-        if (
-            typeof playSound === 'function'
-        ) {
-
-            playSound(
-                'success'
-            );
-
-        }
-
-
         showToast(
             'เข้าสู่ระบบ Admin สำเร็จ 🛡️',
             'success'
@@ -1149,17 +1261,6 @@ function loginAdmin() {
     }
 
     else {
-
-        if (
-            typeof playSound === 'function'
-        ) {
-
-            playSound(
-                'wrong_pin'
-            );
-
-        }
-
 
         errorMsg.innerHTML = `
 
@@ -1178,7 +1279,6 @@ function loginAdmin() {
 
 
         pinInput.value = '';
-
 
         pinInput.focus();
 
@@ -1768,8 +1868,20 @@ function handleAdminSearch() {
                         .toLowerCase();
 
 
-                    return name.includes(
-                        keyword
+                    const id =
+                        String(
+                            user.id || ''
+                        )
+                        .toLowerCase();
+
+
+                    return (
+                        name.includes(
+                            keyword
+                        ) ||
+                        id.includes(
+                            keyword
+                        )
                     );
 
                 }
@@ -1930,10 +2042,24 @@ function renderCustomers(users) {
                     );
 
 
+                /*
+                 * ใช้ ID ของข้อมูลเป็นหลัก
+                 * หากไม่มี ID จะ fallback เป็นชื่อ
+                 */
+
+                const safeUserId =
+                    user.id !== undefined &&
+                    user.id !== null
+                        ? String(user.id)
+                        : String(
+                            user.name || ''
+                        );
+
+
                 return `
 
                     <div
-                        class="p-5 rounded-2xl border ${blacklistClass} hover:border-indigo-200 transition"
+                        class="customer-card p-5 rounded-2xl border ${blacklistClass}"
                     >
 
                         <div
@@ -1945,24 +2071,32 @@ function renderCustomers(users) {
                             <div class="min-w-0">
 
                                 <div
-                                    class="flex items-center gap-2 flex-wrap"
+                                    class="flex items-center gap-3 flex-wrap"
                                 >
 
                                     <div
-                                        class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0"
+                                        class="w-10 h-10 rounded-xl ${
+                                            user.isBlacklisted
+                                                ? 'bg-rose-100 text-rose-600'
+                                                : 'bg-indigo-100 text-indigo-600'
+                                        } flex items-center justify-center shrink-0"
                                     >
 
                                         <i
-                                            class="fa-solid fa-user"
+                                            class="fa-solid ${
+                                                user.isBlacklisted
+                                                    ? 'fa-user-slash'
+                                                    : 'fa-user'
+                                            }"
                                         ></i>
 
                                     </div>
 
 
-                                    <div>
+                                    <div class="min-w-0">
 
                                         <h4
-                                            class="font-bold text-slate-800"
+                                            class="font-bold text-slate-800 break-words"
                                         >
 
                                             ${escapeHtml(
@@ -2099,25 +2233,57 @@ function renderCustomers(users) {
                         </div>
 
 
+                        <!-- BLACKLIST REASON -->
+
                         ${
-                            user.isBlacklisted &&
-                            user.blacklistReason
+                            user.isBlacklisted
 
                                 ?
 
                                 `
 
                                     <div
-                                        class="mt-4 p-3 rounded-xl bg-rose-100/70 text-rose-700 text-xs font-semibold"
+                                        class="mt-4 p-4 rounded-2xl bg-rose-100/70 border border-rose-200"
                                     >
 
-                                        <i
-                                            class="fa-solid fa-triangle-exclamation mr-1"
-                                        ></i>
+                                        <div
+                                            class="flex items-start gap-3"
+                                        >
 
-                                        ${escapeHtml(
-                                            user.blacklistReason
-                                        )}
+                                            <div
+                                                class="w-8 h-8 rounded-xl bg-rose-200 text-rose-700 flex items-center justify-center shrink-0"
+                                            >
+
+                                                <i
+                                                    class="fa-solid fa-triangle-exclamation"
+                                                ></i>
+
+                                            </div>
+
+
+                                            <div class="min-w-0">
+
+                                                <p
+                                                    class="text-xs font-bold text-rose-700"
+                                                >
+                                                    เหตุผล Blacklist
+                                                </p>
+
+
+                                                <p
+                                                    class="text-xs font-semibold text-rose-600 mt-1 break-words"
+                                                >
+
+                                                    ${escapeHtml(
+                                                        user.blacklistReason ||
+                                                        'ไม่ได้ระบุเหตุผล'
+                                                    )}
+
+                                                </p>
+
+                                            </div>
+
+                                        </div>
 
                                     </div>
 
@@ -2129,6 +2295,76 @@ function renderCustomers(users) {
 
                         }
 
+
+                        <!-- ADMIN ACTIONS -->
+
+                        <div
+                            class="mt-4 pt-4 border-t border-slate-200/70 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+                        >
+
+                            <div
+                                class="text-[11px] text-slate-400"
+                            >
+
+                                <i
+                                    class="fa-solid fa-shield-halved mr-1"
+                                ></i>
+
+                                การจัดการสถานะลูกค้าโดย Admin
+
+                            </div>
+
+
+                            ${
+                                user.isBlacklisted
+
+                                    ?
+
+                                    `
+
+                                        <button
+                                            type="button"
+                                            onclick="removeBlacklistById(${JSON.stringify(
+                                                safeUserId
+                                            )})"
+                                            class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition active:scale-95 shadow-sm"
+                                        >
+
+                                            <i
+                                                class="fa-solid fa-user-check mr-1"
+                                            ></i>
+
+                                            ปลด Blacklist
+
+                                        </button>
+
+                                    `
+
+                                    :
+
+                                    `
+
+                                        <button
+                                            type="button"
+                                            onclick="openBlacklistModalById(${JSON.stringify(
+                                                safeUserId
+                                            )})"
+                                            class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition active:scale-95 shadow-sm"
+                                        >
+
+                                            <i
+                                                class="fa-solid fa-user-slash mr-1"
+                                            ></i>
+
+                                            ขึ้น Blacklist
+
+                                        </button>
+
+                                    `
+                            }
+
+                        </div>
+
                     </div>
 
                 `;
@@ -2136,6 +2372,474 @@ function renderCustomers(users) {
             }
         )
         .join('');
+
+}
+
+
+/* =========================================================
+   FIND USER
+========================================================= */
+
+function findUserById(id) {
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        return null;
+
+    }
+
+
+    const users =
+        DB.getAll() || [];
+
+
+    const stringId =
+        String(
+            id ?? ''
+        );
+
+
+    return users.find(
+        user =>
+            String(
+                user.id ?? ''
+            ) === stringId
+    ) || null;
+
+}
+
+
+/* =========================================================
+   OPEN BLACKLIST MODAL
+========================================================= */
+
+function openBlacklistModalById(id) {
+
+    const user =
+        findUserById(
+            id
+        );
+
+
+    if (!user) {
+
+        showToast(
+            'ไม่พบข้อมูลลูกค้า',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (
+        user.isBlacklisted
+    ) {
+
+        showToast(
+            'ลูกค้ารายนี้ติด Blacklist อยู่แล้ว',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    selectedBlacklistUserId =
+        String(
+            user.id ?? id
+        );
+
+
+    const modal =
+        document.getElementById(
+            'blacklist-modal'
+        );
+
+
+    const nameElement =
+        document.getElementById(
+            'blacklist-modal-name'
+        );
+
+
+    const reasonInput =
+        document.getElementById(
+            'blacklist-reason-input'
+        );
+
+
+    if (
+        !modal ||
+        !nameElement ||
+        !reasonInput
+    ) {
+
+        return;
+
+    }
+
+
+    nameElement.innerText =
+        `ลูกค้า: ${user.name || '-'}`;
+
+
+    reasonInput.value = '';
+
+
+    modal.classList.remove(
+        'hidden'
+    );
+
+
+    setTimeout(
+        () => {
+
+            reasonInput.focus();
+
+        },
+        100
+    );
+
+}
+
+
+/* =========================================================
+   CLOSE BLACKLIST MODAL
+========================================================= */
+
+function closeBlacklistModal() {
+
+    const modal =
+        document.getElementById(
+            'blacklist-modal'
+        );
+
+
+    const reasonInput =
+        document.getElementById(
+            'blacklist-reason-input'
+        );
+
+
+    if (modal) {
+
+        modal.classList.add(
+            'hidden'
+        );
+
+    }
+
+
+    if (reasonInput) {
+
+        reasonInput.value = '';
+
+    }
+
+
+    selectedBlacklistUserId =
+        null;
+
+}
+
+
+/* =========================================================
+   CONFIRM BLACKLIST
+========================================================= */
+
+function confirmBlacklist() {
+
+    if (
+        !selectedBlacklistUserId
+    ) {
+
+        showToast(
+            'ไม่พบลูกค้าที่ต้องการจัดการ',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    const reasonInput =
+        document.getElementById(
+            'blacklist-reason-input'
+        );
+
+
+    if (!reasonInput) {
+
+        return;
+
+    }
+
+
+    const reason =
+        reasonInput.value.trim();
+
+
+    if (!reason) {
+
+        showToast(
+            'กรุณาระบุเหตุผลในการขึ้น Blacklist',
+            'error'
+        );
+
+
+        reasonInput.focus();
+
+
+        return;
+
+    }
+
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        showToast(
+            'ไม่พบระบบฐานข้อมูล DB',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const users =
+            DB.getAll() || [];
+
+
+        const index =
+            users.findIndex(
+                user =>
+                    String(
+                        user.id ?? ''
+                    ) ===
+                    String(
+                        selectedBlacklistUserId
+                    )
+            );
+
+
+        if (
+            index < 0
+        ) {
+
+            showToast(
+                'ไม่พบข้อมูลลูกค้า',
+                'error'
+            );
+
+            return;
+
+        }
+
+
+        users[index] = {
+
+            ...users[index],
+
+            isBlacklisted:
+                true,
+
+            blacklistReason:
+                reason
+
+        };
+
+
+        DB.save(
+            users
+        );
+
+
+        const customerName =
+            users[index].name ||
+            'ลูกค้า';
+
+
+        closeBlacklistModal();
+
+
+        refreshDashboard();
+
+
+        showToast(
+            `ขึ้น Blacklist ${customerName} สำเร็จ 🚫`,
+            'success'
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            'Blacklist error:',
+            error
+        );
+
+
+        showToast(
+            'ไม่สามารถบันทึก Blacklist ได้',
+            'error'
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REMOVE BLACKLIST
+========================================================= */
+
+function removeBlacklistById(id) {
+
+    const user =
+        findUserById(
+            id
+        );
+
+
+    if (!user) {
+
+        showToast(
+            'ไม่พบข้อมูลลูกค้า',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !user.isBlacklisted
+    ) {
+
+        showToast(
+            'ลูกค้ารายนี้ไม่ได้ติด Blacklist',
+            'info'
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            `ต้องการปลด Blacklist ของ "${user.name || 'ลูกค้ารายนี้'}" หรือไม่?\n\nเหตุผลเดิม:\n${user.blacklistReason || 'ไม่ได้ระบุเหตุผล'}`
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        showToast(
+            'ไม่พบระบบฐานข้อมูล DB',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const users =
+            DB.getAll() || [];
+
+
+        const index =
+            users.findIndex(
+                item =>
+                    String(
+                        item.id ?? ''
+                    ) ===
+                    String(
+                        id
+                    )
+            );
+
+
+        if (
+            index < 0
+        ) {
+
+            showToast(
+                'ไม่พบข้อมูลลูกค้า',
+                'error'
+            );
+
+            return;
+
+        }
+
+
+        users[index] = {
+
+            ...users[index],
+
+            isBlacklisted:
+                false,
+
+            blacklistReason:
+                ''
+
+        };
+
+
+        DB.save(
+            users
+        );
+
+
+        refreshDashboard();
+
+
+        showToast(
+            `ปลด Blacklist ${user.name || 'ลูกค้า'} สำเร็จ ✅`,
+            'success'
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            'Remove blacklist error:',
+            error
+        );
+
+
+        showToast(
+            'ไม่สามารถปลด Blacklist ได้',
+            'error'
+        );
+
+    }
 
 }
 
@@ -2254,7 +2958,11 @@ function renderDeliverySummary(users) {
                 return `
 
                     <div
-                        class="p-4 bg-slate-50 rounded-2xl border border-slate-200"
+                        class="p-4 bg-slate-50 rounded-2xl border ${
+                            user.isBlacklisted
+                                ? 'border-rose-200 bg-rose-50'
+                                : 'border-slate-200'
+                        }"
                     >
 
                         <div
@@ -2263,15 +2971,40 @@ function renderDeliverySummary(users) {
 
                             <div class="min-w-0">
 
-                                <p
-                                    class="font-bold text-slate-800 truncate"
+                                <div
+                                    class="flex items-center gap-2"
                                 >
 
-                                    ${escapeHtml(
-                                        user.name || '-'
-                                    )}
+                                    <p
+                                        class="font-bold text-slate-800 truncate"
+                                    >
 
-                                </p>
+                                        ${escapeHtml(
+                                            user.name || '-'
+                                        )}
+
+                                    </p>
+
+
+                                    ${
+                                        user.isBlacklisted
+
+                                            ?
+
+                                            `
+                                                <span
+                                                    class="text-[10px] px-2 py-1 rounded-lg bg-rose-100 text-rose-600 font-bold shrink-0"
+                                                >
+                                                    BLACKLIST
+                                                </span>
+                                            `
+
+                                            :
+
+                                            ''
+                                    }
+
+                                </div>
 
 
                                 <p
@@ -3323,6 +4056,83 @@ function showToast(
         );
 
 }
+
+
+/* =========================================================
+   CLOSE MODAL WHEN CLICK OUTSIDE
+========================================================= */
+
+document.addEventListener(
+    'click',
+    event => {
+
+        const modal =
+            document.getElementById(
+                'blacklist-modal'
+            );
+
+
+        if (
+            !modal ||
+            modal.classList.contains(
+                'hidden'
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            event.target === modal
+        ) {
+
+            closeBlacklistModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESC CLOSE MODAL
+========================================================= */
+
+document.addEventListener(
+    'keydown',
+    event => {
+
+        if (
+            event.key !== 'Escape'
+        ) {
+
+            return;
+
+        }
+
+
+        const modal =
+            document.getElementById(
+                'blacklist-modal'
+            );
+
+
+        if (
+            modal &&
+            !modal.classList.contains(
+                'hidden'
+            )
+        ) {
+
+            closeBlacklistModal();
+
+        }
+
+    }
+);
+
 
 </script>
 
