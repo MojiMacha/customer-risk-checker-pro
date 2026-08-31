@@ -4,7 +4,7 @@
 
 <head>
 
-
+```
 <meta charset="UTF-8">
 
 <meta
@@ -127,6 +127,7 @@
     p-4"
 >
 
+```
 <!-- =====================================================
      BACKGROUND
 ====================================================== -->
@@ -138,32 +139,31 @@
     overflow-hidden"
 >
 
-```
-<div
-    class="absolute
-    -top-32
-    -left-32
-    w-96
-    h-96
-    bg-indigo-300/20
-    rounded-full
-    blur-3xl"
-></div>
+    <div
+        class="absolute
+        -top-32
+        -left-32
+        w-96
+        h-96
+        bg-indigo-300/20
+        rounded-full
+        blur-3xl"
+    ></div>
 
 
-<div
-    class="absolute
-    -bottom-32
-    -right-32
-    w-96
-    h-96
-    bg-purple-300/20
-    rounded-full
-    blur-3xl"
-></div>
-```
+    <div
+        class="absolute
+        -bottom-32
+        -right-32
+        w-96
+        h-96
+        bg-purple-300/20
+        rounded-full
+        blur-3xl"
+    ></div>
 
 </div>
+
 
 <!-- =====================================================
      LOGIN WRAPPER
@@ -176,590 +176,553 @@
     max-w-md"
 >
 
-```
-<!-- =================================================
-     LOGIN CARD
-================================================== -->
 
-<section
-    class="login-card
-    bg-white
-    rounded-[2rem]
-    border
-    border-slate-200
-    shadow-2xl
-    overflow-hidden"
->
+    <!-- =================================================
+         LOGIN CARD
+    ================================================== -->
 
-
-    <!-- =============================================
-         HEADER
-    ============================================== -->
-
-    <div
-        class="bg-gradient-to-br
-        from-indigo-600
-        via-indigo-700
-        to-slate-950
-        text-white
-        p-7
-        sm:p-8
-        text-center
-        relative
+    <section
+        class="login-card
+        bg-white
+        rounded-[2rem]
+        border
+        border-slate-200
+        shadow-2xl
         overflow-hidden"
     >
 
-        <div
-            class="absolute
-            -right-16
-            -top-16
-            w-48
-            h-48
-            rounded-full
-            bg-white/10
-            blur-2xl"
-        ></div>
 
+        <!-- =============================================
+             HEADER
+        ============================================== -->
 
         <div
-            class="relative
-            z-10"
+            class="bg-gradient-to-br
+            from-indigo-600
+            via-indigo-700
+            to-slate-950
+            text-white
+            p-7
+            sm:p-8
+            text-center
+            relative
+            overflow-hidden"
         >
 
             <div
-                class="logo-pulse
-                w-20
-                h-20
-                mx-auto
-                rounded-3xl
+                class="absolute
+                -right-16
+                -top-16
+                w-48
+                h-48
+                rounded-full
                 bg-white/10
-                border
-                border-white/10
-                flex
-                items-center
-                justify-center"
+                blur-2xl"
+            ></div>
+
+
+            <div
+                class="relative
+                z-10"
             >
 
-                <i
-                    class="fa-solid
-                    fa-shield-halved
-                    text-4xl
-                    text-amber-300"
-                ></i>
+                <div
+                    class="logo-pulse
+                    w-20
+                    h-20
+                    mx-auto
+                    rounded-3xl
+                    bg-white/10
+                    border
+                    border-white/10
+                    flex
+                    items-center
+                    justify-center"
+                >
+
+                    <i
+                        class="fa-solid
+                        fa-shield-halved
+                        text-4xl
+                        text-amber-300"
+                    ></i>
+
+                </div>
+
+
+                <h1
+                    class="text-2xl
+                    font-black
+                    mt-5"
+                >
+                    Delivery Risk Market
+                </h1>
+
+
+                <p
+                    class="text-indigo-100
+                    text-xs
+                    mt-1"
+                >
+                    ระบบจัดการคำสั่งซื้อและตรวจสอบความเสี่ยง
+                </p>
 
             </div>
 
-
-            <h1
-                class="text-2xl
-                font-black
-                mt-5"
-            >
-
-                Delivery Risk Market
-
-            </h1>
-
-
-            <p
-                class="text-indigo-100
-                text-xs
-                mt-1"
-            >
-
-                ระบบจัดการคำสั่งซื้อและตรวจสอบความเสี่ยง
-
-            </p>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =============================================
-         FORM
-    ============================================== -->
-
-    <div
-        class="p-6
-        sm:p-8"
-    >
-
-
-        <div
-            class="text-center
-            mb-6"
-        >
-
-            <h2
-                class="text-xl
-                font-black"
-            >
-
-                เข้าสู่ระบบ
-
-            </h2>
-
-
-            <p
-                class="text-xs
-                text-slate-400
-                mt-1"
-            >
-
-                เลือกประเภทบัญชีของคุณ
-
-            </p>
-
         </div>
 
 
-
-        <!-- =========================================
-             ROLE SELECT
-        ========================================== -->
-
-        <div
-            class="grid
-            grid-cols-2
-            gap-3
-            mb-6"
-        >
-
-
-            <!-- CUSTOMER -->
-
-            <button
-                type="button"
-                id="customer-role"
-                onclick="selectRole('customer')"
-                class="role-card
-                active
-                border-2
-                border-indigo-500
-                rounded-2xl
-                p-4
-                text-center"
-            >
-
-                <div
-                    class="w-11
-                    h-11
-                    mx-auto
-                    rounded-xl
-                    bg-indigo-100
-                    text-indigo-600
-                    flex
-                    items-center
-                    justify-center"
-                >
-
-                    <i
-                        class="fa-solid
-                        fa-user"
-                    ></i>
-
-                </div>
-
-
-                <p
-                    class="font-black
-                    text-sm
-                    mt-2"
-                >
-
-                    ลูกค้า
-
-                </p>
-
-
-                <p
-                    class="text-[10px]
-                    text-slate-400
-                    mt-0.5"
-                >
-
-                    ซื้อสินค้า / ติดตามพัสดุ
-
-                </p>
-
-            </button>
-
-
-
-            <!-- STAFF -->
-
-            <button
-                type="button"
-                id="staff-role"
-                onclick="selectRole('staff')"
-                class="role-card
-                border-2
-                border-slate-200
-                rounded-2xl
-                p-4
-                text-center"
-            >
-
-                <div
-                    class="w-11
-                    h-11
-                    mx-auto
-                    rounded-xl
-                    bg-slate-100
-                    text-slate-500
-                    flex
-                    items-center
-                    justify-center"
-                >
-
-                    <i
-                        class="fa-solid
-                        fa-user-shield"
-                    ></i>
-
-                </div>
-
-
-                <p
-                    class="font-black
-                    text-sm
-                    mt-2"
-                >
-
-                    พนักงาน
-
-                </p>
-
-
-                <p
-                    class="text-[10px]
-                    text-slate-400
-                    mt-0.5"
-                >
-
-                    จัดการร้าน / ลูกค้า / ความเสี่ยง
-
-                </p>
-
-            </button>
-
-        </div>
-
-
-
-        <!-- =========================================
-             ERROR
-        ========================================== -->
+        <!-- =============================================
+             FORM
+        ============================================== -->
 
         <div
-            id="login-error"
-            class="hidden
-            mb-4
-            p-3
-            rounded-2xl
-            bg-rose-50
-            border
-            border-rose-100
-            text-rose-600
-            text-xs"
+            class="p-6
+            sm:p-8"
         >
 
-            <i
-                class="fa-solid
-                fa-circle-exclamation
-                mr-1"
-            ></i>
-
-            <span id="login-error-text">
-                กรุณาตรวจสอบข้อมูล
-            </span>
-
-        </div>
-
-
-
-        <!-- =========================================
-             USERNAME
-        ========================================== -->
-
-        <label
-            class="block
-            text-xs
-            font-bold
-            text-slate-600
-            mb-2"
-        >
-
-            ชื่อผู้ใช้
-
-        </label>
-
-
-        <div
-            class="relative
-            mb-4"
-        >
-
-            <i
-                class="fa-solid
-                fa-user
-                absolute
-                left-4
-                top-1/2
-                -translate-y-1/2
-                text-slate-400"
-            ></i>
-
-
-            <input
-                id="username"
-                type="text"
-                autocomplete="username"
-                placeholder="กรอกชื่อผู้ใช้"
-                class="input-focus
-                w-full
-                rounded-2xl
-                border
-                border-slate-200
-                bg-slate-50
-                py-3.5
-                pl-11
-                pr-4
-                text-sm
-                transition"
-            >
-
-        </div>
-
-
-
-        <!-- =========================================
-             PASSWORD
-        ========================================== -->
-
-        <label
-            class="block
-            text-xs
-            font-bold
-            text-slate-600
-            mb-2"
-        >
-
-            รหัสผ่าน
-
-        </label>
-
-
-        <div
-            class="relative
-            mb-5"
-        >
-
-            <i
-                class="fa-solid
-                fa-lock
-                absolute
-                left-4
-                top-1/2
-                -translate-y-1/2
-                text-slate-400"
-            ></i>
-
-
-            <input
-                id="password"
-                type="password"
-                autocomplete="current-password"
-                placeholder="กรอกรหัสผ่าน"
-                class="input-focus
-                w-full
-                rounded-2xl
-                border
-                border-slate-200
-                bg-slate-50
-                py-3.5
-                pl-11
-                pr-12
-                text-sm
-                transition"
-            >
-
-
-            <button
-                type="button"
-                onclick="togglePassword()"
-                class="absolute
-                right-3
-                top-1/2
-                -translate-y-1/2
-                w-9
-                h-9
-                rounded-xl
-                text-slate-400
-                hover:bg-slate-200
-                transition"
-            >
-
-                <i
-                    id="password-icon"
-                    class="fa-solid
-                    fa-eye"
-                ></i>
-
-            </button>
-
-        </div>
-
-
-
-        <!-- =========================================
-             LOGIN BUTTON
-        ========================================== -->
-
-        <button
-            type="button"
-            id="login-button"
-            onclick="login()"
-            class="w-full
-            py-3.5
-            rounded-2xl
-            bg-indigo-600
-            hover:bg-indigo-700
-            text-white
-            font-black
-            text-sm
-            shadow-lg
-            shadow-indigo-200
-            transition
-            active:scale-[0.98]"
-        >
-
-            <i
-                class="fa-solid
-                fa-right-to-bracket
-                mr-2"
-            ></i>
-
-            เข้าสู่ระบบ
-
-        </button>
-
-
-
-        <!-- =========================================
-             DEMO ACCOUNT
-        ========================================== -->
-
-        <div
-            class="mt-5
-            p-4
-            rounded-2xl
-            bg-slate-50
-            border
-            border-slate-200"
-        >
 
             <div
-                class="flex
-                items-center
-                gap-2
-                mb-2"
+                class="text-center
+                mb-6"
             >
 
-                <i
-                    class="fa-solid
-                    fa-circle-info
-                    text-indigo-500"
-                ></i>
+                <h2
+                    class="text-xl
+                    font-black"
+                >
+                    เข้าสู่ระบบ
+                </h2>
 
 
                 <p
                     class="text-xs
-                    font-black"
+                    text-slate-400
+                    mt-1"
                 >
-
-                    บัญชีสำหรับทดสอบ
-
+                    เลือกประเภทบัญชีของคุณ
                 </p>
 
             </div>
 
 
+            <!-- =========================================
+                 ROLE SELECT
+            ========================================== -->
+
             <div
-                class="text-[11px]
-                text-slate-500
-                space-y-1"
+                class="grid
+                grid-cols-2
+                gap-3
+                mb-6"
             >
 
-                <p>
 
-                    👤 ลูกค้า:
-                    <span
-                        class="font-bold
-                        text-slate-700"
+                <!-- CUSTOMER -->
+
+                <button
+                    type="button"
+                    id="customer-role"
+                    onclick="selectRole('customer')"
+                    class="role-card
+                    active
+                    border-2
+                    border-indigo-500
+                    rounded-2xl
+                    p-4
+                    text-center"
+                >
+
+                    <div
+                        class="w-11
+                        h-11
+                        mx-auto
+                        rounded-xl
+                        bg-indigo-100
+                        text-indigo-600
+                        flex
+                        items-center
+                        justify-center"
                     >
-                        customer
-                    </span>
-                    /
-                    <span
-                        class="font-bold
-                        text-slate-700"
+
+                        <i
+                            class="fa-solid
+                            fa-user"
+                        ></i>
+
+                    </div>
+
+
+                    <p
+                        class="font-black
+                        text-sm
+                        mt-2"
                     >
-                        1234
-                    </span>
-
-                </p>
+                        ลูกค้า
+                    </p>
 
 
-                <p>
-
-                    🛡️ พนักงาน:
-                    <span
-                        class="font-bold
-                        text-slate-700"
+                    <p
+                        class="text-[10px]
+                        text-slate-400
+                        mt-0.5"
                     >
-                        admin
-                    </span>
-                    /
-                    <span
-                        class="font-bold
-                        text-slate-700"
-                    >
-                        admin123
-                    </span>
+                        ซื้อสินค้า / ติดตามพัสดุ
+                    </p>
 
-                </p>
+                </button>
+
+
+                <!-- STAFF -->
+
+                <button
+                    type="button"
+                    id="staff-role"
+                    onclick="selectRole('staff')"
+                    class="role-card
+                    border-2
+                    border-slate-200
+                    rounded-2xl
+                    p-4
+                    text-center"
+                >
+
+                    <div
+                        class="w-11
+                        h-11
+                        mx-auto
+                        rounded-xl
+                        bg-slate-100
+                        text-slate-500
+                        flex
+                        items-center
+                        justify-center"
+                    >
+
+                        <i
+                            class="fa-solid
+                            fa-user-shield"
+                        ></i>
+
+                    </div>
+
+
+                    <p
+                        class="font-black
+                        text-sm
+                        mt-2"
+                    >
+                        พนักงาน
+                    </p>
+
+
+                    <p
+                        class="text-[10px]
+                        text-slate-400
+                        mt-0.5"
+                    >
+                        จัดการร้าน / ลูกค้า / ความเสี่ยง
+                    </p>
+
+                </button>
+
+            </div>
+
+
+            <!-- =========================================
+                 ERROR
+            ========================================== -->
+
+            <div
+                id="login-error"
+                class="hidden
+                mb-4
+                p-3
+                rounded-2xl
+                bg-rose-50
+                border
+                border-rose-100
+                text-rose-600
+                text-xs"
+            >
+
+                <i
+                    class="fa-solid
+                    fa-circle-exclamation
+                    mr-1"
+                ></i>
+
+                <span id="login-error-text">
+                    กรุณาตรวจสอบข้อมูล
+                </span>
+
+            </div>
+
+
+            <!-- =========================================
+                 USERNAME
+            ========================================== -->
+
+            <label
+                class="block
+                text-xs
+                font-bold
+                text-slate-600
+                mb-2"
+            >
+                ชื่อผู้ใช้
+            </label>
+
+
+            <div
+                class="relative
+                mb-4"
+            >
+
+                <i
+                    class="fa-solid
+                    fa-user
+                    absolute
+                    left-4
+                    top-1/2
+                    -translate-y-1/2
+                    text-slate-400"
+                ></i>
+
+
+                <input
+                    id="username"
+                    type="text"
+                    autocomplete="username"
+                    placeholder="กรอกชื่อผู้ใช้"
+                    class="input-focus
+                    w-full
+                    rounded-2xl
+                    border
+                    border-slate-200
+                    bg-slate-50
+                    py-3.5
+                    pl-11
+                    pr-4
+                    text-sm
+                    transition"
+                >
+
+            </div>
+
+
+            <!-- =========================================
+                 PASSWORD
+            ========================================== -->
+
+            <label
+                class="block
+                text-xs
+                font-bold
+                text-slate-600
+                mb-2"
+            >
+                รหัสผ่าน
+            </label>
+
+
+            <div
+                class="relative
+                mb-5"
+            >
+
+                <i
+                    class="fa-solid
+                    fa-lock
+                    absolute
+                    left-4
+                    top-1/2
+                    -translate-y-1/2
+                    text-slate-400"
+                ></i>
+
+
+                <input
+                    id="password"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="กรอกรหัสผ่าน"
+                    class="input-focus
+                    w-full
+                    rounded-2xl
+                    border
+                    border-slate-200
+                    bg-slate-50
+                    py-3.5
+                    pl-11
+                    pr-12
+                    text-sm
+                    transition"
+                >
+
+
+                <button
+                    type="button"
+                    onclick="togglePassword()"
+                    class="absolute
+                    right-3
+                    top-1/2
+                    -translate-y-1/2
+                    w-9
+                    h-9
+                    rounded-xl
+                    text-slate-400
+                    hover:bg-slate-200
+                    transition"
+                >
+
+                    <i
+                        id="password-icon"
+                        class="fa-solid
+                        fa-eye"
+                    ></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- =========================================
+                 LOGIN BUTTON
+            ========================================== -->
+
+            <button
+                type="button"
+                id="login-button"
+                onclick="login()"
+                class="w-full
+                py-3.5
+                rounded-2xl
+                bg-indigo-600
+                hover:bg-indigo-700
+                text-white
+                font-black
+                text-sm
+                shadow-lg
+                shadow-indigo-200
+                transition
+                active:scale-[0.98]"
+            >
+
+                <i
+                    class="fa-solid
+                    fa-right-to-bracket
+                    mr-2"
+                ></i>
+
+                เข้าสู่ระบบ
+
+            </button>
+
+
+            <!-- =========================================
+                 DEMO ACCOUNT
+            ========================================== -->
+
+            <div
+                class="mt-5
+                p-4
+                rounded-2xl
+                bg-slate-50
+                border
+                border-slate-200"
+            >
+
+                <div
+                    class="flex
+                    items-center
+                    gap-2
+                    mb-2"
+                >
+
+                    <i
+                        class="fa-solid
+                        fa-circle-info
+                        text-indigo-500"
+                    ></i>
+
+
+                    <p
+                        class="text-xs
+                        font-black"
+                    >
+                        บัญชีสำหรับทดสอบ
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="text-[11px]
+                    text-slate-500
+                    space-y-1"
+                >
+
+                    <p>
+                        👤 ลูกค้า:
+                        <span
+                            class="font-bold
+                            text-slate-700"
+                        >
+                            customer
+                        </span>
+                        /
+                        <span
+                            class="font-bold
+                            text-slate-700"
+                        >
+                            1234
+                        </span>
+                    </p>
+
+
+                    <p>
+                        🛡️ พนักงาน:
+                        <span
+                            class="font-bold
+                            text-slate-700"
+                        >
+                            admin
+                        </span>
+                        /
+                        <span
+                            class="font-bold
+                            text-slate-700"
+                        >
+                            admin123
+                        </span>
+                    </p>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
 
-<!-- =================================================
-     FOOTER
-================================================== -->
-
-<p
-    class="text-center
-    text-[10px]
-    text-slate-400
-    mt-5"
->
-
-    © 2026 Delivery Risk Market
-    • Customer Risk Management System
-
-</p>
-```
+    <p
+        class="text-center
+        text-[10px]
+        text-slate-400
+        mt-5"
+    >
+        © 2026 Delivery Risk Market
+        • Customer Risk Management System
+    </p>
 
 </main>
+
 
 <!-- =====================================================
      JAVASCRIPT
@@ -767,336 +730,230 @@
 
 <script>
 
-/* =====================================================
-   STATE
-===================================================== */
+    /* =====================================================
+       STATE
+    ===================================================== */
 
-let selectedRole = "customer";
+    let selectedRole = "customer";
 
 
-/* =====================================================
-   DEMO USERS
-===================================================== */
+    /* =====================================================
+       DEMO USERS
+    ===================================================== */
 
-const DEMO_USERS = [
+    const DEMO_USERS = [
 
-    {
-        id: "customer-001",
-        username: "customer",
-        password: "1234",
-        name: "ลูกค้าทดสอบ",
-        role: "customer"
-    },
+        {
+            id: "customer-001",
+            username: "customer",
+            password: "1234",
+            name: "ลูกค้าทดสอบ",
+            role: "customer"
+        },
 
-    {
-        id: "admin-001",
-        username: "admin",
-        password: "admin123",
-        name: "ผู้ดูแลระบบ",
-        role: "staff"
-    }
+        {
+            id: "admin-001",
+            username: "admin",
+            password: "admin123",
+            name: "ผู้ดูแลระบบ",
+            role: "staff"
+        }
 
-];
+    ];
 
 
-/* =====================================================
-   SELECT ROLE
-===================================================== */
+    /* =====================================================
+       SELECT ROLE
+    ===================================================== */
 
-function selectRole(role) {
+    function selectRole(role) {
 
-    selectedRole = role;
+        selectedRole = role;
 
+        const customerButton =
+            document.getElementById("customer-role");
 
-    const customerButton =
-        document.getElementById("customer-role");
+        const staffButton =
+            document.getElementById("staff-role");
 
+        customerButton.classList.remove("active");
 
-    const staffButton =
-        document.getElementById("staff-role");
+        staffButton.classList.remove("active");
 
+        if (role === "customer") {
 
-    customerButton.classList.remove(
-        "active"
-    );
+            customerButton.classList.add("active");
 
+        } else {
 
-    staffButton.classList.remove(
-        "active"
-    );
-
-
-    if (role === "customer") {
-
-        customerButton.classList.add(
-            "active"
-        );
-
-    }
-
-    else {
-
-        staffButton.classList.add(
-            "active"
-        );
-
-    }
-
-
-    hideError();
-
-}
-
-
-/* =====================================================
-   TOGGLE PASSWORD
-===================================================== */
-
-function togglePassword() {
-
-    const input =
-        document.getElementById("password");
-
-
-    const icon =
-        document.getElementById("password-icon");
-
-
-    if (input.type === "password") {
-
-        input.type = "text";
-
-        icon.className =
-            "fa-solid fa-eye-slash";
-
-    }
-
-    else {
-
-        input.type = "password";
-
-        icon.className =
-            "fa-solid fa-eye";
-
-    }
-
-}
-
-
-/* =====================================================
-   SHOW ERROR
-===================================================== */
-
-function showError(message) {
-
-    const box =
-        document.getElementById("login-error");
-
-
-    const text =
-        document.getElementById("login-error-text");
-
-
-    text.textContent =
-        message;
-
-
-    box.classList.remove("hidden");
-
-}
-
-
-/* =====================================================
-   HIDE ERROR
-===================================================== */
-
-function hideError() {
-
-    document
-        .getElementById("login-error")
-        .classList.add("hidden");
-
-}
-
-
-/* =====================================================
-   GET USERS FROM LOCAL STORAGE
-===================================================== */
-
-function getUsers() {
-
-    try {
-
-        const saved =
-            localStorage.getItem("users");
-
-
-        if (!saved) {
-
-            return DEMO_USERS;
+            staffButton.classList.add("active");
 
         }
 
+        hideError();
 
-        const parsed =
-            JSON.parse(saved);
+    }
 
 
-        if (!Array.isArray(parsed)) {
+    /* =====================================================
+       TOGGLE PASSWORD
+    ===================================================== */
 
-            return DEMO_USERS;
+    function togglePassword() {
+
+        const input =
+            document.getElementById("password");
+
+        const icon =
+            document.getElementById("password-icon");
+
+        if (input.type === "password") {
+
+            input.type = "text";
+
+            icon.className =
+                "fa-solid fa-eye-slash";
+
+        } else {
+
+            input.type = "password";
+
+            icon.className =
+                "fa-solid fa-eye";
 
         }
 
-
-        return [
-            ...DEMO_USERS,
-            ...parsed
-        ];
-
     }
 
-    catch (error) {
 
-        console.error(
-            "ไม่สามารถอ่าน users:",
-            error
-        );
+    /* =====================================================
+       SHOW ERROR
+    ===================================================== */
 
-        return DEMO_USERS;
+    function showError(message) {
 
-    }
+        const box =
+            document.getElementById("login-error");
 
-}
+        const text =
+            document.getElementById("login-error-text");
 
+        text.textContent = message;
 
-/* =====================================================
-   NORMALIZE ROLE
-===================================================== */
-
-function normalizeRole(role) {
-
-    const value =
-        String(role || "")
-            .trim()
-            .toLowerCase();
-
-
-    if (
-        value === "admin" ||
-        value === "staff" ||
-        value === "employee" ||
-        value === "พนักงาน"
-    ) {
-
-        return "staff";
+        box.classList.remove("hidden");
 
     }
 
 
-    return "customer";
+    /* =====================================================
+       HIDE ERROR
+    ===================================================== */
 
-}
+    function hideError() {
 
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-function login() {
-
-    hideError();
-
-
-    const username =
         document
-            .getElementById("username")
-            .value
-            .trim();
-
-
-    const password =
-        document
-            .getElementById("password")
-            .value;
-
-
-    if (!username) {
-
-        showError(
-            "กรุณากรอกชื่อผู้ใช้"
-        );
-
-        return;
+            .getElementById("login-error")
+            .classList.add("hidden");
 
     }
 
 
-    if (!password) {
+    /* =====================================================
+       GET USERS FROM LOCAL STORAGE
+    ===================================================== */
 
-        showError(
-            "กรุณากรอกรหัสผ่าน"
-        );
+    function getUsers() {
 
-        return;
+        try {
 
-    }
+            const saved =
+                localStorage.getItem("users");
 
+            if (!saved) {
 
-    const users =
-        getUsers();
-
-
-    const user =
-        users.find(
-            item => {
-
-                const itemUsername =
-                    String(
-                        item.username ||
-                        item.email ||
-                        item.name ||
-                        ""
-                    )
-                    .trim()
-                    .toLowerCase();
-
-
-                const inputUsername =
-                    username.toLowerCase();
-
-
-                return (
-                    itemUsername ===
-                    inputUsername
-                );
+                return DEMO_USERS;
 
             }
-        );
+
+            const parsed =
+                JSON.parse(saved);
+
+            if (!Array.isArray(parsed)) {
+
+                return DEMO_USERS;
+
+            }
+
+            return [
+                ...DEMO_USERS,
+                ...parsed
+            ];
+
+        } catch (error) {
+
+            console.error(
+                "ไม่สามารถอ่าน users:",
+                error
+            );
+
+            return DEMO_USERS;
+
+        }
+
+    }
 
 
-    /*
-       ถ้าไม่เจอ user
-       ให้ลอง Demo Account
-    */
+    /* =====================================================
+       NORMALIZE ROLE
+    ===================================================== */
 
-    let matchedUser = null;
+    function normalizeRole(role) {
 
-
-    if (user) {
-
-        /*
-           ถ้ามี password ในข้อมูล
-           ให้ตรวจสอบ
-        */
+        const value =
+            String(role || "")
+                .trim()
+                .toLowerCase();
 
         if (
-            user.password !== undefined &&
-            String(user.password) !== password
+            value === "admin" ||
+            value === "staff" ||
+            value === "employee" ||
+            value === "พนักงาน"
         ) {
 
+            return "staff";
+
+        }
+
+        return "customer";
+
+    }
+
+
+    /* =====================================================
+       LOGIN
+    ===================================================== */
+
+    function login() {
+
+        hideError();
+
+        const username =
+            document
+                .getElementById("username")
+                .value
+                .trim();
+
+        const password =
+            document
+                .getElementById("password")
+                .value;
+
+
+        if (!username) {
+
             showError(
-                "รหัสผ่านไม่ถูกต้อง"
+                "กรุณากรอกชื่อผู้ใช้"
             );
 
             return;
@@ -1104,264 +961,334 @@ function login() {
         }
 
 
-        matchedUser = user;
-
-    }
-
-    else {
-
-        /*
-           ตรวจ Demo
-        */
-
-        matchedUser =
-            DEMO_USERS.find(
-                item =>
-                    item.username === username &&
-                    item.password === password
-            );
-
-    }
-
-
-    if (!matchedUser) {
-
-        showError(
-            "ไม่พบชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"
-        );
-
-        return;
-
-    }
-
-
-    const userRole =
-        normalizeRole(
-            matchedUser.role
-        );
-
-
-    /*
-       ตรวจ Role ที่เลือก
-    */
-
-    if (
-        selectedRole !==
-        userRole
-    ) {
-
-        if (userRole === "staff") {
+        if (!password) {
 
             showError(
-                "บัญชีนี้เป็นพนักงาน กรุณาเลือก \"พนักงาน\""
+                "กรุณากรอกรหัสผ่าน"
             );
+
+            return;
 
         }
 
-        else {
 
-            showError(
-                "บัญชีนี้เป็นลูกค้า กรุณาเลือก \"ลูกค้า\""
-            );
-
-        }
-
-        return;
-
-    }
+        const users = getUsers();
 
 
-    /*
-       สร้าง Session
-    */
-
-    const session = {
-
-        id:
-            matchedUser.id ||
-            username,
-
-        username:
-            matchedUser.username ||
-            username,
-
-        name:
-            matchedUser.name ||
-            username,
-
-        role:
-            userRole,
-
-        loginAt:
-            new Date().toISOString()
-
-    };
+        const inputUsername =
+            username.toLowerCase();
 
 
-    localStorage.setItem(
-        "currentUser",
-        JSON.stringify(session)
-    );
+        const user =
+            users.find(
+                item => {
 
+                    const itemUsername =
+                        String(
+                            item.username ||
+                            item.email ||
+                            item.name ||
+                            ""
+                        )
+                        .trim()
+                        .toLowerCase();
 
-    localStorage.setItem(
-        "isLoggedIn",
-        "true"
-    );
+                    return (
+                        itemUsername ===
+                        inputUsername
+                    );
 
-
-    localStorage.setItem(
-        "userRole",
-        userRole
-    );
-
-
-    /*
-       Redirect
-    */
-
-    const button =
-        document.getElementById(
-            "login-button"
-        );
-
-
-    button.disabled = true;
-
-
-    button.innerHTML = `
-        <i class="fa-solid fa-spinner fa-spin mr-2"></i>
-        กำลังเข้าสู่ระบบ...
-    `;
-
-
-    setTimeout(
-        function() {
-
-            if (userRole === "staff") {
-
-                window.location.href =
-                    "admin.html";
-
-            }
-
-            else {
-
-                window.location.href =
-                    "shop.html";
-
-            }
-
-        },
-        400
-    );
-
-}
-
-
-/* =====================================================
-   ENTER KEY
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            login();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   CHECK EXISTING LOGIN
-===================================================== */
-
-function checkExistingLogin() {
-
-    try {
-
-        const isLoggedIn =
-            localStorage.getItem(
-                "isLoggedIn"
+                }
             );
 
 
-        const currentUser =
-            localStorage.getItem(
-                "currentUser"
-            );
+        let matchedUser = null;
 
 
-        if (
-            isLoggedIn === "true" &&
-            currentUser
-        ) {
+        /* =================================================
+           USER FOUND
+        ================================================== */
 
-            const user =
-                JSON.parse(
-                    currentUser
-                );
-
+        if (user) {
 
             /*
-               ถ้า Login อยู่แล้ว
-               ให้ไปหน้าตาม Role
+               ถ้ามี password ในข้อมูล
+               ให้ตรวจสอบ
             */
 
             if (
-                user.role === "staff" ||
-                user.role === "admin"
+                user.password !== undefined &&
+                String(user.password) !== password
             ) {
 
-                window.location.href =
-                    "admin.html";
+                showError(
+                    "รหัสผ่านไม่ถูกต้อง"
+                );
+
+                return;
 
             }
 
-            else {
+            matchedUser = user;
 
-                window.location.href =
-                    "shop.html";
+        }
+
+
+        /* =================================================
+           DEMO ACCOUNT FALLBACK
+        ================================================== */
+
+        else {
+
+            matchedUser =
+                DEMO_USERS.find(
+                    item =>
+                        item.username.toLowerCase() ===
+                            inputUsername &&
+                        item.password === password
+                );
+
+        }
+
+
+        /* =================================================
+           LOGIN FAILED
+        ================================================== */
+
+        if (!matchedUser) {
+
+            showError(
+                "ไม่พบชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"
+            );
+
+            return;
+
+        }
+
+
+        /* =================================================
+           GET ROLE
+        ================================================== */
+
+        const userRole =
+            normalizeRole(
+                matchedUser.role
+            );
+
+
+        /* =================================================
+           CHECK SELECTED ROLE
+        ================================================== */
+
+        if (
+            selectedRole !==
+            userRole
+        ) {
+
+            if (userRole === "staff") {
+
+                showError(
+                    'บัญชีนี้เป็นพนักงาน กรุณาเลือก "พนักงาน"'
+                );
+
+            } else {
+
+                showError(
+                    'บัญชีนี้เป็นลูกค้า กรุณาเลือก "ลูกค้า"'
+                );
 
             }
+
+            return;
+
+        }
+
+
+        /* =================================================
+           CREATE SESSION
+        ================================================== */
+
+        const session = {
+
+            id:
+                matchedUser.id ||
+                username,
+
+            username:
+                matchedUser.username ||
+                username,
+
+            name:
+                matchedUser.name ||
+                username,
+
+            role:
+                userRole,
+
+            loginAt:
+                new Date().toISOString()
+
+        };
+
+
+        localStorage.setItem(
+            "currentUser",
+            JSON.stringify(session)
+        );
+
+
+        localStorage.setItem(
+            "isLoggedIn",
+            "true"
+        );
+
+
+        localStorage.setItem(
+            "userRole",
+            userRole
+        );
+
+
+        /* =================================================
+           LOGIN BUTTON LOADING
+        ================================================== */
+
+        const button =
+            document.getElementById(
+                "login-button"
+            );
+
+
+        button.disabled = true;
+
+
+        button.innerHTML = `
+            <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+            กำลังเข้าสู่ระบบ...
+        `;
+
+
+        /* =================================================
+           REDIRECT
+        ================================================== */
+
+        setTimeout(
+            function() {
+
+                if (userRole === "staff") {
+
+                    window.location.href =
+                        "admin.html";
+
+                } else {
+
+                    window.location.href =
+                        "shop.html";
+
+                }
+
+            },
+            400
+        );
+
+    }
+
+
+    /* =====================================================
+       ENTER KEY
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                login();
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       CHECK EXISTING LOGIN
+    ===================================================== */
+
+    function checkExistingLogin() {
+
+        try {
+
+            const isLoggedIn =
+                localStorage.getItem(
+                    "isLoggedIn"
+                );
+
+
+            const currentUser =
+                localStorage.getItem(
+                    "currentUser"
+                );
+
+
+            if (
+                isLoggedIn === "true" &&
+                currentUser
+            ) {
+
+                const user =
+                    JSON.parse(
+                        currentUser
+                    );
+
+
+                if (
+                    user.role === "staff" ||
+                    user.role === "admin"
+                ) {
+
+                    window.location.href =
+                        "admin.html";
+
+                } else {
+
+                    window.location.href =
+                        "shop.html";
+
+                }
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Session error:",
+                error
+            );
 
         }
 
     }
 
-    catch (error) {
 
-        console.error(
-            "Session error:",
-            error
-        );
+    /* =====================================================
+       INIT
+    ====================================================== */
 
-    }
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
 
-}
+            checkExistingLogin();
 
-
-/* =====================================================
-   INIT
-===================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        checkExistingLogin();
-
-    }
-);
+        }
+    );
 
 </script>
+```
 
 </body>
 
