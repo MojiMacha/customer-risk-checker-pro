@@ -1,1 +1,2570 @@
+<!DOCTYPE html>
+
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>ที่อยู่จัดส่ง | Delivery Risk Market</title>
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
+
+<!-- Google Font -->
+<link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Kanit', sans-serif;
+    }
+
+    .address-card {
+        transition: all 0.2s ease;
+    }
+
+    .address-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .modal-animation {
+        animation: modalIn 0.2s ease;
+    }
+
+    @keyframes modalIn {
+
+        from {
+            opacity: 0;
+            transform: translateY(12px) scale(0.97);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+    }
+
+    .toast-animation {
+        animation: toastIn 0.25s ease;
+    }
+
+    @keyframes toastIn {
+
+        from {
+            opacity: 0;
+            transform: translate(-50%, 20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body class="bg-slate-100 min-h-screen text-slate-800">
+
+<!-- ===================================================== -->
+
+<!-- NAVBAR -->
+
+<!-- ===================================================== -->
+
+<nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
+
+```
+<div
+    class="max-w-6xl mx-auto px-4 py-3
+    flex items-center justify-between gap-4"
+>
+
+    <!-- BRAND -->
+
+    <a
+        href="shop.html"
+        class="flex items-center gap-3"
+    >
+
+        <div
+            class="w-10 h-10
+            rounded-xl
+            bg-gradient-to-br
+            from-indigo-500
+            to-indigo-700
+            flex items-center
+            justify-center"
+        >
+
+            <i
+                class="fa-solid
+                fa-store
+                text-amber-300"
+            ></i>
+
+        </div>
+
+
+        <div>
+
+            <p class="font-black text-sm">
+                Delivery Risk Market
+            </p>
+
+            <p class="text-[10px] text-slate-400">
+                Shipping Address
+            </p>
+
+        </div>
+
+    </a>
+
+
+    <!-- RIGHT -->
+
+    <div class="flex items-center gap-2">
+
+        <a
+            href="shop.html"
+            class="hidden sm:flex
+            items-center gap-2
+            px-3 py-2
+            rounded-xl
+            text-xs
+            font-bold
+            text-slate-300
+            hover:text-white
+            hover:bg-white/10
+            transition"
+        >
+
+            <i class="fa-solid fa-store"></i>
+
+            ช้อปสินค้า
+
+        </a>
+
+
+        <a
+            href="orders.html"
+            class="flex
+            items-center gap-2
+            px-3 py-2
+            rounded-xl
+            text-xs
+            font-bold
+            text-slate-300
+            hover:text-white
+            hover:bg-white/10
+            transition"
+        >
+
+            <i class="fa-solid fa-receipt"></i>
+
+            <span class="hidden sm:inline">
+                คำสั่งซื้อ
+            </span>
+
+        </a>
+
+    </div>
+
+</div>
+```
+
+</nav>
+
+<!-- ===================================================== -->
+
+<!-- MAIN -->
+
+<!-- ===================================================== -->
+
+<main
+    class="max-w-4xl
+    mx-auto
+    px-4
+    py-6
+    pb-16"
+>
+
+```
+<!-- ================================================= -->
+<!-- HEADER -->
+<!-- ================================================= -->
+
+<section class="mb-6">
+
+    <a
+        href="checkout.html"
+        class="inline-flex
+        items-center
+        gap-2
+        text-xs
+        text-slate-500
+        hover:text-indigo-600
+        mb-3"
+    >
+
+        <i class="fa-solid fa-arrow-left"></i>
+
+        กลับไปชำระเงิน
+
+    </a>
+
+
+    <div
+        class="flex
+        flex-col
+        sm:flex-row
+        sm:items-end
+        sm:justify-between
+        gap-3"
+    >
+
+        <div>
+
+            <h1
+                class="text-2xl
+                sm:text-3xl
+                font-black"
+            >
+
+                📍 ที่อยู่จัดส่ง
+
+            </h1>
+
+
+            <p
+                class="text-sm
+                text-slate-400
+                mt-1"
+            >
+
+                จัดการที่อยู่สำหรับรับสินค้า
+
+            </p>
+
+        </div>
+
+
+        <button
+            type="button"
+            onclick="openAddressForm()"
+            class="inline-flex
+            items-center
+            justify-center
+            gap-2
+            px-5
+            py-3
+            rounded-2xl
+            bg-indigo-600
+            hover:bg-indigo-700
+            text-white
+            text-sm
+            font-bold
+            transition
+            active:scale-95"
+        >
+
+            <i class="fa-solid fa-plus"></i>
+
+            เพิ่มที่อยู่
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- LOGIN WARNING -->
+<!-- ================================================= -->
+
+<section
+    id="login-warning"
+    class="hidden
+    bg-amber-50
+    border
+    border-amber-200
+    rounded-3xl
+    p-5
+    mb-5"
+>
+
+    <div class="flex items-start gap-3">
+
+        <div
+            class="w-10 h-10
+            rounded-xl
+            bg-amber-100
+            text-amber-600
+            flex
+            items-center
+            justify-center
+            shrink-0"
+        >
+
+            <i class="fa-solid fa-lock"></i>
+
+        </div>
+
+
+        <div>
+
+            <p
+                class="font-black
+                text-amber-800"
+            >
+
+                กรุณาเข้าสู่ระบบ
+
+            </p>
+
+
+            <p
+                class="text-xs
+                text-amber-700
+                mt-1"
+            >
+
+                คุณต้องเข้าสู่ระบบก่อนจัดการที่อยู่จัดส่ง
+
+            </p>
+
+
+            <a
+                href="login.html"
+                class="inline-flex
+                items-center
+                gap-2
+                mt-3
+                px-4
+                py-2
+                rounded-xl
+                bg-amber-500
+                hover:bg-amber-600
+                text-white
+                text-xs
+                font-bold"
+            >
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                เข้าสู่ระบบ
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- USER INFO -->
+<!-- ================================================= -->
+
+<section
+    id="user-info"
+    class="hidden
+    bg-white
+    rounded-3xl
+    border
+    border-slate-200
+    p-5
+    mb-5"
+>
+
+    <div class="flex items-center gap-3">
+
+        <div
+            class="w-11 h-11
+            rounded-2xl
+            bg-indigo-50
+            text-indigo-600
+            flex
+            items-center
+            justify-center"
+        >
+
+            <i class="fa-solid fa-user"></i>
+
+        </div>
+
+
+        <div>
+
+            <p
+                class="text-[10px]
+                text-slate-400"
+            >
+
+                บัญชีผู้ใช้งาน
+
+            </p>
+
+
+            <p
+                id="user-name"
+                class="font-black"
+            >
+
+                -
+
+            </p>
+
+
+            <p
+                id="user-email"
+                class="text-xs
+                text-slate-400"
+            >
+
+                -
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- ADDRESS LIST -->
+<!-- ================================================= -->
+
+<section>
+
+    <div
+        class="flex
+        items-center
+        justify-between
+        mb-3"
+    >
+
+        <div>
+
+            <h2 class="font-black text-lg">
+                ที่อยู่ของฉัน
+            </h2>
+
+            <p
+                id="address-count"
+                class="text-xs
+                text-slate-400
+                mt-1"
+            >
+                0 ที่อยู่
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMPTY -->
+
+    <div
+        id="empty-address"
+        class="hidden
+        bg-white
+        rounded-3xl
+        border
+        border-slate-200
+        p-10
+        text-center"
+    >
+
+        <div
+            class="w-20 h-20
+            mx-auto
+            rounded-full
+            bg-slate-100
+            flex
+            items-center
+            justify-center"
+        >
+
+            <i
+                class="fa-solid
+                fa-location-dot
+                text-3xl
+                text-slate-300"
+            ></i>
+
+        </div>
+
+
+        <h3
+            class="font-black
+            text-lg
+            mt-5"
+        >
+
+            ยังไม่มีที่อยู่
+
+        </h3>
+
+
+        <p
+            class="text-sm
+            text-slate-400
+            mt-2"
+        >
+
+            เพิ่มที่อยู่สำหรับจัดส่งสินค้าได้เลย
+
+        </p>
+
+
+        <button
+            type="button"
+            onclick="openAddressForm()"
+            class="mt-5
+            px-5
+            py-3
+            rounded-2xl
+            bg-indigo-600
+            hover:bg-indigo-700
+            text-white
+            text-sm
+            font-bold"
+        >
+
+            <i
+                class="fa-solid
+                fa-plus
+                mr-1"
+            ></i>
+
+            เพิ่มที่อยู่
+
+        </button>
+
+    </div>
+
+
+    <!-- ADDRESS CONTAINER -->
+
+    <div
+        id="address-list"
+        class="space-y-4"
+    ></div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- INFO -->
+<!-- ================================================= -->
+
+<section
+    class="mt-5
+    bg-indigo-50
+    border
+    border-indigo-100
+    rounded-3xl
+    p-5"
+>
+
+    <div class="flex items-start gap-3">
+
+        <i
+            class="fa-solid
+            fa-circle-info
+            text-indigo-600
+            mt-1"
+        ></i>
+
+
+        <div>
+
+            <p
+                class="font-bold
+                text-indigo-800
+                text-sm"
+            >
+
+                เกี่ยวกับที่อยู่จัดส่ง
+
+            </p>
+
+
+            <p
+                class="text-xs
+                text-indigo-700
+                mt-1
+                leading-relaxed"
+            >
+
+                ที่อยู่จะถูกบันทึกไว้ในอุปกรณ์นี้
+                และแยกตามบัญชีผู้ใช้งาน
+                เพื่อให้สามารถเลือกใช้ในการสั่งซื้อครั้งต่อไปได้
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+```
+
+</main>
+
+<!-- ===================================================== -->
+
+<!-- ADDRESS FORM MODAL -->
+
+<!-- ===================================================== -->
+
+<div
+    id="address-modal"
+    class="hidden
+    fixed
+    inset-0
+    z-[100]
+    bg-slate-950/60
+    backdrop-blur-sm
+    p-4
+    overflow-y-auto"
+>
+
+```
+<div
+    class="min-h-full
+    flex
+    items-center
+    justify-center"
+>
+
+    <div
+        class="modal-animation
+        bg-white
+        w-full
+        max-w-2xl
+        rounded-3xl
+        shadow-2xl
+        overflow-hidden"
+    >
+
+        <!-- HEADER -->
+
+        <div
+            class="p-5
+            border-b
+            border-slate-100
+            flex
+            items-center
+            justify-between"
+        >
+
+            <div>
+
+                <h2
+                    id="modal-title"
+                    class="font-black text-lg"
+                >
+
+                    เพิ่มที่อยู่
+
+                </h2>
+
+
+                <p
+                    class="text-xs
+                    text-slate-400
+                    mt-1"
+                >
+
+                    กรอกข้อมูลสำหรับจัดส่งสินค้า
+
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                onclick="closeAddressForm()"
+                class="w-9 h-9
+                rounded-xl
+                bg-slate-100
+                hover:bg-slate-200"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+
+        <!-- FORM -->
+
+        <form
+            id="address-form"
+            onsubmit="saveAddress(event)"
+            class="p-5
+            space-y-4"
+        >
+
+            <input
+                type="hidden"
+                id="address-id"
+            >
+
+
+            <!-- NAME / PHONE -->
+
+            <div
+                class="grid
+                grid-cols-1
+                sm:grid-cols-2
+                gap-4"
+            >
+
+                <div>
+
+                    <label
+                        class="block
+                        text-xs
+                        font-bold
+                        text-slate-600
+                        mb-2"
+                    >
+
+                        ชื่อผู้รับ
+                        <span class="text-rose-500">*</span>
+
+                    </label>
+
+
+                    <input
+                        id="recipient-name"
+                        type="text"
+                        required
+                        maxlength="100"
+                        placeholder="เช่น สมชาย ใจดี"
+                        class="w-full
+                        px-4
+                        py-3
+                        rounded-xl
+                        border
+                        border-slate-200
+                        outline-none
+                        text-sm
+                        focus:ring-2
+                        focus:ring-indigo-500"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        class="block
+                        text-xs
+                        font-bold
+                        text-slate-600
+                        mb-2"
+                    >
+
+                        เบอร์โทรศัพท์
+                        <span class="text-rose-500">*</span>
+
+                    </label>
+
+
+                    <input
+                        id="recipient-phone"
+                        type="tel"
+                        required
+                        maxlength="10"
+                        inputmode="numeric"
+                        placeholder="08xxxxxxxx"
+                        class="w-full
+                        px-4
+                        py-3
+                        rounded-xl
+                        border
+                        border-slate-200
+                        outline-none
+                        text-sm
+                        focus:ring-2
+                        focus:ring-indigo-500"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ADDRESS -->
+
+            <div>
+
+                <label
+                    class="block
+                    text-xs
+                    font-bold
+                    text-slate-600
+                    mb-2"
+                >
+
+                    บ้านเลขที่ / ถนน / รายละเอียดที่อยู่
+                    <span class="text-rose-500">*</span>
+
+                </label>
+
+
+                <textarea
+                    id="address-detail"
+                    required
+                    maxlength="500"
+                    rows="3"
+                    placeholder="บ้านเลขที่ หมู่ ถนน ซอย ฯลฯ"
+                    class="w-full
+                    px-4
+                    py-3
+                    rounded-xl
+                    border
+                    border-slate-200
+                    outline-none
+                    text-sm
+                    resize-none
+                    focus:ring-2
+                    focus:ring-indigo-500"
+                ></textarea>
+
+            </div>
+
+
+
+            <!-- SUBDISTRICT / DISTRICT -->
+
+            <div
+                class="grid
+                grid-cols-1
+                sm:grid-cols-2
+                gap-4"
+            >
+
+                <div>
+
+                    <label
+                        class="block
+                        text-xs
+                        font-bold
+                        text-slate-600
+                        mb-2"
+                    >
+
+                        ตำบล / แขวง
+                        <span class="text-rose-500">*</span>
+
+                    </label>
+
+
+                    <input
+                        id="subdistrict"
+                        type="text"
+                        required
+                        maxlength="100"
+                        placeholder="เช่น ในเมือง"
+                        class="w-full
+                        px-4
+                        py-3
+                        rounded-xl
+                        border
+                        border-slate-200
+                        outline-none
+                        text-sm
+                        focus:ring-2
+                        focus:ring-indigo-500"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        class="block
+                        text-xs
+                        font-bold
+                        text-slate-600
+                        mb-2"
+                    >
+
+                        อำเภอ / เขต
+                        <span class="text-rose-500">*</span>
+
+                    </label>
+
+
+                    <input
+                        id="district"
+                        type="text"
+                        required
+                        maxlength="100"
+                        placeholder="เช่น เมืองขอนแก่น"
+                        class="w-full
+                        px-4
+                        py-3
+                        rounded-xl
+                        border
+                        border-slate-200
+                        outline-none
+                        text-sm
+                        focus:ring-2
+                        focus:ring-indigo-500"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PROVINCE / ZIP -->
+
+            <div
+                class="grid
+                grid-cols-1
+                sm:grid-cols-2
+                gap-4"
+            >
+
+                <div>
+
+                    <label
+                        class="block
+                        text-xs
+                        font-bold
+                        text-slate-600
+                        mb-2"
+                    >
+
+                        จังหวัด
+                        <span class="text-rose-500">*</span>
+
+                    </label>
+
+
+                    <input
+                        id="province"
+                        type="text"
+                        required
+                        maxlength="100"
+                        placeholder="เช่น ขอนแก่น"
+                        class="w-full
+                        px-4
+                        py-3
+                        rounded-xl
+                        border
+                        border-slate-200
+                        outline-none
+                        text-sm
+                        focus:ring-2
+                        focus:ring-indigo-500"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label
+                        class="block
+                        text-xs
+                        font-bold
+                        text-slate-600
+                        mb-2"
+                    >
+
+                        รหัสไปรษณีย์
+                        <span class="text-rose-500">*</span>
+
+                    </label>
+
+
+                    <input
+                        id="postal-code"
+                        type="text"
+                        required
+                        maxlength="5"
+                        minlength="5"
+                        inputmode="numeric"
+                        placeholder="40000"
+                        class="w-full
+                        px-4
+                        py-3
+                        rounded-xl
+                        border
+                        border-slate-200
+                        outline-none
+                        text-sm
+                        focus:ring-2
+                        focus:ring-indigo-500"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DEFAULT -->
+
+            <label
+                class="flex
+                items-center
+                gap-3
+                p-4
+                rounded-2xl
+                bg-slate-50
+                border
+                border-slate-100
+                cursor-pointer"
+            >
+
+                <input
+                    id="is-default"
+                    type="checkbox"
+                    class="w-5 h-5
+                    accent-indigo-600"
+                >
+
+
+                <span>
+
+                    <span
+                        class="block
+                        text-sm
+                        font-bold"
+                    >
+
+                        ตั้งเป็นที่อยู่หลัก
+
+                    </span>
+
+
+                    <span
+                        class="block
+                        text-xs
+                        text-slate-400
+                        mt-0.5"
+                    >
+
+                        ใช้ที่อยู่นี้เป็นค่าเริ่มต้นในการสั่งซื้อ
+
+                    </span>
+
+                </span>
+
+            </label>
+
+
+
+            <!-- BUTTONS -->
+
+            <div
+                class="flex
+                gap-2
+                pt-2"
+            >
+
+                <button
+                    type="button"
+                    onclick="closeAddressForm()"
+                    class="flex-1
+                    py-3
+                    rounded-2xl
+                    bg-slate-100
+                    hover:bg-slate-200
+                    text-sm
+                    font-bold"
+                >
+
+                    ยกเลิก
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="flex-1
+                    py-3
+                    rounded-2xl
+                    bg-indigo-600
+                    hover:bg-indigo-700
+                    text-white
+                    text-sm
+                    font-bold"
+                >
+
+                    <i
+                        class="fa-solid
+                        fa-floppy-disk
+                        mr-1"
+                    ></i>
+
+                    บันทึกที่อยู่
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ===================================================== -->
+
+<!-- TOAST -->
+
+<!-- ===================================================== -->
+
+<div
+    id="toast"
+    class="hidden
+    fixed
+    bottom-6
+    left-1/2
+    -translate-x-1/2
+    z-[200]
+    px-5
+    py-3
+    rounded-2xl
+    shadow-2xl
+    text-white
+    text-sm
+    font-bold"
+></div>
+
+<!-- ===================================================== -->
+
+<!-- JAVASCRIPT -->
+
+<!-- ===================================================== -->
+
+<script>
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let addresses = [];
+
+let editingAddressId = null;
+
+let currentUser = null;
+
+
+/* =====================================================
+   AUTH
+   รองรับรูปแบบ localStorage หลายแบบ
+===================================================== */
+
+function getCurrentUser() {
+
+    const possibleKeys = [
+        "currentUser",
+        "loggedInUser",
+        "user"
+    ];
+
+    for (const key of possibleKeys) {
+
+        try {
+
+            const value =
+                localStorage.getItem(key);
+
+            if (!value) {
+                continue;
+            }
+
+            const parsed =
+                JSON.parse(value);
+
+            if (parsed && typeof parsed === "object") {
+
+                return parsed;
+
+            }
+
+        }
+
+        catch (error) {
+
+            console.warn(
+                "ไม่สามารถอ่าน user จาก",
+                key,
+                error
+            );
+
+        }
+
+    }
+
+    return null;
+
+}
+
+
+/* =====================================================
+   USER ID
+===================================================== */
+
+function getUserId() {
+
+    if (!currentUser) {
+        return null;
+    }
+
+    return String(
+        currentUser.id ||
+        currentUser.userId ||
+        currentUser.email ||
+        currentUser.username ||
+        ""
+    ).trim();
+
+}
+
+
+/* =====================================================
+   ADDRESS STORAGE KEY
+===================================================== */
+
+function getAddressStorageKey() {
+
+    const userId =
+        getUserId();
+
+    if (!userId) {
+        return null;
+    }
+
+    return "shippingAddresses_" + userId;
+
+}
+
+
+/* =====================================================
+   LOAD ADDRESSES
+===================================================== */
+
+function loadAddresses() {
+
+    currentUser =
+        getCurrentUser();
+
+
+    const warning =
+        document.getElementById(
+            "login-warning"
+        );
+
+    const userInfo =
+        document.getElementById(
+            "user-info"
+        );
+
+
+    if (!currentUser || !getUserId()) {
+
+        warning.classList.remove("hidden");
+
+        userInfo.classList.add("hidden");
+
+        addresses = [];
+
+        renderAddresses();
+
+        return;
+
+    }
+
+
+    warning.classList.add("hidden");
+
+    userInfo.classList.remove("hidden");
+
+
+    document.getElementById(
+        "user-name"
+    ).textContent =
+        currentUser.name ||
+        currentUser.username ||
+        "ผู้ใช้งาน";
+
+
+    document.getElementById(
+        "user-email"
+    ).textContent =
+        currentUser.email ||
+        "";
+
+
+    const key =
+        getAddressStorageKey();
+
+
+    try {
+
+        const saved =
+            localStorage.getItem(key);
+
+
+        if (saved) {
+
+            const parsed =
+                JSON.parse(saved);
+
+
+            if (Array.isArray(parsed)) {
+
+                addresses = parsed;
+
+            }
+
+            else {
+
+                addresses = [];
+
+            }
+
+        }
+
+        else {
+
+            addresses = [];
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "ไม่สามารถโหลดที่อยู่ได้:",
+            error
+        );
+
+        addresses = [];
+
+    }
+
+
+    renderAddresses();
+
+}
+
+
+/* =====================================================
+   SAVE TO STORAGE
+===================================================== */
+
+function saveAddressesToStorage() {
+
+    const key =
+        getAddressStorageKey();
+
+
+    if (!key) {
+
+        showToast(
+            "กรุณาเข้าสู่ระบบก่อน",
+            "error"
+        );
+
+        return false;
+
+    }
+
+
+    try {
+
+        localStorage.setItem(
+            key,
+            JSON.stringify(addresses)
+        );
+
+        return true;
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "ไม่สามารถบันทึกที่อยู่:",
+            error
+        );
+
+        showToast(
+            "ไม่สามารถบันทึกข้อมูลได้",
+            "error"
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER ADDRESSES
+===================================================== */
+
+function renderAddresses() {
+
+    const container =
+        document.getElementById(
+            "address-list"
+        );
+
+    const empty =
+        document.getElementById(
+            "empty-address"
+        );
+
+    const count =
+        document.getElementById(
+            "address-count"
+        );
+
+
+    if (!currentUser || !getUserId()) {
+
+        container.innerHTML = "";
+
+        empty.classList.add("hidden");
+
+        count.textContent =
+            "กรุณาเข้าสู่ระบบ";
+
+        return;
+
+    }
+
+
+    count.textContent =
+        `${addresses.length} ที่อยู่`;
+
+
+    if (addresses.length === 0) {
+
+        container.innerHTML = "";
+
+        empty.classList.remove("hidden");
+
+        return;
+
+    }
+
+
+    empty.classList.add("hidden");
+
+
+    /*
+       เรียงที่อยู่หลักไว้ด้านบน
+    */
+
+    const sorted =
+        [...addresses].sort(
+            (a, b) =>
+                Number(Boolean(b.isDefault)) -
+                Number(Boolean(a.isDefault))
+        );
+
+
+    container.innerHTML =
+        sorted
+            .map(address =>
+                createAddressCard(address)
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   ADDRESS CARD
+===================================================== */
+
+function createAddressCard(address) {
+
+    const fullAddress = [
+
+        address.detail,
+
+        "ตำบล/แขวง " +
+            address.subdistrict,
+
+        "อำเภอ/เขต " +
+            address.district,
+
+        address.province,
+
+        address.postalCode
+
+    ]
+    .filter(Boolean)
+    .join(" ");
+
+
+    return `
+
+        <article
+            class="address-card
+            bg-white
+            rounded-3xl
+            border
+            ${
+                address.isDefault
+                ? "border-indigo-300 ring-2 ring-indigo-50"
+                : "border-slate-200"
+            }
+            p-5"
+        >
+
+            <!-- TOP -->
+
+            <div
+                class="flex
+                items-start
+                justify-between
+                gap-3"
+            >
+
+                <div
+                    class="flex
+                    items-start
+                    gap-3
+                    min-w-0"
+                >
+
+                    <div
+                        class="w-11 h-11
+                        rounded-2xl
+                        ${
+                            address.isDefault
+                            ? "bg-indigo-100 text-indigo-600"
+                            : "bg-slate-100 text-slate-500"
+                        }
+                        flex
+                        items-center
+                        justify-center
+                        shrink-0"
+                    >
+
+                        <i
+                            class="fa-solid
+                            fa-location-dot"
+                        ></i>
+
+                    </div>
+
+
+                    <div class="min-w-0">
+
+                        <div
+                            class="flex
+                            flex-wrap
+                            items-center
+                            gap-2"
+                        >
+
+                            <p class="font-black">
+
+                                ${escapeHTML(
+                                    address.name ||
+                                    "-"
+                                )}
+
+                            </p>
+
+
+                            ${
+                                address.isDefault
+                                ?
+
+                                `
+                                    <span
+                                        class="px-2
+                                        py-1
+                                        rounded-lg
+                                        bg-indigo-50
+                                        text-indigo-600
+                                        text-[10px]
+                                        font-black"
+                                    >
+
+                                        ที่อยู่หลัก
+
+                                    </span>
+                                `
+
+                                :
+
+                                ""
+                            }
+
+                        </div>
+
+
+                        <p
+                            class="text-xs
+                            text-slate-500
+                            mt-1"
+                        >
+
+                            ${escapeHTML(
+                                address.phone ||
+                                "-"
+                            )}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ADDRESS -->
+
+            <div
+                class="mt-4
+                p-4
+                rounded-2xl
+                bg-slate-50"
+            >
+
+                <p
+                    class="text-sm
+                    leading-relaxed"
+                >
+
+                    ${escapeHTML(fullAddress)}
+
+                </p>
+
+            </div>
+
+
+
+            <!-- ACTIONS -->
+
+            <div
+                class="flex
+                flex-wrap
+                gap-2
+                mt-4"
+            >
+
+                ${
+                    !address.isDefault
+
+                    ?
+
+                    `
+                        <button
+                            type="button"
+                            onclick="setDefaultAddress('${escapeJS(address.id)}')"
+                            class="px-4
+                            py-2.5
+                            rounded-xl
+                            bg-indigo-50
+                            hover:bg-indigo-100
+                            text-indigo-600
+                            text-xs
+                            font-bold
+                            transition"
+                        >
+
+                            <i
+                                class="fa-solid
+                                fa-star
+                                mr-1"
+                            ></i>
+
+                            ตั้งเป็นหลัก
+
+                        </button>
+                    `
+
+                    :
+
+                    ""
+                }
+
+
+                <button
+                    type="button"
+                    onclick="editAddress('${escapeJS(address.id)}')"
+                    class="px-4
+                    py-2.5
+                    rounded-xl
+                    bg-slate-100
+                    hover:bg-slate-200
+                    text-slate-700
+                    text-xs
+                    font-bold
+                    transition"
+                >
+
+                    <i
+                        class="fa-solid
+                        fa-pen
+                        mr-1"
+                    ></i>
+
+                    แก้ไข
+
+                </button>
+
+
+                <button
+                    type="button"
+                    onclick="deleteAddress('${escapeJS(address.id)}')"
+                    class="px-4
+                    py-2.5
+                    rounded-xl
+                    bg-rose-50
+                    hover:bg-rose-100
+                    text-rose-600
+                    text-xs
+                    font-bold
+                    transition"
+                >
+
+                    <i
+                        class="fa-solid
+                        fa-trash
+                        mr-1"
+                    ></i>
+
+                    ลบ
+
+                </button>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* =====================================================
+   OPEN FORM
+===================================================== */
+
+function openAddressForm(address = null) {
+
+    if (!currentUser || !getUserId()) {
+
+        showToast(
+            "กรุณาเข้าสู่ระบบก่อนเพิ่มที่อยู่",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const modal =
+        document.getElementById(
+            "address-modal"
+        );
+
+
+    const form =
+        document.getElementById(
+            "address-form"
+        );
+
+
+    form.reset();
+
+
+    editingAddressId = null;
+
+
+    if (address) {
+
+        editingAddressId =
+            address.id;
+
+
+        document.getElementById(
+            "modal-title"
+        ).textContent =
+            "แก้ไขที่อยู่";
+
+
+        document.getElementById(
+            "address-id"
+        ).value =
+            address.id || "";
+
+
+        document.getElementById(
+            "recipient-name"
+        ).value =
+            address.name || "";
+
+
+        document.getElementById(
+            "recipient-phone"
+        ).value =
+            address.phone || "";
+
+
+        document.getElementById(
+            "address-detail"
+        ).value =
+            address.detail || "";
+
+
+        document.getElementById(
+            "subdistrict"
+        ).value =
+            address.subdistrict || "";
+
+
+        document.getElementById(
+            "district"
+        ).value =
+            address.district || "";
+
+
+        document.getElementById(
+            "province"
+        ).value =
+            address.province || "";
+
+
+        document.getElementById(
+            "postal-code"
+        ).value =
+            address.postalCode || "";
+
+
+        document.getElementById(
+            "is-default"
+        ).checked =
+            Boolean(address.isDefault);
+
+    }
+
+    else {
+
+        document.getElementById(
+            "modal-title"
+        ).textContent =
+            "เพิ่มที่อยู่";
+
+
+        /*
+           ถ้ายังไม่มีที่อยู่
+           ให้ที่อยู่แรกเป็นหลักอัตโนมัติ
+        */
+
+        document.getElementById(
+            "is-default"
+        ).checked =
+            addresses.length === 0;
+
+    }
+
+
+    modal.classList.remove("hidden");
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById("recipient-name")
+            .focus();
+
+    }, 100);
+
+}
+
+
+/* =====================================================
+   CLOSE FORM
+===================================================== */
+
+function closeAddressForm() {
+
+    document
+        .getElementById("address-modal")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("address-form")
+        .reset();
+
+
+    editingAddressId = null;
+
+}
+
+
+/* =====================================================
+   SAVE ADDRESS
+===================================================== */
+
+function saveAddress(event) {
+
+    event.preventDefault();
+
+
+    if (!currentUser || !getUserId()) {
+
+        showToast(
+            "กรุณาเข้าสู่ระบบก่อน",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const name =
+        document
+            .getElementById("recipient-name")
+            .value
+            .trim();
+
+
+    const phone =
+        document
+            .getElementById("recipient-phone")
+            .value
+            .trim();
+
+
+    const detail =
+        document
+            .getElementById("address-detail")
+            .value
+            .trim();
+
+
+    const subdistrict =
+        document
+            .getElementById("subdistrict")
+            .value
+            .trim();
+
+
+    const district =
+        document
+            .getElementById("district")
+            .value
+            .trim();
+
+
+    const province =
+        document
+            .getElementById("province")
+            .value
+            .trim();
+
+
+    const postalCode =
+        document
+            .getElementById("postal-code")
+            .value
+            .trim();
+
+
+    const isDefault =
+        document
+            .getElementById("is-default")
+            .checked;
+
+
+    /* VALIDATE PHONE */
+
+    if (!/^0\d{9}$/.test(phone)) {
+
+        showToast(
+            "กรุณากรอกเบอร์โทรศัพท์ 10 หลัก",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /* VALIDATE POSTAL */
+
+    if (!/^\d{5}$/.test(postalCode)) {
+
+        showToast(
+            "กรุณากรอกรหัสไปรษณีย์ 5 หลัก",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       สร้าง ID
+    */
+
+    const addressId =
+        editingAddressId ||
+        (
+            "ADDR-" +
+            Date.now() +
+            "-" +
+            Math.random()
+                .toString(36)
+                .slice(2, 7)
+                .toUpperCase()
+        );
+
+
+    const addressData = {
+
+        id: addressId,
+
+        name: name,
+
+        phone: phone,
+
+        detail: detail,
+
+        subdistrict: subdistrict,
+
+        district: district,
+
+        province: province,
+
+        postalCode: postalCode,
+
+        isDefault: isDefault,
+
+        updatedAt:
+            new Date().toISOString()
+
+    };
+
+
+    /*
+       ถ้าเลือกเป็นที่อยู่หลัก
+       ยกเลิก default ของรายการอื่น
+    */
+
+    if (isDefault) {
+
+        addresses =
+            addresses.map(item => ({
+                ...item,
+                isDefault: false
+            }));
+
+    }
+
+
+    /*
+       EDIT
+    */
+
+    const existingIndex =
+        addresses.findIndex(
+            item =>
+                String(item.id) ===
+                String(addressId)
+        );
+
+
+    if (existingIndex >= 0) {
+
+        addresses[existingIndex] = {
+
+            ...addresses[existingIndex],
+
+            ...addressData
+
+        };
+
+    }
+
+    else {
+
+        addresses.push({
+
+            ...addressData,
+
+            createdAt:
+                new Date().toISOString()
+
+        });
+
+    }
+
+
+    /*
+       ถ้ายังไม่มี default
+       ให้รายการแรกเป็น default
+    */
+
+    if (
+        !addresses.some(
+            item => item.isDefault
+        )
+    ) {
+
+        if (addresses.length > 0) {
+
+            addresses[0].isDefault = true;
+
+        }
+
+    }
+
+
+    if (
+        !saveAddressesToStorage()
+    ) {
+
+        return;
+
+    }
+
+
+    closeAddressForm();
+
+    renderAddresses();
+
+
+    showToast(
+        existingIndex >= 0
+            ? "แก้ไขที่อยู่เรียบร้อยแล้ว"
+            : "เพิ่มที่อยู่เรียบร้อยแล้ว",
+        "success"
+    );
+
+}
+
+
+/* =====================================================
+   EDIT ADDRESS
+===================================================== */
+
+function editAddress(id) {
+
+    const address =
+        addresses.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!address) {
+
+        showToast(
+            "ไม่พบที่อยู่",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    openAddressForm(address);
+
+}
+
+
+/* =====================================================
+   DELETE ADDRESS
+===================================================== */
+
+function deleteAddress(id) {
+
+    const address =
+        addresses.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!address) {
+
+        return;
+
+    }
+
+
+    const confirmed =
+        window.confirm(
+            "ต้องการลบที่อยู่นี้หรือไม่?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    const wasDefault =
+        Boolean(address.isDefault);
+
+
+    addresses =
+        addresses.filter(
+            item =>
+                String(item.id) !==
+                String(id)
+        );
+
+
+    /*
+       ถ้าลบที่อยู่หลัก
+       ตั้งรายการแรกเป็นหลัก
+    */
+
+    if (
+        wasDefault &&
+        addresses.length > 0
+    ) {
+
+        addresses[0].isDefault = true;
+
+    }
+
+
+    saveAddressesToStorage();
+
+    renderAddresses();
+
+
+    showToast(
+        "ลบที่อยู่เรียบร้อยแล้ว",
+        "success"
+    );
+
+}
+
+
+/* =====================================================
+   SET DEFAULT
+===================================================== */
+
+function setDefaultAddress(id) {
+
+    const exists =
+        addresses.some(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!exists) {
+
+        return;
+
+    }
+
+
+    addresses =
+        addresses.map(item => ({
+
+            ...item,
+
+            isDefault:
+                String(item.id) ===
+                String(id)
+
+        }));
+
+
+    saveAddressesToStorage();
+
+    renderAddresses();
+
+
+    showToast(
+        "ตั้งเป็นที่อยู่หลักแล้ว",
+        "success"
+    );
+
+}
+
+
+/* =====================================================
+   GET DEFAULT ADDRESS
+===================================================== */
+
+function getDefaultAddress() {
+
+    return (
+        addresses.find(
+            item =>
+                item.isDefault
+        ) ||
+        addresses[0] ||
+        null
+    );
+
+}
+
+
+/*
+   เปิดให้ checkout.html เรียกใช้ได้
+*/
+
+window.getDefaultShippingAddress =
+    getDefaultAddress;
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   ESCAPE JS
+===================================================== */
+
+function escapeJS(value) {
+
+    return String(value ?? "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r");
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(
+    message,
+    type = "success"
+) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.className =
+        "fixed bottom-6 left-1/2 " +
+        "-translate-x-1/2 z-[200] " +
+        "px-5 py-3 rounded-2xl shadow-2xl " +
+        "text-white text-sm font-bold " +
+        "toast-animation " +
+        (
+            type === "error"
+            ? "bg-rose-600"
+            : "bg-emerald-600"
+        );
+
+
+    toast.classList.remove(
+        "hidden"
+    );
+
+
+    clearTimeout(
+        window.addressToastTimer
+    );
+
+
+    window.addressToastTimer =
+        setTimeout(() => {
+
+            toast.classList.add(
+                "hidden"
+            );
+
+        }, 2500);
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL OUTSIDE
+===================================================== */
+
+document
+    .getElementById("address-modal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target === this
+            ) {
+
+                closeAddressForm();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeAddressForm();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   PHONE INPUT
+===================================================== */
+
+document
+    .getElementById("recipient-phone")
+    .addEventListener(
+        "input",
+        function() {
+
+            this.value =
+                this.value
+                    .replace(/\D/g, "")
+                    .slice(0, 10);
+
+        }
+    );
+
+
+/* =====================================================
+   POSTAL INPUT
+===================================================== */
+
+document
+    .getElementById("postal-code")
+    .addEventListener(
+        "input",
+        function() {
+
+            this.value =
+                this.value
+                    .replace(/\D/g, "")
+                    .slice(0, 5);
+
+        }
+    );
+
+
+/* =====================================================
+   INIT
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadAddresses();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
 
