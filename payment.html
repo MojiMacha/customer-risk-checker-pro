@@ -58,1361 +58,1336 @@
 
 <body class="bg-slate-100 text-slate-800 min-h-screen">
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
-
+```
+<!-- NAVBAR -->
 <nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
 
-```
-<div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-
-    <a
-        href="checkout.html"
-        class="flex items-center gap-3"
-    >
-
-        <div
-            class="w-10 h-10 rounded-xl
-            bg-gradient-to-br from-indigo-500 to-indigo-700
-            flex items-center justify-center"
-        >
-            <i class="fa-solid fa-credit-card text-amber-300"></i>
-        </div>
-
-        <div>
-
-            <p class="font-black text-sm">
-                Delivery Risk Market
-            </p>
-
-            <p class="text-[10px] text-slate-400">
-                Payment
-            </p>
-
-        </div>
-
-    </a>
-
-
-    <a
-        href="checkout.html"
-        class="text-xs font-bold text-slate-300 hover:text-white"
-    >
-        <i class="fa-solid fa-arrow-left mr-1"></i>
-        กลับไปแก้ไข
-    </a>
-
-</div>
-```
-
-</nav>
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="max-w-6xl mx-auto px-4 py-6">
-
-```
-<div class="mb-6">
-
-    <p class="text-xs text-indigo-600 font-bold">
-        STEP 2 OF 2
-    </p>
-
-    <h1 class="text-3xl font-black mt-1">
-        ชำระเงิน
-    </h1>
-
-    <p class="text-sm text-slate-400 mt-1">
-        เลือกวิธีชำระเงินและยืนยันคำสั่งซื้อ
-    </p>
-
-</div>
-
-
-<!-- =================================================
-     ERROR
-================================================== -->
-
-<div
-    id="error-box"
-    class="hidden mb-5 bg-rose-50 border border-rose-200
-    text-rose-700 rounded-2xl p-4"
->
-
-    <div class="flex gap-3">
-
-        <i class="fa-solid fa-triangle-exclamation mt-1"></i>
-
-        <div>
-
-            <p class="font-bold">
-                ไม่พบข้อมูลการสั่งซื้อ
-            </p>
-
-            <p
-                id="error-message"
-                class="text-xs mt-1"
-            >
-                กรุณากลับไปหน้า Checkout
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div
-    id="payment-content"
-    class="grid lg:grid-cols-3 gap-5"
->
-
-    <!-- =================================================
-         LEFT
-    ================================================== -->
-
-    <div class="lg:col-span-2 space-y-5">
-
-
-        <!-- PAYMENT METHODS -->
-
-        <section class="bg-white rounded-3xl shadow-sm p-5">
-
-            <div class="flex items-center gap-3 mb-5">
-
-                <div
-                    class="w-10 h-10 rounded-xl
-                    bg-indigo-50 text-indigo-600
-                    flex items-center justify-center"
-                >
-
-                    <i class="fa-solid fa-wallet"></i>
-
-                </div>
-
-                <div>
-
-                    <h2 class="font-black">
-                        วิธีชำระเงิน
-                    </h2>
-
-                    <p class="text-xs text-slate-400">
-                        เลือกวิธีที่ต้องการ
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div class="space-y-3">
-
-
-                <!-- QR -->
-
-                <label
-                    class="payment-option active block
-                    border-2 border-indigo-600
-                    bg-indigo-50 rounded-2xl p-4 cursor-pointer"
-                >
-
-                    <div class="flex items-center gap-3">
-
-                        <input
-                            type="radio"
-                            name="payment"
-                            value="promptpay"
-                            checked
-                            onchange="selectPayment()"
-                        >
-
-                        <div
-                            class="w-11 h-11 rounded-xl
-                            bg-white flex items-center justify-center
-                            text-emerald-600"
-                        >
-
-                            <i class="fa-solid fa-qrcode text-xl"></i>
-
-                        </div>
-
-                        <div class="flex-1">
-
-                            <p class="font-bold">
-                                PromptPay / QR Payment
-                            </p>
-
-                            <p class="text-xs text-slate-400">
-                                สแกน QR เพื่อชำระเงิน
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </label>
-
-
-                <!-- BANK -->
-
-                <label
-                    class="payment-option block
-                    border-2 border-slate-200
-                    rounded-2xl p-4 cursor-pointer"
-                >
-
-                    <div class="flex items-center gap-3">
-
-                        <input
-                            type="radio"
-                            name="payment"
-                            value="bank"
-                            onchange="selectPayment()"
-                        >
-
-                        <div
-                            class="w-11 h-11 rounded-xl
-                            bg-white flex items-center justify-center
-                            text-blue-600"
-                        >
-
-                            <i class="fa-solid fa-building-columns text-xl"></i>
-
-                        </div>
-
-                        <div class="flex-1">
-
-                            <p class="font-bold">
-                                โอนเงินผ่านธนาคาร
-                            </p>
-
-                            <p class="text-xs text-slate-400">
-                                ระบบจำลองการโอนเงิน
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </label>
-
-
-                <!-- COD -->
-
-                <label
-                    class="payment-option block
-                    border-2 border-slate-200
-                    rounded-2xl p-4 cursor-pointer"
-                >
-
-                    <div class="flex items-center gap-3">
-
-                        <input
-                            type="radio"
-                            name="payment"
-                            value="cod"
-                            onchange="selectPayment()"
-                        >
-
-                        <div
-                            class="w-11 h-11 rounded-xl
-                            bg-white flex items-center justify-center
-                            text-amber-600"
-                        >
-
-                            <i class="fa-solid fa-money-bill-wave text-xl"></i>
-
-                        </div>
-
-                        <div class="flex-1">
-
-                            <p class="font-bold">
-                                เก็บเงินปลายทาง
-                            </p>
-
-                            <p class="text-xs text-slate-400">
-                                ชำระเงินเมื่อได้รับสินค้า
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </label>
-
-            </div>
-
-        </section>
-
-
-        <!-- QR AREA -->
-
-        <section
-            id="promptpay-area"
-            class="bg-white rounded-3xl shadow-sm p-5"
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+
+        <a
+            href="checkout.html"
+            class="flex items-center gap-3"
         >
 
-            <h2 class="font-black">
-                QR สำหรับชำระเงิน
-            </h2>
-
-            <p class="text-xs text-slate-400 mt-1">
-                นี่เป็น QR จำลองสำหรับระบบทดสอบ
-            </p>
-
-
-            <div
-                class="qr-box mt-5 rounded-3xl p-8
-                flex flex-col items-center"
-            >
-
-                <div
-                    class="w-52 h-52 bg-white rounded-2xl
-                    shadow flex items-center justify-center
-                    border-8 border-white"
-                >
-
-                    <div
-                        class="w-40 h-40 grid grid-cols-8
-                        gap-1 opacity-80"
-                        id="fake-qr"
-                    ></div>
-
-                </div>
-
-
-                <p class="font-black text-lg mt-5">
-                    PromptPay
-                </p>
-
-                <p
-                    id="qr-total"
-                    class="text-2xl font-black text-indigo-600 mt-1"
-                >
-                    ฿0
-                </p>
-
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center">
+                <i class="fa-solid fa-credit-card text-amber-300"></i>
             </div>
 
-        </section>
+            <div>
 
-
-        <!-- BANK INFO -->
-
-        <section
-            id="bank-area"
-            class="hidden bg-white rounded-3xl shadow-sm p-5"
-        >
-
-            <h2 class="font-black">
-                ข้อมูลบัญชีธนาคาร
-            </h2>
-
-            <div class="mt-4 bg-slate-50 rounded-2xl p-4">
-
-                <p class="text-xs text-slate-400">
-                    ธนาคาร
-                </p>
-
-                <p class="font-black mt-1">
-                    ธนาคารตัวอย่าง
-                </p>
-
-
-                <p class="text-xs text-slate-400 mt-4">
-                    เลขบัญชี
-                </p>
-
-                <p class="font-black mt-1">
-                    123-4-56789-0
-                </p>
-
-
-                <p class="text-xs text-slate-400 mt-4">
-                    ชื่อบัญชี
-                </p>
-
-                <p class="font-black mt-1">
+                <p class="font-black text-sm">
                     Delivery Risk Market
                 </p>
 
+                <p class="text-[10px] text-slate-400">
+                    Payment
+                </p>
+
             </div>
 
-            <p class="text-xs text-amber-600 mt-3">
-                ⚠️ ระบบนี้เป็นระบบจำลอง ยังไม่มีการโอนเงินจริง
-            </p>
-
-        </section>
+        </a>
 
 
-        <!-- COD INFO -->
-
-        <section
-            id="cod-area"
-            class="hidden bg-white rounded-3xl shadow-sm p-5"
+        <a
+            href="checkout.html"
+            class="text-xs font-bold text-slate-300 hover:text-white"
         >
+            <i class="fa-solid fa-arrow-left mr-1"></i>
+            กลับไปแก้ไข
+        </a>
 
-            <div
-                class="bg-amber-50 border border-amber-200
-                rounded-2xl p-4"
-            >
+    </div>
 
-                <div class="flex gap-3">
-
-                    <i
-                        class="fa-solid fa-truck text-amber-600 mt-1"
-                    ></i>
-
-                    <div>
-
-                        <p class="font-bold text-amber-800">
-                            เก็บเงินปลายทาง
-                        </p>
-
-                        <p class="text-xs text-amber-700 mt-1">
-                            ชำระเงินกับพนักงานจัดส่งเมื่อได้รับสินค้า
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
+</nav>
 
 
-        <!-- SHIPPING ADDRESS -->
+<!-- MAIN -->
+<main class="max-w-6xl mx-auto px-4 py-6">
 
-        <section class="bg-white rounded-3xl shadow-sm p-5">
+    <div class="mb-6">
 
-            <h2 class="font-black">
-                ที่อยู่จัดส่ง
-            </h2>
+        <p class="text-xs text-indigo-600 font-bold">
+            STEP 2 OF 2
+        </p>
 
+        <h1 class="text-3xl font-black mt-1">
+            ชำระเงิน
+        </h1>
 
-            <div
-                id="address-preview"
-                class="mt-4 bg-slate-50 rounded-2xl p-4"
-            ></div>
-
-        </section>
-
-
-        <!-- ITEMS -->
-
-        <section class="bg-white rounded-3xl shadow-sm p-5">
-
-            <h2 class="font-black">
-                รายการสินค้า
-            </h2>
-
-            <div
-                id="items-preview"
-                class="mt-4 space-y-3"
-            ></div>
-
-        </section>
+        <p class="text-sm text-slate-400 mt-1">
+            เลือกวิธีชำระเงินและยืนยันคำสั่งซื้อ
+        </p>
 
     </div>
 
 
-    <!-- =================================================
-         RIGHT
-    ================================================== -->
+    <!-- ERROR -->
+    <div
+        id="error-box"
+        class="hidden mb-5 bg-rose-50 border border-rose-200 text-rose-700 rounded-2xl p-4"
+    >
 
-    <aside>
+        <div class="flex gap-3">
 
-        <div
-            class="bg-white rounded-3xl shadow-sm p-5
-            sticky top-24"
-        >
+            <i class="fa-solid fa-triangle-exclamation mt-1"></i>
 
-            <h2 class="font-black text-lg">
-                สรุปการชำระเงิน
-            </h2>
+            <div>
 
+                <p class="font-bold">
+                    ไม่พบข้อมูลการสั่งซื้อ
+                </p>
 
-            <div class="mt-5 space-y-3 text-sm">
-
-                <div class="flex justify-between">
-
-                    <span class="text-slate-500">
-                        ราคาสินค้า
-                    </span>
-
-                    <span
-                        id="summary-subtotal"
-                        class="font-bold"
-                    >
-                        ฿0
-                    </span>
-
-                </div>
-
-
-                <div class="flex justify-between">
-
-                    <span class="text-slate-500">
-                        ค่าจัดส่ง
-                    </span>
-
-                    <span
-                        id="summary-shipping"
-                        class="font-bold"
-                    >
-                        ฿0
-                    </span>
-
-                </div>
-
-
-                <div class="flex justify-between">
-
-                    <span class="text-slate-500">
-                        ส่วนลด
-                    </span>
-
-                    <span
-                        id="summary-discount"
-                        class="font-bold text-emerald-600"
-                    >
-                        -฿0
-                    </span>
-
-                </div>
+                <p
+                    id="error-message"
+                    class="text-xs mt-1"
+                ></p>
 
             </div>
-
-
-            <div class="border-t border-slate-100 my-5"></div>
-
-
-            <div class="flex justify-between items-end">
-
-                <span class="text-slate-500">
-                    ยอดทั้งหมด
-                </span>
-
-                <span
-                    id="summary-total"
-                    class="text-2xl font-black text-indigo-600"
-                >
-                    ฿0
-                </span>
-
-            </div>
-
-
-            <button
-                id="pay-button"
-                type="button"
-                onclick="confirmPayment()"
-                class="w-full mt-5 py-4 rounded-2xl
-                bg-indigo-600 hover:bg-indigo-700
-                text-white font-black"
-            >
-
-                <i class="fa-solid fa-lock mr-2"></i>
-
-                ยืนยันการสั่งซื้อ
-
-            </button>
-
-
-            <p class="text-[10px] text-slate-400 text-center mt-3">
-                การกดยืนยันจะสร้างคำสั่งซื้อในระบบ
-            </p>
 
         </div>
 
-    </aside>
-
-</div>
-```
-
-</main>
-
-<!-- =====================================================
-     SUCCESS MODAL
-===================================================== -->
-
-<div
-    id="success-modal"
-    class="hidden fixed inset-0 z-[100]
-    bg-slate-950/70 backdrop-blur-sm
-    p-4 flex items-center justify-center"
->
-
-```
-<div
-    class="bg-white rounded-3xl max-w-md w-full
-    p-7 text-center shadow-2xl"
->
-
-    <div
-        class="w-20 h-20 mx-auto rounded-full
-        bg-emerald-100 text-emerald-600
-        flex items-center justify-center text-3xl"
-    >
-        <i class="fa-solid fa-check"></i>
     </div>
 
 
-    <h2 class="text-2xl font-black mt-5">
-        สั่งซื้อสำเร็จ!
-    </h2>
-
-
-    <p class="text-sm text-slate-400 mt-2">
-        ระบบบันทึกคำสั่งซื้อของคุณเรียบร้อยแล้ว
-    </p>
-
-
     <div
-        class="bg-slate-50 rounded-2xl p-4 mt-5"
+        id="payment-content"
+        class="grid lg:grid-cols-3 gap-5"
     >
 
-        <p class="text-xs text-slate-400">
-            เลขคำสั่งซื้อ
-        </p>
+        <!-- LEFT -->
+        <div class="lg:col-span-2 space-y-5">
 
-        <p
-            id="success-order-id"
-            class="font-black text-indigo-600 mt-1"
-        ></p>
 
-    </div>
+            <!-- PAYMENT METHODS -->
+            <section class="bg-white rounded-3xl shadow-sm p-5">
 
+                <div class="flex items-center gap-3 mb-5">
 
-    <a
-        href="orders.html"
-        class="block mt-5 py-3 rounded-2xl
-        bg-indigo-600 text-white font-bold"
-    >
-        ดูคำสั่งซื้อ
-    </a>
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
 
-</div>
-```
+                    <div>
 
-</div>
+                        <h2 class="font-black">
+                            วิธีชำระเงิน
+                        </h2>
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
-<script>
-
-let checkoutData = null;
-
-
-/* =====================================================
-   HELPERS
-===================================================== */
-
-function formatMoney(value) {
-
-    return '฿' +
-        Number(value || 0)
-            .toLocaleString('th-TH');
-
-}
-
-
-function showError(message) {
-
-    const box =
-        document.getElementById('error-box');
-
-    const text =
-        document.getElementById('error-message');
-
-    text.textContent =
-        message;
-
-    box.classList.remove('hidden');
-
-}
-
-
-/* =====================================================
-   LOAD CHECKOUT
-===================================================== */
-
-function loadCheckout() {
-
-    try {
-
-        const saved =
-            localStorage.getItem(
-                'pendingCheckout'
-            );
-
-
-        if (!saved) {
-
-            showError(
-                'ไม่พบ pendingCheckout กรุณากลับไปหน้า checkout.html แล้วดำเนินการใหม่'
-            );
-
-            document
-                .getElementById('payment-content')
-                .classList.add('hidden');
-
-            return false;
-
-        }
-
-
-        checkoutData =
-            JSON.parse(saved);
-
-
-        if (
-            !checkoutData ||
-            !Array.isArray(checkoutData.items) ||
-            !checkoutData.items.length
-        ) {
-
-            showError(
-                'ข้อมูลคำสั่งซื้อไม่สมบูรณ์ กรุณากลับไปหน้า Checkout ใหม่'
-            );
-
-            document
-                .getElementById('payment-content')
-                .classList.add('hidden');
-
-            return false;
-
-        }
-
-
-        return true;
-
-    } catch (error) {
-
-        console.error(
-            '[PAYMENT]',
-            error
-        );
-
-        showError(
-            'ไม่สามารถอ่านข้อมูลคำสั่งซื้อได้'
-        );
-
-        return false;
-
-    }
-
-}
-
-
-/* =====================================================
-   RENDER SUMMARY
-===================================================== */
-
-function renderSummary() {
-
-    document.getElementById(
-        'summary-subtotal'
-    ).textContent =
-        formatMoney(
-            checkoutData.subtotal
-        );
-
-
-    document.getElementById(
-        'summary-shipping'
-    ).textContent =
-        formatMoney(
-            checkoutData.shippingCost
-        );
-
-
-    document.getElementById(
-        'summary-discount'
-    ).textContent =
-        '-' +
-        formatMoney(
-            checkoutData.discount
-        );
-
-
-    document.getElementById(
-        'summary-total'
-    ).textContent =
-        formatMoney(
-            checkoutData.total
-        );
-
-
-    document.getElementById(
-        'qr-total'
-    ).textContent =
-        formatMoney(
-            checkoutData.total
-        );
-
-}
-
-
-/* =====================================================
-   ADDRESS
-===================================================== */
-
-function renderAddress() {
-
-    const address =
-        checkoutData.address;
-
-
-    if (!address) {
-
-        document.getElementById(
-            'address-preview'
-        ).textContent =
-            'ไม่พบข้อมูลที่อยู่';
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        'address-preview'
-    ).innerHTML = `
-
-        <p class="font-black">
-            ${escapeHTML(address.recipientName)}
-        </p>
-
-        <p class="text-sm text-slate-600 mt-1">
-            <i class="fa-solid fa-phone mr-1"></i>
-            ${escapeHTML(address.phone)}
-        </p>
-
-        <p class="text-sm text-slate-600 mt-2 leading-6">
-            ${escapeHTML(address.address)}
-            ${escapeHTML(address.subdistrict)}
-            ${escapeHTML(address.district)}
-            ${escapeHTML(address.province)}
-            ${escapeHTML(address.postcode)}
-        </p>
-
-    `;
-
-}
-
-
-/* =====================================================
-   ITEMS
-===================================================== */
-
-function renderItems() {
-
-    const container =
-        document.getElementById(
-            'items-preview'
-        );
-
-
-    container.innerHTML =
-        checkoutData.items.map(item => {
-
-            const qty =
-                Number(item.quantity || 1);
-
-            const price =
-                Number(item.price || 0);
-
-
-            return `
-
-                <div
-                    class="flex gap-3 bg-slate-50
-                    rounded-2xl p-3"
-                >
-
-                    <img
-                        src="${escapeHTML(item.image)}"
-                        class="w-16 h-16 rounded-xl object-cover"
-                        onerror="this.onerror=null;this.src='https://placehold.co/200x200/e2e8f0/64748b?text=No+Image'"
-                    >
-
-                    <div class="flex-1 min-w-0">
-
-                        <p class="font-bold truncate">
-                            ${escapeHTML(item.name)}
-                        </p>
-
-                        <p class="text-xs text-slate-400 mt-1">
-                            ${qty} × ${formatMoney(price)}
+                        <p class="text-xs text-slate-400">
+                            เลือกวิธีที่ต้องการ
                         </p>
 
                     </div>
 
-                    <p class="font-black">
-                        ${formatMoney(price * qty)}
+                </div>
+
+
+                <div class="space-y-3">
+
+
+                    <!-- PROMPTPAY -->
+                    <label class="payment-option active block border-2 border-indigo-600 bg-indigo-50 rounded-2xl p-4 cursor-pointer">
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="promptpay"
+                                checked
+                                onchange="selectPayment()"
+                            >
+
+                            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-emerald-600">
+                                <i class="fa-solid fa-qrcode text-xl"></i>
+                            </div>
+
+                            <div class="flex-1">
+
+                                <p class="font-bold">
+                                    PromptPay / QR Payment
+                                </p>
+
+                                <p class="text-xs text-slate-400">
+                                    สแกน QR เพื่อชำระเงิน
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+
+                    <!-- BANK -->
+                    <label class="payment-option block border-2 border-slate-200 rounded-2xl p-4 cursor-pointer">
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="bank"
+                                onchange="selectPayment()"
+                            >
+
+                            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-blue-600">
+                                <i class="fa-solid fa-building-columns text-xl"></i>
+                            </div>
+
+                            <div class="flex-1">
+
+                                <p class="font-bold">
+                                    โอนเงินผ่านธนาคาร
+                                </p>
+
+                                <p class="text-xs text-slate-400">
+                                    ระบบจำลองการโอนเงิน
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+
+                    <!-- COD -->
+                    <label class="payment-option block border-2 border-slate-200 rounded-2xl p-4 cursor-pointer">
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="cod"
+                                onchange="selectPayment()"
+                            >
+
+                            <div class="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-amber-600">
+                                <i class="fa-solid fa-money-bill-wave text-xl"></i>
+                            </div>
+
+                            <div class="flex-1">
+
+                                <p class="font-bold">
+                                    เก็บเงินปลายทาง
+                                </p>
+
+                                <p class="text-xs text-slate-400">
+                                    ชำระเงินเมื่อได้รับสินค้า
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- PROMPTPAY -->
+            <section
+                id="promptpay-area"
+                class="bg-white rounded-3xl shadow-sm p-5"
+            >
+
+                <h2 class="font-black">
+                    QR สำหรับชำระเงิน
+                </h2>
+
+                <p class="text-xs text-slate-400 mt-1">
+                    นี่เป็น QR จำลองสำหรับระบบทดสอบ
+                </p>
+
+
+                <div class="qr-box mt-5 rounded-3xl p-8 flex flex-col items-center">
+
+                    <div class="w-52 h-52 bg-white rounded-2xl shadow flex items-center justify-center border-8 border-white">
+
+                        <div
+                            class="w-40 h-40 grid grid-cols-8 gap-1 opacity-80"
+                            id="fake-qr"
+                        ></div>
+
+                    </div>
+
+
+                    <p class="font-black text-lg mt-5">
+                        PromptPay
+                    </p>
+
+                    <p
+                        id="qr-total"
+                        class="text-2xl font-black text-indigo-600 mt-1"
+                    >
+                        ฿0
                     </p>
 
                 </div>
 
-            `;
-
-        }).join('');
-
-}
+            </section>
 
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
+            <!-- BANK -->
+            <section
+                id="bank-area"
+                class="hidden bg-white rounded-3xl shadow-sm p-5"
+            >
 
-function escapeHTML(value) {
+                <h2 class="font-black">
+                    ข้อมูลบัญชีธนาคาร
+                </h2>
 
-    return String(value ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+                <div class="mt-4 bg-slate-50 rounded-2xl p-4">
 
-}
+                    <p class="text-xs text-slate-400">
+                        ธนาคาร
+                    </p>
 
-
-/* =====================================================
-   PAYMENT SELECT
-===================================================== */
-
-function selectPayment() {
-
-    const selected =
-        document.querySelector(
-            'input[name="payment"]:checked'
-        );
+                    <p class="font-black mt-1">
+                        ธนาคารตัวอย่าง
+                    </p>
 
 
-    document.querySelectorAll(
-        '.payment-option'
-    ).forEach(option => {
+                    <p class="text-xs text-slate-400 mt-4">
+                        เลขบัญชี
+                    </p>
 
-        const radio =
-            option.querySelector(
-                'input[name="payment"]'
+                    <p class="font-black mt-1">
+                        123-4-56789-0
+                    </p>
+
+
+                    <p class="text-xs text-slate-400 mt-4">
+                        ชื่อบัญชี
+                    </p>
+
+                    <p class="font-black mt-1">
+                        Delivery Risk Market
+                    </p>
+
+                </div>
+
+                <p class="text-xs text-amber-600 mt-3">
+                    ⚠️ ระบบนี้เป็นระบบจำลอง ยังไม่มีการโอนเงินจริง
+                </p>
+
+            </section>
+
+
+            <!-- COD -->
+            <section
+                id="cod-area"
+                class="hidden bg-white rounded-3xl shadow-sm p-5"
+            >
+
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+
+                    <div class="flex gap-3">
+
+                        <i class="fa-solid fa-truck text-amber-600 mt-1"></i>
+
+                        <div>
+
+                            <p class="font-bold text-amber-800">
+                                เก็บเงินปลายทาง
+                            </p>
+
+                            <p class="text-xs text-amber-700 mt-1">
+                                ชำระเงินกับพนักงานจัดส่งเมื่อได้รับสินค้า
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ADDRESS -->
+            <section class="bg-white rounded-3xl shadow-sm p-5">
+
+                <h2 class="font-black">
+                    ที่อยู่จัดส่ง
+                </h2>
+
+                <div
+                    id="address-preview"
+                    class="mt-4 bg-slate-50 rounded-2xl p-4"
+                ></div>
+
+            </section>
+
+
+            <!-- ITEMS -->
+            <section class="bg-white rounded-3xl shadow-sm p-5">
+
+                <h2 class="font-black">
+                    รายการสินค้า
+                </h2>
+
+                <div
+                    id="items-preview"
+                    class="mt-4 space-y-3"
+                ></div>
+
+            </section>
+
+        </div>
+
+
+        <!-- RIGHT -->
+        <aside>
+
+            <div class="bg-white rounded-3xl shadow-sm p-5 sticky top-24">
+
+                <h2 class="font-black text-lg">
+                    สรุปการชำระเงิน
+                </h2>
+
+
+                <div class="mt-5 space-y-3 text-sm">
+
+                    <div class="flex justify-between">
+
+                        <span class="text-slate-500">
+                            ราคาสินค้า
+                        </span>
+
+                        <span id="summary-subtotal" class="font-bold">
+                            ฿0
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex justify-between">
+
+                        <span class="text-slate-500">
+                            ค่าจัดส่ง
+                        </span>
+
+                        <span id="summary-shipping" class="font-bold">
+                            ฿0
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex justify-between">
+
+                        <span class="text-slate-500">
+                            ส่วนลด
+                        </span>
+
+                        <span
+                            id="summary-discount"
+                            class="font-bold text-emerald-600"
+                        >
+                            -฿0
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="border-t border-slate-100 my-5"></div>
+
+
+                <div class="flex justify-between items-end">
+
+                    <span class="text-slate-500">
+                        ยอดทั้งหมด
+                    </span>
+
+                    <span
+                        id="summary-total"
+                        class="text-2xl font-black text-indigo-600"
+                    >
+                        ฿0
+                    </span>
+
+                </div>
+
+
+                <button
+                    id="pay-button"
+                    type="button"
+                    onclick="confirmPayment()"
+                    class="w-full mt-5 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black"
+                >
+                    <i class="fa-solid fa-lock mr-2"></i>
+                    ยืนยันการสั่งซื้อ
+                </button>
+
+
+                <p class="text-[10px] text-slate-400 text-center mt-3">
+                    การกดยืนยันจะสร้างคำสั่งซื้อในระบบ
+                </p>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+
+<!-- SUCCESS MODAL -->
+<div
+    id="success-modal"
+    class="hidden fixed inset-0 z-[100] bg-slate-950/70 backdrop-blur-sm p-4 flex items-center justify-center"
+>
+
+    <div class="bg-white rounded-3xl max-w-md w-full p-7 text-center shadow-2xl">
+
+        <div class="w-20 h-20 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl">
+            <i class="fa-solid fa-check"></i>
+        </div>
+
+
+        <h2 class="text-2xl font-black mt-5">
+            สั่งซื้อสำเร็จ!
+        </h2>
+
+
+        <p class="text-sm text-slate-400 mt-2">
+            ระบบบันทึกคำสั่งซื้อของคุณเรียบร้อยแล้ว
+        </p>
+
+
+        <div class="bg-slate-50 rounded-2xl p-4 mt-5">
+
+            <p class="text-xs text-slate-400">
+                เลขคำสั่งซื้อ
+            </p>
+
+            <p
+                id="success-order-id"
+                class="font-black text-indigo-600 mt-1"
+            ></p>
+
+        </div>
+
+
+        <a
+            href="orders.html"
+            class="block mt-5 py-3 rounded-2xl bg-indigo-600 text-white font-bold"
+        >
+            ดูคำสั่งซื้อ
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    let checkoutData = null;
+
+
+    /* =====================================================
+       HELPERS
+    ===================================================== */
+
+    function formatMoney(value) {
+
+        return '฿' +
+            Number(value || 0)
+                .toLocaleString('th-TH');
+
+    }
+
+
+    function escapeHTML(value) {
+
+        return String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+    }
+
+
+    function showError(message) {
+
+        const box =
+            document.getElementById(
+                'error-box'
+            );
+
+        const text =
+            document.getElementById(
+                'error-message'
             );
 
 
-        if (
-            radio &&
-            radio.checked
-        ) {
-
-            option.classList.add(
-                'active'
-            );
-
-        } else {
-
-            option.classList.remove(
-                'active'
-            );
-
-        }
-
-    });
+        text.textContent =
+            message;
 
 
-    document
-        .getElementById('promptpay-area')
-        .classList.add('hidden');
-
-    document
-        .getElementById('bank-area')
-        .classList.add('hidden');
-
-    document
-        .getElementById('cod-area')
-        .classList.add('hidden');
-
-
-    if (!selected) return;
-
-
-    if (
-        selected.value ===
-        'promptpay'
-    ) {
-
-        document
-            .getElementById('promptpay-area')
-            .classList.remove('hidden');
-
-    }
-
-
-    if (
-        selected.value ===
-        'bank'
-    ) {
-
-        document
-            .getElementById('bank-area')
-            .classList.remove('hidden');
-
-    }
-
-
-    if (
-        selected.value ===
-        'cod'
-    ) {
-
-        document
-            .getElementById('cod-area')
-            .classList.remove('hidden');
-
-    }
-
-}
-
-
-/* =====================================================
-   CREATE FAKE QR
-===================================================== */
-
-function createFakeQR() {
-
-    const qr =
-        document.getElementById(
-            'fake-qr'
+        box.classList.remove(
+            'hidden'
         );
 
-
-    let html = '';
-
-
-    for (
-        let i = 0;
-        i < 64;
-        i++
-    ) {
-
-        const dark =
-            Math.random() > 0.48;
-
-
-        html += `
-
-            <span
-                class="${dark ? 'bg-slate-950' : 'bg-white'}"
-            ></span>
-
-        `;
-
     }
 
 
-    qr.innerHTML =
-        html;
+    /* =====================================================
+       LOAD CHECKOUT
+    ===================================================== */
 
-}
+    function loadCheckout() {
 
+        try {
 
-/* =====================================================
-   CONFIRM PAYMENT
-===================================================== */
-
-function confirmPayment() {
-
-    if (!checkoutData) {
-
-        showError(
-            'ไม่พบข้อมูลคำสั่งซื้อ'
-        );
-
-        return;
-
-    }
+            const saved =
+                localStorage.getItem(
+                    'pendingCheckout'
+                );
 
 
-    const paymentInput =
-        document.querySelector(
-            'input[name="payment"]:checked'
-        );
+            if (!saved) {
+
+                showError(
+                    'ไม่พบข้อมูล Checkout กรุณากลับไปหน้า checkout.html แล้วดำเนินการใหม่'
+                );
 
 
-    if (!paymentInput) {
-
-        showError(
-            'กรุณาเลือกวิธีชำระเงิน'
-        );
-
-        return;
-
-    }
+                document
+                    .getElementById(
+                        'payment-content'
+                    )
+                    .classList.add(
+                        'hidden'
+                    );
 
 
-    const button =
-        document.getElementById(
-            'pay-button'
-        );
-
-
-    button.disabled =
-        true;
-
-    button.innerHTML =
-        '<i class="fa-solid fa-spinner fa-spin mr-2"></i>กำลังบันทึกคำสั่งซื้อ...';
-
-
-    /*
-       สร้าง Order ที่นี่เท่านั้น
-    */
-
-    const orderId =
-        'ORD-' +
-        Date.now();
-
-
-    const paymentNames = {
-
-        promptpay:
-            'PromptPay / QR Payment',
-
-        bank:
-            'โอนเงินผ่านธนาคาร',
-
-        cod:
-            'เก็บเงินปลายทาง'
-
-    };
-
-
-    const order = {
-
-        id:
-            orderId,
-
-        orderId:
-            orderId,
-
-        items:
-            checkoutData.items,
-
-        address:
-            checkoutData.address,
-
-        shipping:
-            checkoutData.shipping,
-
-        coupon:
-            checkoutData.coupon,
-
-        subtotal:
-            Number(
-                checkoutData.subtotal || 0
-            ),
-
-        discount:
-            Number(
-                checkoutData.discount || 0
-            ),
-
-        shippingCost:
-            Number(
-                checkoutData.shippingCost || 0
-            ),
-
-        total:
-            Number(
-                checkoutData.total || 0
-            ),
-
-        payment: {
-
-            method:
-                paymentInput.value,
-
-            name:
-                paymentNames[
-                    paymentInput.value
-                ] ||
-                paymentInput.value,
-
-            status:
-                paymentInput.value === 'cod'
-                    ? 'pending'
-                    : 'paid',
-
-            paidAt:
-                paymentInput.value === 'cod'
-                    ? null
-                    : new Date().toISOString()
-
-        },
-
-        status:
-            paymentInput.value === 'cod'
-                ? 'pending'
-                : 'processing',
-
-        createdAt:
-            new Date().toISOString()
-
-    };
-
-
-    /*
-       ดึง orders เดิม
-    */
-
-    let orders = [];
-
-
-    try {
-
-        const saved =
-            localStorage.getItem(
-                'orders'
-            );
-
-
-        if (saved) {
-
-            const parsed =
-                JSON.parse(saved);
-
-
-            if (
-                Array.isArray(parsed)
-            ) {
-
-                orders =
-                    parsed;
+                return false;
 
             }
 
+
+            checkoutData =
+                JSON.parse(
+                    saved
+                );
+
+
+            if (
+                !checkoutData ||
+                !Array.isArray(
+                    checkoutData.items
+                ) ||
+                !checkoutData.items.length
+            ) {
+
+                showError(
+                    'ข้อมูลคำสั่งซื้อไม่สมบูรณ์ กรุณากลับไปหน้า Checkout ใหม่'
+                );
+
+
+                document
+                    .getElementById(
+                        'payment-content'
+                    )
+                    .classList.add(
+                        'hidden'
+                    );
+
+
+                return false;
+
+            }
+
+
+            return true;
+
+
+        } catch (error) {
+
+            console.error(
+                '[PAYMENT LOAD]',
+                error
+            );
+
+
+            showError(
+                'ไม่สามารถอ่านข้อมูลคำสั่งซื้อได้'
+            );
+
+
+            document
+                .getElementById(
+                    'payment-content'
+                )
+                .classList.add(
+                    'hidden'
+                );
+
+
+            return false;
+
         }
-
-    } catch (error) {
-
-        orders = [];
 
     }
 
 
-    /*
-       เพิ่ม Order ใหม่
-    */
+    /* =====================================================
+       RENDER SUMMARY
+    ===================================================== */
 
-    orders.unshift(
-        order
-    );
+    function renderSummary() {
 
-
-    /*
-       บันทึก
-    */
-
-    localStorage.setItem(
-        'orders',
-        JSON.stringify(
-            orders
-        )
-    );
+        document
+            .getElementById(
+                'summary-subtotal'
+            )
+            .textContent =
+            formatMoney(
+                checkoutData.subtotal
+            );
 
 
-    localStorage.setItem(
-        'latestOrder',
-        JSON.stringify(
-            order
-        )
-    );
+        document
+            .getElementById(
+                'summary-shipping'
+            )
+            .textContent =
+            formatMoney(
+                checkoutData.shippingCost
+            );
 
 
-    /*
-       เก็บข้อมูลออเดอร์ที่เพิ่งสร้าง
-    */
-
-    localStorage.setItem(
-        'lastOrderId',
-        orderId
-    );
-
-
-    /*
-       ล้างข้อมูล Checkout
-    */
-
-    localStorage.removeItem(
-        'pendingCheckout'
-    );
+        document
+            .getElementById(
+                'summary-discount'
+            )
+            .textContent =
+            '-' +
+            formatMoney(
+                checkoutData.discount
+            );
 
 
-    /*
-       ล้างตะกร้า
-    */
-
-    localStorage.removeItem(
-        'cart'
-    );
-
-
-    /*
-       แสดง Success
-    */
-
-    document.getElementById(
-        'success-order-id'
-    ).textContent =
-        orderId;
+        document
+            .getElementById(
+                'summary-total'
+            )
+            .textContent =
+            formatMoney(
+                checkoutData.total
+            );
 
 
-    document.getElementById(
-        'success-modal'
-    ).classList.remove(
-        'hidden'
-    );
+        document
+            .getElementById(
+                'qr-total'
+            )
+            .textContent =
+            formatMoney(
+                checkoutData.total
+            );
 
-}
+    }
 
 
-/* =====================================================
-   START
-===================================================== */
+    /* =====================================================
+       ADDRESS
+    ===================================================== */
 
-document.addEventListener(
-    'DOMContentLoaded',
-    function () {
+    function renderAddress() {
 
-        if (
-            !loadCheckout()
-        ) {
+        const address =
+            checkoutData.address;
+
+
+        const container =
+            document.getElementById(
+                'address-preview'
+            );
+
+
+        if (!address) {
+
+            container.textContent =
+                'ไม่พบข้อมูลที่อยู่';
 
             return;
 
         }
 
 
-        renderSummary();
+        container.innerHTML = `
 
-        renderAddress();
+            <p class="font-black">
+                ${escapeHTML(address.recipientName)}
+            </p>
 
-        renderItems();
+            <p class="text-sm text-slate-600 mt-1">
+                <i class="fa-solid fa-phone mr-1"></i>
+                ${escapeHTML(address.phone)}
+            </p>
 
-        createFakeQR();
+            <p class="text-sm text-slate-600 mt-2 leading-6">
+                ${escapeHTML(address.address)}<br>
+                ${escapeHTML(address.subdistrict)}
+                ${escapeHTML(address.district)}
+                ${escapeHTML(address.province)}
+                ${escapeHTML(address.postcode)}
+            </p>
 
-        selectPayment();
+        `;
 
     }
-);
+
+
+    /* =====================================================
+       ITEMS
+    ===================================================== */
+
+    function renderItems() {
+
+        const container =
+            document.getElementById(
+                'items-preview'
+            );
+
+
+        container.innerHTML =
+            checkoutData.items
+                .map(item => {
+
+                    const qty =
+                        Number(
+                            item.quantity || 1
+                        );
+
+
+                    const price =
+                        Number(
+                            item.price || 0
+                        );
+
+
+                    const image =
+                        item.image ||
+                        'https://placehold.co/200x200/e2e8f0/64748b?text=No+Image';
+
+
+                    return `
+
+                        <div
+                            class="flex gap-3 bg-slate-50
+                            rounded-2xl p-3"
+                        >
+
+                            <img
+                                src="${escapeHTML(image)}"
+                                class="w-16 h-16 rounded-xl object-cover"
+                                onerror="this.onerror=null;this.src='https://placehold.co/200x200/e2e8f0/64748b?text=No+Image'"
+                            >
+
+                            <div class="flex-1 min-w-0">
+
+                                <p class="font-bold truncate">
+                                    ${escapeHTML(item.name)}
+                                </p>
+
+                                <p class="text-xs text-slate-400 mt-1">
+                                    ${qty} × ${formatMoney(price)}
+                                </p>
+
+                            </div>
+
+                            <p class="font-black">
+                                ${formatMoney(price * qty)}
+                            </p>
+
+                        </div>
+
+                    `;
+
+                })
+                .join('');
+
+    }
+
+
+    /* =====================================================
+       PAYMENT SELECT
+    ===================================================== */
+
+    function selectPayment() {
+
+        const selected =
+            document.querySelector(
+                'input[name="payment"]:checked'
+            );
+
+
+        document
+            .querySelectorAll(
+                '.payment-option'
+            )
+            .forEach(option => {
+
+                const radio =
+                    option.querySelector(
+                        'input[name="payment"]'
+                    );
+
+
+                if (
+                    radio &&
+                    radio.checked
+                ) {
+
+                    option.classList.add(
+                        'active'
+                    );
+
+                } else {
+
+                    option.classList.remove(
+                        'active'
+                    );
+
+                }
+
+            });
+
+
+        document
+            .getElementById(
+                'promptpay-area'
+            )
+            .classList.add(
+                'hidden'
+            );
+
+
+        document
+            .getElementById(
+                'bank-area'
+            )
+            .classList.add(
+                'hidden'
+            );
+
+
+        document
+            .getElementById(
+                'cod-area'
+            )
+            .classList.add(
+                'hidden'
+            );
+
+
+        if (!selected) return;
+
+
+        if (
+            selected.value ===
+            'promptpay'
+        ) {
+
+            document
+                .getElementById(
+                    'promptpay-area'
+                )
+                .classList.remove(
+                    'hidden'
+                );
+
+        }
+
+
+        if (
+            selected.value ===
+            'bank'
+        ) {
+
+            document
+                .getElementById(
+                    'bank-area'
+                )
+                .classList.remove(
+                    'hidden'
+                );
+
+        }
+
+
+        if (
+            selected.value ===
+            'cod'
+        ) {
+
+            document
+                .getElementById(
+                    'cod-area'
+                )
+                .classList.remove(
+                    'hidden'
+                );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CREATE FAKE QR
+    ===================================================== */
+
+    function createFakeQR() {
+
+        const qr =
+            document.getElementById(
+                'fake-qr'
+            );
+
+
+        let html =
+            '';
+
+
+        for (
+            let i = 0;
+            i < 64;
+            i++
+        ) {
+
+            const dark =
+                Math.random() >
+                0.48;
+
+
+            html += `
+
+                <span
+                    class="${dark ? 'bg-slate-950' : 'bg-white'}"
+                ></span>
+
+            `;
+
+        }
+
+
+        qr.innerHTML =
+            html;
+
+    }
+
+
+    /* =====================================================
+       CONFIRM PAYMENT
+    ===================================================== */
+
+    function confirmPayment() {
+
+        if (!checkoutData) {
+
+            showError(
+                'ไม่พบข้อมูลคำสั่งซื้อ'
+            );
+
+            return;
+
+        }
+
+
+        const paymentInput =
+            document.querySelector(
+                'input[name="payment"]:checked'
+            );
+
+
+        if (!paymentInput) {
+
+            showError(
+                'กรุณาเลือกวิธีชำระเงิน'
+            );
+
+            return;
+
+        }
+
+
+        const button =
+            document.getElementById(
+                'pay-button'
+            );
+
+
+        button.disabled =
+            true;
+
+
+        button.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin mr-2"></i>กำลังบันทึกคำสั่งซื้อ...';
+
+
+        const orderId =
+            'ORD-' +
+            Date.now();
+
+
+        const paymentNames = {
+
+            promptpay:
+                'PromptPay / QR Payment',
+
+            bank:
+                'โอนเงินผ่านธนาคาร',
+
+            cod:
+                'เก็บเงินปลายทาง'
+
+        };
+
+
+        const now =
+            new Date()
+                .toISOString();
+
+
+        const order = {
+
+            id:
+                orderId,
+
+            orderId:
+                orderId,
+
+            items:
+                checkoutData.items,
+
+            address:
+                checkoutData.address,
+
+            shipping:
+                checkoutData.shipping,
+
+            coupon:
+                checkoutData.coupon,
+
+            subtotal:
+                Number(
+                    checkoutData.subtotal || 0
+                ),
+
+            discount:
+                Number(
+                    checkoutData.discount || 0
+                ),
+
+            shippingCost:
+                Number(
+                    checkoutData.shippingCost || 0
+                ),
+
+            total:
+                Number(
+                    checkoutData.total || 0
+                ),
+
+            payment: {
+
+                method:
+                    paymentInput.value,
+
+                name:
+                    paymentNames[
+                        paymentInput.value
+                    ] ||
+                    paymentInput.value,
+
+                status:
+                    paymentInput.value ===
+                    'cod'
+                        ? 'pending'
+                        : 'paid',
+
+                paidAt:
+                    paymentInput.value ===
+                    'cod'
+                        ? null
+                        : now
+
+            },
+
+            status:
+                paymentInput.value ===
+                'cod'
+                    ? 'pending'
+                    : 'processing',
+
+            createdAt:
+                now
+
+        };
+
+
+        let orders =
+            [];
+
+
+        try {
+
+            const saved =
+                localStorage.getItem(
+                    'orders'
+                );
+
+
+            if (saved) {
+
+                const parsed =
+                    JSON.parse(
+                        saved
+                    );
+
+
+                if (
+                    Array.isArray(
+                        parsed
+                    )
+                ) {
+
+                    orders =
+                        parsed;
+
+                }
+
+            }
+
+
+            orders.unshift(
+                order
+            );
+
+
+            localStorage.setItem(
+                'orders',
+                JSON.stringify(
+                    orders
+                )
+            );
+
+
+            localStorage.setItem(
+                'latestOrder',
+                JSON.stringify(
+                    order
+                )
+            );
+
+
+            localStorage.setItem(
+                'lastOrderId',
+                orderId
+            );
+
+
+            localStorage.removeItem(
+                'pendingCheckout'
+            );
+
+
+            localStorage.removeItem(
+                'cart'
+            );
+
+
+            document
+                .getElementById(
+                    'success-order-id'
+                )
+                .textContent =
+                orderId;
+
+
+            document
+                .getElementById(
+                    'success-modal'
+                )
+                .classList.remove(
+                    'hidden'
+                );
+
+
+        } catch (error) {
+
+            console.error(
+                '[PAYMENT SAVE ORDER]',
+                error
+            );
+
+
+            showError(
+                'ไม่สามารถบันทึกคำสั่งซื้อได้'
+            );
+
+
+            button.disabled =
+                false;
+
+
+            button.innerHTML =
+                '<i class="fa-solid fa-lock mr-2"></i>ยืนยันการสั่งซื้อ';
+
+        }
+
+    }
+
+
+    /* =====================================================
+       START
+    ===================================================== */
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+
+            if (
+                !loadCheckout()
+            ) {
+
+                return;
+
+            }
+
+
+            renderSummary();
+
+            renderAddress();
+
+            renderItems();
+
+            createFakeQR();
+
+            selectPayment();
+
+        }
+    );
 
 </script>
+```
 
 </body>
+
 </html>
