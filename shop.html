@@ -1,6 +1,5 @@
-<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">
-
-<meta
+<!DOCTYPE html><html lang="th"><head>
+    <meta charset="UTF-8"><meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
 >
@@ -22,10 +21,15 @@
     rel="stylesheet"
 >
 
-<!-- DATA -->
+<!-- =====================================================
+     DATA FILES
+     สำคัญ:
+     products.js และ shops.js อยู่ใน /js/
+     และประกาศตัวแปรชื่อ products / shops
+====================================================== -->
+
 <script src="js/shops.js"></script>
 <script src="js/products.js"></script>
-
 
 <style>
 
@@ -44,49 +48,58 @@
 
     .product-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.10);
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12);
     }
 
     .product-image {
-        transition: transform 0.4s ease;
+        transition: transform 0.35s ease;
     }
 
     .product-card:hover .product-image {
         transform: scale(1.05);
     }
 
-    .cart-badge {
-        animation: pop 0.25s ease;
-    }
-
     .modal-animation {
-        animation: modalIn 0.25s ease;
-    }
-
-    @keyframes pop {
-
-        0% {
-            transform: scale(0.7);
-        }
-
-        100% {
-            transform: scale(1);
-        }
-
+        animation: modalIn 0.22s ease;
     }
 
     @keyframes modalIn {
 
         from {
             opacity: 0;
-            transform: scale(0.95) translateY(10px);
+            transform: translateY(12px) scale(0.97);
         }
 
         to {
             opacity: 1;
-            transform: scale(1) translateY(0);
+            transform: translateY(0) scale(1);
         }
 
+    }
+
+    .toast-animation {
+        animation: toastIn 0.25s ease;
+    }
+
+    @keyframes toastIn {
+
+        from {
+            opacity: 0;
+            transform: translate(-50%, 20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+    }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
 </style>
@@ -121,7 +134,6 @@
             ></i>
 
         </div>
-
 
         <div>
 
@@ -200,7 +212,6 @@
 
             <i class="fa-solid fa-cart-shopping"></i>
 
-
             <span
                 id="cart-count"
                 class="hidden
@@ -212,7 +223,7 @@
                 text-white
                 text-[10px]
                 font-black
-                flex items-center
+                items-center
                 justify-center"
             >
                 0
@@ -257,7 +268,6 @@
         bg-white/10
         blur-3xl"
     ></div>
-
 
     <div
         class="absolute
@@ -306,6 +316,7 @@
         >
 
             ช้อปง่าย
+
             <span class="text-amber-300">
                 ส่งไว
             </span>
@@ -379,7 +390,6 @@
 </section>
 
 
-
 <!-- =================================================
      SEARCH
 ================================================== -->
@@ -402,6 +412,7 @@
             id="search-input"
             type="text"
             placeholder="ค้นหาสินค้า หรือชื่อร้าน..."
+            autocomplete="off"
             class="w-full
             bg-white
             border border-slate-200
@@ -417,7 +428,6 @@
     </div>
 
 </section>
-
 
 
 <!-- =================================================
@@ -560,7 +570,6 @@
 </section>
 
 
-
 <!-- =================================================
      PRODUCT HEADER
 ================================================== -->
@@ -600,9 +609,8 @@
 </section>
 
 
-
 <!-- =================================================
-     ERROR BOX
+     DATA ERROR
 ================================================== -->
 
 <div
@@ -643,7 +651,6 @@
 </div>
 
 
-
 <!-- =================================================
      PRODUCT GRID
 ================================================== -->
@@ -670,6 +677,7 @@
     z-[110]
     p-4
     overflow-y-auto"
+    onclick="closeProduct(event)"
 ><div
     class="min-h-full
     flex
@@ -686,6 +694,7 @@
         shadow-2xl
         overflow-hidden
         modal-animation"
+        onclick="event.stopPropagation()"
     ></div>
 
 </div>
@@ -702,6 +711,7 @@
     z-[100]
     p-4
     overflow-y-auto"
+    onclick="closeCart(event)"
 ><div
     class="min-h-full
     flex
@@ -717,6 +727,7 @@
         rounded-3xl
         shadow-2xl
         overflow-hidden"
+        onclick="event.stopPropagation()"
     >
 
         <!-- HEADER -->
@@ -764,7 +775,6 @@
         </div>
 
 
-
         <!-- ITEMS -->
 
         <div
@@ -776,8 +786,7 @@
         ></div>
 
 
-
-        <!-- FOOTER -->
+        <!-- TOTAL -->
 
         <div
             class="p-5
@@ -791,13 +800,9 @@
                 items-center"
             >
 
-                <span
-                    class="text-sm
-                    text-slate-500"
-                >
+                <span class="text-sm text-slate-500">
                     รวมทั้งหมด
                 </span>
-
 
                 <span
                     id="cart-total"
@@ -841,7 +846,9 @@
 
 </div>
 
-</div><script>
+</div><!-- =====================================================
+     JAVASCRIPT
+===================================================== --><script>
 
 /* =====================================================
    STATE
@@ -849,286 +856,229 @@
 
 let cart = [];
 
-let currentCategory = "all";
-
+let currentCategory = 'all';
 
 
 /* =====================================================
-   SAFE DATA
-===================================================== */
+   DATA ACCESS
+   สำคัญมาก:
+   products.js ใช้:
+       const products = [...]
+   shops.js ใช้:
+       const shops = [...]
 
-/*
-    ป้องกันกรณี products.js หรือ shops.js
-    โหลดไม่ได้
-*/
+   ดังนั้นเราใช้ products / shops โดยตรง
+   ไม่ใช้ window.products
+===================================================== */
 
 function getProducts() {
 
-    if (typeof products === "undefined") {
+    try {
 
-        return [];
+        if (
+            typeof products !== 'undefined' &&
+            Array.isArray(products)
+        ) {
+
+            return products;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            'Cannot access products:',
+            error
+        );
 
     }
 
-    if (!Array.isArray(products)) {
-
-        return [];
-
-    }
-
-    return products;
+    return [];
 
 }
 
 
 function getShops() {
 
-    if (typeof shops === "undefined") {
+    try {
 
-        return [];
+        if (
+            typeof shops !== 'undefined' &&
+            Array.isArray(shops)
+        ) {
+
+            return shops;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            'Cannot access shops:',
+            error
+        );
 
     }
 
-    if (!Array.isArray(shops)) {
-
-        return [];
-
-    }
-
-    return shops;
+    return [];
 
 }
 
 
-
 /* =====================================================
-   GET SHOP
+   FIND DATA
 ===================================================== */
 
-function getShopById(shopId) {
+function getProductById(id) {
 
-    const shopList = getShops();
-
-    return shopList.find(
-        shop =>
-            String(shop.id).trim() ===
-            String(shopId).trim()
-    );
-
-}
-
-
-
-/* =====================================================
-   GET PRODUCT
-===================================================== */
-
-function getProductById(productId) {
-
-    const productList = getProducts();
-
-    return productList.find(
+    return getProducts().find(
         product =>
             String(product.id).trim() ===
-            String(productId).trim()
+            String(id).trim()
     );
 
 }
 
 
+function getShopById(id) {
 
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHtml(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+    return getShops().find(
+        shop =>
+            String(shop.id).trim() ===
+            String(id).trim()
+    );
 
 }
 
 
-
 /* =====================================================
-   IMAGE FALLBACK
+   SAFE HTML
 ===================================================== */
 
-function imageFallback(type = "product") {
+function escapeHTML(value) {
 
-    if (type === "shop") {
-
-        return "https://placehold.co/100x100/e2e8f0/64748b?text=Shop";
-
-    }
-
-    return "https://placehold.co/600x600/e2e8f0/64748b?text=No+Image";
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 
 }
 
 
-
 /* =====================================================
-   SAVE CART
+   MONEY
 ===================================================== */
 
-function saveCart() {
+function formatMoney(value) {
 
-    try {
+    const number = Number(value) || 0;
 
-        localStorage.setItem(
-            "cart",
-            JSON.stringify(cart)
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Cannot save cart:",
-            error
-        );
-
-    }
+    return '฿' +
+        number.toLocaleString('th-TH');
 
 }
 
 
-
 /* =====================================================
-   LOAD CART
+   IMAGE
 ===================================================== */
 
-function loadCart() {
+function fallbackImage() {
 
-    try {
-
-        const savedCart =
-            localStorage.getItem("cart");
-
-
-        if (!savedCart) {
-
-            cart = [];
-
-            return;
-
-        }
-
-
-        const parsedCart =
-            JSON.parse(savedCart);
-
-
-        if (!Array.isArray(parsedCart)) {
-
-            cart = [];
-
-            return;
-
-        }
-
-
-        /*
-            ตรวจข้อมูลเก่า
-            และ normalize ID เป็น String
-        */
-
-        cart = parsedCart
-            .filter(item => item && item.id)
-            .map(item => ({
-
-                ...item,
-
-                id: String(item.id),
-
-                quantity:
-                    Math.max(
-                        1,
-                        parseInt(
-                            item.quantity,
-                            10
-                        ) || 1
-                    )
-
-            }));
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Cannot load cart:",
-            error
-        );
-
-        cart = [];
-
-    }
+    return 'https://placehold.co/600x600/e2e8f0/64748b?text=No+Image';
 
 }
 
 
-
 /* =====================================================
-   SHOW DATA ERROR
+   ERROR
 ===================================================== */
 
 function showDataError(message) {
 
     const box =
         document.getElementById(
-            "data-error"
+            'data-error'
         );
 
     const messageBox =
         document.getElementById(
-            "data-error-message"
+            'data-error-message'
         );
 
+    box.classList.remove('hidden');
 
-    if (!box || !messageBox) {
+    messageBox.textContent =
+        message;
+
+}
+
+
+function hideDataError() {
+
+    document
+        .getElementById('data-error')
+        .classList.add('hidden');
+
+}
+
+
+/* =====================================================
+   RENDER PRODUCTS
+===================================================== */
+
+function renderProducts() {
+
+    const grid =
+        document.getElementById(
+            'product-grid'
+        );
+
+    const count =
+        document.getElementById(
+            'product-count'
+        );
+
+    const productList =
+        getProducts();
+
+
+    console.log(
+        '[SHOP] products:',
+        productList
+    );
+
+
+    /*
+        ถ้า products.js โหลดไม่ได้
+    */
+
+    if (!productList.length) {
+
+        grid.innerHTML = '';
+
+        count.textContent =
+            '0 สินค้า';
+
+        showDataError(
+            'ไม่พบข้อมูล products จาก js/products.js'
+        );
 
         return;
 
     }
 
 
-    messageBox.innerText = message;
-
-    box.classList.remove("hidden");
-
-}
+    hideDataError();
 
 
-
-/* =====================================================
-   HIDE DATA ERROR
-===================================================== */
-
-function hideDataError() {
-
-    const box =
+    const searchInput =
         document.getElementById(
-            "data-error"
+            'search-input'
         );
 
 
-    if (box) {
-
-        box.classList.add("hidden");
-
-    }
-
-}
-
-
-
-/* =====================================================
-   RENDER PRODUCTS
-======================
+    const searchText =
+        (
