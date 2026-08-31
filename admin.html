@@ -4,23 +4,26 @@
 
 <head>
 
+```
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
 >
 
 <title>Admin Dashboard | Delivery Risk Market</title>
 
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
+<!-- Font Awesome -->
 <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 >
 
+<!-- Kanit Font -->
 <link
     href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet"
@@ -28,56 +31,59 @@ content="width=device-width, initial-scale=1.0"
 
 <style>
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Kanit', sans-serif;
-}
-
-.card {
-    transition: all .2s ease;
-}
-
-.card:hover {
-    box-shadow: 0 12px 30px rgba(15,23,42,.08);
-}
-
-.modal-animation {
-    animation: modalIn .2s ease;
-}
-
-@keyframes modalIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px) scale(.97);
+    * {
+        box-sizing: border-box;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+    body {
+        font-family: 'Kanit', sans-serif;
     }
-}
 
-.bar {
-    transition: height .5s ease;
-}
+    .card {
+        transition: all .2s ease;
+    }
 
-::-webkit-scrollbar {
-    width: 7px;
-}
+    .card:hover {
+        box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
+    }
 
-::-webkit-scrollbar-track {
-    background: #f1f5f9;
-}
+    .modal-animation {
+        animation: modalIn .2s ease;
+    }
 
-::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 999px;
-}
+    @keyframes modalIn {
+
+        from {
+            opacity: 0;
+            transform: translateY(10px) scale(.97);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+    }
+
+    .bar {
+        transition: height .5s ease;
+    }
+
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 999px;
+    }
 
 </style>
+```
 
 </head>
 
@@ -89,7 +95,7 @@ body {
 
 <nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
 
-
+```
 <div
     class="max-w-7xl mx-auto px-4 py-3
     flex items-center justify-between gap-4"
@@ -159,7 +165,7 @@ body {
     </div>
 
 </div>
-
+```
 
 </nav>
 
@@ -171,7 +177,6 @@ body {
     class="max-w-7xl mx-auto px-4 py-6 pb-16"
 >
 
-```
 <!-- =================================================
      HEADER
 ================================================== -->
@@ -182,100 +187,100 @@ body {
     gap-4 mb-6"
 >
 
-    <div>
+```
+<div>
 
-        <div
-            class="inline-flex items-center gap-2
-            px-3 py-1.5 rounded-full
-            bg-indigo-50 text-indigo-600
-            text-[10px] font-black"
-        >
+    <div
+        class="inline-flex items-center gap-2
+        px-3 py-1.5 rounded-full
+        bg-indigo-50 text-indigo-600
+        text-[10px] font-black"
+    >
 
-            <i class="fa-solid fa-shield-halved"></i>
+        <i class="fa-solid fa-shield-halved"></i>
 
-            ADMIN CONTROL CENTER
-
-        </div>
-
-
-        <h1
-            class="text-2xl sm:text-3xl
-            font-black mt-3"
-        >
-
-            จัดการระบบ
-
-        </h1>
-
-
-        <p class="text-sm text-slate-500 mt-1">
-
-            จัดการลูกค้า Blacklist คำสั่งซื้อ
-            และวิเคราะห์ความเสี่ยง
-
-        </p>
+        ADMIN CONTROL CENTER
 
     </div>
 
 
-    <div class="flex flex-wrap gap-2">
+    <h1
+        class="text-2xl sm:text-3xl
+        font-black mt-3"
+    >
 
-        <button
-            onclick="exportCSV()"
-            class="px-4 py-3 rounded-2xl
-            bg-emerald-600 hover:bg-emerald-700
-            text-white text-sm font-bold"
-        >
+        จัดการระบบ
 
-            <i class="fa-solid fa-file-export mr-1"></i>
-
-            Export CSV
-
-        </button>
+    </h1>
 
 
-        <label
-            class="cursor-pointer
-            px-4 py-3 rounded-2xl
-            bg-indigo-600 hover:bg-indigo-700
-            text-white text-sm font-bold"
-        >
+    <p class="text-sm text-slate-500 mt-1">
 
-            <i class="fa-solid fa-file-import mr-1"></i>
+        จัดการลูกค้า Blacklist คำสั่งซื้อ
+        และวิเคราะห์ความเสี่ยง
 
-            Import CSV
-
-            <input
-                type="file"
-                id="csv-input"
-                accept=".csv,text/csv"
-                class="hidden"
-                onchange="importCSV(event)"
-            >
-
-        </label>
-
-
-        <button
-            onclick="resetInitialData()"
-            class="px-4 py-3 rounded-2xl
-            bg-white border border-slate-200
-            hover:border-rose-300
-            hover:text-rose-600
-            text-sm font-bold"
-        >
-
-            <i class="fa-solid fa-rotate-left mr-1"></i>
-
-            รีเซ็ตข้อมูล
-
-        </button>
-
-    </div>
+    </p>
 
 </div>
 
 
+<div class="flex flex-wrap gap-2">
+
+    <button
+        onclick="exportCSV()"
+        class="px-4 py-3 rounded-2xl
+        bg-emerald-600 hover:bg-emerald-700
+        text-white text-sm font-bold"
+    >
+
+        <i class="fa-solid fa-file-export mr-1"></i>
+
+        Export CSV
+
+    </button>
+
+
+    <label
+        class="cursor-pointer
+        px-4 py-3 rounded-2xl
+        bg-indigo-600 hover:bg-indigo-700
+        text-white text-sm font-bold"
+    >
+
+        <i class="fa-solid fa-file-import mr-1"></i>
+
+        Import CSV
+
+        <input
+            type="file"
+            id="csv-input"
+            accept=".csv,text/csv"
+            class="hidden"
+            onchange="importCSV(event)"
+        >
+
+    </label>
+
+
+    <button
+        onclick="resetInitialData()"
+        class="px-4 py-3 rounded-2xl
+        bg-white border border-slate-200
+        hover:border-rose-300
+        hover:text-rose-600
+        text-sm font-bold"
+    >
+
+        <i class="fa-solid fa-rotate-left mr-1"></i>
+
+        รีเซ็ตข้อมูล
+
+    </button>
+
+</div>
+```
+
+</div>
 
 <!-- =================================================
      STAT CARDS
@@ -288,148 +293,148 @@ body {
     gap-4 mb-6"
 >
 
-    <div class="card bg-white rounded-3xl border border-slate-200 p-5">
+```
+<div class="card bg-white rounded-3xl border border-slate-200 p-5">
 
-        <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center">
 
-            <div>
+        <div>
 
-                <p class="text-xs text-slate-400">
-                    ลูกค้าทั้งหมด
-                </p>
+            <p class="text-xs text-slate-400">
+                ลูกค้าทั้งหมด
+            </p>
 
-                <p
-                    id="stat-customers"
-                    class="text-3xl font-black mt-1"
-                >
-                    0
-                </p>
-
-            </div>
-
-
-            <div
-                class="w-12 h-12 rounded-2xl
-                bg-indigo-50 text-indigo-600
-                flex items-center justify-center"
+            <p
+                id="stat-customers"
+                class="text-3xl font-black mt-1"
             >
+                0
+            </p>
 
-                <i class="fa-solid fa-users"></i>
+        </div>
 
-            </div>
+
+        <div
+            class="w-12 h-12 rounded-2xl
+            bg-indigo-50 text-indigo-600
+            flex items-center justify-center"
+        >
+
+            <i class="fa-solid fa-users"></i>
 
         </div>
 
     </div>
 
-
-    <div class="card bg-white rounded-3xl border border-slate-200 p-5">
-
-        <div class="flex justify-between items-center">
-
-            <div>
-
-                <p class="text-xs text-slate-400">
-                    สำเร็จทั้งหมด
-                </p>
-
-                <p
-                    id="stat-success"
-                    class="text-3xl font-black mt-1 text-emerald-600"
-                >
-                    0
-                </p>
-
-            </div>
+</div>
 
 
-            <div
-                class="w-12 h-12 rounded-2xl
-                bg-emerald-50 text-emerald-600
-                flex items-center justify-center"
+<div class="card bg-white rounded-3xl border border-slate-200 p-5">
+
+    <div class="flex justify-between items-center">
+
+        <div>
+
+            <p class="text-xs text-slate-400">
+                สำเร็จทั้งหมด
+            </p>
+
+            <p
+                id="stat-success"
+                class="text-3xl font-black mt-1 text-emerald-600"
             >
+                0
+            </p>
 
-                <i class="fa-solid fa-circle-check"></i>
+        </div>
 
-            </div>
+
+        <div
+            class="w-12 h-12 rounded-2xl
+            bg-emerald-50 text-emerald-600
+            flex items-center justify-center"
+        >
+
+            <i class="fa-solid fa-circle-check"></i>
 
         </div>
 
     </div>
 
-
-    <div class="card bg-white rounded-3xl border border-slate-200 p-5">
-
-        <div class="flex justify-between items-center">
-
-            <div>
-
-                <p class="text-xs text-slate-400">
-                    ล้มเหลวทั้งหมด
-                </p>
-
-                <p
-                    id="stat-failed"
-                    class="text-3xl font-black mt-1 text-rose-600"
-                >
-                    0
-                </p>
-
-            </div>
+</div>
 
 
-            <div
-                class="w-12 h-12 rounded-2xl
-                bg-rose-50 text-rose-600
-                flex items-center justify-center"
+<div class="card bg-white rounded-3xl border border-slate-200 p-5">
+
+    <div class="flex justify-between items-center">
+
+        <div>
+
+            <p class="text-xs text-slate-400">
+                ล้มเหลวทั้งหมด
+            </p>
+
+            <p
+                id="stat-failed"
+                class="text-3xl font-black mt-1 text-rose-600"
             >
+                0
+            </p>
 
-                <i class="fa-solid fa-circle-xmark"></i>
+        </div>
 
-            </div>
+
+        <div
+            class="w-12 h-12 rounded-2xl
+            bg-rose-50 text-rose-600
+            flex items-center justify-center"
+        >
+
+            <i class="fa-solid fa-circle-xmark"></i>
 
         </div>
 
     </div>
 
-
-    <div class="card bg-white rounded-3xl border border-slate-200 p-5">
-
-        <div class="flex justify-between items-center">
-
-            <div>
-
-                <p class="text-xs text-slate-400">
-                    Blacklist
-                </p>
-
-                <p
-                    id="stat-blacklist"
-                    class="text-3xl font-black mt-1 text-amber-600"
-                >
-                    0
-                </p>
-
-            </div>
+</div>
 
 
-            <div
-                class="w-12 h-12 rounded-2xl
-                bg-amber-50 text-amber-600
-                flex items-center justify-center"
+<div class="card bg-white rounded-3xl border border-slate-200 p-5">
+
+    <div class="flex justify-between items-center">
+
+        <div>
+
+            <p class="text-xs text-slate-400">
+                Blacklist
+            </p>
+
+            <p
+                id="stat-blacklist"
+                class="text-3xl font-black mt-1 text-amber-600"
             >
+                0
+            </p>
 
-                <i class="fa-solid fa-ban"></i>
+        </div>
 
-            </div>
+
+        <div
+            class="w-12 h-12 rounded-2xl
+            bg-amber-50 text-amber-600
+            flex items-center justify-center"
+        >
+
+            <i class="fa-solid fa-ban"></i>
 
         </div>
 
     </div>
+
+</div>
+```
 
 </section>
-
-
 
 <!-- =================================================
      CHART
@@ -441,63 +446,65 @@ body {
     p-5 sm:p-6 mb-6"
 >
 
-    <div
-        class="flex flex-col sm:flex-row
-        sm:items-center sm:justify-between
-        gap-3 mb-6"
-    >
+```
+<div
+    class="flex flex-col sm:flex-row
+    sm:items-center sm:justify-between
+    gap-3 mb-6"
+>
 
-        <div>
+    <div>
 
-            <h2 class="font-black text-lg">
+        <h2 class="font-black text-lg">
 
-                <i
-                    class="fa-solid fa-chart-column
-                    text-indigo-600 mr-1"
-                ></i>
+            <i
+                class="fa-solid fa-chart-column
+                text-indigo-600 mr-1"
+            ></i>
 
-                สถิติการจัดส่ง
+            สถิติการจัดส่ง
 
-            </h2>
+        </h2>
 
-            <p class="text-xs text-slate-400 mt-1">
+        <p class="text-xs text-slate-400 mt-1">
 
-                เปรียบเทียบจำนวนรายการสำเร็จและล้มเหลวของลูกค้า
+            เปรียบเทียบจำนวนรายการสำเร็จและล้มเหลวของลูกค้า
 
-            </p>
-
-        </div>
-
-
-        <div class="flex gap-4 text-xs font-bold">
-
-            <span class="text-emerald-600">
-
-                <i class="fa-solid fa-square mr-1"></i>
-                สำเร็จ
-
-            </span>
-
-            <span class="text-rose-600">
-
-                <i class="fa-solid fa-square mr-1"></i>
-                ล้มเหลว
-
-            </span>
-
-        </div>
+        </p>
 
     </div>
 
 
-    <div
-        id="chart"
-        class="h-72 overflow-x-auto"
-    ></div>
+    <div class="flex gap-4 text-xs font-bold">
+
+        <span class="text-emerald-600">
+
+            <i class="fa-solid fa-square mr-1"></i>
+
+            สำเร็จ
+
+        </span>
+
+        <span class="text-rose-600">
+
+            <i class="fa-solid fa-square mr-1"></i>
+
+            ล้มเหลว
+
+        </span>
+
+    </div>
+
+</div>
+
+
+<div
+    id="chart"
+    class="h-72 overflow-x-auto"
+></div>
+```
 
 </section>
-
-
 
 <!-- =================================================
      CUSTOMER MANAGEMENT
@@ -509,179 +516,179 @@ body {
     overflow-hidden"
 >
 
+```
+<div
+    class="p-5 sm:p-6
+    border-b border-slate-100"
+>
+
     <div
-        class="p-5 sm:p-6
-        border-b border-slate-100"
+        class="flex flex-col lg:flex-row
+        lg:items-center
+        lg:justify-between
+        gap-4"
     >
 
+        <div>
+
+            <h2 class="font-black text-lg">
+
+                <i
+                    class="fa-solid fa-users
+                    text-indigo-600 mr-1"
+                ></i>
+
+                รายชื่อลูกค้า
+
+            </h2>
+
+            <p
+                id="customer-count-label"
+                class="text-xs text-slate-400 mt-1"
+            >
+                0 คน
+            </p>
+
+        </div>
+
+
         <div
-            class="flex flex-col lg:flex-row
-            lg:items-center
-            lg:justify-between
-            gap-4"
+            class="flex flex-col sm:flex-row
+            gap-2"
         >
 
-            <div>
+            <div class="relative">
 
-                <h2 class="font-black text-lg">
+                <i
+                    class="fa-solid fa-magnifying-glass
+                    absolute left-3 top-1/2
+                    -translate-y-1/2
+                    text-slate-400 text-sm"
+                ></i>
 
-                    <i
-                        class="fa-solid fa-users
-                        text-indigo-600 mr-1"
-                    ></i>
-
-                    รายชื่อลูกค้า
-
-                </h2>
-
-                <p
-                    id="customer-count-label"
-                    class="text-xs text-slate-400 mt-1"
-                >
-                    0 คน
-                </p>
-
-            </div>
-
-
-            <div
-                class="flex flex-col sm:flex-row
-                gap-2"
-            >
-
-                <div class="relative">
-
-                    <i
-                        class="fa-solid fa-magnifying-glass
-                        absolute left-3 top-1/2
-                        -translate-y-1/2
-                        text-slate-400 text-sm"
-                    ></i>
-
-                    <input
-                        id="search-input"
-                        type="text"
-                        placeholder="ค้นหาชื่อลูกค้า..."
-                        oninput="renderCustomers()"
-                        class="w-full sm:w-64
-                        pl-9 pr-4 py-3
-                        rounded-2xl
-                        bg-slate-100
-                        border border-transparent
-                        focus:bg-white
-                        focus:border-indigo-300
-                        outline-none text-sm"
-                    >
-
-                </div>
-
-
-                <select
-                    id="filter-select"
-                    onchange="renderCustomers()"
-                    class="px-4 py-3
+                <input
+                    id="search-input"
+                    type="text"
+                    placeholder="ค้นหาชื่อลูกค้า..."
+                    oninput="renderCustomers()"
+                    class="w-full sm:w-64
+                    pl-9 pr-4 py-3
                     rounded-2xl
                     bg-slate-100
                     border border-transparent
-                    outline-none
-                    text-sm font-bold"
+                    focus:bg-white
+                    focus:border-indigo-300
+                    outline-none text-sm"
                 >
 
-                    <option value="all">
-                        ลูกค้าทั้งหมด
-                    </option>
-
-                    <option value="blacklist">
-                        Blacklist
-                    </option>
-
-                    <option value="normal">
-                        ปกติ
-                    </option>
-
-                </select>
-
             </div>
+
+
+            <select
+                id="filter-select"
+                onchange="renderCustomers()"
+                class="px-4 py-3
+                rounded-2xl
+                bg-slate-100
+                border border-transparent
+                outline-none
+                text-sm font-bold"
+            >
+
+                <option value="all">
+                    ลูกค้าทั้งหมด
+                </option>
+
+                <option value="blacklist">
+                    Blacklist
+                </option>
+
+                <option value="normal">
+                    ปกติ
+                </option>
+
+            </select>
 
         </div>
 
     </div>
 
-
-    <!-- TABLE -->
-
-    <div class="overflow-x-auto">
-
-        <table class="w-full text-sm">
-
-            <thead class="bg-slate-50">
-
-                <tr>
-
-                    <th class="text-left px-5 py-4 font-bold text-slate-500">
-                        ลูกค้า
-                    </th>
-
-                    <th class="text-center px-4 py-4 font-bold text-slate-500">
-                        สำเร็จ
-                    </th>
-
-                    <th class="text-center px-4 py-4 font-bold text-slate-500">
-                        ล้มเหลว
-                    </th>
-
-                    <th class="text-center px-4 py-4 font-bold text-slate-500">
-                        ทั้งหมด
-                    </th>
-
-                    <th class="text-center px-4 py-4 font-bold text-slate-500">
-                        อัตราสำเร็จ
-                    </th>
-
-                    <th class="text-center px-4 py-4 font-bold text-slate-500">
-                        สถานะ
-                    </th>
-
-                    <th class="text-right px-5 py-4 font-bold text-slate-500">
-                        จัดการ
-                    </th>
-
-                </tr>
-
-            </thead>
+</div>
 
 
-            <tbody
-                id="customer-table"
-                class="divide-y divide-slate-100"
-            ></tbody>
+<!-- TABLE -->
 
-        </table>
+<div class="overflow-x-auto">
 
-    </div>
+    <table class="w-full text-sm">
+
+        <thead class="bg-slate-50">
+
+            <tr>
+
+                <th class="text-left px-5 py-4 font-bold text-slate-500">
+                    ลูกค้า
+                </th>
+
+                <th class="text-center px-4 py-4 font-bold text-slate-500">
+                    สำเร็จ
+                </th>
+
+                <th class="text-center px-4 py-4 font-bold text-slate-500">
+                    ล้มเหลว
+                </th>
+
+                <th class="text-center px-4 py-4 font-bold text-slate-500">
+                    ทั้งหมด
+                </th>
+
+                <th class="text-center px-4 py-4 font-bold text-slate-500">
+                    อัตราสำเร็จ
+                </th>
+
+                <th class="text-center px-4 py-4 font-bold text-slate-500">
+                    สถานะ
+                </th>
+
+                <th class="text-right px-5 py-4 font-bold text-slate-500">
+                    จัดการ
+                </th>
+
+            </tr>
+
+        </thead>
 
 
-    <div
-        id="empty-customers"
-        class="hidden text-center py-12"
-    >
+        <tbody
+            id="customer-table"
+            class="divide-y divide-slate-100"
+        ></tbody>
 
-        <i
-            class="fa-solid fa-users-slash
-            text-4xl text-slate-200"
-        ></i>
+    </table>
 
-        <p class="text-sm text-slate-400 mt-3">
+</div>
 
-            ไม่พบลูกค้าที่ค้นหา
 
-        </p>
+<div
+    id="empty-customers"
+    class="hidden text-center py-12"
+>
 
-    </div>
+    <i
+        class="fa-solid fa-users-slash
+        text-4xl text-slate-200"
+    ></i>
+
+    <p class="text-sm text-slate-400 mt-3">
+
+        ไม่พบลูกค้าที่ค้นหา
+
+    </p>
+
+</div>
+```
 
 </section>
-
-
 
 <!-- =================================================
      BLACKLIST
@@ -693,54 +700,54 @@ body {
     p-5 sm:p-6 mt-6"
 >
 
-    <div
-        class="flex items-center justify-between
-        gap-3 mb-5"
-    >
+```
+<div
+    class="flex items-center justify-between
+    gap-3 mb-5"
+>
 
-        <div>
+    <div>
 
-            <h2 class="font-black text-lg">
+        <h2 class="font-black text-lg">
 
-                <i
-                    class="fa-solid fa-ban
-                    text-rose-600 mr-1"
-                ></i>
+            <i
+                class="fa-solid fa-ban
+                text-rose-600 mr-1"
+            ></i>
 
-                Blacklist
+            Blacklist
 
-            </h2>
+        </h2>
 
-            <p class="text-xs text-slate-400 mt-1">
+        <p class="text-xs text-slate-400 mt-1">
 
-                รายชื่อลูกค้าที่ถูกระงับหรือเฝ้าระวัง
+            รายชื่อลูกค้าที่ถูกระงับหรือเฝ้าระวัง
 
-            </p>
-
-        </div>
-
-        <span
-            id="blacklist-badge"
-            class="px-3 py-1.5
-            rounded-full
-            bg-rose-50
-            text-rose-600
-            text-xs font-black"
-        >
-            0 ราย
-        </span>
+        </p>
 
     </div>
 
+    <span
+        id="blacklist-badge"
+        class="px-3 py-1.5
+        rounded-full
+        bg-rose-50
+        text-rose-600
+        text-xs font-black"
+    >
+        0 ราย
+    </span>
 
-    <div
-        id="blacklist-list"
-        class="space-y-3"
-    ></div>
+</div>
+
+
+<div
+    id="blacklist-list"
+    class="space-y-3"
+></div>
+```
 
 </section>
-
-
 
 <!-- =================================================
      ORDERS SUMMARY
@@ -752,63 +759,64 @@ body {
     p-5 sm:p-6 mt-6"
 >
 
-    <div
-        class="flex items-center justify-between
-        gap-3 mb-5"
-    >
+```
+<div
+    class="flex items-center justify-between
+    gap-3 mb-5"
+>
 
-        <div>
+    <div>
 
-            <h2 class="font-black text-lg">
+        <h2 class="font-black text-lg">
 
-                <i
-                    class="fa-solid fa-boxes-stacked
-                    text-indigo-600 mr-1"
-                ></i>
+            <i
+                class="fa-solid fa-boxes-stacked
+                text-indigo-600 mr-1"
+            ></i>
 
-                คำสั่งซื้อในระบบ
+            คำสั่งซื้อในระบบ
 
-            </h2>
+        </h2>
 
-            <p
-                id="orders-summary"
-                class="text-xs text-slate-400 mt-1"
-            >
-                -
-            </p>
-
-        </div>
-
-
-        <a
-            href="orders.html"
-            class="px-4 py-2.5
-            rounded-xl
-            bg-indigo-50
-            text-indigo-600
-            text-xs font-bold"
+        <p
+            id="orders-summary"
+            class="text-xs text-slate-400 mt-1"
         >
-
-            ดูคำสั่งซื้อ
-
-            <i class="fa-solid fa-arrow-right ml-1"></i>
-
-        </a>
+            -
+        </p>
 
     </div>
 
 
-    <div
-        id="orders-admin-list"
-        class="grid
-        grid-cols-1
-        md:grid-cols-2
-        lg:grid-cols-3
-        gap-3"
-    ></div>
+    <a
+        href="orders.html"
+        class="px-4 py-2.5
+        rounded-xl
+        bg-indigo-50
+        text-indigo-600
+        text-xs font-bold"
+    >
+
+        ดูคำสั่งซื้อ
+
+        <i class="fa-solid fa-arrow-right ml-1"></i>
+
+    </a>
+
+</div>
+
+
+<div
+    id="orders-admin-list"
+    class="grid
+    grid-cols-1
+    md:grid-cols-2
+    lg:grid-cols-3
+    gap-3"
+></div>
+```
 
 </section>
-
 
 </main>
 
@@ -824,7 +832,7 @@ body {
     items-center justify-center"
 >
 
-
+```
 <div
     class="modal-animation
     bg-white
@@ -1011,7 +1019,7 @@ body {
     </div>
 
 </div>
-
+```
 
 </div>
 
@@ -1051,7 +1059,15 @@ const initialUserData = [
 
     { id: 12, name: "ปัณณิชาภรณ์", success: 1, failed: 0, total: 1, isBlacklisted: false, blacklistReason: "" },
 
-    { id: 13, name: "พรเมธี", success: 12, failed: 23, total: 35, isBlacklisted: true, blacklistReason: "ปฏิเสธการชำระเงิน COD และปิดเครื่องใส่พนักงานขนส่ง 3 ครั้งติด" },
+    {
+        id: 13,
+        name: "พรเมธี",
+        success: 12,
+        failed: 23,
+        total: 35,
+        isBlacklisted: true,
+        blacklistReason: "ปฏิเสธการชำระเงิน COD และปิดเครื่องใส่พนักงานขนส่ง 3 ครั้งติด"
+    },
 
     { id: 14, name: "อารยา", success: 14, failed: 9, total: 23, isBlacklisted: false, blacklistReason: "" },
 
@@ -2347,7 +2363,7 @@ function exportCSV() {
     link.href = url;
 
     link.download =
-        `customers-${new Date().toISOString().slice(0,10)}.csv`;
+        `customers-${new Date().toISOString().slice(0, 10)}.csv`;
 
 
     document.body.appendChild(link);
@@ -2944,6 +2960,51 @@ window.addEventListener(
             loadCustomers();
 
             renderAll();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   CLOSE MODAL BY BACKDROP
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const modal =
+            document.getElementById(
+                "customer-modal"
+            );
+
+        if (
+            event.target === modal
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            closeModal();
 
         }
 
