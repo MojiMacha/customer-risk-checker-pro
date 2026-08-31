@@ -1,618 +1,439 @@
-<!DOCTYPE html>
-
-<html lang="th">
-
-<head>
-
-```
-<meta charset="UTF-8">
+<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">
 
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>เข้าสู่ระบบ | Delivery Risk Market</title>
+<title>Delivery Risk Pro | ระบบพนักงานขนส่ง</title>
 
-<!-- =====================================================
-     TAILWIND CSS
-====================================================== -->
 
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 
-<!-- =====================================================
-     FONT AWESOME
-====================================================== -->
-
+<!-- Font Awesome -->
 <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 >
 
 
-<!-- =====================================================
-     GOOGLE FONT
-====================================================== -->
-
+<!-- Google Font -->
 <link
     href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet"
 >
 
 
-<!-- =====================================================
-     STYLE
-====================================================== -->
-
 <style>
-
-    * {
-        box-sizing: border-box;
-    }
 
     body {
         font-family: 'Kanit', sans-serif;
     }
 
-    .login-card {
-        animation: cardIn 0.5s ease;
+
+    .fade-in {
+        animation: fadeIn 0.35s ease-out;
     }
 
-    @keyframes cardIn {
+
+    @keyframes fadeIn {
 
         from {
             opacity: 0;
-            transform: translateY(20px) scale(0.98);
+            transform: translateY(12px);
         }
 
         to {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
     }
 
-    .logo-pulse {
-        animation: logoPulse 2.5s infinite;
+
+    .toast-animation {
+        animation: toastAnimation 0.3s ease-out;
     }
 
-    @keyframes logoPulse {
 
-        0% {
-            box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.25);
+    @keyframes toastAnimation {
+
+        from {
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        70% {
-            box-shadow: 0 0 0 18px rgba(99, 102, 241, 0);
-        }
-
-        100% {
-            box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
 
     }
 
-    .role-card {
+
+    input {
         transition: all 0.2s ease;
     }
 
-    .role-card:hover {
-        transform: translateY(-2px);
-    }
-
-    .role-card.active {
-        border-color: rgb(99 102 241);
-        background: rgb(238 242 255);
-    }
-
-    .input-focus:focus {
-        border-color: rgb(99 102 241);
-        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.10);
-        outline: none;
-    }
-
 </style>
-```
 
-</head>
-
-<body
-    class="min-h-screen
+</head><body
+    class="
     bg-slate-100
-    text-slate-800
-    flex
-    items-center
-    justify-center
-    p-4"
->
+    min-h-screen
+    pb-10
+    "
+><!-- ================================= --><!-- 🔒 DRIVER LOGIN --><!-- ================================= --><div
+    id="driver-auth-screen"class="
+fixed
+inset-0
 
-```
-<!-- =====================================================
-     BACKGROUND
-====================================================== -->
+z-50
+
+flex
+items-center
+justify-center
+
+p-4
+
+bg-gradient-to-br
+from-slate-950
+via-slate-900
+to-indigo-950
+"
+
+«»
+
+<!-- Background Decoration -->
 
 <div
-    class="fixed
-    inset-0
-    pointer-events-none
-    overflow-hidden"
->
+    class="
+    absolute
 
-    <div
-        class="absolute
-        -top-32
-        -left-32
-        w-96
-        h-96
-        bg-indigo-300/20
-        rounded-full
-        blur-3xl"
-    ></div>
+    top-0
+    left-0
 
+    w-72
+    h-72
 
-    <div
-        class="absolute
-        -bottom-32
-        -right-32
-        w-96
-        h-96
-        bg-purple-300/20
-        rounded-full
-        blur-3xl"
-    ></div>
+    bg-indigo-500/20
 
-</div>
+    rounded-full
+
+    blur-3xl
+
+    -translate-x-1/2
+    -translate-y-1/2
+    "
+></div>
 
 
-<!-- =====================================================
-     LOGIN WRAPPER
-====================================================== -->
+<div
+    class="
+    absolute
 
-<main
-    class="relative
-    z-10
+    bottom-0
+    right-0
+
+    w-96
+    h-96
+
+    bg-amber-500/10
+
+    rounded-full
+
+    blur-3xl
+    "
+></div>
+
+
+
+<!-- Login Card -->
+
+<div
+    class="
+    relative
+
     w-full
-    max-w-md"
+    max-w-md
+
+    bg-white
+
+    rounded-[2rem]
+
+    shadow-2xl
+
+    overflow-hidden
+
+    fade-in
+    "
 >
 
 
-    <!-- =================================================
-         LOGIN CARD
-    ================================================== -->
+    <!-- Header -->
 
-    <section
-        class="login-card
-        bg-white
-        rounded-[2rem]
-        border
-        border-slate-200
-        shadow-2xl
-        overflow-hidden"
+    <div
+        class="
+        h-32
+
+        bg-gradient-to-r
+        from-indigo-600
+        via-indigo-700
+        to-indigo-800
+
+        relative
+        "
     >
 
 
-        <!-- =============================================
-             HEADER
-        ============================================== -->
-
         <div
-            class="bg-gradient-to-br
-            from-indigo-600
-            via-indigo-700
-            to-slate-950
-            text-white
-            p-7
-            sm:p-8
-            text-center
-            relative
-            overflow-hidden"
+            class="
+            absolute
+
+            left-1/2
+            bottom-0
+
+            translate-x-[-50%]
+            translate-y-1/2
+            "
         >
 
             <div
-                class="absolute
-                -right-16
-                -top-16
-                w-48
-                h-48
-                rounded-full
-                bg-white/10
-                blur-2xl"
-            ></div>
+                class="
+                w-20
+                h-20
 
+                rounded-3xl
 
-            <div
-                class="relative
-                z-10"
+                bg-white
+
+                shadow-xl
+
+                flex
+                items-center
+                justify-center
+                "
             >
 
-                <div
-                    class="logo-pulse
-                    w-20
-                    h-20
-                    mx-auto
-                    rounded-3xl
-                    bg-white/10
-                    border
-                    border-white/10
-                    flex
-                    items-center
-                    justify-center"
-                >
+                <i
+                    class="
+                    fa-solid
+                    fa-truck-fast
 
-                    <i
-                        class="fa-solid
-                        fa-shield-halved
-                        text-4xl
-                        text-amber-300"
-                    ></i>
+                    text-3xl
 
-                </div>
-
-
-                <h1
-                    class="text-2xl
-                    font-black
-                    mt-5"
-                >
-                    Delivery Risk Market
-                </h1>
-
-
-                <p
-                    class="text-indigo-100
-                    text-xs
-                    mt-1"
-                >
-                    ระบบจัดการคำสั่งซื้อและตรวจสอบความเสี่ยง
-                </p>
+                    text-amber-500
+                    "
+                ></i>
 
             </div>
 
         </div>
 
+    </div>
 
-        <!-- =============================================
-             FORM
-        ============================================== -->
+
+
+    <!-- Content -->
+
+    <div
+        class="
+        p-8
+        pt-16
+
+        text-center
+        "
+    >
+
+
+        <h1
+            class="
+            text-2xl
+            font-black
+
+            text-slate-800
+            "
+        >
+
+            Delivery Risk Pro
+
+        </h1>
+
+
+        <p
+            class="
+            text-sm
+
+            text-slate-400
+
+            mt-2
+            "
+        >
+
+            เข้าสู่ระบบพนักงานขนส่ง
+
+        </p>
+
+
 
         <div
-            class="p-6
-            sm:p-8"
+            class="
+            mt-8
+
+            space-y-4
+            "
         >
 
 
-            <div
-                class="text-center
-                mb-6"
-            >
+            <!-- PIN -->
 
-                <h2
-                    class="text-xl
-                    font-black"
-                >
-                    เข้าสู่ระบบ
-                </h2>
+            <div class="text-left">
 
 
-                <p
-                    class="text-xs
-                    text-slate-400
-                    mt-1"
-                >
-                    เลือกประเภทบัญชีของคุณ
-                </p>
+                <label
+                    class="
+                    block
 
-            </div>
+                    text-xs
+                    font-bold
 
+                    text-slate-600
 
-            <!-- =========================================
-                 ROLE SELECT
-            ========================================== -->
-
-            <div
-                class="grid
-                grid-cols-2
-                gap-3
-                mb-6"
-            >
-
-
-                <!-- CUSTOMER -->
-
-                <button
-                    type="button"
-                    id="customer-role"
-                    onclick="selectRole('customer')"
-                    class="role-card
-                    active
-                    border-2
-                    border-indigo-500
-                    rounded-2xl
-                    p-4
-                    text-center"
-                >
-
-                    <div
-                        class="w-11
-                        h-11
-                        mx-auto
-                        rounded-xl
-                        bg-indigo-100
-                        text-indigo-600
-                        flex
-                        items-center
-                        justify-center"
-                    >
-
-                        <i
-                            class="fa-solid
-                            fa-user"
-                        ></i>
-
-                    </div>
-
-
-                    <p
-                        class="font-black
-                        text-sm
-                        mt-2"
-                    >
-                        ลูกค้า
-                    </p>
-
-
-                    <p
-                        class="text-[10px]
-                        text-slate-400
-                        mt-0.5"
-                    >
-                        ซื้อสินค้า / ติดตามพัสดุ
-                    </p>
-
-                </button>
-
-
-                <!-- STAFF -->
-
-                <button
-                    type="button"
-                    id="staff-role"
-                    onclick="selectRole('staff')"
-                    class="role-card
-                    border-2
-                    border-slate-200
-                    rounded-2xl
-                    p-4
-                    text-center"
-                >
-
-                    <div
-                        class="w-11
-                        h-11
-                        mx-auto
-                        rounded-xl
-                        bg-slate-100
-                        text-slate-500
-                        flex
-                        items-center
-                        justify-center"
-                    >
-
-                        <i
-                            class="fa-solid
-                            fa-user-shield"
-                        ></i>
-
-                    </div>
-
-
-                    <p
-                        class="font-black
-                        text-sm
-                        mt-2"
-                    >
-                        พนักงาน
-                    </p>
-
-
-                    <p
-                        class="text-[10px]
-                        text-slate-400
-                        mt-0.5"
-                    >
-                        จัดการร้าน / ลูกค้า / ความเสี่ยง
-                    </p>
-
-                </button>
-
-            </div>
-
-
-            <!-- =========================================
-                 ERROR
-            ========================================== -->
-
-            <div
-                id="login-error"
-                class="hidden
-                mb-4
-                p-3
-                rounded-2xl
-                bg-rose-50
-                border
-                border-rose-100
-                text-rose-600
-                text-xs"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-circle-exclamation
-                    mr-1"
-                ></i>
-
-                <span id="login-error-text">
-                    กรุณาตรวจสอบข้อมูล
-                </span>
-
-            </div>
-
-
-            <!-- =========================================
-                 USERNAME
-            ========================================== -->
-
-            <label
-                class="block
-                text-xs
-                font-bold
-                text-slate-600
-                mb-2"
-            >
-                ชื่อผู้ใช้
-            </label>
-
-
-            <div
-                class="relative
-                mb-4"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-user
-                    absolute
-                    left-4
-                    top-1/2
-                    -translate-y-1/2
-                    text-slate-400"
-                ></i>
-
-
-                <input
-                    id="username"
-                    type="text"
-                    autocomplete="username"
-                    placeholder="กรอกชื่อผู้ใช้"
-                    class="input-focus
-                    w-full
-                    rounded-2xl
-                    border
-                    border-slate-200
-                    bg-slate-50
-                    py-3.5
-                    pl-11
-                    pr-4
-                    text-sm
-                    transition"
-                >
-
-            </div>
-
-
-            <!-- =========================================
-                 PASSWORD
-            ========================================== -->
-
-            <label
-                class="block
-                text-xs
-                font-bold
-                text-slate-600
-                mb-2"
-            >
-                รหัสผ่าน
-            </label>
-
-
-            <div
-                class="relative
-                mb-5"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-lock
-                    absolute
-                    left-4
-                    top-1/2
-                    -translate-y-1/2
-                    text-slate-400"
-                ></i>
-
-
-                <input
-                    id="password"
-                    type="password"
-                    autocomplete="current-password"
-                    placeholder="กรอกรหัสผ่าน"
-                    class="input-focus
-                    w-full
-                    rounded-2xl
-                    border
-                    border-slate-200
-                    bg-slate-50
-                    py-3.5
-                    pl-11
-                    pr-12
-                    text-sm
-                    transition"
-                >
-
-
-                <button
-                    type="button"
-                    onclick="togglePassword()"
-                    class="absolute
-                    right-3
-                    top-1/2
-                    -translate-y-1/2
-                    w-9
-                    h-9
-                    rounded-xl
-                    text-slate-400
-                    hover:bg-slate-200
-                    transition"
+                    mb-2
+                    "
                 >
 
                     <i
-                        id="password-icon"
-                        class="fa-solid
-                        fa-eye"
+                        class="
+                        fa-solid
+                        fa-lock
+
+                        text-indigo-500
+
+                        mr-1
+                        "
                     ></i>
 
-                </button>
+                    รหัสพนักงาน (PIN 6 หลัก)
+
+                </label>
+
+
+
+                <input
+                    type="password"
+
+                    id="driver-pin-input"
+
+                    maxlength="6"
+
+                    inputmode="numeric"
+
+                    placeholder="• • • • • •"
+
+                    class="
+                    w-full
+
+                    text-center
+
+                    text-2xl
+
+                    tracking-[0.35em]
+
+                    font-bold
+
+                    py-4
+
+                    border-2
+                    border-slate-200
+
+                    rounded-2xl
+
+                    bg-slate-50
+
+                    focus:outline-none
+
+                    focus:border-indigo-500
+
+                    focus:bg-white
+                    "
+                >
+
 
             </div>
 
 
-            <!-- =========================================
-                 LOGIN BUTTON
-            ========================================== -->
 
-            <button
-                type="button"
-                id="login-button"
-                onclick="login()"
-                class="w-full
-                py-3.5
-                rounded-2xl
-                bg-indigo-600
-                hover:bg-indigo-700
-                text-white
-                font-black
+            <!-- ERROR -->
+
+            <p
+                id="driver-pin-error"
+
+                class="
+                hidden
+
                 text-sm
-                shadow-lg
-                shadow-indigo-200
-                transition
-                active:scale-[0.98]"
+
+                text-rose-500
+
+                font-bold
+                "
             >
 
                 <i
-                    class="fa-solid
+                    class="
+                    fa-solid
+                    fa-circle-exclamation
+                    mr-1
+                    "
+                ></i>
+
+                รหัสพนักงานไม่ถูกต้อง
+
+            </p>
+
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                onclick="loginDriver()"
+
+                class="
+                w-full
+
+                py-4
+
+                rounded-2xl
+
+                bg-gradient-to-r
+                from-indigo-600
+                to-indigo-700
+
+                hover:from-indigo-500
+                hover:to-indigo-600
+
+                text-white
+
+                font-bold
+
+                shadow-lg
+                shadow-indigo-200
+
+                transition-all
+
+                active:scale-95
+                "
+            >
+
+                <i
+                    class="
+                    fa-solid
                     fa-right-to-bracket
-                    mr-2"
+                    mr-2
+                    "
                 ></i>
 
                 เข้าสู่ระบบ
@@ -620,676 +441,1269 @@
             </button>
 
 
-            <!-- =========================================
-                 DEMO ACCOUNT
-            ========================================== -->
 
-            <div
-                class="mt-5
-                p-4
-                rounded-2xl
-                bg-slate-50
-                border
-                border-slate-200"
+            <p
+                class="
+                text-xs
+
+                text-slate-400
+                "
             >
 
-                <div
-                    class="flex
-                    items-center
-                    gap-2
-                    mb-2"
-                >
+                กรุณากรอกรหัสพนักงานเพื่อเริ่มใช้งาน
 
-                    <i
-                        class="fa-solid
-                        fa-circle-info
-                        text-indigo-500"
-                    ></i>
+            </p>
 
-
-                    <p
-                        class="text-xs
-                        font-black"
-                    >
-                        บัญชีสำหรับทดสอบ
-                    </p>
-
-                </div>
-
-
-                <div
-                    class="text-[11px]
-                    text-slate-500
-                    space-y-1"
-                >
-
-                    <p>
-                        👤 ลูกค้า:
-                        <span
-                            class="font-bold
-                            text-slate-700"
-                        >
-                            customer
-                        </span>
-                        /
-                        <span
-                            class="font-bold
-                            text-slate-700"
-                        >
-                            1234
-                        </span>
-                    </p>
-
-
-                    <p>
-                        🛡️ พนักงาน:
-                        <span
-                            class="font-bold
-                            text-slate-700"
-                        >
-                            admin
-                        </span>
-                        /
-                        <span
-                            class="font-bold
-                            text-slate-700"
-                        >
-                            admin123
-                        </span>
-                    </p>
-
-                </div>
-
-            </div>
 
         </div>
 
-    </section>
+    </div>
+
+</div>
+
+</div><!-- ================================= --><!-- 🚚 NAVBAR --><!-- ================================= --><nav
+    class="
+    sticky
+    top-0z-40
+
+bg-slate-950
+
+text-white
+
+border-b
+border-slate-800
+"
+
+«»
+
+<div
+    class="
+    max-w-4xl
+
+    mx-auto
+
+    px-4
+    py-3
+
+    flex
+
+    items-center
+    justify-between
+    "
+>
 
 
-    <!-- =================================================
-         FOOTER
-    ================================================== -->
+    <!-- LEFT -->
+
+    <div
+        class="
+        flex
+        items-center
+
+        gap-3
+        "
+    >
+
+
+        <a
+            href="index.html"
+
+            class="
+            w-10
+            h-10
+
+            rounded-xl
+
+            bg-slate-800
+
+            hover:bg-slate-700
+
+            flex
+            items-center
+            justify-center
+
+            transition
+            "
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+        </a>
+
+
+
+        <div>
+
+            <h1
+                class="
+                font-bold
+
+                text-sm
+                "
+            >
+
+                Delivery Risk Pro
+
+            </h1>
+
+
+            <p
+                class="
+                text-xs
+
+                text-slate-400
+                "
+            >
+
+                ระบบบันทึกการจัดส่ง
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- RIGHT -->
+
+    <div
+        class="
+        flex
+        items-center
+
+        gap-2
+        "
+    >
+
+
+        <span
+            id="driver-id-badge"
+
+            class="
+            hidden
+
+            px-3
+            py-1.5
+
+            rounded-xl
+
+            text-xs
+            font-bold
+
+            bg-emerald-500/10
+
+            border
+            border-emerald-500/20
+
+            text-emerald-300
+            "
+        >
+
+            <span
+                class="
+                inline-block
+
+                w-2
+                h-2
+
+                rounded-full
+
+                bg-emerald-400
+
+                mr-1
+
+                animate-pulse
+                "
+            ></span>
+
+            ONLINE
+
+        </span>
+
+
+
+        <a
+            href="admin.html"
+
+            class="
+            hidden
+            sm:flex
+
+            items-center
+
+            px-3
+            py-2
+
+            text-xs
+
+            text-slate-300
+
+            hover:text-white
+            "
+        >
+
+            <i
+                class="
+                fa-solid
+                fa-chart-pie
+
+                mr-1
+                "
+            ></i>
+
+            แอดมิน
+
+        </a>
+
+
+
+        <button
+            onclick="logoutDriver()"
+
+            class="
+            w-10
+            h-10
+
+            rounded-xl
+
+            bg-rose-500/10
+
+            text-rose-300
+
+            hover:bg-rose-500/20
+
+            transition
+            "
+        >
+
+            <i
+                class="
+                fa-solid
+                fa-right-from-bracket
+                "
+            ></i>
+
+        </button>
+
+
+    </div>
+
+</div>
+
+</nav><!-- ================================= --><!-- MAIN --><!-- ================================= --><main
+    id="driver-main-content"class="
+hidden
+
+max-w-4xl
+
+mx-auto
+
+px-4
+py-6
+
+space-y-6
+"
+
+«»
+
+<!-- ================================= --><!-- WELCOME --><!-- ================================= --><section
+    class="
+    fade-inbg-gradient-to-r
+from-indigo-700
+to-indigo-900
+
+rounded-3xl
+
+p-6
+
+text-white
+
+shadow-lg
+"
+
+«»
+
+<div
+    class="
+    flex
+
+    items-center
+    justify-between
+
+    gap-4
+    "
+>
+
+
+    <div>
+
+
+        <div
+            class="
+            inline-flex
+
+            items-center
+
+            gap-2
+
+            text-xs
+
+            text-indigo-200
+            "
+        >
+
+            <span
+                class="
+                w-2
+                h-2
+
+                bg-emerald-400
+
+                rounded-full
+
+                animate-pulse
+                "
+            ></span>
+
+            ระบบพร้อมใช้งาน
+
+        </div>
+
+
+
+        <h2
+            class="
+            text-xl
+            sm:text-2xl
+
+            font-bold
+
+            mt-2
+            "
+        >
+
+            เริ่มบันทึกการจัดส่งได้เลย 🚚
+
+        </h2>
+
+
+
+        <p
+            class="
+            text-xs
+
+            text-indigo-200
+
+            mt-2
+            "
+        >
+
+            ค้นหาลูกค้า ตรวจสอบความเสี่ยง และบันทึกผลการจัดส่ง
+
+        </p>
+
+
+    </div>
+
+
+
+    <div
+        class="
+        hidden
+        sm:flex
+
+        w-20
+        h-20
+
+        rounded-2xl
+
+        bg-white/10
+
+        items-center
+        justify-center
+
+        text-4xl
+        "
+    >
+
+        <i class="fa-solid fa-box"></i>
+
+    </div>
+
+
+</div>
+
+</section><!-- ================================= --><!-- SOUND --><!-- ================================= --><section
+    class="
+    bg-amber-50border
+border-amber-200
+
+rounded-2xl
+
+p-4
+
+flex
+
+items-center
+justify-between
+
+gap-4
+"
+
+«»
+
+<div
+    class="
+    flex
+    items-center
+
+    gap-3
+    "
+>
+
+
+    <div
+        class="
+        w-10
+        h-10
+
+        rounded-xl
+
+        bg-amber-100
+
+        text-amber-600
+
+        flex
+        items-center
+        justify-center
+        "
+    >
+
+        <i class="fa-solid fa-volume-high"></i>
+
+    </div>
+
+
+
+    <div>
+
+
+        <p
+            class="
+            text-sm
+
+            font-bold
+
+            text-amber-900
+            "
+        >
+
+            ระบบเสียงแจ้งเตือน
+
+        </p>
+
+
+
+        <p
+            class="
+            text-xs
+
+            text-amber-700
+            "
+        >
+
+            กดทดสอบก่อนเริ่มใช้งาน
+
+        </p>
+
+
+    </div>
+
+</div>
+
+
+
+<button
+    onclick="testPlaySound()"
+
+    class="
+    px-4
+    py-2
+
+    rounded-xl
+
+    bg-amber-600
+
+    hover:bg-amber-700
+
+    text-white
+
+    text-xs
+    font-bold
+
+    transition
+
+    active:scale-95
+    "
+>
+
+    <i class="fa-solid fa-play mr-1"></i>
+
+    ทดสอบ
+
+</button>
+
+</section><!-- ================================= --><!-- DELIVERY FORM --><!-- ================================= --><section
+    class="
+    bg-whiterounded-3xl
+
+border
+border-slate-200
+
+shadow-sm
+
+overflow-hidden
+"
+
+«»
+
+<!-- HEADER --><div
+    class="
+    px-6
+    py-5border-b
+border-slate-100
+"
+
+«»
+
+<h2
+    class="
+    text-lg
+
+    font-bold
+
+    text-slate-800
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-clipboard-check
+
+        text-indigo-500
+
+        mr-2
+        "
+    ></i>
+
+    บันทึกการจัดส่ง
+
+</h2>
+
+
+
+<p
+    class="
+    text-xs
+
+    text-slate-400
+
+    mt-1
+    "
+>
+
+    กรอกข้อมูลผู้รับพัสดุและเลือกผลการจัดส่ง
+
+</p>
+
+</div><!-- FORM --><div
+    class="
+    p-6space-y-5
+"
+
+«»
+
+<!-- ORDER ID --><div><label
+    class="
+    block
+
+    text-sm
+
+    font-bold
+
+    text-slate-700
+
+    mb-2
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-barcode
+
+        text-indigo-500
+
+        mr-1
+        "
+    ></i>
+
+    รหัสสินค้า / เลขออเดอร์
+
+</label>
+
+
+
+<input
+    type="text"
+
+    id="order-id-input"
+
+    placeholder="เช่น TH123456TH"
+
+    autocomplete="off"
+
+    class="
+    w-full
+
+    p-4
+
+    rounded-2xl
+
+    border-2
+    border-slate-200
+
+    bg-slate-50
+
+    font-semibold
+
+    uppercase
+
+    focus:outline-none
+
+    focus:border-indigo-500
+
+    focus:bg-white
+    "
+>
+
+</div><!-- CUSTOMER SEARCH --><div><label
+    class="
+    block
+
+    text-sm
+
+    font-bold
+
+    text-slate-700
+
+    mb-2
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-user
+
+        text-indigo-500
+
+        mr-1
+        "
+    ></i>
+
+    ชื่อผู้รับพัสดุ
+
+</label>
+
+
+
+<div class="relative">
+
+
+    <input
+        type="text"
+
+        id="driver-search-name"
+
+        oninput="handleCustomerSearch()"
+
+        placeholder="พิมพ์ชื่อเพื่อค้นหาลูกค้า..."
+
+        autocomplete="off"
+
+        class="
+        w-full
+
+        p-4
+
+        rounded-2xl
+
+        border-2
+        border-slate-200
+
+        bg-slate-50
+
+        font-semibold
+
+        focus:outline-none
+
+        focus:border-indigo-500
+
+        focus:bg-white
+        "
+    >
+
+
+
+    <!-- SEARCH DROPDOWN -->
+
+    <div
+        id="search-dropdown"
+
+        class="
+        hidden
+
+        absolute
+
+        top-full
+        left-0
+        right-0
+
+        mt-2
+
+        bg-white
+
+        border
+        border-slate-200
+
+        rounded-2xl
+
+        shadow-xl
+
+        overflow-hidden
+
+        z-30
+
+        max-h-60
+
+        overflow-y-auto
+        "
+    ></div>
+
+
+</div>
+
+</div><!-- RISK BOX --><div
+    id="risk-alert-box"class="
+hidden
+
+p-5
+
+rounded-2xl
+
+border
+"
+
+«»
+
+<div
+    class="
+    flex
+
+    justify-between
+
+    items-start
+
+    gap-4
+
+    flex-wrap
+    "
+>
+
+
+    <span
+        id="risk-badge"
+
+        class="
+        px-3
+        py-1.5
+
+        rounded-xl
+
+        text-xs
+
+        font-bold
+        "
+    ></span>
+
+
+
+    <span
+        id="customer-stats"
+
+        class="
+        text-xs
+
+        text-slate-500
+
+        font-semibold
+        "
+    ></span>
+
+
+</div>
+
+
+
+<p
+    id="blacklist-reason-text"
+
+    class="
+    hidden
+
+    mt-3
+
+    text-sm
+
+    text-rose-600
+
+    font-semibold
+    "
+></p>
+
+</div><!-- ACTION BUTTONS --><div
+    class="
+    gridgrid-cols-1
+sm:grid-cols-2
+
+gap-4
+
+pt-2
+"
+
+«»
+
+<!-- SUCCESS -->
+
+<button
+    onclick="confirmDelivery('SUCCESS')"
+
+    class="
+    py-4
+
+    rounded-2xl
+
+    bg-gradient-to-r
+    from-emerald-500
+    to-emerald-600
+
+    hover:from-emerald-600
+    hover:to-emerald-700
+
+    text-white
+
+    font-bold
+
+    shadow-lg
+    shadow-emerald-100
+
+    transition-all
+
+    active:scale-95
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-circle-check
+
+        text-lg
+
+        mr-2
+        "
+    ></i>
+
+    ส่งสำเร็จ
+
+</button>
+
+
+
+<!-- FAILED -->
+
+<button
+    onclick="confirmDelivery('FAILED')"
+
+    class="
+    py-4
+
+    rounded-2xl
+
+    bg-gradient-to-r
+    from-rose-500
+    to-rose-600
+
+    hover:from-rose-600
+    hover:to-rose-700
+
+    text-white
+
+    font-bold
+
+    shadow-lg
+    shadow-rose-100
+
+    transition-all
+
+    active:scale-95
+    "
+>
+
+    <i
+        class="
+        fa-solid
+        fa-circle-xmark
+
+        text-lg
+
+        mr-2
+        "
+    ></i>
+
+    ตีกลับ / ปฏิเสธ
+
+</button>
+
+</div></div></section><!-- ================================= --><!-- RECENT LOGS --><!-- ================================= --><section
+    class="
+    bg-whiterounded-3xl
+
+border
+border-slate-200
+
+shadow-sm
+
+overflow-hidden
+"
+
+«»
+
+<!-- HEADER --><div
+    class="
+    p-6flex
+
+items-center
+justify-between
+
+border-b
+border-slate-100
+"
+
+«»
+
+<div>
+
+
+    <h3
+        class="
+        text-base
+
+        font-bold
+
+        text-slate-800
+        "
+    >
+
+        <i
+            class="
+            fa-solid
+            fa-clock-rotate-left
+
+            text-indigo-500
+
+            mr-2
+            "
+        ></i>
+
+        ประวัติการบันทึกล่าสุด
+
+    </h3>
+
+
 
     <p
-        class="text-center
-        text-[10px]
+        class="
+        text-xs
+
         text-slate-400
-        mt-5"
+
+        mt-1
+        "
     >
-        © 2026 Delivery Risk Market
-        • Customer Risk Management System
+
+        รายการที่บันทึกในรอบนี้
+
     </p>
 
-</main>
 
+</div>
 
-<!-- =====================================================
-     JAVASCRIPT
-====================================================== -->
 
-<script>
 
-    /* =====================================================
-       STATE
-    ===================================================== */
+<span
+    id="log-count-badge"
 
-    let selectedRole = "customer";
+    class="
+    px-3
+    py-1.5
 
+    rounded-xl
 
-    /* =====================================================
-       DEMO USERS
-    ===================================================== */
+    bg-slate-100
 
-    const DEMO_USERS = [
+    text-slate-600
 
-        {
-            id: "customer-001",
-            username: "customer",
-            password: "1234",
-            name: "ลูกค้าทดสอบ",
-            role: "customer"
-        },
+    text-xs
 
-        {
-            id: "admin-001",
-            username: "admin",
-            password: "admin123",
-            name: "ผู้ดูแลระบบ",
-            role: "staff"
-        }
+    font-bold
+    "
+>
 
-    ];
+    0 รายการ
 
+</span>
 
-    /* =====================================================
-       SELECT ROLE
-    ===================================================== */
+</div><!-- LIST --><div
+    id="recent-logs-list"class="
+p-4
 
-    function selectRole(role) {
+space-y-3
 
-        selectedRole = role;
+min-h-[140px]
+"
 
-        const customerButton =
-            document.getElementById("customer-role");
+«»
 
-        const staffButton =
-            document.getElementById("staff-role");
+<!-- EMPTY STATE -->
 
-        customerButton.classList.remove("active");
+<div
+    class="
+    text-center
 
-        staffButton.classList.remove("active");
+    py-10
 
-        if (role === "customer") {
+    text-slate-400
+    "
+>
 
-            customerButton.classList.add("active");
 
-        } else {
+    <div
+        class="
+        w-14
+        h-14
 
-            staffButton.classList.add("active");
+        mx-auto
 
-        }
+        mb-3
 
-        hideError();
+        rounded-2xl
 
-    }
+        bg-slate-100
 
+        flex
+        items-center
+        justify-center
 
-    /* =====================================================
-       TOGGLE PASSWORD
-    ===================================================== */
+        text-xl
+        "
+    >
 
-    function togglePassword() {
+        <i class="fa-solid fa-inbox"></i>
 
-        const input =
-            document.getElementById("password");
+    </div>
 
-        const icon =
-            document.getElementById("password-icon");
 
-        if (input.type === "password") {
 
-            input.type = "text";
+    <p
+        class="
+        text-sm
 
-            icon.className =
-                "fa-solid fa-eye-slash";
+        font-medium
+        "
+    >
 
-        } else {
+        ยังไม่มีรายการบันทึก
 
-            input.type = "password";
+    </p>
 
-            icon.className =
-                "fa-solid fa-eye";
 
-        }
 
-    }
+    <p
+        class="
+        text-xs
 
+        mt-1
+        "
+    >
 
-    /* =====================================================
-       SHOW ERROR
-    ===================================================== */
+        รายการล่าสุดจะแสดงที่นี่
 
-    function showError(message) {
+    </p>
 
-        const box =
-            document.getElementById("login-error");
 
-        const text =
-            document.getElementById("login-error-text");
+</div>
 
-        text.textContent = message;
+</div></section></main><!-- ================================= --><!-- TOAST --><!-- ================================= --><div
+    id="toast"class="
+hidden
 
-        box.classList.remove("hidden");
+fixed
 
-    }
+bottom-6
 
+left-1/2
 
-    /* =====================================================
-       HIDE ERROR
-    ===================================================== */
+-translate-x-1/2
 
-    function hideError() {
+z-50
 
-        document
-            .getElementById("login-error")
-            .classList.add("hidden");
+px-5
+py-3
 
-    }
+rounded-2xl
 
+shadow-2xl
 
-    /* =====================================================
-       GET USERS FROM LOCAL STORAGE
-    ===================================================== */
+text-white
 
-    function getUsers() {
+text-sm
 
-        try {
+font-semibold
 
-            const saved =
-                localStorage.getItem("users");
+whitespace-nowrap
+"
 
-            if (!saved) {
+«</div>»
 
-                return DEMO_USERS;
+<!-- ================================= --><!-- JAVASCRIPT FILES --><!-- ================================= --><script src="js/config.js"></script><script src="js/db.js"></script><script src="js/sound.js"></script><script>
 
-            }
 
-            const parsed =
-                JSON.parse(saved);
+let selectedUser = null;
 
-            if (!Array.isArray(parsed)) {
+const recentLogs = [];
 
-                return DEMO_USERS;
 
-            }
 
-            return [
-                ...DEMO_USERS,
-                ...parsed
-            ];
+/* ================================= */
+/* INITIALIZE */
+/* ================================= */
 
-        } catch (error) {
+document.addEventListener(
 
-            console.error(
-                "ไม่สามารถอ่าน users:",
-                error
-            );
+    'DOMContentLoaded',
 
-            return DEMO_USERS;
+    () => {
 
-        }
-
-    }
-
-
-    /* =====================================================
-       NORMALIZE ROLE
-    ===================================================== */
-
-    function normalizeRole(role) {
-
-        const value =
-            String(role || "")
-                .trim()
-                .toLowerCase();
 
         if (
-            value === "admin" ||
-            value === "staff" ||
-            value === "employee" ||
-            value === "พนักงาน"
+
+            sessionStorage.getItem(
+                'driver_logged_in'
+            ) === 'true'
+
         ) {
 
-            return "staff";
-
-        }
-
-        return "customer";
-
-    }
-
-
-    /* =====================================================
-       LOGIN
-    ===================================================== */
-
-    function login() {
-
-        hideError();
-
-        const username =
-            document
-                .getElementById("username")
-                .value
-                .trim();
-
-        const password =
-            document
-                .getElementById("password")
-                .value;
-
-
-        if (!username) {
-
-            showError(
-                "กรุณากรอกชื่อผู้ใช้"
-            );
-
-            return;
+            showDriverSystem();
 
         }
 
 
-        if (!password) {
 
-            showError(
-                "กรุณากรอกรหัสผ่าน"
-            );
-
-            return;
-
-        }
-
-
-        const users = getUsers();
-
-
-        const inputUsername =
-            username.toLowerCase();
-
-
-        const user =
-            users.find(
-                item => {
-
-                    const itemUsername =
-                        String(
-                            item.username ||
-                            item.email ||
-                            item.name ||
-                            ""
-                        )
-                        .trim()
-                        .toLowerCase();
-
-                    return (
-                        itemUsername ===
-                        inputUsername
-                    );
-
-                }
-            );
-
-
-        let matchedUser = null;
-
-
-        /* =================================================
-           USER FOUND
-        ================================================== */
-
-        if (user) {
-
-            /*
-               ถ้ามี password ในข้อมูล
-               ให้ตรวจสอบ
-            */
-
-            if (
-                user.password !== undefined &&
-                String(user.password) !== password
-            ) {
-
-                showError(
-                    "รหัสผ่านไม่ถูกต้อง"
-                );
-
-                return;
-
-            }
-
-            matchedUser = user;
-
-        }
-
-
-        /* =================================================
-           DEMO ACCOUNT FALLBACK
-        ================================================== */
-
-        else {
-
-            matchedUser =
-                DEMO_USERS.find(
-                    item =>
-                        item.username.toLowerCase() ===
-                            inputUsername &&
-                        item.password === password
-                );
-
-        }
-
-
-        /* =================================================
-           LOGIN FAILED
-        ================================================== */
-
-        if (!matchedUser) {
-
-            showError(
-                "ไม่พบชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"
-            );
-
-            return;
-
-        }
-
-
-        /* =================================================
-           GET ROLE
-        ================================================== */
-
-        const userRole =
-            normalizeRole(
-                matchedUser.role
-            );
-
-
-        /* =================================================
-           CHECK SELECTED ROLE
-        ================================================== */
-
-        if (
-            selectedRole !==
-            userRole
-        ) {
-
-            if (userRole === "staff") {
-
-                showError(
-                    'บัญชีนี้เป็นพนักงาน กรุณาเลือก "พนักงาน"'
-                );
-
-            } else {
-
-                showError(
-                    'บัญชีนี้เป็นลูกค้า กรุณาเลือก "ลูกค้า"'
-                );
-
-            }
-
-            return;
-
-        }
-
-
-        /* =================================================
-           CREATE SESSION
-        ================================================== */
-
-        const session = {
-
-            id:
-                matchedUser.id ||
-                username,
-
-            username:
-                matchedUser.username ||
-                username,
-
-            name:
-                matchedUser.name ||
-                username,
-
-            role:
-                userRole,
-
-            loginAt:
-                new Date().toISOString()
-
-        };
-
-
-        localStorage.setItem(
-            "currentUser",
-            JSON.stringify(session)
-        );
-
-
-        localStorage.setItem(
-            "isLoggedIn",
-            "true"
-        );
-
-
-        localStorage.setItem(
-            "userRole",
-            userRole
-        );
-
-
-        /* =================================================
-           LOGIN BUTTON LOADING
-        ================================================== */
-
-        const button =
+        const pinInput =
             document.getElementById(
-                "login-button"
+                'driver-pin-input'
             );
 
 
-        button.disabled = true;
 
+        pinInput.addEventListener(
 
-        button.innerHTML = `
-            <i class="fa-solid fa-spinner fa-spin mr-2"></i>
-            กำลังเข้าสู่ระบบ...
-        `;
+            'keydown',
 
-
-        /* =================================================
-           REDIRECT
-        ================================================== */
-
-        setTimeout(
-            function() {
-
-                if (userRole === "staff") {
-
-                    window.location.href =
-                        "admin.html";
-
-                } else {
-
-                    window.location.href =
-                        "shop.html";
-
-                }
-
-            },
-            400
-        );
-
-    }
-
-
-    /* =====================================================
-       ENTER KEY
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                login();
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       CHECK EXISTING LOGIN
-    ===================================================== */
-
-    function checkExistingLogin() {
-
-        try {
-
-            const isLoggedIn =
-                localStorage.getItem(
-                    "isLoggedIn"
-                );
-
-
-            const currentUser =
-                localStorage.getItem(
-                    "currentUser"
-                );
-
-
-            if (
-                isLoggedIn === "true" &&
-                currentUser
-            ) {
-
-                const user =
-                    JSON.parse(
-                        currentUser
-                    );
+            event => {
 
 
                 if (
-                    user.role === "staff" ||
-                    user.role === "admin"
+                    event.key === 'Enter'
                 ) {
 
-                    window.location.href =
-                        "admin.html";
-
-                } else {
-
-                    window.location.href =
-                        "shop.html";
+                    loginDriver();
 
                 }
 
+
             }
 
-        } catch (error) {
+        );
 
-            console.error(
-                "Session error:",
-                error
-            );
-
-        }
 
     }
 
+);
 
-    /* =====================================================
-       INIT
-    ====================================================== */
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        function() {
 
-            checkExistingLogin();
+/* ================================= */
+/* LOGIN */
+/* ================================= */
 
-        }
-    );
+function loginDriver() {
 
-</script>
-```
 
-</body>
+    const inputPin =
+        document
+        .getElementById(
+            'driver-pin-input'
+        )
+        .value
+        .trim();
 
-</html>
+
+
+    const correctPin =
+
+        (
+
+            typeof CONFIG !== 'undefined'
+
+            &&
+
+            CONFIG.DRIVER_PIN
+
+        )
+
+        ?
+
+        CONFIG.DRIVER_PIN
+
+        :
+
+        '123456';
+
+
+
+    const errorMsg =
+        document.getElementById(
+            'driver-pin-error'
+        );
+
+
+
+    if (
+
+  
