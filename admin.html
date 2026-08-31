@@ -12,7 +12,7 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Admin Dashboard | Delivery Risk Market</title>
+<title>Delivery Risk Pro | Admin Dashboard</title>
 
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -23,7 +23,7 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 >
 
-<!-- Kanit Font -->
+<!-- Google Font -->
 <link
     href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet"
@@ -31,55 +31,61 @@
 
 <style>
 
-    * {
-        box-sizing: border-box;
-    }
-
     body {
         font-family: 'Kanit', sans-serif;
     }
 
-    .card {
-        transition: all .2s ease;
+    .fade-in {
+        animation: fadeIn 0.35s ease-out;
     }
 
-    .card:hover {
-        box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
+    .toast-animation {
+        animation: toastAnimation 0.3s ease-out;
     }
 
-    .modal-animation {
-        animation: modalIn .2s ease;
-    }
-
-    @keyframes modalIn {
+    @keyframes fadeIn {
 
         from {
             opacity: 0;
-            transform: translateY(10px) scale(.97);
+            transform: translateY(12px);
         }
 
         to {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
     }
 
-    .bar {
-        transition: height .5s ease;
+    @keyframes toastAnimation {
+
+        from {
+            opacity: 0;
+            transform: translate(-50%, 30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
     }
 
-    ::-webkit-scrollbar {
-        width: 7px;
+    input {
+        transition: all 0.2s ease;
     }
 
-    ::-webkit-scrollbar-track {
-        background: #f1f5f9;
+    button,
+    a {
+        -webkit-tap-highlight-color: transparent;
     }
 
-    ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 999px;
+    .stat-card {
+        transition: all 0.2s ease;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-3px);
     }
 
 </style>
@@ -87,80 +93,238 @@
 
 </head>
 
-<body class="bg-slate-100 text-slate-800 min-h-screen">
+<body class="bg-slate-100 min-h-screen pb-10">
 
-<!-- =====================================================
-     NAVBAR
-====================================================== -->
+<!-- ========================================================= -->
 
-<nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
+<!-- ADMIN LOGIN -->
 
-```
+<!-- ========================================================= -->
+
 <div
-    class="max-w-7xl mx-auto px-4 py-3
-    flex items-center justify-between gap-4"
+    id="admin-auth-screen"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950"
 >
 
-    <a
-        href="shop.html"
-        class="flex items-center gap-3"
+```
+<!-- Background -->
+
+<div
+    class="absolute top-0 left-0 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
+></div>
+
+<div
+    class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
+></div>
+
+
+<!-- Login Card -->
+
+<div
+    class="relative w-full max-w-md bg-white rounded-[2rem] shadow-2xl overflow-hidden fade-in"
+>
+
+    <!-- Header -->
+
+    <div
+        class="h-32 bg-gradient-to-r from-purple-600 via-indigo-700 to-indigo-800 relative"
     >
 
         <div
-            class="w-10 h-10 rounded-xl
-            bg-gradient-to-br from-indigo-500 to-indigo-700
-            flex items-center justify-center"
+            class="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2"
         >
 
-            <i class="fa-solid fa-store text-amber-300"></i>
+            <div
+                class="w-20 h-20 rounded-3xl bg-white shadow-xl flex items-center justify-center"
+            >
+
+                <i
+                    class="fa-solid fa-user-shield text-3xl text-purple-600"
+                ></i>
+
+            </div>
 
         </div>
 
-        <div>
+    </div>
 
-            <p class="font-black text-sm">
-                Delivery Risk Market
+
+    <!-- Login Content -->
+
+    <div class="p-8 pt-16 text-center">
+
+        <h1 class="text-2xl font-black text-slate-800">
+            Delivery Risk Pro
+        </h1>
+
+        <p class="text-sm text-slate-400 mt-2">
+            เข้าสู่ระบบผู้ดูแลระบบ
+        </p>
+
+
+        <div class="mt-8 space-y-4">
+
+            <!-- PIN -->
+
+            <div class="text-left">
+
+                <label
+                    class="block text-xs font-bold text-slate-600 mb-2"
+                >
+
+                    <i
+                        class="fa-solid fa-lock text-purple-500 mr-1"
+                    ></i>
+
+                    รหัสผู้ดูแลระบบ (PIN 6 หลัก)
+
+                </label>
+
+
+                <input
+                    type="password"
+                    id="admin-pin-input"
+                    maxlength="6"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    placeholder="• • • • • •"
+                    class="w-full text-center text-2xl tracking-[0.35em] font-bold py-4 border-2 border-slate-200 rounded-2xl bg-slate-50 focus:outline-none focus:border-purple-500 focus:bg-white"
+                >
+
+            </div>
+
+
+            <!-- Error -->
+
+            <p
+                id="admin-pin-error"
+                class="hidden text-sm text-rose-500 font-bold"
+            >
+
+                <i
+                    class="fa-solid fa-circle-exclamation mr-1"
+                ></i>
+
+                รหัสผู้ดูแลระบบไม่ถูกต้อง
+
             </p>
 
-            <p class="text-[10px] text-slate-400">
+
+            <!-- Login -->
+
+            <button
+                type="button"
+                onclick="loginAdmin()"
+                class="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-bold shadow-lg shadow-purple-200 transition-all active:scale-95"
+            >
+
+                <i
+                    class="fa-solid fa-right-to-bracket mr-2"
+                ></i>
+
+                เข้าสู่ระบบแอดมิน
+
+            </button>
+
+
+            <p class="text-xs text-slate-400">
+                กรุณากรอกรหัสผู้ดูแลระบบเพื่อเข้าสู่ Dashboard
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ========================================================= -->
+
+<!-- NAVBAR -->
+
+<!-- ========================================================= -->
+
+<nav
+    class="sticky top-0 z-40 bg-slate-950 text-white border-b border-slate-800 shadow-md"
+>
+
+```
+<div
+    class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between"
+>
+
+    <!-- LEFT -->
+
+    <div class="flex items-center gap-3">
+
+        <a
+            href="index.html"
+            class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition"
+            title="กลับหน้าหลัก"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+        </a>
+
+
+        <div>
+
+            <h1 class="font-bold text-sm">
+                Delivery Risk Pro
+            </h1>
+
+            <p class="text-xs text-slate-400">
                 Admin Dashboard
             </p>
 
         </div>
 
-    </a>
+    </div>
 
+
+    <!-- RIGHT -->
 
     <div class="flex items-center gap-2">
 
-        <a
-            href="shop.html"
-            class="hidden sm:flex items-center gap-2
-            px-3 py-2 rounded-xl
-            text-xs font-bold text-slate-300
-            hover:text-white hover:bg-white/10"
+        <span
+            id="admin-id-badge"
+            class="hidden px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-500/10 border border-purple-500/20 text-purple-300"
         >
 
-            <i class="fa-solid fa-store"></i>
+            <span
+                class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1 animate-pulse"
+            ></span>
 
-            ร้านค้า
+            ADMIN ONLINE
+
+        </span>
+
+
+        <a
+            href="driver.html"
+            class="hidden sm:flex items-center px-3 py-2 text-xs text-slate-300 hover:text-white transition"
+        >
+
+            <i class="fa-solid fa-truck mr-1"></i>
+
+            Driver
 
         </a>
 
 
-        <a
-            href="orders.html"
-            class="flex items-center gap-2
-            px-3 py-2 rounded-xl
-            bg-indigo-600 hover:bg-indigo-500
-            text-xs font-bold"
+        <button
+            type="button"
+            onclick="logoutAdmin()"
+            class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition"
+            title="ออกจากระบบ"
         >
 
-            <i class="fa-solid fa-receipt"></i>
+            <i class="fa-solid fa-right-from-bracket"></i>
 
-            คำสั่งซื้อ
-
-        </a>
+        </button>
 
     </div>
 
@@ -169,2632 +333,1350 @@
 
 </nav>
 
-<!-- =====================================================
-     MAIN
-====================================================== -->
+<!-- ========================================================= -->
+
+<!-- ADMIN MAIN -->
+
+<!-- ========================================================= -->
 
 <main
-    class="max-w-7xl mx-auto px-4 py-6 pb-16"
->
-
-<!-- =================================================
-     HEADER
-================================================== -->
-
-<div
-    class="flex flex-col lg:flex-row
-    lg:items-center lg:justify-between
-    gap-4 mb-6"
+    id="admin-main-content"
+    class="hidden max-w-7xl mx-auto px-4 py-6 space-y-6"
 >
 
 ```
-<div>
-
-    <div
-        class="inline-flex items-center gap-2
-        px-3 py-1.5 rounded-full
-        bg-indigo-50 text-indigo-600
-        text-[10px] font-black"
-    >
-
-        <i class="fa-solid fa-shield-halved"></i>
-
-        ADMIN CONTROL CENTER
-
-    </div>
-
-
-    <h1
-        class="text-2xl sm:text-3xl
-        font-black mt-3"
-    >
-
-        จัดการระบบ
-
-    </h1>
-
-
-    <p class="text-sm text-slate-500 mt-1">
-
-        จัดการลูกค้า Blacklist คำสั่งซื้อ
-        และวิเคราะห์ความเสี่ยง
-
-    </p>
-
-</div>
-
-
-<div class="flex flex-wrap gap-2">
-
-    <button
-        onclick="exportCSV()"
-        class="px-4 py-3 rounded-2xl
-        bg-emerald-600 hover:bg-emerald-700
-        text-white text-sm font-bold"
-    >
-
-        <i class="fa-solid fa-file-export mr-1"></i>
-
-        Export CSV
-
-    </button>
-
-
-    <label
-        class="cursor-pointer
-        px-4 py-3 rounded-2xl
-        bg-indigo-600 hover:bg-indigo-700
-        text-white text-sm font-bold"
-    >
-
-        <i class="fa-solid fa-file-import mr-1"></i>
-
-        Import CSV
-
-        <input
-            type="file"
-            id="csv-input"
-            accept=".csv,text/csv"
-            class="hidden"
-            onchange="importCSV(event)"
-        >
-
-    </label>
-
-
-    <button
-        onclick="resetInitialData()"
-        class="px-4 py-3 rounded-2xl
-        bg-white border border-slate-200
-        hover:border-rose-300
-        hover:text-rose-600
-        text-sm font-bold"
-    >
-
-        <i class="fa-solid fa-rotate-left mr-1"></i>
-
-        รีเซ็ตข้อมูล
-
-    </button>
-
-</div>
-```
-
-</div>
-
-<!-- =================================================
-     STAT CARDS
-================================================== -->
+<!-- ===================================================== -->
+<!-- HEADER -->
+<!-- ===================================================== -->
 
 <section
-    class="grid grid-cols-1
-    sm:grid-cols-2
-    lg:grid-cols-4
-    gap-4 mb-6"
+    class="fade-in bg-gradient-to-r from-purple-700 via-indigo-700 to-indigo-900 rounded-3xl p-6 text-white shadow-lg"
 >
 
-```
-<div class="card bg-white rounded-3xl border border-slate-200 p-5">
-
-    <div class="flex justify-between items-center">
+    <div class="flex items-center justify-between gap-4">
 
         <div>
 
-            <p class="text-xs text-slate-400">
-                ลูกค้าทั้งหมด
-            </p>
-
-            <p
-                id="stat-customers"
-                class="text-3xl font-black mt-1"
+            <div
+                class="inline-flex items-center gap-2 text-xs text-purple-200"
             >
-                0
-            </p>
 
-        </div>
+                <span
+                    class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"
+                ></span>
 
-
-        <div
-            class="w-12 h-12 rounded-2xl
-            bg-indigo-50 text-indigo-600
-            flex items-center justify-center"
-        >
-
-            <i class="fa-solid fa-users"></i>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="card bg-white rounded-3xl border border-slate-200 p-5">
-
-    <div class="flex justify-between items-center">
-
-        <div>
-
-            <p class="text-xs text-slate-400">
-                สำเร็จทั้งหมด
-            </p>
-
-            <p
-                id="stat-success"
-                class="text-3xl font-black mt-1 text-emerald-600"
-            >
-                0
-            </p>
-
-        </div>
-
-
-        <div
-            class="w-12 h-12 rounded-2xl
-            bg-emerald-50 text-emerald-600
-            flex items-center justify-center"
-        >
-
-            <i class="fa-solid fa-circle-check"></i>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="card bg-white rounded-3xl border border-slate-200 p-5">
-
-    <div class="flex justify-between items-center">
-
-        <div>
-
-            <p class="text-xs text-slate-400">
-                ล้มเหลวทั้งหมด
-            </p>
-
-            <p
-                id="stat-failed"
-                class="text-3xl font-black mt-1 text-rose-600"
-            >
-                0
-            </p>
-
-        </div>
-
-
-        <div
-            class="w-12 h-12 rounded-2xl
-            bg-rose-50 text-rose-600
-            flex items-center justify-center"
-        >
-
-            <i class="fa-solid fa-circle-xmark"></i>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<div class="card bg-white rounded-3xl border border-slate-200 p-5">
-
-    <div class="flex justify-between items-center">
-
-        <div>
-
-            <p class="text-xs text-slate-400">
-                Blacklist
-            </p>
-
-            <p
-                id="stat-blacklist"
-                class="text-3xl font-black mt-1 text-amber-600"
-            >
-                0
-            </p>
-
-        </div>
-
-
-        <div
-            class="w-12 h-12 rounded-2xl
-            bg-amber-50 text-amber-600
-            flex items-center justify-center"
-        >
-
-            <i class="fa-solid fa-ban"></i>
-
-        </div>
-
-    </div>
-
-</div>
-```
-
-</section>
-
-<!-- =================================================
-     CHART
-================================================== -->
-
-<section
-    class="bg-white rounded-3xl
-    border border-slate-200
-    p-5 sm:p-6 mb-6"
->
-
-```
-<div
-    class="flex flex-col sm:flex-row
-    sm:items-center sm:justify-between
-    gap-3 mb-6"
->
-
-    <div>
-
-        <h2 class="font-black text-lg">
-
-            <i
-                class="fa-solid fa-chart-column
-                text-indigo-600 mr-1"
-            ></i>
-
-            สถิติการจัดส่ง
-
-        </h2>
-
-        <p class="text-xs text-slate-400 mt-1">
-
-            เปรียบเทียบจำนวนรายการสำเร็จและล้มเหลวของลูกค้า
-
-        </p>
-
-    </div>
-
-
-    <div class="flex gap-4 text-xs font-bold">
-
-        <span class="text-emerald-600">
-
-            <i class="fa-solid fa-square mr-1"></i>
-
-            สำเร็จ
-
-        </span>
-
-        <span class="text-rose-600">
-
-            <i class="fa-solid fa-square mr-1"></i>
-
-            ล้มเหลว
-
-        </span>
-
-    </div>
-
-</div>
-
-
-<div
-    id="chart"
-    class="h-72 overflow-x-auto"
-></div>
-```
-
-</section>
-
-<!-- =================================================
-     CUSTOMER MANAGEMENT
-================================================== -->
-
-<section
-    class="bg-white rounded-3xl
-    border border-slate-200
-    overflow-hidden"
->
-
-```
-<div
-    class="p-5 sm:p-6
-    border-b border-slate-100"
->
-
-    <div
-        class="flex flex-col lg:flex-row
-        lg:items-center
-        lg:justify-between
-        gap-4"
-    >
-
-        <div>
-
-            <h2 class="font-black text-lg">
-
-                <i
-                    class="fa-solid fa-users
-                    text-indigo-600 mr-1"
-                ></i>
-
-                รายชื่อลูกค้า
-
-            </h2>
-
-            <p
-                id="customer-count-label"
-                class="text-xs text-slate-400 mt-1"
-            >
-                0 คน
-            </p>
-
-        </div>
-
-
-        <div
-            class="flex flex-col sm:flex-row
-            gap-2"
-        >
-
-            <div class="relative">
-
-                <i
-                    class="fa-solid fa-magnifying-glass
-                    absolute left-3 top-1/2
-                    -translate-y-1/2
-                    text-slate-400 text-sm"
-                ></i>
-
-                <input
-                    id="search-input"
-                    type="text"
-                    placeholder="ค้นหาชื่อลูกค้า..."
-                    oninput="renderCustomers()"
-                    class="w-full sm:w-64
-                    pl-9 pr-4 py-3
-                    rounded-2xl
-                    bg-slate-100
-                    border border-transparent
-                    focus:bg-white
-                    focus:border-indigo-300
-                    outline-none text-sm"
-                >
+                Admin System Online
 
             </div>
 
 
-            <select
-                id="filter-select"
-                onchange="renderCustomers()"
-                class="px-4 py-3
-                rounded-2xl
-                bg-slate-100
-                border border-transparent
-                outline-none
-                text-sm font-bold"
-            >
+            <h2 class="text-xl sm:text-2xl font-bold mt-2">
+                Dashboard ผู้ดูแลระบบ 🛡️
+            </h2>
 
-                <option value="all">
-                    ลูกค้าทั้งหมด
-                </option>
 
-                <option value="blacklist">
-                    Blacklist
-                </option>
+            <p class="text-xs text-indigo-200 mt-2">
+                ตรวจสอบลูกค้า ประวัติการจัดส่ง และระดับความเสี่ยง
+            </p>
 
-                <option value="normal">
-                    ปกติ
-                </option>
+        </div>
 
-            </select>
+
+        <div
+            class="hidden sm:flex w-20 h-20 rounded-2xl bg-white/10 items-center justify-center text-4xl"
+        >
+
+            <i class="fa-solid fa-chart-line"></i>
 
         </div>
 
     </div>
 
-</div>
-
-
-<!-- TABLE -->
-
-<div class="overflow-x-auto">
-
-    <table class="w-full text-sm">
-
-        <thead class="bg-slate-50">
-
-            <tr>
-
-                <th class="text-left px-5 py-4 font-bold text-slate-500">
-                    ลูกค้า
-                </th>
-
-                <th class="text-center px-4 py-4 font-bold text-slate-500">
-                    สำเร็จ
-                </th>
-
-                <th class="text-center px-4 py-4 font-bold text-slate-500">
-                    ล้มเหลว
-                </th>
-
-                <th class="text-center px-4 py-4 font-bold text-slate-500">
-                    ทั้งหมด
-                </th>
-
-                <th class="text-center px-4 py-4 font-bold text-slate-500">
-                    อัตราสำเร็จ
-                </th>
-
-                <th class="text-center px-4 py-4 font-bold text-slate-500">
-                    สถานะ
-                </th>
-
-                <th class="text-right px-5 py-4 font-bold text-slate-500">
-                    จัดการ
-                </th>
-
-            </tr>
-
-        </thead>
-
-
-        <tbody
-            id="customer-table"
-            class="divide-y divide-slate-100"
-        ></tbody>
-
-    </table>
-
-</div>
-
-
-<div
-    id="empty-customers"
-    class="hidden text-center py-12"
->
-
-    <i
-        class="fa-solid fa-users-slash
-        text-4xl text-slate-200"
-    ></i>
-
-    <p class="text-sm text-slate-400 mt-3">
-
-        ไม่พบลูกค้าที่ค้นหา
-
-    </p>
-
-</div>
-```
-
 </section>
 
-<!-- =================================================
-     BLACKLIST
-================================================== -->
+
+<!-- ===================================================== -->
+<!-- STATISTICS -->
+<!-- ===================================================== -->
 
 <section
-    class="bg-white rounded-3xl
-    border border-slate-200
-    p-5 sm:p-6 mt-6"
+    class="grid grid-cols-2 lg:grid-cols-4 gap-4"
 >
 
-```
-<div
-    class="flex items-center justify-between
-    gap-3 mb-5"
->
+    <!-- TOTAL -->
 
-    <div>
-
-        <h2 class="font-black text-lg">
-
-            <i
-                class="fa-solid fa-ban
-                text-rose-600 mr-1"
-            ></i>
-
-            Blacklist
-
-        </h2>
-
-        <p class="text-xs text-slate-400 mt-1">
-
-            รายชื่อลูกค้าที่ถูกระงับหรือเฝ้าระวัง
-
-        </p>
-
-    </div>
-
-    <span
-        id="blacklist-badge"
-        class="px-3 py-1.5
-        rounded-full
-        bg-rose-50
-        text-rose-600
-        text-xs font-black"
+    <div
+        class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
     >
-        0 ราย
-    </span>
 
-</div>
+        <div class="flex items-center justify-between">
 
+            <div
+                class="w-11 h-11 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center"
+            >
 
-<div
-    id="blacklist-list"
-    class="space-y-3"
-></div>
-```
+                <i class="fa-solid fa-users"></i>
 
-</section>
+            </div>
 
-<!-- =================================================
-     ORDERS SUMMARY
-================================================== -->
+            <span
+                class="text-xs font-bold text-slate-400"
+            >
+                ลูกค้าทั้งหมด
+            </span>
 
-<section
-    class="bg-white rounded-3xl
-    border border-slate-200
-    p-5 sm:p-6 mt-6"
->
+        </div>
 
-```
-<div
-    class="flex items-center justify-between
-    gap-3 mb-5"
->
-
-    <div>
-
-        <h2 class="font-black text-lg">
-
-            <i
-                class="fa-solid fa-boxes-stacked
-                text-indigo-600 mr-1"
-            ></i>
-
-            คำสั่งซื้อในระบบ
-
-        </h2>
 
         <p
-            id="orders-summary"
-            class="text-xs text-slate-400 mt-1"
+            id="stat-total-users"
+            class="text-3xl font-black text-slate-800 mt-4"
         >
-            -
+            0
+        </p>
+
+
+        <p class="text-xs text-slate-400 mt-1">
+            รายชื่อในระบบ
         </p>
 
     </div>
 
 
-    <a
-        href="orders.html"
-        class="px-4 py-2.5
-        rounded-xl
-        bg-indigo-50
-        text-indigo-600
-        text-xs font-bold"
+    <!-- SUCCESS -->
+
+    <div
+        class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
     >
 
-        ดูคำสั่งซื้อ
+        <div class="flex items-center justify-between">
 
-        <i class="fa-solid fa-arrow-right ml-1"></i>
+            <div
+                class="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center"
+            >
 
-    </a>
+                <i class="fa-solid fa-circle-check"></i>
 
-</div>
+            </div>
+
+            <span
+                class="text-xs font-bold text-slate-400"
+            >
+                สำเร็จ
+            </span>
+
+        </div>
 
 
-<div
-    id="orders-admin-list"
-    class="grid
-    grid-cols-1
-    md:grid-cols-2
-    lg:grid-cols-3
-    gap-3"
-></div>
-```
+        <p
+            id="stat-success"
+            class="text-3xl font-black text-emerald-600 mt-4"
+        >
+            0
+        </p>
+
+
+        <p class="text-xs text-slate-400 mt-1">
+            การจัดส่งสำเร็จ
+        </p>
+
+    </div>
+
+
+    <!-- FAILED -->
+
+    <div
+        class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
+    >
+
+        <div class="flex items-center justify-between">
+
+            <div
+                class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center"
+            >
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+            </div>
+
+            <span
+                class="text-xs font-bold text-slate-400"
+            >
+                ตีกลับ
+            </span>
+
+        </div>
+
+
+        <p
+            id="stat-failed"
+            class="text-3xl font-black text-rose-600 mt-4"
+        >
+            0
+        </p>
+
+
+        <p class="text-xs text-slate-400 mt-1">
+            การจัดส่งล้มเหลว
+        </p>
+
+    </div>
+
+
+    <!-- BLACKLIST -->
+
+    <div
+        class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
+    >
+
+        <div class="flex items-center justify-between">
+
+            <div
+                class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center"
+            >
+
+                <i class="fa-solid fa-user-slash"></i>
+
+            </div>
+
+            <span
+                class="text-xs font-bold text-slate-400"
+            >
+                Blacklist
+            </span>
+
+        </div>
+
+
+        <p
+            id="stat-blacklist"
+            class="text-3xl font-black text-amber-600 mt-4"
+        >
+            0
+        </p>
+
+
+        <p class="text-xs text-slate-400 mt-1">
+            ลูกค้าที่ถูกขึ้นบัญชี
+        </p>
+
+    </div>
 
 </section>
 
-</main>
 
-<!-- =====================================================
-     CUSTOMER MODAL
-====================================================== -->
+<!-- ===================================================== -->
+<!-- CONTROL -->
+<!-- ===================================================== -->
 
-<div
-    id="customer-modal"
-    class="hidden fixed inset-0 z-[100]
-    bg-slate-950/60
-    p-4
-    items-center justify-center"
->
-
-```
-<div
-    class="modal-animation
-    bg-white
-    rounded-3xl
-    w-full max-w-lg
-    max-h-[90vh]
-    overflow-y-auto
-    shadow-2xl"
+<section
+    class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6"
 >
 
     <div
-        class="p-5
-        border-b border-slate-100
-        flex items-center justify-between"
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
     >
 
         <div>
 
-            <p class="text-[10px] text-slate-400">
-                CUSTOMER DETAILS
-            </p>
+            <h2 class="text-lg font-bold text-slate-800">
 
-            <h2
-                id="modal-name"
-                class="font-black text-xl mt-1"
-            >
-                -
+                <i
+                    class="fa-solid fa-sliders text-purple-500 mr-2"
+                ></i>
+
+                จัดการข้อมูล
+
             </h2>
+
+            <p class="text-xs text-slate-400 mt-1">
+                ค้นหาและตรวจสอบข้อมูลลูกค้าในระบบ
+            </p>
 
         </div>
 
 
         <button
-            onclick="closeModal()"
-            class="w-10 h-10 rounded-xl
-            bg-slate-100
-            hover:bg-slate-200"
+            type="button"
+            onclick="refreshDashboard()"
+            class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition active:scale-95"
         >
 
-            <i class="fa-solid fa-xmark"></i>
+            <i
+                class="fa-solid fa-rotate mr-1"
+            ></i>
+
+            รีเฟรชข้อมูล
 
         </button>
 
     </div>
 
 
-    <div class="p-5">
+    <!-- SEARCH -->
+
+    <div class="mt-5 relative">
 
         <div
-            class="grid grid-cols-2
-            gap-3 mb-5"
+            class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
         >
 
-            <div class="bg-emerald-50 rounded-2xl p-4">
-
-                <p class="text-xs text-emerald-600">
-                    สำเร็จ
-                </p>
-
-                <p
-                    id="modal-success"
-                    class="text-2xl font-black text-emerald-700"
-                >
-                    0
-                </p>
-
-            </div>
-
-
-            <div class="bg-rose-50 rounded-2xl p-4">
-
-                <p class="text-xs text-rose-600">
-                    ล้มเหลว
-                </p>
-
-                <p
-                    id="modal-failed"
-                    class="text-2xl font-black text-rose-700"
-                >
-                    0
-                </p>
-
-            </div>
+            <i class="fa-solid fa-magnifying-glass"></i>
 
         </div>
 
 
-        <div class="space-y-4">
+        <input
+            type="text"
+            id="admin-search-input"
+            oninput="handleAdminSearch()"
+            placeholder="ค้นหาชื่อลูกค้า..."
+            autocomplete="off"
+            class="w-full pl-11 pr-4 py-4 rounded-2xl border-2 border-slate-200 bg-slate-50 font-semibold focus:outline-none focus:border-purple-500 focus:bg-white"
+        >
 
-            <div>
+    </div>
 
-                <label
-                    class="text-xs
-                    font-bold
-                    text-slate-500"
-                >
-                    สถานะ Blacklist
-                </label>
-
-                <select
-                    id="modal-blacklist"
-                    class="w-full mt-2
-                    px-4 py-3
-                    rounded-2xl
-                    bg-slate-100
-                    border border-slate-200
-                    outline-none"
-                >
-
-                    <option value="false">
-                        ปกติ
-                    </option>
-
-                    <option value="true">
-                        Blacklist
-                    </option>
-
-                </select>
-
-            </div>
+</section>
 
 
-            <div>
+<!-- ===================================================== -->
+<!-- CUSTOMER TABLE -->
+<!-- ===================================================== -->
 
-                <label
-                    class="text-xs
-                    font-bold
-                    text-slate-500"
-                >
-                    เหตุผล Blacklist
-                </label>
+<section
+    class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden"
+>
 
-                <textarea
-                    id="modal-reason"
-                    rows="4"
-                    placeholder="ระบุเหตุผล..."
-                    class="w-full mt-2
-                    px-4 py-3
-                    rounded-2xl
-                    bg-slate-100
-                    border border-slate-200
-                    outline-none resize-none"
-                ></textarea>
+    <!-- HEADER -->
 
-            </div>
+    <div
+        class="p-6 flex items-center justify-between border-b border-slate-100"
+    >
+
+        <div>
+
+            <h3 class="text-base font-bold text-slate-800">
+
+                <i
+                    class="fa-solid fa-users text-indigo-500 mr-2"
+                ></i>
+
+                รายชื่อลูกค้า
+
+            </h3>
+
+            <p class="text-xs text-slate-400 mt-1">
+                ข้อมูลความเสี่ยงและประวัติการจัดส่ง
+            </p>
 
         </div>
 
 
-        <div class="flex gap-2 mt-5">
+        <span
+            id="customer-count-badge"
+            class="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 text-xs font-bold"
+        >
+            0 รายการ
+        </span>
 
-            <button
-                onclick="saveCustomerChanges()"
-                class="flex-1 py-3
-                rounded-2xl
-                bg-indigo-600
-                hover:bg-indigo-700
-                text-white
-                font-bold"
+    </div>
+
+
+    <!-- LIST -->
+
+    <div
+        id="customer-list"
+        class="p-4 space-y-3"
+    >
+
+        <div
+            class="text-center py-12 text-slate-400"
+        >
+
+            <div
+                class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-slate-100 flex items-center justify-center text-xl"
             >
 
-                <i class="fa-solid fa-floppy-disk mr-1"></i>
+                <i class="fa-solid fa-database"></i>
 
-                บันทึก
+            </div>
 
-            </button>
-
-
-            <button
-                onclick="closeModal()"
-                class="px-5 py-3
-                rounded-2xl
-                bg-slate-100
-                hover:bg-slate-200
-                font-bold"
-            >
-
-                ยกเลิก
-
-            </button>
+            <p class="text-sm font-medium">
+                กำลังโหลดข้อมูล...
+            </p>
 
         </div>
 
     </div>
 
-</div>
+</section>
+
+
+<!-- ===================================================== -->
+<!-- RECENT DELIVERY LOGS -->
+<!-- ===================================================== -->
+
+<section
+    class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden"
+>
+
+    <div
+        class="p-6 border-b border-slate-100"
+    >
+
+        <h3 class="text-base font-bold text-slate-800">
+
+            <i
+                class="fa-solid fa-clock-rotate-left text-purple-500 mr-2"
+            ></i>
+
+            สรุปการจัดส่ง
+
+        </h3>
+
+        <p class="text-xs text-slate-400 mt-1">
+            ตรวจสอบสถานะจากข้อมูลลูกค้า
+        </p>
+
+    </div>
+
+
+    <div
+        id="delivery-summary-list"
+        class="p-4 space-y-3"
+    ></div>
+
+</section>
 ```
 
-</div>
+</main>
 
-<!-- =====================================================
-     JAVASCRIPT
-====================================================== -->
+<!-- ========================================================= -->
+
+<!-- TOAST -->
+
+<!-- ========================================================= -->
+
+<div
+    id="toast"
+    class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] px-5 py-3 rounded-2xl shadow-2xl text-white text-sm font-semibold whitespace-nowrap"
+></div>
+
+<!-- ========================================================= -->
+
+<!-- JAVASCRIPT -->
+
+<!-- ========================================================= -->
+
+<script src="js/config.js"></script>
+
+<script src="js/db.js"></script>
+
+<script src="js/sound.js"></script>
 
 <script>
 
-/* =====================================================
-   INITIAL CUSTOMER DATA
-===================================================== */
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
-const initialUserData = [
+document.addEventListener('DOMContentLoaded', () => {
 
-    { id: 1, name: "ธณกร", success: 28, failed: 27, total: 55, isBlacklisted: false, blacklistReason: "" },
+    /*
+     * ตรวจสอบ Admin Session
+     */
 
-    { id: 2, name: "นรินทร์", success: 59, failed: 16, total: 75, isBlacklisted: false, blacklistReason: "" },
+    if (
+        sessionStorage.getItem('admin_logged_in') === 'true'
+    ) {
 
-    { id: 3, name: "ปาลิดา", success: 28, failed: 2, total: 30, isBlacklisted: false, blacklistReason: "" },
+        showAdminSystem();
 
-    { id: 4, name: "นฤบดินทร์", success: 140, failed: 0, total: 140, isBlacklisted: false, blacklistReason: "" },
+    }
 
-    { id: 5, name: "เพชรทักษิณ", success: 41, failed: 21, total: 62, isBlacklisted: false, blacklistReason: "" },
 
-    { id: 6, name: "มินติยา", success: 38, failed: 1, total: 39, isBlacklisted: false, blacklistReason: "" },
+    /*
+     * Enter ในช่อง PIN
+     */
 
-    { id: 7, name: "ญาณิณ", success: 1, failed: 1, total: 2, isBlacklisted: false, blacklistReason: "" },
+    const pinInput =
+        document.getElementById(
+            'admin-pin-input'
+        );
 
-    { id: 8, name: "อนันทพร", success: 32, failed: 4, total: 36, isBlacklisted: false, blacklistReason: "" },
 
-    { id: 9, name: "ชลดา", success: 8, failed: 10, total: 18, isBlacklisted: false, blacklistReason: "" },
+    if (pinInput) {
 
-    { id: 10, name: "วรโชติ", success: 53, failed: 9, total: 62, isBlacklisted: false, blacklistReason: "" },
+        pinInput.addEventListener(
+            'keydown',
+            event => {
 
-    { id: 11, name: "กิตติคุณ", success: 47, failed: 13, total: 60, isBlacklisted: false, blacklistReason: "" },
+                if (event.key === 'Enter') {
 
-    { id: 12, name: "ปัณณิชาภรณ์", success: 1, failed: 0, total: 1, isBlacklisted: false, blacklistReason: "" },
+                    loginAdmin();
 
-    {
-        id: 13,
-        name: "พรเมธี",
-        success: 12,
-        failed: 23,
-        total: 35,
-        isBlacklisted: true,
-        blacklistReason: "ปฏิเสธการชำระเงิน COD และปิดเครื่องใส่พนักงานขนส่ง 3 ครั้งติด"
-    },
-
-    { id: 14, name: "อารยา", success: 14, failed: 9, total: 23, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 15, name: "ชลธิศ", success: 28, failed: 19, total: 47, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 16, name: "ปิยะฉัตร", success: 20, failed: 7, total: 27, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 17, name: "จิรายุ", success: 36, failed: 16, total: 52, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 18, name: "แอลวิน", success: 0, failed: 13, total: 13, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 19, name: "เกศณี", success: 19, failed: 9, total: 28, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 20, name: "ระภีภัทร", success: 60, failed: 2, total: 62, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 21, name: "กีรติ", success: 23, failed: 4, total: 27, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 22, name: "ปิณณิชาภรณ์", success: 74, failed: 5, total: 79, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 23, name: "สิงหรัตน์", success: 44, failed: 8, total: 52, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 24, name: "ขติยา", success: 2, failed: 0, total: 2, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 25, name: "ธัญธร", success: 33, failed: 20, total: 53, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 26, name: "ธีรภัทร์", success: 30, failed: 8, total: 38, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 27, name: "จรรยาภรณ์", success: 64, failed: 9, total: 73, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 28, name: "กมลรัตน์", success: 10, failed: 9, total: 19, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 29, name: "อารยาพร", success: 24, failed: 15, total: 39, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 30, name: "ประภาพร", success: 45, failed: 15, total: 60, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 31, name: "นิภาพร", success: 24, failed: 24, total: 48, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 32, name: "อริษา", success: 25, failed: 13, total: 38, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 33, name: "มินทร์ลดา", success: 25, failed: 0, total: 25, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 34, name: "ปนัดดา", success: 41, failed: 0, total: 41, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 35, name: "บัญญพนธ์", success: 4, failed: 4, total: 8, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 36, name: "วันวิสา", success: 16, failed: 6, total: 22, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 37, name: "ณัฐนิชา", success: 16, failed: 12, total: 28, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 38, name: "ยาซีน", success: 14, failed: 35, total: 49, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 39, name: "ศุภวิชญ์", success: 20, failed: 17, total: 37, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 40, name: "พฤฒิตนัย", success: 20, failed: 12, total: 32, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 41, name: "ศุภชัย", success: 37, failed: 21, total: 58, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 42, name: "สิริกร", success: 1, failed: 1, total: 2, isBlacklisted: false, blacklistReason: "" },
-
-    { id: 43, name: "คอปเปอร์", success: 100, failed: 0, total: 100, isBlacklisted: false, blacklistReason: "" }
-
-];
-
-
-/* =====================================================
-   STATE
-===================================================== */
-
-let customers = [];
-
-let editingCustomerId = null;
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* =====================================================
-   LOAD CUSTOMERS
-===================================================== */
-
-function loadCustomers() {
-
-    try {
-
-        const saved =
-            localStorage.getItem("customerData");
-
-        if (saved) {
-
-            const parsed =
-                JSON.parse(saved);
-
-            if (Array.isArray(parsed)) {
-
-                customers =
-                    normalizeCustomers(parsed);
-
-                saveCustomers();
-
-                return;
+                }
 
             }
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "โหลด customerData ไม่สำเร็จ:",
-            error
         );
 
     }
 
-
-    customers =
-        normalizeCustomers(
-            structuredClone(initialUserData)
-        );
-
-    saveCustomers();
-
-}
+});
 
 
-/* =====================================================
-   NORMALIZE CUSTOMERS
-===================================================== */
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
 
-function normalizeCustomers(data) {
+function loginAdmin() {
 
-    return data.map((customer, index) => {
-
-        const success =
-            Number(customer.success) || 0;
-
-        const failed =
-            Number(customer.failed) || 0;
-
-        const total =
-            Number(customer.total) ||
-            success + failed;
-
-        return {
-
-            id:
-                Number(customer.id) ||
-                index + 1,
-
-            name:
-                String(customer.name || "ไม่ระบุ"),
-
-            success,
-
-            failed,
-
-            total,
-
-            isBlacklisted:
-                customer.isBlacklisted === true ||
-                String(customer.isBlacklisted)
-                    .toLowerCase() === "true",
-
-            blacklistReason:
-                String(
-                    customer.blacklistReason || ""
-                )
-
-        };
-
-    });
-
-}
-
-
-/* =====================================================
-   SAVE
-===================================================== */
-
-function saveCustomers() {
-
-    localStorage.setItem(
-        "customerData",
-        JSON.stringify(customers)
-    );
-
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
-
-function renderStats() {
-
-    const totalCustomers =
-        customers.length;
-
-    const totalSuccess =
-        customers.reduce(
-            (sum, customer) =>
-                sum + customer.success,
-            0
-        );
-
-    const totalFailed =
-        customers.reduce(
-            (sum, customer) =>
-                sum + customer.failed,
-            0
-        );
-
-    const blacklist =
-        customers.filter(
-            customer =>
-                customer.isBlacklisted
-        ).length;
-
-
-    document
-        .getElementById("stat-customers")
-        .textContent =
-        totalCustomers.toLocaleString("th-TH");
-
-
-    document
-        .getElementById("stat-success")
-        .textContent =
-        totalSuccess.toLocaleString("th-TH");
-
-
-    document
-        .getElementById("stat-failed")
-        .textContent =
-        totalFailed.toLocaleString("th-TH");
-
-
-    document
-        .getElementById("stat-blacklist")
-        .textContent =
-        blacklist.toLocaleString("th-TH");
-
-
-    document
-        .getElementById("blacklist-badge")
-        .textContent =
-        `${blacklist} ราย`;
-
-}
-
-
-/* =====================================================
-   CUSTOMER TABLE
-===================================================== */
-
-function renderCustomers() {
-
-    const table =
+    const pinInput =
         document.getElementById(
-            "customer-table"
-        );
-
-    const empty =
-        document.getElementById(
-            "empty-customers"
+            'admin-pin-input'
         );
 
 
-    const search =
-        String(
-            document.getElementById(
-                "search-input"
-            ).value || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-    const filter =
+    const errorMsg =
         document.getElementById(
-            "filter-select"
-        ).value;
+            'admin-pin-error'
+        );
 
 
-    let filtered =
-        customers.filter(customer => {
-
-            const matchSearch =
-                !search ||
-                customer.name
-                    .toLowerCase()
-                    .includes(search);
-
-
-            const matchFilter =
-                filter === "all" ||
-
-                (
-                    filter === "blacklist" &&
-                    customer.isBlacklisted
-                ) ||
-
-                (
-                    filter === "normal" &&
-                    !customer.isBlacklisted
-                );
-
-
-            return matchSearch && matchFilter;
-
-        });
-
-
-    document
-        .getElementById(
-            "customer-count-label"
-        )
-        .textContent =
-        `${filtered.length} จาก ${customers.length} คน`;
-
-
-    if (!filtered.length) {
-
-        table.innerHTML = "";
-
-        empty.classList.remove("hidden");
+    if (
+        !pinInput ||
+        !errorMsg
+    ) {
 
         return;
 
     }
 
 
-    empty.classList.add("hidden");
+    const inputPin =
+        pinInput.value.trim();
 
 
-    table.innerHTML =
-        filtered.map(customer => {
+    /*
+     * ใช้ ADMIN_PIN จาก config.js
+     *
+     * หากโปรเจกต์เดิมยังไม่มี ADMIN_PIN
+     * จะใช้ DRIVER_PIN เป็น fallback
+     * เพื่อให้ระบบไม่พัง
+     */
 
-            const total =
-                customer.success +
-                customer.failed;
-
-            const successRate =
-                total > 0
-                    ? (customer.success / total) * 100
-                    : 0;
+    let correctPin = '';
 
 
-            const rateText =
-                successRate.toFixed(1) + "%";
+    if (
+        typeof CONFIG !== 'undefined'
+    ) {
+
+        if (CONFIG.ADMIN_PIN) {
+
+            correctPin =
+                String(
+                    CONFIG.ADMIN_PIN
+                ).trim();
+
+        }
+
+        else if (CONFIG.DRIVER_PIN) {
+
+            correctPin =
+                String(
+                    CONFIG.DRIVER_PIN
+                ).trim();
+
+        }
+
+    }
 
 
-            let rateClass =
-                "text-rose-600";
+    /*
+     * ตรวจสอบว่ามี PIN หรือไม่
+     */
 
-            if (successRate >= 80) {
+    if (!correctPin) {
 
-                rateClass =
-                    "text-emerald-600";
+        errorMsg.innerHTML = `
+
+            <i
+                class="fa-solid fa-triangle-exclamation mr-1"
+            ></i>
+
+            ไม่พบรหัส Admin กรุณาตรวจสอบไฟล์ config.js
+
+        `;
+
+
+        errorMsg.classList.remove(
+            'hidden'
+        );
+
+
+        console.error(
+            'ไม่พบ CONFIG.ADMIN_PIN หรือ CONFIG.DRIVER_PIN'
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * CHECK PIN
+     */
+
+    if (
+        inputPin === correctPin
+    ) {
+
+        sessionStorage.setItem(
+            'admin_logged_in',
+            'true'
+        );
+
+
+        showAdminSystem();
+
+
+        errorMsg.classList.add(
+            'hidden'
+        );
+
+
+        pinInput.value = '';
+
+
+        if (
+            typeof playSound === 'function'
+        ) {
+
+            playSound(
+                'success'
+            );
+
+        }
+
+
+        showToast(
+            'เข้าสู่ระบบ Admin สำเร็จ 🛡️',
+            'success'
+        );
+
+    }
+
+    else {
+
+        /*
+         * PIN ผิด
+         */
+
+        if (
+            typeof playSound === 'function'
+        ) {
+
+            playSound(
+                'wrong_pin'
+            );
+
+        }
+
+
+        errorMsg.innerHTML = `
+
+            <i
+                class="fa-solid fa-circle-exclamation mr-1"
+            ></i>
+
+            รหัสผู้ดูแลระบบไม่ถูกต้อง
+
+        `;
+
+
+        errorMsg.classList.remove(
+            'hidden'
+        );
+
+
+        pinInput.value = '';
+
+
+        pinInput.focus();
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW ADMIN SYSTEM
+========================================================= */
+
+function showAdminSystem() {
+
+    const authScreen =
+        document.getElementById(
+            'admin-auth-screen'
+        );
+
+
+    const mainContent =
+        document.getElementById(
+            'admin-main-content'
+        );
+
+
+    const badge =
+        document.getElementById(
+            'admin-id-badge'
+        );
+
+
+    if (
+        !authScreen ||
+        !mainContent ||
+        !badge
+    ) {
+
+        return;
+
+    }
+
+
+    authScreen.classList.add(
+        'hidden'
+    );
+
+
+    mainContent.classList.remove(
+        'hidden'
+    );
+
+
+    badge.classList.remove(
+        'hidden'
+    );
+
+
+    refreshDashboard();
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logoutAdmin() {
+
+    sessionStorage.removeItem(
+        'admin_logged_in'
+    );
+
+
+    window.location.replace(
+        'admin.html'
+    );
+
+}
+
+
+/* =========================================================
+   REFRESH DASHBOARD
+========================================================= */
+
+function refreshDashboard() {
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        showToast(
+            'ไม่พบระบบฐานข้อมูล DB',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    let users = [];
+
+
+    try {
+
+        users =
+            DB.getAll() || [];
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+        showToast(
+            'ไม่สามารถโหลดข้อมูลได้',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    updateStatistics(
+        users
+    );
+
+
+    renderCustomers(
+        users
+    );
+
+
+    renderDeliverySummary(
+        users
+    );
+
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+function updateStatistics(users) {
+
+    let totalSuccess = 0;
+    let totalFailed = 0;
+    let totalBlacklist = 0;
+
+
+    users.forEach(
+        user => {
+
+            totalSuccess +=
+                Number(
+                    user.success || 0
+                );
+
+
+            totalFailed +=
+                Number(
+                    user.failed || 0
+                );
+
+
+            if (
+                user.isBlacklisted
+            ) {
+
+                totalBlacklist++;
 
             }
 
-            else if (successRate >= 60) {
-
-                rateClass =
-                    "text-amber-600";
-
-            }
+        }
+    );
 
 
-            return `
+    const totalElement =
+        document.getElementById(
+            'stat-total-users'
+        );
 
-                <tr class="
-                    hover:bg-slate-50
-                    transition
-                ">
 
-                    <td class="px-5 py-4">
+    const successElement =
+        document.getElementById(
+            'stat-success'
+        );
 
-                        <div class="flex items-center gap-3">
 
-                            <div
-                                class="
-                                w-10 h-10
-                                rounded-xl
-                                ${
-                                    customer.isBlacklisted
-                                    ? "bg-rose-100 text-rose-600"
-                                    : "bg-indigo-100 text-indigo-600"
-                                }
-                                flex items-center justify-center
-                                font-black
-                                shrink-0
-                                "
-                            >
+    const failedElement =
+        document.getElementById(
+            'stat-failed'
+        );
 
-                                ${
-                                    customer.isBlacklisted
-                                    ? `<i class="fa-solid fa-ban"></i>`
-                                    : escapeHTML(
-                                        customer.name
-                                            .charAt(0)
-                                    )
-                                }
+
+    const blacklistElement =
+        document.getElementById(
+            'stat-blacklist'
+        );
+
+
+    if (totalElement) {
+
+        totalElement.innerText =
+            users.length;
+
+    }
+
+
+    if (successElement) {
+
+        successElement.innerText =
+            totalSuccess;
+
+    }
+
+
+    if (failedElement) {
+
+        failedElement.innerText =
+            totalFailed;
+
+    }
+
+
+    if (blacklistElement) {
+
+        blacklistElement.innerText =
+            totalBlacklist;
+
+    }
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function handleAdminSearch() {
+
+    const input =
+        document.getElementById(
+            'admin-search-input'
+        );
+
+
+    if (!input) {
+
+        return;
+
+    }
+
+
+    const keyword =
+        input.value
+            .trim()
+            .toLowerCase();
+
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        return;
+
+    }
+
+
+    const users =
+        DB.getAll() || [];
+
+
+    const filtered =
+        keyword
+
+        ?
+
+        users.filter(
+            user =>
+                user.name &&
+                user.name
+                    .toLowerCase()
+                    .includes(
+                        keyword
+                    )
+        )
+
+        :
+
+        users;
+
+
+    renderCustomers(
+        filtered
+    );
+
+}
+
+
+/* =========================================================
+   RENDER CUSTOMERS
+========================================================= */
+
+function renderCustomers(users) {
+
+    const list =
+        document.getElementById(
+            'customer-list'
+        );
+
+
+    const badge =
+        document.getElementById(
+            'customer-count-badge'
+        );
+
+
+    if (
+        !list ||
+        !badge
+    ) {
+
+        return;
+
+    }
+
+
+    badge.innerText =
+        `${users.length} รายการ`;
+
+
+    if (
+        users.length === 0
+    ) {
+
+        list.innerHTML = `
+
+            <div
+                class="text-center py-12 text-slate-400"
+            >
+
+                <div
+                    class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-slate-100 flex items-center justify-center text-xl"
+                >
+
+                    <i
+                        class="fa-solid fa-user-slash"
+                    ></i>
+
+                </div>
+
+
+                <p class="text-sm font-medium">
+                    ไม่พบข้อมูลลูกค้า
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+
+        users.map(
+            user => {
+
+                let risk = null;
+
+
+                if (
+                    typeof DB !== 'undefined' &&
+                    typeof DB.calculateRisk === 'function'
+                ) {
+
+                    try {
+
+                        risk =
+                            DB.calculateRisk(
+                                user
+                            );
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            error
+                        );
+
+                    }
+
+                }
+
+
+                const riskLabel =
+                    risk &&
+                    risk.label
+
+                    ?
+
+                    risk.label
+
+                    :
+
+                    'ไม่ทราบระดับ';
+
+
+                const riskClass =
+                    risk &&
+                    risk.colorClass
+
+                    ?
+
+                    risk.colorClass
+
+                    :
+
+                    'bg-slate-100 text-slate-600';
+
+
+                const blacklistClass =
+                    user.isBlacklisted
+
+                    ?
+
+                    'border-rose-300 bg-rose-50'
+
+                    :
+
+                    'border-slate-200 bg-slate-50';
+
+
+                return `
+
+                    <div
+                        class="p-5 rounded-2xl border ${blacklistClass} hover:border-indigo-200 transition"
+                    >
+
+                        <div
+                            class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+                        >
+
+                            <!-- USER -->
+
+                            <div class="min-w-0">
+
+                                <div
+                                    class="flex items-center gap-2 flex-wrap"
+                                >
+
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0"
+                                    >
+
+                                        <i
+                                            class="fa-solid fa-user"
+                                        ></i>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <h4
+                                            class="font-bold text-slate-800"
+                                        >
+
+                                            ${escapeHtml(
+                                                user.name || '-'
+                                            )}
+
+                                        </h4>
+
+
+                                        ${
+                                            user.isBlacklisted
+
+                                            ?
+
+                                            `
+
+                                                <span
+                                                    class="inline-flex items-center gap-1 mt-1 text-[11px] font-bold text-rose-600"
+                                                >
+
+                                                    <i
+                                                        class="fa-solid fa-user-slash"
+                                                    ></i>
+
+                                                    BLACKLIST
+
+                                                </span>
+
+                                            `
+
+                                            :
+
+                                            `
+
+                                                <span
+                                                    class="inline-flex items-center gap-1 mt-1 text-[11px] font-bold text-emerald-600"
+                                                >
+
+                                                    <i
+                                                        class="fa-solid fa-circle-check"
+                                                    ></i>
+
+                                                    ACTIVE
+
+                                                </span>
+
+                                            `
+                                        }
+
+                                    </div>
+
+                                </div>
 
                             </div>
 
 
-                            <div class="min-w-0">
+                            <!-- STATS -->
 
-                                <p class="
-                                    font-bold
-                                    truncate
-                                    max-w-[180px]
-                                ">
+                            <div
+                                class="flex flex-wrap items-center gap-2"
+                            >
 
-                                    ${escapeHTML(customer.name)}
+                                <span
+                                    class="px-3 py-2 rounded-xl bg-emerald-100 text-emerald-700 text-xs font-bold"
+                                >
 
-                                </p>
+                                    <i
+                                        class="fa-solid fa-check mr-1"
+                                    ></i>
 
-                                <p class="
-                                    text-[10px]
-                                    text-slate-400
-                                ">
+                                    สำเร็จ
+                                    ${Number(
+                                        user.success || 0
+                                    )}
 
-                                    ID #${customer.id}
+                                </span>
 
-                                </p>
+
+                                <span
+                                    class="px-3 py-2 rounded-xl bg-rose-100 text-rose-700 text-xs font-bold"
+                                >
+
+                                    <i
+                                        class="fa-solid fa-xmark mr-1"
+                                    ></i>
+
+                                    ตีกลับ
+                                    ${Number(
+                                        user.failed || 0
+                                    )}
+
+                                </span>
+
+
+                                <span
+                                    class="px-3 py-2 rounded-xl bg-slate-200 text-slate-700 text-xs font-bold"
+                                >
+
+                                    รวม
+                                    ${Number(
+                                        user.total || 0
+                                    )}
+
+                                </span>
+
+
+                                <span
+                                    class="px-3 py-2 rounded-xl text-xs font-bold ${riskClass}"
+                                >
+
+                                    ${escapeHtml(
+                                        riskLabel
+                                    )}
+
+                                </span>
 
                             </div>
 
                         </div>
 
-                    </td>
-
-
-                    <td class="
-                        px-4 py-4
-                        text-center
-                        font-bold
-                        text-emerald-600
-                    ">
-
-                        ${customer.success}
-
-                    </td>
-
-
-                    <td class="
-                        px-4 py-4
-                        text-center
-                        font-bold
-                        text-rose-600
-                    ">
-
-                        ${customer.failed}
-
-                    </td>
-
-
-                    <td class="
-                        px-4 py-4
-                        text-center
-                        font-bold
-                    ">
-
-                        ${total}
-
-                    </td>
-
-
-                    <td class="
-                        px-4 py-4
-                        text-center
-                        font-black
-                        ${rateClass}
-                    ">
-
-                        ${rateText}
-
-                    </td>
-
-
-                    <td class="px-4 py-4 text-center">
 
                         ${
-                            customer.isBlacklisted
+                            user.isBlacklisted &&
+                            user.blacklistReason
 
                             ?
 
                             `
-                            <span
-                                class="
-                                inline-flex
-                                items-center gap-1
-                                px-2.5 py-1
-                                rounded-full
-                                bg-rose-50
-                                text-rose-600
-                                text-[10px]
-                                font-black
-                                "
-                            >
 
-                                <i class="
-                                    fa-solid
-                                    fa-ban
-                                "></i>
+                                <div
+                                    class="mt-4 p-3 rounded-xl bg-rose-100/70 text-rose-700 text-xs font-semibold"
+                                >
 
-                                BLACKLIST
+                                    <i
+                                        class="fa-solid fa-triangle-exclamation mr-1"
+                                    ></i>
 
-                            </span>
+                                    ${escapeHtml(
+                                        user.blacklistReason
+                                    )}
+
+                                </div>
+
                             `
 
                             :
 
-                            `
-                            <span
-                                class="
-                                inline-flex
-                                items-center gap-1
-                                px-2.5 py-1
-                                rounded-full
-                                bg-emerald-50
-                                text-emerald-600
-                                text-[10px]
-                                font-bold
-                                "
-                            >
-
-                                <i class="
-                                    fa-solid
-                                    fa-circle-check
-                                "></i>
-
-                                ปกติ
-
-                            </span>
-                            `
+                            ''
 
                         }
 
-                    </td>
-
-
-                    <td class="
-                        px-5 py-4
-                        text-right
-                        whitespace-nowrap
-                    ">
-
-                        <button
-                            onclick="openCustomerModal(${customer.id})"
-                            class="
-                            px-3 py-2
-                            rounded-xl
-                            bg-indigo-50
-                            text-indigo-600
-                            hover:bg-indigo-100
-                            text-xs
-                            font-bold
-                            "
-                        >
-
-                            <i class="
-                                fa-solid
-                                fa-pen-to-square
-                                mr-1
-                            "></i>
-
-                            จัดการ
-
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            `;
-
-        }).join("");
-
-}
-
-
-/* =====================================================
-   BLACKLIST LIST
-===================================================== */
-
-function renderBlacklist() {
-
-    const container =
-        document.getElementById(
-            "blacklist-list"
-        );
-
-
-    const blacklisted =
-        customers.filter(
-            customer =>
-                customer.isBlacklisted
-        );
-
-
-    if (!blacklisted.length) {
-
-        container.innerHTML = `
-
-            <div
-                class="
-                text-center
-                py-8
-                rounded-2xl
-                bg-slate-50
-                "
-            >
-
-                <i
-                    class="
-                    fa-solid
-                    fa-shield-check
-                    text-3xl
-                    text-emerald-300
-                    "
-                ></i>
-
-                <p
-                    class="
-                    text-sm
-                    text-slate-400
-                    mt-2
-                    "
-                >
-
-                    ยังไม่มีลูกค้าใน Blacklist
-
-                </p>
-
-            </div>
-
-        `;
-
-        return;
-
-    }
-
-
-    container.innerHTML =
-        blacklisted.map(customer => {
-
-            return `
-
-                <div
-                    class="
-                    flex flex-col sm:flex-row
-                    sm:items-center
-                    sm:justify-between
-                    gap-4
-                    p-4
-                    rounded-2xl
-                    bg-rose-50
-                    border border-rose-100
-                    "
-                >
-
-                    <div class="
-                        flex items-start
-                        gap-3
-                        min-w-0
-                    ">
-
-                        <div
-                            class="
-                            w-10 h-10
-                            rounded-xl
-                            bg-rose-100
-                            text-rose-600
-                            flex
-                            items-center
-                            justify-center
-                            shrink-0
-                            "
-                        >
-
-                            <i class="
-                                fa-solid
-                                fa-ban
-                            "></i>
-
-                        </div>
-
-
-                        <div class="min-w-0">
-
-                            <p
-                                class="
-                                font-black
-                                text-sm
-                                "
-                            >
-
-                                ${escapeHTML(customer.name)}
-
-                            </p>
-
-
-                            <p
-                                class="
-                                text-xs
-                                text-rose-600
-                                mt-1
-                                leading-relaxed
-                                "
-                            >
-
-                                ${
-                                    escapeHTML(
-                                        customer.blacklistReason ||
-                                        "ไม่ระบุเหตุผล"
-                                    )
-                                }
-
-                            </p>
-
-                        </div>
-
                     </div>
 
-
-                    <button
-                        onclick="removeBlacklist(${customer.id})"
-                        class="
-                        px-4 py-2.5
-                        rounded-xl
-                        bg-white
-                        border border-rose-200
-                        text-rose-600
-                        hover:bg-rose-100
-                        text-xs
-                        font-bold
-                        shrink-0
-                        "
-                    >
-
-                        <i
-                            class="
-                            fa-solid
-                            fa-user-check
-                            mr-1
-                            "
-                        ></i>
-
-                        ถอด Blacklist
-
-                    </button>
-
-                </div>
-
-            `;
-
-        }).join("");
-
-}
-
-
-/* =====================================================
-   CHART
-===================================================== */
-
-function renderChart() {
-
-    const container =
-        document.getElementById("chart");
-
-
-    if (!customers.length) {
-
-        container.innerHTML = "";
-
-        return;
-
-    }
-
-
-    const maxValue =
-        Math.max(
-            ...customers.map(
-                customer =>
-                    Math.max(
-                        customer.success,
-                        customer.failed
-                    )
-            ),
-            1
-        );
-
-
-    container.innerHTML = `
-
-        <div
-            class="
-            h-full
-            flex
-            items-end
-            gap-3
-            min-w-max
-            px-3
-            pb-7
-            "
-        >
-
-            ${
-                customers.map(customer => {
-
-                    const successHeight =
-                        Math.max(
-                            4,
-                            (customer.success / maxValue) * 210
-                        );
-
-
-                    const failedHeight =
-                        Math.max(
-                            4,
-                            (customer.failed / maxValue) * 210
-                        );
-
-
-                    return `
-
-                        <div
-                            class="
-                            w-10
-                            h-full
-                            flex
-                            flex-col
-                            justify-end
-                            items-center
-                            group
-                            "
-                        >
-
-                            <div
-                                class="
-                                flex
-                                items-end
-                                gap-1
-                                h-[220px]
-                                "
-                            >
-
-                                <div
-                                    class="
-                                    w-4
-                                    rounded-t-lg
-                                    bg-emerald-500
-                                    bar
-                                    relative
-                                    "
-                                    style="
-                                        height:${successHeight}px
-                                    "
-                                    title="
-                                        ${escapeHTML(customer.name)}
-                                        สำเร็จ ${customer.success}
-                                    "
-                                >
-
-                                    <span
-                                        class="
-                                        absolute
-                                        bottom-full
-                                        left-1/2
-                                        -translate-x-1/2
-                                        mb-1
-                                        hidden
-                                        group-hover:block
-                                        whitespace-nowrap
-                                        px-2 py-1
-                                        rounded-lg
-                                        bg-slate-900
-                                        text-white
-                                        text-[9px]
-                                        z-10
-                                        "
-                                    >
-
-                                        ${customer.success}
-
-                                    </span>
-
-                                </div>
-
-
-                                <div
-                                    class="
-                                    w-4
-                                    rounded-t-lg
-                                    bg-rose-500
-                                    bar
-                                    "
-                                    style="
-                                        height:${failedHeight}px
-                                    "
-                                    title="
-                                        ${escapeHTML(customer.name)}
-                                        ล้มเหลว ${customer.failed}
-                                    "
-                                ></div>
-
-                            </div>
-
-
-                            <div
-                                class="
-                                mt-2
-                                text-[9px]
-                                text-slate-500
-                                whitespace-nowrap
-                                max-w-[45px]
-                                overflow-hidden
-                                text-ellipsis
-                                "
-                                title="${escapeHTML(customer.name)}"
-                            >
-
-                                ${escapeHTML(customer.name)}
-
-                            </div>
-
-                        </div>
-
-                    `;
-
-                }).join("")
+                `;
 
             }
-
-        </div>
-
-    `;
+        )
+        .join('');
 
 }
 
 
-/* =====================================================
-   OPEN CUSTOMER MODAL
-===================================================== */
+/* =========================================================
+   DELIVERY SUMMARY
+========================================================= */
 
-function openCustomerModal(id) {
+function renderDeliverySummary(users) {
 
-    const customer =
-        customers.find(
-            item =>
-                Number(item.id) === Number(id)
-        );
-
-
-    if (!customer) {
-
-        return;
-
-    }
-
-
-    editingCustomerId =
-        customer.id;
-
-
-    document
-        .getElementById("modal-name")
-        .textContent =
-        customer.name;
-
-
-    document
-        .getElementById("modal-success")
-        .textContent =
-        customer.success;
-
-
-    document
-        .getElementById("modal-failed")
-        .textContent =
-        customer.failed;
-
-
-    document
-        .getElementById("modal-blacklist")
-        .value =
-        customer.isBlacklisted
-            ? "true"
-            : "false";
-
-
-    document
-        .getElementById("modal-reason")
-        .value =
-        customer.blacklistReason || "";
-
-
-    const modal =
+    const list =
         document.getElementById(
-            "customer-modal"
+            'delivery-summary-list'
         );
 
 
-    modal.classList.remove("hidden");
-
-    modal.classList.add("flex");
-
-}
-
-
-/* =====================================================
-   CLOSE MODAL
-===================================================== */
-
-function closeModal() {
-
-    const modal =
-        document.getElementById(
-            "customer-modal"
-        );
-
-
-    modal.classList.add("hidden");
-
-    modal.classList.remove("flex");
-
-    editingCustomerId = null;
-
-}
-
-
-/* =====================================================
-   SAVE CUSTOMER CHANGES
-===================================================== */
-
-function saveCustomerChanges() {
-
-    if (editingCustomerId === null) {
+    if (!list) {
 
         return;
 
     }
-
-
-    const customer =
-        customers.find(
-            item =>
-                Number(item.id) ===
-                Number(editingCustomerId)
-        );
-
-
-    if (!customer) {
-
-        return;
-
-    }
-
-
-    const blacklist =
-        document.getElementById(
-            "modal-blacklist"
-        ).value === "true";
-
-
-    const reason =
-        document.getElementById(
-            "modal-reason"
-        ).value.trim();
-
-
-    customer.isBlacklisted =
-        blacklist;
-
-
-    customer.blacklistReason =
-        blacklist
-            ? reason
-            : "";
-
-
-    saveCustomers();
-
-
-    renderAll();
-
-    closeModal();
-
-
-    alert(
-        blacklist
-            ? `เพิ่ม ${customer.name} เข้า Blacklist แล้ว`
-            : `อัปเดต ${customer.name} เรียบร้อยแล้ว`
-    );
-
-}
-
-
-/* =====================================================
-   REMOVE BLACKLIST
-===================================================== */
-
-function removeBlacklist(id) {
-
-    const customer =
-        customers.find(
-            item =>
-                Number(item.id) === Number(id)
-        );
-
-
-    if (!customer) {
-
-        return;
-
-    }
-
-
-    const confirmed =
-        confirm(
-            `ต้องการถอด "${customer.name}" ออกจาก Blacklist หรือไม่?`
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    customer.isBlacklisted = false;
-
-    customer.blacklistReason = "";
-
-
-    saveCustomers();
-
-    renderAll();
-
-}
-
-
-/* =====================================================
-   RESET DATA
-===================================================== */
-
-function resetInitialData() {
-
-    const confirmed =
-        confirm(
-            "ต้องการรีเซ็ตข้อมูลลูกค้าทั้งหมดกลับเป็นข้อมูลตั้งต้น 43 คนหรือไม่?"
-        );
-
-
-    if (!confirmed) {
-
-        return;
-
-    }
-
-
-    customers =
-        normalizeCustomers(
-            structuredClone(initialUserData)
-        );
-
-
-    saveCustomers();
-
-    renderAll();
-
-
-    alert(
-        "รีเซ็ตข้อมูลลูกค้าเรียบร้อยแล้ว"
-    );
-
-}
-
-
-/* =====================================================
-   CSV ESCAPE
-===================================================== */
-
-function csvEscape(value) {
-
-    const text =
-        String(value ?? "");
 
 
     if (
-        text.includes(",") ||
-        text.includes('"') ||
-        text.includes("\n")
+        !users ||
+        users.length === 0
     ) {
 
-        return `"${text.replace(/"/g, '""')}"`;
-
-    }
-
-
-    return text;
-
-}
-
-
-/* =====================================================
-   EXPORT CSV
-===================================================== */
-
-function exportCSV() {
-
-    const headers = [
-
-        "id",
-        "name",
-        "success",
-        "failed",
-        "total",
-        "isBlacklisted",
-        "blacklistReason"
-
-    ];
-
-
-    const rows =
-        customers.map(customer => [
-
-            customer.id,
-            customer.name,
-            customer.success,
-            customer.failed,
-            customer.success + customer.failed,
-            customer.isBlacklisted ? "true" : "false",
-            customer.blacklistReason || ""
-
-        ]);
-
-
-    const csv = [
-
-        headers,
-
-        ...rows
-
-    ]
-
-    .map(
-        row =>
-            row.map(csvEscape).join(",")
-    )
-
-    .join("\r\n");
-
-
-    const blob =
-        new Blob(
-            ["\ufeff" + csv],
-            {
-                type:
-                    "text/csv;charset=utf-8;"
-            }
-        );
-
-
-    const url =
-        URL.createObjectURL(blob);
-
-
-    const link =
-        document.createElement("a");
-
-
-    link.href = url;
-
-    link.download =
-        `customers-${new Date().toISOString().slice(0, 10)}.csv`;
-
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    link.remove();
-
-
-    URL.revokeObjectURL(url);
-
-}
-
-
-/* =====================================================
-   CSV PARSER
-===================================================== */
-
-function parseCSVLine(line) {
-
-    const result = [];
-
-    let current = "";
-
-    let insideQuotes = false;
-
-
-    for (
-        let i = 0;
-        i < line.length;
-        i++
-    ) {
-
-        const char =
-            line[i];
-
-
-        if (char === '"') {
-
-            if (
-                insideQuotes &&
-                line[i + 1] === '"'
-            ) {
-
-                current += '"';
-
-                i++;
-
-            }
-
-            else {
-
-                insideQuotes =
-                    !insideQuotes;
-
-            }
-
-        }
-
-        else if (
-            char === "," &&
-            !insideQuotes
-        ) {
-
-            result.push(current);
-
-            current = "";
-
-        }
-
-        else {
-
-            current += char;
-
-        }
-
-    }
-
-
-    result.push(current);
-
-
-    return result;
-
-}
-
-
-/* =====================================================
-   IMPORT CSV
-===================================================== */
-
-function importCSV(event) {
-
-    const file =
-        event.target.files?.[0];
-
-
-    if (!file) {
-
-        return;
-
-    }
-
-
-    const reader =
-        new FileReader();
-
-
-    reader.onload =
-        function(e) {
-
-            try {
-
-                const text =
-                    String(
-                        e.target.result || ""
-                    )
-                    .replace(/^\uFEFF/, "");
-
-
-                const lines =
-                    text
-                        .split(/\r?\n/)
-                        .filter(
-                            line =>
-                                line.trim() !== ""
-                        );
-
-
-                if (lines.length < 2) {
-
-                    alert(
-                        "ไฟล์ CSV ไม่มีข้อมูล"
-                    );
-
-                    return;
-
-                }
-
-
-                const headers =
-                    parseCSVLine(
-                        lines[0]
-                    )
-                    .map(
-                        header =>
-                            header
-                                .trim()
-                                .toLowerCase()
-                    );
-
-
-                const requiredHeaders = [
-
-                    "id",
-                    "name",
-                    "success",
-                    "failed",
-                    "total",
-                    "isblacklisted",
-                    "blacklistreason"
-
-                ];
-
-
-                const missing =
-                    requiredHeaders.filter(
-                        header =>
-                            !headers.includes(header)
-                    );
-
-
-                if (missing.length) {
-
-                    alert(
-                        "CSV ไม่ถูกต้อง\n\nขาดคอลัมน์: " +
-                        missing.join(", ")
-                    );
-
-                    return;
-
-                }
-
-
-                const imported =
-                    lines
-                        .slice(1)
-                        .map(line => {
-
-                            const values =
-                                parseCSVLine(line);
-
-
-                            const get =
-                                key => {
-
-                                    const index =
-                                        headers.indexOf(
-                                            key
-                                        );
-
-                                    return (
-                                        values[index] ??
-                                        ""
-                                    );
-
-                                };
-
-
-                            return {
-
-                                id:
-                                    Number(
-                                        get("id")
-                                    ),
-
-                                name:
-                                    get("name"),
-
-                                success:
-                                    Number(
-                                        get("success")
-                                    ) || 0,
-
-                                failed:
-                                    Number(
-                                        get("failed")
-                                    ) || 0,
-
-                                total:
-                                    Number(
-                                        get("total")
-                                    ) || 0,
-
-                                isBlacklisted:
-                                    String(
-                                        get(
-                                            "isblacklisted"
-                                        )
-                                    )
-                                    .toLowerCase() ===
-                                    "true",
-
-                                blacklistReason:
-                                    get(
-                                        "blacklistreason"
-                                    )
-
-                            };
-
-                        })
-                        .filter(
-                            customer =>
-                                customer.name
-                        );
-
-
-                if (!imported.length) {
-
-                    alert(
-                        "ไม่พบข้อมูลลูกค้าใน CSV"
-                    );
-
-                    return;
-
-                }
-
-
-                const confirmed =
-                    confirm(
-                        `พบข้อมูลลูกค้า ${imported.length} ราย\n\nต้องการนำเข้าและแทนที่ข้อมูลเดิมหรือไม่?`
-                    );
-
-
-                if (!confirmed) {
-
-                    return;
-
-                }
-
-
-                customers =
-                    normalizeCustomers(
-                        imported
-                    );
-
-
-                saveCustomers();
-
-                renderAll();
-
-
-                alert(
-                    `นำเข้าข้อมูล ${customers.length} รายเรียบร้อยแล้ว`
-                );
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "CSV Import Error:",
-                    error
-                );
-
-
-                alert(
-                    "ไม่สามารถอ่านไฟล์ CSV ได้"
-                );
-
-            }
-
-            finally {
-
-                event.target.value = "";
-
-            }
-
-        };
-
-
-    reader.readAsText(
-        file,
-        "UTF-8"
-    );
-
-}
-
-
-/* =====================================================
-   LOAD ORDERS
-===================================================== */
-
-function renderOrders() {
-
-    const container =
-        document.getElementById(
-            "orders-admin-list"
-        );
-
-
-    let orders = [];
-
-
-    try {
-
-        const saved =
-            localStorage.getItem("orders");
-
-
-        if (saved) {
-
-            const parsed =
-                JSON.parse(saved);
-
-
-            if (Array.isArray(parsed)) {
-
-                orders = parsed;
-
-            }
-
-        }
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "โหลด orders ไม่สำเร็จ:",
-            error
-        );
-
-    }
-
-
-    const totalOrders =
-        orders.length;
-
-
-    const totalValue =
-        orders.reduce(
-            (sum, order) =>
-                sum +
-                (
-                    Number(order.total) ||
-                    0
-                ),
-            0
-        );
-
-
-    document
-        .getElementById("orders-summary")
-        .textContent =
-        `${totalOrders} คำสั่งซื้อ • มูลค่ารวม ฿${totalValue.toLocaleString("th-TH")}`;
-
-
-    if (!orders.length) {
-
-        container.innerHTML = `
+        list.innerHTML = `
 
             <div
-                class="
-                col-span-full
-                text-center
-                py-8
-                bg-slate-50
-                rounded-2xl
-                "
+                class="text-center py-8 text-slate-400"
             >
 
                 <i
-                    class="
-                    fa-solid
-                    fa-box-open
-                    text-3xl
-                    text-slate-300
-                    "
+                    class="fa-solid fa-inbox text-2xl mb-2"
                 ></i>
 
-                <p
-                    class="
-                    text-sm
-                    text-slate-400
-                    mt-2
-                    "
-                >
-
-                    ยังไม่มีคำสั่งซื้อ
-
+                <p class="text-sm">
+                    ยังไม่มีข้อมูลการจัดส่ง
                 </p>
 
             </div>
@@ -2806,229 +1688,320 @@ function renderOrders() {
     }
 
 
-    const latest =
-        orders
-            .slice()
-            .reverse()
-            .slice(0, 6);
+    const sorted =
+        [...users]
+            .sort(
+                (a, b) =>
+                    Number(
+                        b.total || 0
+                    ) -
+                    Number(
+                        a.total || 0
+                    )
+            )
+            .slice(
+                0,
+                10
+            );
 
 
-    container.innerHTML =
-        latest.map(order => {
+    list.innerHTML =
 
-            const status =
-                order.status ||
-                "กำลังเตรียมสินค้า";
+        sorted.map(
+            user => {
 
-
-            const name =
-                order.customer?.name ||
-                order.customerName ||
-                "ไม่ระบุลูกค้า";
+                const total =
+                    Number(
+                        user.total || 0
+                    );
 
 
-            return `
+                const success =
+                    Number(
+                        user.success || 0
+                    );
 
-                <div
-                    class="
-                    p-4
-                    rounded-2xl
-                    bg-slate-50
-                    border
-                    border-slate-100
-                    "
-                >
+
+                const failed =
+                    Number(
+                        user.failed || 0
+                    );
+
+
+                const successRate =
+                    total > 0
+
+                    ?
+
+                    Math.round(
+                        (
+                            success /
+                            total
+                        ) *
+                        100
+                    )
+
+                    :
+
+                    0;
+
+
+                return `
 
                     <div
-                        class="
-                        flex
-                        items-center
-                        justify-between
-                        gap-3
-                        "
+                        class="p-4 bg-slate-50 rounded-2xl border border-slate-200"
                     >
 
-                        <p
-                            class="
-                            font-black
-                            text-sm
-                            "
+                        <div
+                            class="flex items-center justify-between gap-3"
                         >
 
-                            ${escapeHTML(
-                                order.id || "-"
-                            )}
+                            <div class="min-w-0">
 
-                        </p>
+                                <p
+                                    class="font-bold text-slate-800 truncate"
+                                >
+
+                                    ${escapeHtml(
+                                        user.name || '-'
+                                    )}
+
+                                </p>
 
 
-                        <span
-                            class="
-                            px-2 py-1
-                            rounded-lg
-                            bg-indigo-50
-                            text-indigo-600
-                            text-[9px]
-                            font-bold
-                            "
+                                <p
+                                    class="text-xs text-slate-400 mt-1"
+                                >
+
+                                    สำเร็จ ${success}
+                                    •
+                                    ตีกลับ ${failed}
+                                    •
+                                    รวม ${total}
+
+                                </p>
+
+                            </div>
+
+
+                            <div
+                                class="text-right shrink-0"
+                            >
+
+                                <p
+                                    class="text-lg font-black ${
+                                        successRate >= 80
+
+                                        ?
+
+                                        'text-emerald-600'
+
+                                        :
+
+                                        successRate >= 50
+
+                                        ?
+
+                                        'text-amber-600'
+
+                                        :
+
+                                        'text-rose-600'
+                                    }"
+                                >
+
+                                    ${successRate}%
+
+                                </p>
+
+
+                                <p
+                                    class="text-[10px] text-slate-400"
+                                >
+                                    Success Rate
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="mt-3 h-2 rounded-full bg-slate-200 overflow-hidden"
                         >
 
-                            ${escapeHTML(status)}
+                            <div
+                                class="h-full rounded-full ${
+                                    successRate >= 80
 
-                        </span>
+                                    ?
+
+                                    'bg-emerald-500'
+
+                                    :
+
+                                    successRate >= 50
+
+                                    ?
+
+                                    'bg-amber-500'
+
+                                    :
+
+                                    'bg-rose-500'
+                                }"
+                                style="width:${Math.min(
+                                    successRate,
+                                    100
+                                )}%"
+                            ></div>
+
+                        </div>
 
                     </div>
 
+                `;
 
-                    <p
-                        class="
-                        text-xs
-                        text-slate-500
-                        mt-2
-                        "
-                    >
-
-                        <i
-                            class="
-                            fa-solid
-                            fa-user
-                            mr-1
-                            "
-                        ></i>
-
-                        ${escapeHTML(name)}
-
-                    </p>
-
-
-                    <p
-                        class="
-                        font-black
-                        text-indigo-600
-                        mt-2
-                        "
-                    >
-
-                        ฿${(
-                            Number(order.total) ||
-                            0
-                        ).toLocaleString("th-TH")}
-
-                    </p>
-
-                </div>
-
-            `;
-
-        }).join("");
+            }
+        )
+        .join('');
 
 }
 
 
-/* =====================================================
-   RENDER ALL
-===================================================== */
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
-function renderAll() {
+function escapeHtml(value) {
 
-    renderStats();
+    return String(value)
 
-    renderCustomers();
+        .replace(
+            /&/g,
+            '&amp;'
+        )
 
-    renderBlacklist();
+        .replace(
+            /</g,
+            '&lt;'
+        )
 
-    renderChart();
+        .replace(
+            />/g,
+            '&gt;'
+        )
 
-    renderOrders();
+        .replace(
+            /"/g,
+            '&quot;'
+        )
+
+        .replace(
+            /'/g,
+            '&#039;'
+        );
 
 }
 
 
-/* =====================================================
-   STORAGE EVENT
-===================================================== */
+/* =========================================================
+   TOAST
+========================================================= */
 
-window.addEventListener(
-    "storage",
-    function(event) {
+function showToast(
+    message,
+    type = 'info'
+) {
 
-        if (
-            event.key === "customerData" ||
-            event.key === "orders"
-        ) {
+    const toast =
+        document.getElementById(
+            'toast'
+        );
 
-            loadCustomers();
 
-            renderAll();
+    if (!toast) {
 
-        }
+        return;
 
     }
-);
 
 
-/* =====================================================
-   CLOSE MODAL BY BACKDROP
-===================================================== */
+    toast.innerText =
+        message;
 
-document.addEventListener(
-    "click",
-    function(event) {
 
-        const modal =
-            document.getElementById(
-                "customer-modal"
+    toast.classList.remove(
+        'hidden'
+    );
+
+
+    toast.className = `
+
+        fixed
+
+        bottom-6
+
+        left-1/2
+
+        -translate-x-1/2
+
+        z-[100]
+
+        px-5
+        py-3
+
+        rounded-2xl
+
+        shadow-2xl
+
+        text-white
+
+        text-sm
+
+        font-semibold
+
+        whitespace-nowrap
+
+        toast-animation
+
+        ${
+            type === 'success'
+
+            ?
+
+            'bg-emerald-600'
+
+            :
+
+            type === 'error'
+
+            ?
+
+            'bg-rose-600'
+
+            :
+
+            'bg-slate-800'
+        }
+
+    `;
+
+
+    setTimeout(
+        () => {
+
+            toast.classList.add(
+                'hidden'
             );
 
-        if (
-            event.target === modal
-        ) {
+        },
+        3000
+    );
 
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   ESC KEY
-===================================================== */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   INIT
-===================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
-        loadCustomers();
-
-        renderAll();
-
-    }
-);
+}
 
 </script>
 
 </body>
-
 </html>
