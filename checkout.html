@@ -61,1464 +61,1628 @@
 
 <body class="bg-slate-100 text-slate-800 min-h-screen">
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
-
+```
+<!-- NAVBAR -->
 <nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
 
-```
-<div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
 
-    <a href="shop.html" class="flex items-center gap-3">
+        <a href="shop.html" class="flex items-center gap-3">
 
-        <div
-            class="w-10 h-10 rounded-xl bg-gradient-to-br
-            from-indigo-500 to-indigo-700
-            flex items-center justify-center"
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center">
+                <i class="fa-solid fa-store text-amber-300"></i>
+            </div>
+
+            <div>
+                <p class="font-black text-sm">
+                    Delivery Risk Market
+                </p>
+
+                <p class="text-[10px] text-slate-400">
+                    Checkout
+                </p>
+            </div>
+
+        </a>
+
+        <a
+            href="shop.html"
+            class="text-xs font-bold text-slate-300 hover:text-white"
         >
-            <i class="fa-solid fa-store text-amber-300"></i>
-        </div>
+            <i class="fa-solid fa-arrow-left mr-1"></i>
+            กลับไปเลือกสินค้า
+        </a>
 
-        <div>
-            <p class="font-black text-sm">
-                Delivery Risk Market
-            </p>
-
-            <p class="text-[10px] text-slate-400">
-                Checkout
-            </p>
-        </div>
-
-    </a>
-
-    <a
-        href="shop.html"
-        class="text-xs font-bold text-slate-300 hover:text-white"
-    >
-        <i class="fa-solid fa-arrow-left mr-1"></i>
-        กลับไปเลือกสินค้า
-    </a>
-
-</div>
-```
+    </div>
 
 </nav>
 
-<!-- =====================================================
-     MAIN
-===================================================== -->
 
+<!-- MAIN -->
 <main class="max-w-6xl mx-auto px-4 py-6">
 
-```
-<div class="mb-6">
+    <div class="mb-6">
 
-    <p class="text-xs text-indigo-600 font-bold">
-        STEP 1 OF 2
-    </p>
+        <p class="text-xs text-indigo-600 font-bold">
+            STEP 1 OF 2
+        </p>
 
-    <h1 class="text-3xl font-black mt-1">
-        ยืนยันคำสั่งซื้อ
-    </h1>
+        <h1 class="text-3xl font-black mt-1">
+            ยืนยันคำสั่งซื้อ
+        </h1>
 
-    <p class="text-sm text-slate-400 mt-1">
-        กรอกข้อมูลจัดส่งและตรวจสอบรายการสินค้าก่อนชำระเงิน
-    </p>
-
-</div>
-
-
-<!-- =================================================
-     ERROR
-================================================== -->
-
-<div
-    id="error-box"
-    class="hidden mb-5 bg-rose-50 border border-rose-200
-    text-rose-700 rounded-2xl p-4"
->
-    <div class="flex gap-3">
-
-        <i class="fa-solid fa-triangle-exclamation mt-1"></i>
-
-        <div>
-            <p class="font-bold">
-                ไม่สามารถดำเนินการต่อได้
-            </p>
-
-            <p id="error-message" class="text-xs mt-1"></p>
-        </div>
+        <p class="text-sm text-slate-400 mt-1">
+            กรอกข้อมูลจัดส่งและตรวจสอบรายการสินค้าก่อนชำระเงิน
+        </p>
 
     </div>
-</div>
 
 
-<div class="grid lg:grid-cols-3 gap-5">
+    <!-- ERROR -->
+    <div
+        id="error-box"
+        class="hidden mb-5 bg-rose-50 border border-rose-200 text-rose-700 rounded-2xl p-4"
+    >
+        <div class="flex gap-3">
 
-    <!-- =================================================
-         LEFT
-    ================================================== -->
+            <i class="fa-solid fa-triangle-exclamation mt-1"></i>
 
-    <div class="lg:col-span-2 space-y-5">
+            <div>
 
-        <!-- ADDRESS -->
+                <p class="font-bold">
+                    ไม่สามารถดำเนินการต่อได้
+                </p>
 
-        <section class="bg-white rounded-3xl shadow-sm p-5">
-
-            <div class="flex items-center gap-3 mb-5">
-
-                <div
-                    class="w-10 h-10 rounded-xl bg-indigo-50
-                    text-indigo-600 flex items-center justify-center"
-                >
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-
-                <div>
-                    <h2 class="font-black">
-                        ที่อยู่จัดส่ง
-                    </h2>
-
-                    <p class="text-xs text-slate-400">
-                        กรอกข้อมูลสำหรับจัดส่งสินค้า
-                    </p>
-                </div>
+                <p id="error-message" class="text-xs mt-1"></p>
 
             </div>
 
-
-            <div class="grid sm:grid-cols-2 gap-4">
-
-                <div class="sm:col-span-2">
-
-                    <label class="text-xs font-bold">
-                        ชื่อผู้รับ *
-                    </label>
-
-                    <input
-                        id="recipient-name"
-                        type="text"
-                        placeholder="เช่น สมชาย ใจดี"
-                        class="w-full mt-2 px-4 py-3 rounded-xl
-                        border border-slate-200 outline-none
-                        focus:ring-2 focus:ring-indigo-500"
-                    >
-
-                </div>
+        </div>
+    </div>
 
 
-                <div>
+    <div class="grid lg:grid-cols-3 gap-5">
 
-                    <label class="text-xs font-bold">
-                        เบอร์โทรศัพท์ *
-                    </label>
+        <!-- LEFT -->
+        <div class="lg:col-span-2 space-y-5">
 
-                    <input
-                        id="phone"
-                        type="tel"
-                        inputmode="numeric"
-                        placeholder="08xxxxxxxx"
-                        class="w-full mt-2 px-4 py-3 rounded-xl
-                        border border-slate-200 outline-none
-                        focus:ring-2 focus:ring-indigo-500"
-                    >
+
+            <!-- ADDRESS -->
+            <section class="bg-white rounded-3xl shadow-sm p-5">
+
+                <div class="flex items-center gap-3 mb-5">
+
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+
+                        <h2 class="font-black">
+                            ที่อยู่จัดส่ง
+                        </h2>
+
+                        <p class="text-xs text-slate-400">
+                            กรอกข้อมูลสำหรับจัดส่งสินค้า
+                        </p>
+
+                    </div>
 
                 </div>
 
 
-                <div>
+                <div class="grid sm:grid-cols-2 gap-4">
 
-                    <label class="text-xs font-bold">
-                        รหัสไปรษณีย์ *
-                    </label>
+                    <div class="sm:col-span-2">
 
-                    <input
-                        id="postcode"
-                        type="text"
-                        inputmode="numeric"
-                        placeholder="40000"
-                        class="w-full mt-2 px-4 py-3 rounded-xl
-                        border border-slate-200 outline-none
-                        focus:ring-2 focus:ring-indigo-500"
-                    >
-
-                </div>
-
-
-                <div class="sm:col-span-2">
-
-                    <label class="text-xs font-bold">
-                        บ้านเลขที่ / ที่อยู่ *
-                    </label>
-
-                    <textarea
-                        id="address"
-                        rows="3"
-                        placeholder="บ้านเลขที่ หมู่ ถนน..."
-                        class="w-full mt-2 px-4 py-3 rounded-xl
-                        border border-slate-200 outline-none
-                        focus:ring-2 focus:ring-indigo-500"
-                    ></textarea>
-
-                </div>
-
-
-                <div>
-
-                    <label class="text-xs font-bold">
-                        ตำบล / แขวง *
-                    </label>
-
-                    <input
-                        id="subdistrict"
-                        type="text"
-                        placeholder="ตำบล / แขวง"
-                        class="w-full mt-2 px-4 py-3 rounded-xl
-                        border border-slate-200 outline-none
-                        focus:ring-2 focus:ring-indigo-500"
-                    >
-
-                </div>
-
-
-                <div>
-
-                    <label class="text-xs font-bold">
-                        อำเภอ / เขต *
-                    </label>
-
-                    <input
-                        id="district"
-                        type="text"
-                        placeholder="อำเภอ / เขต"
-                        class="w-full mt-2 px-4 py-3 rounded-xl
-                        border border-slate-200 outline-none
-                        focus:ring-2 focus:ring-indigo-500"
-                    >
-
-                </div>
-
-
-                <div class="sm:col-span-2">
-
-                    <label class="text-xs font-bold">
-                        จังหวัด *
-                    </label>
-
-                    <input
-                        id="province"
-                        type="text"
-                        placeholder="จังหวัด"
-                        class="w-full mt-2 px-4 py-3 rounded-xl
-                        border border-slate-200 outline-none
-                        focus:ring-2 focus:ring-indigo-500"
-                    >
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- SHIPPING -->
-
-        <section class="bg-white rounded-3xl shadow-sm p-5">
-
-            <div class="flex items-center gap-3 mb-5">
-
-                <div
-                    class="w-10 h-10 rounded-xl bg-indigo-50
-                    text-indigo-600 flex items-center justify-center"
-                >
-                    <i class="fa-solid fa-truck"></i>
-                </div>
-
-                <div>
-                    <h2 class="font-black">
-                        วิธีจัดส่ง
-                    </h2>
-
-                    <p class="text-xs text-slate-400">
-                        เลือกวิธีจัดส่งที่ต้องการ
-                    </p>
-                </div>
-
-            </div>
-
-
-            <div class="space-y-3">
-
-                <label
-                    class="shipping-option block border-2
-                    border-indigo-600 bg-indigo-50 rounded-2xl p-4 cursor-pointer"
-                >
-
-                    <div class="flex items-center gap-3">
+                        <label class="text-xs font-bold">
+                            ชื่อผู้รับ *
+                        </label>
 
                         <input
-                            type="radio"
-                            name="shipping"
-                            value="standard"
-                            data-price="40"
-                            checked
-                            onchange="updateSummary()"
+                            id="recipient-name"
+                            type="text"
+                            placeholder="เช่น สมชาย ใจดี"
+                            class="w-full mt-2 px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500"
                         >
 
-                        <div class="flex-1">
+                    </div>
 
-                            <p class="font-bold">
-                                🚚 จัดส่งมาตรฐาน
-                            </p>
 
-                            <p class="text-xs text-slate-400">
-                                2–4 วันทำการ
-                            </p>
+                    <div>
+
+                        <label class="text-xs font-bold">
+                            เบอร์โทรศัพท์ *
+                        </label>
+
+                        <input
+                            id="phone"
+                            type="tel"
+                            inputmode="numeric"
+                            placeholder="08xxxxxxxx"
+                            class="w-full mt-2 px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-xs font-bold">
+                            รหัสไปรษณีย์ *
+                        </label>
+
+                        <input
+                            id="postcode"
+                            type="text"
+                            inputmode="numeric"
+                            placeholder="40000"
+                            class="w-full mt-2 px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+
+                    </div>
+
+
+                    <div class="sm:col-span-2">
+
+                        <label class="text-xs font-bold">
+                            บ้านเลขที่ / ที่อยู่ *
+                        </label>
+
+                        <textarea
+                            id="address"
+                            rows="3"
+                            placeholder="บ้านเลขที่ หมู่ ถนน..."
+                            class="w-full mt-2 px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-xs font-bold">
+                            ตำบล / แขวง *
+                        </label>
+
+                        <input
+                            id="subdistrict"
+                            type="text"
+                            placeholder="ตำบล / แขวง"
+                            class="w-full mt-2 px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="text-xs font-bold">
+                            อำเภอ / เขต *
+                        </label>
+
+                        <input
+                            id="district"
+                            type="text"
+                            placeholder="อำเภอ / เขต"
+                            class="w-full mt-2 px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+
+                    </div>
+
+
+                    <div class="sm:col-span-2">
+
+                        <label class="text-xs font-bold">
+                            จังหวัด *
+                        </label>
+
+                        <input
+                            id="province"
+                            type="text"
+                            placeholder="จังหวัด"
+                            class="w-full mt-2 px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500"
+                        >
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SHIPPING -->
+            <section class="bg-white rounded-3xl shadow-sm p-5">
+
+                <div class="flex items-center gap-3 mb-5">
+
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <i class="fa-solid fa-truck"></i>
+                    </div>
+
+                    <div>
+
+                        <h2 class="font-black">
+                            วิธีจัดส่ง
+                        </h2>
+
+                        <p class="text-xs text-slate-400">
+                            เลือกวิธีจัดส่งที่ต้องการ
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="space-y-3">
+
+                    <label class="shipping-option block border-2 border-indigo-600 bg-indigo-50 rounded-2xl p-4 cursor-pointer">
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="shipping"
+                                value="standard"
+                                data-price="40"
+                                checked
+                                onchange="updateSummary()"
+                            >
+
+                            <div class="flex-1">
+
+                                <p class="font-bold">
+                                    🚚 จัดส่งมาตรฐาน
+                                </p>
+
+                                <p class="text-xs text-slate-400">
+                                    2–4 วันทำการ
+                                </p>
+
+                            </div>
+
+                            <span class="font-black">
+                                ฿40
+                            </span>
 
                         </div>
 
-                        <span class="font-black">
+                    </label>
+
+
+                    <label class="shipping-option block border-2 border-slate-200 rounded-2xl p-4 cursor-pointer">
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="shipping"
+                                value="express"
+                                data-price="80"
+                                onchange="updateSummary()"
+                            >
+
+                            <div class="flex-1">
+
+                                <p class="font-bold">
+                                    ⚡ จัดส่งด่วน
+                                </p>
+
+                                <p class="text-xs text-slate-400">
+                                    1–2 วันทำการ
+                                </p>
+
+                            </div>
+
+                            <span class="font-black">
+                                ฿80
+                            </span>
+
+                        </div>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- COUPON -->
+            <section class="bg-white rounded-3xl shadow-sm p-5">
+
+                <div class="flex items-center gap-3 mb-5">
+
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
+                        <i class="fa-solid fa-ticket"></i>
+                    </div>
+
+                    <div>
+
+                        <h2 class="font-black">
+                            คูปองส่วนลด
+                        </h2>
+
+                        <p class="text-xs text-slate-400">
+                            ใส่รหัสคูปองเพื่อรับส่วนลด
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flex gap-2">
+
+                    <input
+                        id="coupon-input"
+                        type="text"
+                        placeholder="เช่น SAVE50"
+                        autocomplete="off"
+                        class="flex-1 px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 uppercase"
+                    >
+
+                    <button
+                        type="button"
+                        onclick="applyCoupon()"
+                        class="px-5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold"
+                    >
+                        ใช้คูปอง
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="coupon-message"
+                    class="hidden mt-3 rounded-xl p-3 text-xs font-bold"
+                ></div>
+
+
+                <button
+                    id="remove-coupon-btn"
+                    type="button"
+                    onclick="removeCoupon()"
+                    class="hidden mt-3 text-xs text-rose-500 font-bold"
+                >
+                    <i class="fa-solid fa-xmark mr-1"></i>
+                    ลบคูปอง
+                </button>
+
+            </section>
+
+
+            <!-- PRODUCTS -->
+            <section class="bg-white rounded-3xl shadow-sm p-5">
+
+                <div class="flex items-center justify-between mb-5">
+
+                    <div>
+
+                        <h2 class="font-black">
+                            รายการสินค้า
+                        </h2>
+
+                        <p
+                            id="item-count"
+                            class="text-xs text-slate-400 mt-1"
+                        >
+                            0 รายการ
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="checkout-items"
+                    class="space-y-3"
+                ></div>
+
+            </section>
+
+        </div>
+
+
+        <!-- RIGHT SUMMARY -->
+        <aside>
+
+            <div class="bg-white rounded-3xl shadow-sm p-5 sticky top-24">
+
+                <h2 class="font-black text-lg">
+                    สรุปคำสั่งซื้อ
+                </h2>
+
+
+                <div class="mt-5 space-y-3 text-sm">
+
+                    <div class="flex justify-between">
+
+                        <span class="text-slate-500">
+                            ราคาสินค้า
+                        </span>
+
+                        <span id="subtotal" class="font-bold">
+                            ฿0
+                        </span>
+
+                    </div>
+
+
+                    <div class="flex justify-between">
+
+                        <span class="text-slate-500">
+                            ค่าจัดส่ง
+                        </span>
+
+                        <span id="shipping-price" class="font-bold">
                             ฿40
                         </span>
 
                     </div>
 
-                </label>
 
+                    <div class="flex justify-between">
 
-                <label
-                    class="shipping-option block border-2
-                    border-slate-200 rounded-2xl p-4 cursor-pointer"
-                >
+                        <span class="text-slate-500">
+                            ส่วนลด
+                        </span>
 
-                    <div class="flex items-center gap-3">
-
-                        <input
-                            type="radio"
-                            name="shipping"
-                            value="express"
-                            data-price="80"
-                            onchange="updateSummary()"
+                        <span
+                            id="discount-price"
+                            class="font-bold text-emerald-600"
                         >
-
-                        <div class="flex-1">
-
-                            <p class="font-bold">
-                                ⚡ จัดส่งด่วน
-                            </p>
-
-                            <p class="text-xs text-slate-400">
-                                1–2 วันทำการ
-                            </p>
-
-                        </div>
-
-                        <span class="font-black">
-                            ฿80
+                            -฿0
                         </span>
 
                     </div>
 
-                </label>
-
-            </div>
-
-        </section>
-
-
-        <!-- COUPON -->
-
-        <section class="bg-white rounded-3xl shadow-sm p-5">
-
-            <div class="flex items-center gap-3 mb-5">
-
-                <div
-                    class="w-10 h-10 rounded-xl bg-amber-50
-                    text-amber-600 flex items-center justify-center"
-                >
-                    <i class="fa-solid fa-ticket"></i>
                 </div>
 
-                <div>
-                    <h2 class="font-black">
-                        คูปองส่วนลด
-                    </h2>
 
-                    <p class="text-xs text-slate-400">
-                        ใส่รหัสคูปองเพื่อรับส่วนลด
-                    </p>
-                </div>
-
-            </div>
+                <div class="border-t border-slate-100 my-5"></div>
 
 
-            <div class="flex gap-2">
-
-                <input
-                    id="coupon-input"
-                    type="text"
-                    placeholder="เช่น SAVE50"
-                    autocomplete="off"
-                    class="flex-1 px-4 py-3 rounded-xl
-                    border border-slate-200 outline-none
-                    focus:ring-2 focus:ring-indigo-500 uppercase"
-                >
-
-                <button
-                    type="button"
-                    onclick="applyCoupon()"
-                    class="px-5 rounded-xl bg-indigo-600
-                    hover:bg-indigo-700 text-white font-bold"
-                >
-                    ใช้คูปอง
-                </button>
-
-            </div>
-
-
-            <div
-                id="coupon-message"
-                class="hidden mt-3 rounded-xl p-3 text-xs font-bold"
-            ></div>
-
-
-            <button
-                id="remove-coupon-btn"
-                type="button"
-                onclick="removeCoupon()"
-                class="hidden mt-3 text-xs text-rose-500 font-bold"
-            >
-                <i class="fa-solid fa-xmark mr-1"></i>
-                ลบคูปอง
-            </button>
-
-        </section>
-
-
-        <!-- PRODUCTS -->
-
-        <section class="bg-white rounded-3xl shadow-sm p-5">
-
-            <div class="flex items-center justify-between mb-5">
-
-                <div>
-
-                    <h2 class="font-black">
-                        รายการสินค้า
-                    </h2>
-
-                    <p
-                        id="item-count"
-                        class="text-xs text-slate-400 mt-1"
-                    >
-                        0 รายการ
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="checkout-items"
-                class="space-y-3"
-            ></div>
-
-        </section>
-
-    </div>
-
-
-    <!-- =================================================
-         RIGHT SUMMARY
-    ================================================== -->
-
-    <aside>
-
-        <div class="bg-white rounded-3xl shadow-sm p-5 sticky top-24">
-
-            <h2 class="font-black text-lg">
-                สรุปคำสั่งซื้อ
-            </h2>
-
-
-            <div class="mt-5 space-y-3 text-sm">
-
-                <div class="flex justify-between">
+                <div class="flex justify-between items-end">
 
                     <span class="text-slate-500">
-                        ราคาสินค้า
+                        ยอดชำระทั้งหมด
                     </span>
 
-                    <span id="subtotal" class="font-bold">
+                    <span
+                        id="grand-total"
+                        class="text-2xl font-black text-indigo-600"
+                    >
                         ฿0
                     </span>
 
                 </div>
 
 
-                <div class="flex justify-between">
-
-                    <span class="text-slate-500">
-                        ค่าจัดส่ง
-                    </span>
-
-                    <span id="shipping-price" class="font-bold">
-                        ฿40
-                    </span>
-
-                </div>
-
-
-                <div class="flex justify-between">
-
-                    <span class="text-slate-500">
-                        ส่วนลด
-                    </span>
-
-                    <span
-                        id="discount-price"
-                        class="font-bold text-emerald-600"
-                    >
-                        -฿0
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="border-t border-slate-100 my-5"></div>
-
-
-            <div class="flex justify-between items-end">
-
-                <span class="text-slate-500">
-                    ยอดชำระทั้งหมด
-                </span>
-
-                <span
-                    id="grand-total"
-                    class="text-2xl font-black text-indigo-600"
+                <button
+                    type="button"
+                    onclick="continueToPayment()"
+                    class="w-full mt-5 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-black"
                 >
-                    ฿0
-                </span>
+                    ไปชำระเงิน
+                    <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+
+
+                <p class="text-[10px] text-slate-400 text-center mt-3">
+                    ตรวจสอบข้อมูลให้ถูกต้องก่อนดำเนินการต่อ
+                </p>
 
             </div>
 
+        </aside>
 
-            <button
-                type="button"
-                onclick="continueToPayment()"
-                class="w-full mt-5 py-4 rounded-2xl
-                bg-indigo-600 hover:bg-indigo-700
-                text-white font-black"
-            >
-
-                ไปชำระเงิน
-
-                <i class="fa-solid fa-arrow-right ml-2"></i>
-
-            </button>
-
-
-            <p class="text-[10px] text-slate-400 text-center mt-3">
-                ตรวจสอบข้อมูลให้ถูกต้องก่อนดำเนินการต่อ
-            </p>
-
-        </div>
-
-    </aside>
-
-</div>
-```
+    </div>
 
 </main>
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
 
 <script>
 
-let cart = [];
-let appliedCoupon = null;
+    let cart = [];
+    let appliedCoupon = null;
 
 
-/* =====================================================
-   BASIC HELPERS
-===================================================== */
+    /* =====================================================
+       BASIC HELPERS
+    ===================================================== */
 
-function formatMoney(value) {
+    function formatMoney(value) {
 
-    return '฿' + Number(value || 0).toLocaleString('th-TH');
-
-}
-
-
-function showError(message) {
-
-    const box = document.getElementById('error-box');
-    const text = document.getElementById('error-message');
-
-    text.textContent = message;
-
-    box.classList.remove('hidden');
-
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-
-}
-
-
-function getProductsList() {
-
-    return typeof products !== 'undefined' &&
-           Array.isArray(products)
-        ? products
-        : [];
-
-}
-
-
-function getProductById(id) {
-
-    return getProductsList().find(
-        product =>
-            String(product.id) === String(id)
-    );
-
-}
-
-
-function getProductName(product) {
-
-    return product?.name ||
-           product?.title ||
-           'สินค้า';
-
-}
-
-
-function getProductPrice(product) {
-
-    return Number(
-        product?.price ??
-        product?.salePrice ??
-        product?.amount ??
-        0
-    ) || 0;
-
-}
-
-
-function getProductImage(product) {
-
-    return product?.image ||
-           product?.imageUrl ||
-           product?.thumbnail ||
-           product?.img ||
-           'https://placehold.co/200x200/e2e8f0/64748b?text=No+Image';
-
-}
-
-
-/* =====================================================
-   LOAD CART
-===================================================== */
-
-function loadCart() {
-
-    try {
-
-        const saved =
-            localStorage.getItem('cart');
-
-        if (!saved) {
-
-            cart = [];
-
-            return;
-
-        }
-
-        const parsed =
-            JSON.parse(saved);
-
-        cart =
-            Array.isArray(parsed)
-                ? parsed
-                : [];
-
-    } catch (error) {
-
-        console.error(error);
-
-        cart = [];
+        return '฿' + Number(value || 0).toLocaleString('th-TH');
 
     }
 
-}
+
+    function escapeHTML(value) {
+
+        return String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+    }
 
 
-/* =====================================================
-   CART TOTAL
-===================================================== */
+    function showError(message) {
 
-function getSubtotal() {
+        const box = document.getElementById('error-box');
+        const text = document.getElementById('error-message');
 
-    return cart.reduce(
-        (total, item) => {
+        text.textContent = message;
+
+        box.classList.remove('hidden');
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+
+    }
+
+
+    function getProductsList() {
+
+        if (typeof products !== 'undefined' && Array.isArray(products)) {
+            return products;
+        }
+
+        if (typeof window.products !== 'undefined' && Array.isArray(window.products)) {
+            return window.products;
+        }
+
+        return [];
+
+    }
+
+
+    function getProductById(id) {
+
+        return getProductsList().find(product => {
+
+            const productId =
+                product.id ??
+                product.productId ??
+                product.product_id;
+
+            return String(productId) === String(id);
+
+        });
+
+    }
+
+
+    function getProductName(product) {
+
+        return product?.name ??
+            product?.title ??
+            product?.productName ??
+            'สินค้า';
+
+    }
+
+
+    function getProductPrice(product) {
+
+        return Number(
+            product?.price ??
+            product?.salePrice ??
+            product?.sale_price ??
+            product?.amount ??
+            0
+        ) || 0;
+
+    }
+
+
+    function getProductImage(product) {
+
+        return product?.image ??
+            product?.imageUrl ??
+            product?.image_url ??
+            product?.thumbnail ??
+            product?.img ??
+            '';
+
+    }
+
+
+    /* =====================================================
+       NORMALIZE CART ITEM
+    ===================================================== */
+
+    function normalizeCartItem(item) {
+
+        const productId =
+            item.productId ??
+            item.product_id ??
+            item.id;
+
+        const product =
+            getProductById(productId);
+
+
+        const quantity =
+            Number(
+                item.quantity ??
+                item.qty ??
+                item.count ??
+                1
+            ) || 1;
+
+
+        const price =
+            Number(
+                item.price ??
+                item.salePrice ??
+                item.amount ??
+                getProductPrice(product)
+            ) || 0;
+
+
+        return {
+
+            productId: productId,
+
+            id:
+                item.id ??
+                productId,
+
+            name:
+                item.name ??
+                item.title ??
+                getProductName(product),
+
+            price:
+                price,
+
+            quantity:
+                quantity,
+
+            image:
+                item.image ??
+                item.imageUrl ??
+                item.thumbnail ??
+                getProductImage(product),
+
+            shopId:
+                item.shopId ??
+                item.shop_id ??
+                product?.shopId ??
+                product?.shop_id ??
+                null
+
+        };
+
+    }
+
+
+    /* =====================================================
+       LOAD CART
+    ===================================================== */
+
+    function loadCart() {
+
+        try {
+
+            const saved =
+                localStorage.getItem('cart');
+
+            if (!saved) {
+
+                cart = [];
+
+                return;
+
+            }
+
+
+            const parsed =
+                JSON.parse(saved);
+
+
+            if (!Array.isArray(parsed)) {
+
+                cart = [];
+
+                return;
+
+            }
+
+
+            cart =
+                parsed
+                    .filter(item => item && typeof item === 'object')
+                    .map(normalizeCartItem);
+
+
+        } catch (error) {
+
+            console.error('[CHECKOUT LOAD CART]', error);
+
+            cart = [];
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CART TOTAL
+    ===================================================== */
+
+    function getSubtotal() {
+
+        return cart.reduce((total, item) => {
 
             return total +
                 Number(item.price || 0) *
                 Number(item.quantity || 1);
 
-        },
-        0
-    );
+        }, 0);
 
-}
+    }
 
 
-function getShippingPrice() {
+    function getShippingPrice() {
 
-    const selected =
-        document.querySelector(
-            'input[name="shipping"]:checked'
+        const selected =
+            document.querySelector(
+                'input[name="shipping"]:checked'
+            );
+
+        if (!selected) return 0;
+
+        return Number(
+            selected.dataset.price || 0
         );
 
-    if (!selected) return 0;
-
-    return Number(
-        selected.dataset.price || 0
-    );
-
-}
-
-
-/* =====================================================
-   DISCOUNT SYSTEM
-===================================================== */
-
-function findCoupon(code) {
-
-    const couponCode =
-        String(code || '').trim().toUpperCase();
-
-    /*
-       รองรับ discounts.js หลายรูปแบบ
-    */
-
-    let list = [];
-
-    if (
-        typeof discounts !== 'undefined' &&
-        Array.isArray(discounts)
-    ) {
-        list = discounts;
-    }
-
-    if (
-        typeof coupons !== 'undefined' &&
-        Array.isArray(coupons)
-    ) {
-        list = coupons;
-    }
-
-    if (
-        typeof discountCoupons !== 'undefined' &&
-        Array.isArray(discountCoupons)
-    ) {
-        list = discountCoupons;
     }
 
 
-    return list.find(item => {
+    /* =====================================================
+       COUPON
+    ===================================================== */
 
-        const itemCode =
-            item.code ||
-            item.coupon ||
-            item.name;
+    function getCouponList() {
 
-        return String(itemCode || '')
-            .trim()
-            .toUpperCase() === couponCode;
-
-    }) || null;
-
-}
+        if (
+            typeof discounts !== 'undefined' &&
+            Array.isArray(discounts)
+        ) {
+            return discounts;
+        }
 
 
-function calculateDiscount(coupon, subtotal) {
-
-    if (!coupon) return 0;
-
-
-    const type =
-        String(
-            coupon.type ||
-            coupon.discountType ||
-            'fixed'
-        ).toLowerCase();
+        if (
+            typeof coupons !== 'undefined' &&
+            Array.isArray(coupons)
+        ) {
+            return coupons;
+        }
 
 
-    const value =
-        Number(
-            coupon.value ??
-            coupon.amount ??
-            coupon.discount ??
-            0
-        ) || 0;
+        if (
+            typeof discountCoupons !== 'undefined' &&
+            Array.isArray(discountCoupons)
+        ) {
+            return discountCoupons;
+        }
 
 
-    let discount = 0;
-
-
-    if (
-        type === 'percent' ||
-        type === 'percentage'
-    ) {
-
-        discount =
-            subtotal * value / 100;
-
-    } else {
-
-        discount = value;
+        return [];
 
     }
 
 
-    const maxDiscount =
-        Number(
-            coupon.maxDiscount ??
-            coupon.max_discount ??
-            Infinity
+    function findCoupon(code) {
+
+        const couponCode =
+            String(code || '')
+                .trim()
+                .toUpperCase();
+
+
+        return getCouponList().find(item => {
+
+            const itemCode =
+                item.code ??
+                item.coupon ??
+                item.name;
+
+            return String(itemCode || '')
+                .trim()
+                .toUpperCase() === couponCode;
+
+        }) || null;
+
+    }
+
+
+    function calculateDiscount(coupon, subtotal) {
+
+        if (!coupon) return 0;
+
+
+        const type =
+            String(
+                coupon.type ??
+                coupon.discountType ??
+                coupon.discount_type ??
+                'fixed'
+            ).toLowerCase();
+
+
+        const value =
+            Number(
+                coupon.value ??
+                coupon.amount ??
+                coupon.discount ??
+                0
+            ) || 0;
+
+
+        let discount = 0;
+
+
+        if (
+            type === 'percent' ||
+            type === 'percentage'
+        ) {
+
+            discount =
+                subtotal * value / 100;
+
+        } else {
+
+            discount =
+                value;
+
+        }
+
+
+        const maxDiscount =
+            Number(
+                coupon.maxDiscount ??
+                coupon.max_discount ??
+                Infinity
+            );
+
+
+        if (Number.isFinite(maxDiscount)) {
+
+            discount =
+                Math.min(
+                    discount,
+                    maxDiscount
+                );
+
+        }
+
+
+        return Math.max(
+            0,
+            Math.min(
+                discount,
+                subtotal
+            )
+        );
+
+    }
+
+
+    function applyCoupon() {
+
+        const input =
+            document.getElementById(
+                'coupon-input'
+            );
+
+        const message =
+            document.getElementById(
+                'coupon-message'
+            );
+
+        const code =
+            input.value
+                .trim()
+                .toUpperCase();
+
+
+        if (!code) {
+
+            message.className =
+                'mt-3 rounded-xl p-3 text-xs font-bold bg-rose-50 text-rose-600';
+
+            message.textContent =
+                'กรุณากรอกรหัสคูปอง';
+
+            message.classList.remove(
+                'hidden'
+            );
+
+            return;
+
+        }
+
+
+        const coupon =
+            findCoupon(code);
+
+
+        if (!coupon) {
+
+            appliedCoupon =
+                null;
+
+            message.className =
+                'mt-3 rounded-xl p-3 text-xs font-bold bg-rose-50 text-rose-600';
+
+            message.textContent =
+                'ไม่พบรหัสคูปองนี้';
+
+            message.classList.remove(
+                'hidden'
+            );
+
+            document
+                .getElementById(
+                    'remove-coupon-btn'
+                )
+                .classList.add(
+                    'hidden'
+                );
+
+            updateSummary();
+
+            return;
+
+        }
+
+
+        const subtotal =
+            getSubtotal();
+
+
+        const minSpend =
+            Number(
+                coupon.minPurchase ??
+                coupon.minSpend ??
+                coupon.minimum ??
+                0
+            ) || 0;
+
+
+        if (subtotal < minSpend) {
+
+            appliedCoupon =
+                null;
+
+            message.className =
+                'mt-3 rounded-xl p-3 text-xs font-bold bg-amber-50 text-amber-700';
+
+            message.textContent =
+                `ยอดขั้นต่ำสำหรับคูปองนี้คือ ${formatMoney(minSpend)}`;
+
+            message.classList.remove(
+                'hidden'
+            );
+
+            updateSummary();
+
+            return;
+
+        }
+
+
+        appliedCoupon =
+            coupon;
+
+
+        message.className =
+            'mt-3 rounded-xl p-3 text-xs font-bold bg-emerald-50 text-emerald-700';
+
+        message.textContent =
+            `ใช้คูปอง ${code} สำเร็จ`;
+
+        message.classList.remove(
+            'hidden'
         );
 
 
-    if (Number.isFinite(maxDiscount)) {
+        document
+            .getElementById(
+                'remove-coupon-btn'
+            )
+            .classList.remove(
+                'hidden'
+            );
 
-        discount =
-            Math.min(discount, maxDiscount);
-
-    }
-
-
-    return Math.max(
-        0,
-        Math.min(discount, subtotal)
-    );
-
-}
-
-
-function applyCoupon() {
-
-    const input =
-        document.getElementById('coupon-input');
-
-    const message =
-        document.getElementById('coupon-message');
-
-    const code =
-        input.value.trim().toUpperCase();
-
-
-    if (!code) {
-
-        message.className =
-            'mt-3 rounded-xl p-3 text-xs font-bold bg-rose-50 text-rose-600';
-
-        message.textContent =
-            'กรุณากรอกรหัสคูปอง';
-
-        message.classList.remove('hidden');
-
-        return;
-
-    }
-
-
-    const coupon =
-        findCoupon(code);
-
-
-    if (!coupon) {
-
-        appliedCoupon = null;
-
-        message.className =
-            'mt-3 rounded-xl p-3 text-xs font-bold bg-rose-50 text-rose-600';
-
-        message.textContent =
-            'ไม่พบรหัสคูปองนี้';
-
-        message.classList.remove('hidden');
 
         updateSummary();
 
-        return;
-
     }
 
 
-    const subtotal =
-        getSubtotal();
+    function removeCoupon() {
+
+        appliedCoupon =
+            null;
 
 
-    const minSpend =
-        Number(
-            coupon.minPurchase ??
-            coupon.minSpend ??
-            coupon.minimum ??
-            0
-        ) || 0;
+        document
+            .getElementById(
+                'coupon-input'
+            )
+            .value =
+            '';
 
 
-    if (subtotal < minSpend) {
+        document
+            .getElementById(
+                'coupon-message'
+            )
+            .classList.add(
+                'hidden'
+            );
 
-        appliedCoupon = null;
 
-        message.className =
-            'mt-3 rounded-xl p-3 text-xs font-bold bg-amber-50 text-amber-700';
+        document
+            .getElementById(
+                'remove-coupon-btn'
+            )
+            .classList.add(
+                'hidden'
+            );
 
-        message.textContent =
-            `ยอดขั้นต่ำสำหรับคูปองนี้คือ ${formatMoney(minSpend)}`;
-
-        message.classList.remove('hidden');
 
         updateSummary();
 
-        return;
-
     }
 
 
-    appliedCoupon = coupon;
+    /* =====================================================
+       RENDER ITEMS
+    ===================================================== */
+
+    function renderItems() {
+
+        const container =
+            document.getElementById(
+                'checkout-items'
+            );
+
+        const count =
+            document.getElementById(
+                'item-count'
+            );
 
 
-    message.className =
-        'mt-3 rounded-xl p-3 text-xs font-bold bg-emerald-50 text-emerald-700';
+        if (!cart.length) {
 
-    message.textContent =
-        `ใช้คูปอง ${code} สำเร็จ`;
+            container.innerHTML = `
 
-    message.classList.remove('hidden');
+                <div class="py-10 text-center">
 
-
-    document
-        .getElementById('remove-coupon-btn')
-        .classList.remove('hidden');
-
-
-    updateSummary();
-
-}
-
-
-function removeCoupon() {
-
-    appliedCoupon = null;
-
-    document.getElementById('coupon-input').value = '';
-
-    const message =
-        document.getElementById('coupon-message');
-
-    message.classList.add('hidden');
-
-    document
-        .getElementById('remove-coupon-btn')
-        .classList.add('hidden');
-
-    updateSummary();
-
-}
-
-
-/* =====================================================
-   RENDER ITEMS
-===================================================== */
-
-function renderItems() {
-
-    const container =
-        document.getElementById('checkout-items');
-
-    const count =
-        document.getElementById('item-count');
-
-
-    if (!cart.length) {
-
-        container.innerHTML = `
-
-            <div class="py-10 text-center">
-
-                <div
-                    class="w-16 h-16 mx-auto rounded-2xl
-                    bg-slate-100 flex items-center justify-center
-                    text-2xl"
-                >
-                    🛒
-                </div>
-
-                <p class="font-black mt-4">
-                    ตะกร้าว่าง
-                </p>
-
-                <a
-                    href="shop.html"
-                    class="inline-block mt-3 text-indigo-600
-                    font-bold text-sm"
-                >
-                    กลับไปเลือกสินค้า
-                </a>
-
-            </div>
-
-        `;
-
-        count.textContent = '0 รายการ';
-
-        return;
-
-    }
-
-
-    const quantity =
-        cart.reduce(
-            (sum, item) =>
-                sum + Number(item.quantity || 1),
-            0
-        );
-
-
-    count.textContent =
-        `${quantity} รายการ`;
-
-
-    container.innerHTML =
-        cart.map(item => {
-
-            const product =
-                getProductById(
-                    item.productId || item.id
-                );
-
-
-            const name =
-                item.name ||
-                getProductName(product);
-
-
-            const price =
-                Number(
-                    item.price ??
-                    getProductPrice(product)
-                );
-
-
-            const image =
-                item.image ||
-                getProductImage(product);
-
-
-            const qty =
-                Number(item.quantity || 1);
-
-
-            return `
-
-                <div
-                    class="flex gap-3 bg-slate-50
-                    rounded-2xl p-3"
-                >
-
-                    <img
-                        src="${image}"
-                        class="w-20 h-20 rounded-xl object-cover"
-                        onerror="this.onerror=null;this.src='https://placehold.co/200x200/e2e8f0/64748b?text=No+Image'"
+                    <div
+                        class="w-16 h-16 mx-auto rounded-2xl
+                        bg-slate-100 flex items-center justify-center
+                        text-2xl"
                     >
-
-                    <div class="flex-1 min-w-0">
-
-                        <p class="font-bold truncate">
-                            ${name}
-                        </p>
-
-                        <p class="text-xs text-slate-400 mt-1">
-                            จำนวน ${qty}
-                        </p>
-
-                        <p class="font-black text-indigo-600 mt-2">
-                            ${formatMoney(price * qty)}
-                        </p>
-
+                        🛒
                     </div>
+
+                    <p class="font-black mt-4">
+                        ตะกร้าว่าง
+                    </p>
+
+                    <a
+                        href="shop.html"
+                        class="inline-block mt-3 text-indigo-600
+                        font-bold text-sm"
+                    >
+                        กลับไปเลือกสินค้า
+                    </a>
 
                 </div>
 
             `;
 
-        })
-        .join('');
 
-}
+            count.textContent =
+                '0 รายการ';
 
+            return;
 
-/* =====================================================
-   SUMMARY
-===================================================== */
-
-function updateSummary() {
-
-    const subtotal =
-        getSubtotal();
+        }
 
 
-    const shipping =
-        getShippingPrice();
+        const totalQuantity =
+            cart.reduce((sum, item) => {
+
+                return sum +
+                    Number(
+                        item.quantity || 1
+                    );
+
+            }, 0);
 
 
-    const discount =
-        calculateDiscount(
-            appliedCoupon,
-            subtotal
-        );
+        count.textContent =
+            `${totalQuantity} รายการ`;
 
 
-    const total =
-        Math.max(
-            0,
-            subtotal + shipping - discount
-        );
+        container.innerHTML =
+            cart.map(item => {
+
+                const image =
+                    item.image ||
+                    'https://placehold.co/200x200/e2e8f0/64748b?text=No+Image';
 
 
-    document.getElementById('subtotal')
-        .textContent =
-        formatMoney(subtotal);
+                return `
 
+                    <div
+                        class="flex gap-3 bg-slate-50
+                        rounded-2xl p-3 fade-in"
+                    >
 
-    document.getElementById('shipping-price')
-        .textContent =
-        formatMoney(shipping);
+                        <img
+                            src="${escapeHTML(image)}"
+                            class="w-20 h-20 rounded-xl object-cover"
+                            onerror="this.onerror=null;this.src='https://placehold.co/200x200/e2e8f0/64748b?text=No+Image'"
+                        >
 
+                        <div class="flex-1 min-w-0">
 
-    document.getElementById('discount-price')
-        .textContent =
-        '-' + formatMoney(discount);
+                            <p class="font-bold truncate">
+                                ${escapeHTML(item.name)}
+                            </p>
 
+                            <p class="text-xs text-slate-400 mt-1">
+                                จำนวน ${Number(item.quantity || 1)}
+                            </p>
 
-    document.getElementById('grand-total')
-        .textContent =
-        formatMoney(total);
+                            <p class="font-black text-indigo-600 mt-2">
+                                ${formatMoney(
+                                    Number(item.price || 0) *
+                                    Number(item.quantity || 1)
+                                )}
+                            </p>
 
+                        </div>
 
-    document.querySelectorAll('.shipping-option')
-        .forEach(option => {
+                    </div>
 
-            const radio =
-                option.querySelector('input');
+                `;
 
-            if (radio.checked) {
-
-                option.classList.remove(
-                    'border-slate-200'
-                );
-
-                option.classList.add(
-                    'border-indigo-600',
-                    'bg-indigo-50'
-                );
-
-            } else {
-
-                option.classList.remove(
-                    'border-indigo-600',
-                    'bg-indigo-50'
-                );
-
-                option.classList.add(
-                    'border-slate-200'
-                );
-
-            }
-
-        });
-
-}
-
-
-/* =====================================================
-   SAVE CHECKOUT DATA
-===================================================== */
-
-function continueToPayment() {
-
-    if (!cart.length) {
-
-        showError(
-            'ตะกร้าสินค้าว่าง กรุณากลับไปเลือกสินค้าก่อน'
-        );
-
-        return;
+            }).join('');
 
     }
 
 
-    const recipientName =
-        document.getElementById('recipient-name')
-            .value.trim();
+    /* =====================================================
+       SUMMARY
+    ===================================================== */
+
+    function updateSummary() {
+
+        const subtotal =
+            getSubtotal();
+
+        const shipping =
+            getShippingPrice();
+
+        const discount =
+            calculateDiscount(
+                appliedCoupon,
+                subtotal
+            );
+
+        const total =
+            Math.max(
+                0,
+                subtotal +
+                shipping -
+                discount
+            );
 
 
-    const phone =
-        document.getElementById('phone')
-            .value.trim();
+        document
+            .getElementById(
+                'subtotal'
+            )
+            .textContent =
+            formatMoney(
+                subtotal
+            );
 
 
-    const postcode =
-        document.getElementById('postcode')
-            .value.trim();
-
-
-    const address =
-        document.getElementById('address')
-            .value.trim();
-
-
-    const subdistrict =
-        document.getElementById('subdistrict')
-            .value.trim();
-
-
-    const district =
-        document.getElementById('district')
-            .value.trim();
-
-
-    const province =
-        document.getElementById('province')
-            .value.trim();
-
-
-    if (
-        !recipientName ||
-        !phone ||
-        !postcode ||
-        !address ||
-        !subdistrict ||
-        !district ||
-        !province
-    ) {
-
-        showError(
-            'กรุณากรอกข้อมูลที่อยู่จัดส่งให้ครบทุกช่อง'
-        );
-
-        return;
-
-    }
-
-
-    const shippingInput =
-        document.querySelector(
-            'input[name="shipping"]:checked'
-        );
-
-
-    if (!shippingInput) {
-
-        showError(
-            'กรุณาเลือกวิธีจัดส่ง'
-        );
-
-        return;
-
-    }
-
-
-    const subtotal =
-        getSubtotal();
-
-
-    const shipping =
-        getShippingPrice();
-
-
-    const discount =
-        calculateDiscount(
-            appliedCoupon,
-            subtotal
-        );
-
-
-    const grandTotal =
-        Math.max(
-            0,
-            subtotal + shipping - discount
-        );
-
-
-    const checkoutData = {
-
-        checkoutId:
-            'CHK-' + Date.now(),
-
-        items:
-            cart.map(item => ({
-
-                productId:
-                    item.productId || item.id,
-
-                id:
-                    item.id,
-
-                name:
-                    item.name,
-
-                price:
-                    Number(item.price || 0),
-
-                quantity:
-                    Number(item.quantity || 1),
-
-                image:
-                    item.image || '',
-
-                shopId:
-                    item.shopId || null
-
-            })),
-
-        address: {
-
-            recipientName,
-
-            phone,
-
-            address,
-
-            subdistrict,
-
-            district,
-
-            province,
-
-            postcode
-
-        },
-
-        shipping: {
-
-            method:
-                shippingInput.value,
-
-            name:
-                shippingInput.value === 'express'
-                    ? 'จัดส่งด่วน'
-                    : 'จัดส่งมาตรฐาน',
-
-            price:
+        document
+            .getElementById(
+                'shipping-price'
+            )
+            .textContent =
+            formatMoney(
                 shipping
+            );
 
-        },
 
-        coupon:
-            appliedCoupon
-                ? {
+        document
+            .getElementById(
+                'discount-price'
+            )
+            .textContent =
+            '-' +
+            formatMoney(
+                discount
+            );
 
-                    code:
-                        appliedCoupon.code ||
-                        appliedCoupon.coupon ||
-                        appliedCoupon.name,
 
-                    type:
-                        appliedCoupon.type ||
-                        appliedCoupon.discountType ||
-                        'fixed',
+        document
+            .getElementById(
+                'grand-total'
+            )
+            .textContent =
+            formatMoney(
+                total
+            );
 
-                    value:
-                        Number(
-                            appliedCoupon.value ??
-                            appliedCoupon.amount ??
-                            appliedCoupon.discount ??
-                            0
-                        ),
 
-                    discount:
-                        discount
+        document
+            .querySelectorAll(
+                '.shipping-option'
+            )
+            .forEach(option => {
+
+                const radio =
+                    option.querySelector(
+                        'input[name="shipping"]'
+                    );
+
+
+                if (
+                    radio &&
+                    radio.checked
+                ) {
+
+                    option.classList.remove(
+                        'border-slate-200'
+                    );
+
+                    option.classList.add(
+                        'border-indigo-600',
+                        'bg-indigo-50'
+                    );
+
+                } else {
+
+                    option.classList.remove(
+                        'border-indigo-600',
+                        'bg-indigo-50'
+                    );
+
+                    option.classList.add(
+                        'border-slate-200'
+                    );
 
                 }
-                : null,
 
-        subtotal:
+            });
+
+    }
+
+
+    /* =====================================================
+       CONTINUE TO PAYMENT
+    ===================================================== */
+
+    function continueToPayment() {
+
+        if (!cart.length) {
+
+            showError(
+                'ตะกร้าสินค้าว่าง กรุณากลับไปเลือกสินค้าก่อน'
+            );
+
+            return;
+
+        }
+
+
+        const recipientName =
+            document
+                .getElementById(
+                    'recipient-name'
+                )
+                .value
+                .trim();
+
+
+        const phone =
+            document
+                .getElementById(
+                    'phone'
+                )
+                .value
+                .trim();
+
+
+        const postcode =
+            document
+                .getElementById(
+                    'postcode'
+                )
+                .value
+                .trim();
+
+
+        const address =
+            document
+                .getElementById(
+                    'address'
+                )
+                .value
+                .trim();
+
+
+        const subdistrict =
+            document
+                .getElementById(
+                    'subdistrict'
+                )
+                .value
+                .trim();
+
+
+        const district =
+            document
+                .getElementById(
+                    'district'
+                )
+                .value
+                .trim();
+
+
+        const province =
+            document
+                .getElementById(
+                    'province'
+                )
+                .value
+                .trim();
+
+
+        if (
+            !recipientName ||
+            !phone ||
+            !postcode ||
+            !address ||
+            !subdistrict ||
+            !district ||
+            !province
+        ) {
+
+            showError(
+                'กรุณากรอกข้อมูลที่อยู่จัดส่งให้ครบทุกช่อง'
+            );
+
+            return;
+
+        }
+
+
+        const shippingInput =
+            document.querySelector(
+                'input[name="shipping"]:checked'
+            );
+
+
+        if (!shippingInput) {
+
+            showError(
+                'กรุณาเลือกวิธีจัดส่ง'
+            );
+
+            return;
+
+        }
+
+
+        const subtotal =
+            getSubtotal();
+
+        const shipping =
+            getShippingPrice();
+
+        const discount =
+            calculateDiscount(
+                appliedCoupon,
+                subtotal
+            );
+
+        const total =
+            Math.max(
+                0,
+                subtotal +
+                shipping -
+                discount
+            );
+
+
+        const checkoutData = {
+
+            checkoutId:
+                'CHK-' +
+                Date.now(),
+
+            items:
+                cart.map(item => ({
+
+                    productId:
+                        item.productId,
+
+                    id:
+                        item.id,
+
+                    name:
+                        item.name,
+
+                    price:
+                        Number(
+                            item.price || 0
+                        ),
+
+                    quantity:
+                        Number(
+                            item.quantity || 1
+                        ),
+
+                    image:
+                        item.image || '',
+
+                    shopId:
+                        item.shopId || null
+
+                })),
+
+            address: {
+
+                recipientName,
+
+                phone,
+
+                address,
+
+                subdistrict,
+
+                district,
+
+                province,
+
+                postcode
+
+            },
+
+            shipping: {
+
+                method:
+                    shippingInput.value,
+
+                name:
+                    shippingInput.value ===
+                    'express'
+                        ? 'จัดส่งด่วน'
+                        : 'จัดส่งมาตรฐาน',
+
+                price:
+                    shipping
+
+            },
+
+            coupon:
+                appliedCoupon
+                    ? {
+
+                        code:
+                            appliedCoupon.code ??
+                            appliedCoupon.coupon ??
+                            appliedCoupon.name,
+
+                        type:
+                            appliedCoupon.type ??
+                            appliedCoupon.discountType ??
+                            'fixed',
+
+                        value:
+                            Number(
+                                appliedCoupon.value ??
+                                appliedCoupon.amount ??
+                                appliedCoupon.discount ??
+                                0
+                            ),
+
+                        discount:
+                            discount
+
+                    }
+                    : null,
+
             subtotal,
 
-        discount:
             discount,
 
-        shippingCost:
-            shipping,
+            shippingCost:
+                shipping,
 
-        total:
-            grandTotal,
+            total,
 
-        createdAt:
-            new Date().toISOString()
+            createdAt:
+                new Date()
+                    .toISOString()
 
-    };
-
-
-    try {
-
-        localStorage.setItem(
-            'pendingCheckout',
-            JSON.stringify(checkoutData)
-        );
-
-    } catch (error) {
-
-        console.error(error);
-
-        showError(
-            'ไม่สามารถบันทึกข้อมูลคำสั่งซื้อได้'
-        );
-
-        return;
-
-    }
+        };
 
 
-    window.location.href =
-        'payment.html';
+        try {
 
-}
+            localStorage.setItem(
+                'pendingCheckout',
+                JSON.stringify(
+                    checkoutData
+                )
+            );
 
 
-/* =====================================================
-   START
-===================================================== */
+            window.location.href =
+                'payment.html';
 
-document.addEventListener(
-    'DOMContentLoaded',
-    function () {
 
-        loadCart();
+        } catch (error) {
 
-        renderItems();
+            console.error(
+                '[CHECKOUT SAVE]',
+                error
+            );
 
-        updateSummary();
+
+            showError(
+                'ไม่สามารถบันทึกข้อมูลคำสั่งซื้อได้'
+            );
+
+        }
 
     }
-);
+
+
+    /* =====================================================
+       START
+    ===================================================== */
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+
+            loadCart();
+
+            renderItems();
+
+            updateSummary();
+
+        }
+    );
 
 </script>
+```
 
 </body>
+
 </html>
