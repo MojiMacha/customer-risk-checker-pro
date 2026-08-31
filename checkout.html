@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="th">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -23,7 +23,12 @@
         rel="stylesheet"
     >
 
+    <!-- ระบบเสียงของโปรเจกต์ -->
+    <!-- ถ้าไฟล์เสียง JS ของคุณชื่อ/อยู่คนละที่ ให้แก้ src บรรทัดนี้ -->
+    <script src="js/sound.js"></script>
+
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -67,6 +72,7 @@
         }
 
         @keyframes modalIn {
+
             from {
                 opacity: 0;
                 transform: translateY(15px) scale(0.97);
@@ -76,6 +82,7 @@
                 opacity: 1;
                 transform: translateY(0) scale(1);
             }
+
         }
 
         .toast-animation {
@@ -83,6 +90,7 @@
         }
 
         @keyframes toastIn {
+
             from {
                 opacity: 0;
                 transform: translate(-50%, 20px);
@@ -92,25 +100,30 @@
                 opacity: 1;
                 transform: translate(-50%, 0);
             }
+
         }
 
-        .address-card {
+        .address-input {
             transition: all 0.2s ease;
         }
 
-        .address-card:hover {
+        .address-input:focus {
             border-color: rgb(99 102 241);
+            box-shadow: 0 0 0 3px rgb(99 102 241 / 0.1);
         }
 
         .loading {
             opacity: 0.6;
             pointer-events: none;
         }
+
     </style>
+
 </head>
 
 
 <body class="bg-slate-100 min-h-screen text-slate-800">
+
 
 <!-- ===================================================== -->
 <!-- NAVBAR -->
@@ -126,6 +139,7 @@
         <a
             href="shop.html"
             class="flex items-center gap-3"
+            onclick="safeSound('success')"
         >
 
             <div
@@ -161,6 +175,7 @@
                 px-3 py-2 rounded-xl
                 text-xs font-bold text-slate-300
                 hover:text-white hover:bg-white/10"
+                onclick="safeSound('success')"
             >
 
                 <i class="fa-solid fa-receipt"></i>
@@ -176,6 +191,7 @@
                 px-3 py-2 rounded-xl
                 text-xs font-bold text-slate-300
                 hover:text-white hover:bg-white/10"
+                onclick="safeSound('success')"
             >
 
                 <i class="fa-solid fa-truck"></i>
@@ -199,6 +215,7 @@
     class="max-w-6xl mx-auto px-4 py-6 pb-16"
 >
 
+
     <!-- PAGE HEADER -->
 
     <section class="mb-6">
@@ -208,6 +225,7 @@
             class="inline-flex items-center gap-2
             text-xs text-slate-500
             hover:text-indigo-600 mb-3"
+            onclick="safeSound('success')"
         >
 
             <i class="fa-solid fa-arrow-left"></i>
@@ -228,7 +246,7 @@
 
             <p class="text-sm text-slate-400 mt-1">
 
-                ตรวจสอบที่อยู่และเลือกวิธีชำระเงิน
+                กรอกที่อยู่และเลือกวิธีชำระเงิน
 
             </p>
 
@@ -278,6 +296,7 @@
 
         <a
             href="shop.html"
+            onclick="safeSound('success')"
             class="inline-flex items-center gap-2
             mt-6 px-6 py-3 rounded-2xl
             bg-indigo-600 hover:bg-indigo-700
@@ -301,6 +320,7 @@
         id="checkout-section"
         class="grid grid-cols-1 lg:grid-cols-5 gap-5"
     >
+
 
         <!-- ================================================= -->
         <!-- LEFT -->
@@ -343,7 +363,7 @@
                             </h2>
 
                             <p class="text-xs text-slate-400">
-                                ใช้ข้อมูลจาก address.html
+                                กรอกข้อมูลสำหรับจัดส่งสินค้า
                             </p>
 
                         </div>
@@ -353,6 +373,7 @@
 
                     <a
                         href="address.html"
+                        onclick="safeSound('success')"
                         class="inline-flex items-center gap-2
                         px-3 py-2
                         rounded-xl
@@ -362,94 +383,228 @@
                         text-xs font-bold"
                     >
 
-                        <i class="fa-solid fa-pen"></i>
+                        <i class="fa-solid fa-address-book"></i>
 
-                        เปลี่ยนที่อยู่
+                        สมุดที่อยู่
 
                     </a>
 
                 </div>
 
 
-                <!-- ADDRESS FOUND -->
+                <!-- ================================================= -->
+                <!-- ADDRESS FORM -->
+                <!-- ================================================= -->
 
-                <div
-                    id="address-found"
-                    class="hidden"
-                >
+                <div class="space-y-4">
+
+
+                    <!-- NAME -->
+
+                    <div>
+
+                        <label
+                            for="customer-name-input"
+                            class="block text-xs font-bold mb-2"
+                        >
+
+                            ชื่อผู้รับ
+
+                            <span class="text-rose-500">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="relative">
+
+                            <i
+                                class="fa-solid fa-user
+                                absolute left-4 top-1/2
+                                -translate-y-1/2
+                                text-slate-400"
+                            ></i>
+
+
+                            <input
+                                id="customer-name-input"
+                                type="text"
+                                placeholder="เช่น นายสมชาย ใจดี"
+                                autocomplete="name"
+                                class="address-input
+                                w-full
+                                pl-11 pr-4 py-3
+                                rounded-xl
+                                border border-slate-200
+                                bg-white
+                                outline-none
+                                text-sm"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div>
+
+                        <label
+                            for="customer-phone-input"
+                            class="block text-xs font-bold mb-2"
+                        >
+
+                            เบอร์โทรศัพท์
+
+                            <span class="text-rose-500">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <div class="relative">
+
+                            <i
+                                class="fa-solid fa-phone
+                                absolute left-4 top-1/2
+                                -translate-y-1/2
+                                text-slate-400"
+                            ></i>
+
+
+                            <input
+                                id="customer-phone-input"
+                                type="tel"
+                                inputmode="tel"
+                                placeholder="เช่น 0812345678"
+                                autocomplete="tel"
+                                class="address-input
+                                w-full
+                                pl-11 pr-4 py-3
+                                rounded-xl
+                                border border-slate-200
+                                bg-white
+                                outline-none
+                                text-sm"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div>
+
+                        <label
+                            for="customer-address-input"
+                            class="block text-xs font-bold mb-2"
+                        >
+
+                            ที่อยู่จัดส่ง
+
+                            <span class="text-rose-500">
+                                *
+                            </span>
+
+                        </label>
+
+
+                        <textarea
+                            id="customer-address-input"
+                            rows="4"
+                            placeholder="บ้านเลขที่ / หมู่ / ถนน / ตำบล / อำเภอ / จังหวัด / รหัสไปรษณีย์"
+                            autocomplete="street-address"
+                            class="address-input
+                            w-full
+                            px-4 py-3
+                            rounded-xl
+                            border border-slate-200
+                            bg-white
+                            outline-none
+                            text-sm
+                            resize-none"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- LOAD SAVED ADDRESS -->
 
                     <div
-                        class="address-card
-                        border border-slate-200
+                        id="saved-address-box"
+                        class="hidden
                         rounded-2xl
+                        bg-indigo-50
+                        border border-indigo-100
                         p-4"
                     >
 
                         <div class="flex items-start gap-3">
 
                             <div
-                                class="w-10 h-10
+                                class="w-9 h-9
                                 rounded-xl
-                                bg-emerald-50
-                                text-emerald-600
+                                bg-white
+                                text-indigo-600
                                 flex items-center
                                 justify-center
                                 shrink-0"
                             >
 
-                                <i class="fa-solid fa-house"></i>
+                                <i class="fa-solid fa-bookmark"></i>
 
                             </div>
 
 
-                            <div class="flex-1 min-w-0">
-
-                                <div
-                                    class="flex items-center
-                                    justify-between gap-3"
-                                >
-
-                                    <p
-                                        id="address-name"
-                                        class="font-black text-sm"
-                                    >
-                                        -
-                                    </p>
-
-
-                                    <span
-                                        class="px-2 py-1
-                                        rounded-lg
-                                        bg-emerald-50
-                                        text-emerald-600
-                                        text-[10px]
-                                        font-bold"
-                                    >
-
-                                        ที่อยู่จัดส่ง
-
-                                    </span>
-
-                                </div>
-
+                            <div class="flex-1">
 
                                 <p
-                                    id="address-phone"
                                     class="text-xs
-                                    text-slate-500 mt-1"
+                                    font-black
+                                    text-indigo-700"
                                 >
-                                    -
+
+                                    พบที่อยู่ที่บันทึกไว้
+
                                 </p>
 
 
                                 <p
-                                    id="address-text"
-                                    class="text-sm
-                                    text-slate-600
-                                    leading-relaxed mt-3"
+                                    id="saved-address-preview"
+                                    class="text-xs
+                                    text-indigo-500
+                                    mt-1
+                                    leading-relaxed"
                                 >
-                                    -
                                 </p>
+
+
+                                <button
+                                    type="button"
+                                    onclick="useSavedAddress()"
+                                    class="mt-3
+                                    px-3 py-2
+                                    rounded-xl
+                                    bg-indigo-600
+                                    hover:bg-indigo-700
+                                    text-white
+                                    text-xs
+                                    font-bold"
+                                >
+
+                                    <i
+                                        class="fa-solid
+                                        fa-check mr-1"
+                                    ></i>
+
+                                    ใช้ที่อยู่นี้
+
+                                </button>
 
                             </div>
 
@@ -457,92 +612,49 @@
 
                     </div>
 
-                </div>
 
+                    <!-- NOTE -->
 
-                <!-- NO ADDRESS -->
+                    <div>
 
-                <div
-                    id="no-address"
-                    class="hidden"
-                >
-
-                    <div
-                        class="rounded-2xl
-                        border-2 border-dashed
-                        border-slate-200
-                        p-6 text-center"
-                    >
-
-                        <div
-                            class="w-14 h-14
-                            mx-auto rounded-full
-                            bg-amber-50
-                            text-amber-500
-                            flex items-center
-                            justify-center"
+                        <label
+                            for="order-note"
+                            class="block
+                            text-xs
+                            font-bold mb-2"
                         >
 
-                            <i
-                                class="fa-solid
-                                fa-location-dot
-                                text-xl"
-                            ></i>
+                            หมายเหตุ
 
-                        </div>
+                            <span
+                                class="text-slate-400
+                                font-normal"
+                            >
+                                (ไม่บังคับ)
+                            </span>
 
-
-                        <h3
-                            class="font-black
-                            mt-4"
-                        >
-
-                            ยังไม่มีที่อยู่จัดส่ง
-
-                        </h3>
+                        </label>
 
 
-                        <p
-                            class="text-xs
-                            text-slate-400
-                            mt-1"
-                        >
-
-                            กรุณาเพิ่มที่อยู่ก่อนสั่งซื้อ
-
-                        </p>
-
-
-                        <a
-                            href="address.html"
-                            class="inline-flex
-                            items-center
-                            gap-2
-                            mt-4
-                            px-5 py-3
-                            rounded-xl
-                            bg-indigo-600
-                            hover:bg-indigo-700
-                            text-white
-                            text-sm
-                            font-bold"
-                        >
-
-                            <i
-                                class="fa-solid
-                                fa-plus"
-                            ></i>
-
-                            เพิ่มที่อยู่
-
-                        </a>
+                        <textarea
+                            id="order-note"
+                            rows="3"
+                            placeholder="เช่น ฝากไว้หน้าบ้าน หรือโทรก่อนส่ง"
+                            class="w-full px-4 py-3
+                            rounded-xl border
+                            border-slate-200
+                            outline-none text-sm
+                            resize-none
+                            focus:ring-2
+                            focus:ring-indigo-500"
+                        ></textarea>
 
                     </div>
 
                 </div>
 
 
-                <!-- HIDDEN DATA -->
+                <!-- Hidden compatibility fields -->
 
                 <input
                     type="hidden"
@@ -558,44 +670,6 @@
                     type="hidden"
                     id="customer-address"
                 >
-
-                <!-- NOTE -->
-
-                <div class="mt-5">
-
-                    <label
-                        for="order-note"
-                        class="block
-                        text-xs
-                        font-bold mb-2"
-                    >
-
-                        หมายเหตุ
-
-                        <span
-                            class="text-slate-400
-                            font-normal"
-                        >
-                            (ไม่บังคับ)
-                        </span>
-
-                    </label>
-
-
-                    <textarea
-                        id="order-note"
-                        rows="3"
-                        placeholder="เช่น ฝากไว้หน้าบ้าน หรือโทรก่อนส่ง"
-                        class="w-full px-4 py-3
-                        rounded-xl border
-                        border-slate-200
-                        outline-none text-sm
-                        resize-none
-                        focus:ring-2
-                        focus:ring-indigo-500"
-                    ></textarea>
-
-                </div>
 
             </section>
 
@@ -844,11 +918,11 @@
                             QR สำหรับชำระเงิน
                         </p>
 
-                        <p
-                            class="text-xs text-blue-600 mt-1"
-                        >
 
-                            ระบบจำลอง — ยังไม่มีการหักเงินจริง
+                        <p class="text-xs text-blue-600 mt-1">
+
+                            ระบบจำลอง
+                            — ยังไม่มีการหักเงินจริง
 
                         </p>
 
@@ -1091,7 +1165,8 @@
                         bg-indigo-600
                         hover:bg-indigo-700
                         text-white font-black
-                        transition active:scale-[0.98]"
+                        transition
+                        active:scale-[0.98]"
                     >
 
                         <i
@@ -1292,11 +1367,61 @@ let currentOrder = null;
 
 let currentAddress = null;
 
+let savedAddressData = null;
+
 let isSubmitting = false;
 
 
 /* =====================================================
-   STORAGE HELPER
+   SOUND
+===================================================== */
+
+/*
+    ใช้ SoundSystem / playSound
+    ที่มีอยู่ใน JS ของโปรเจกต์
+
+    ถ้าไม่มีระบบเสียงจะไม่ทำให้เว็บพัง
+*/
+
+function safeSound(type) {
+
+    try {
+
+        if (
+            typeof playSound === "function"
+        ) {
+
+            playSound(type);
+
+            return;
+
+        }
+
+
+        if (
+            typeof SoundSystem !== "undefined" &&
+            SoundSystem &&
+            typeof SoundSystem.play === "function"
+        ) {
+
+            SoundSystem.play(type);
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "Sound error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   STORAGE
 ===================================================== */
 
 function readStorage(key) {
@@ -1310,7 +1435,15 @@ function readStorage(key) {
             return null;
         }
 
-        return JSON.parse(value);
+        try {
+
+            return JSON.parse(value);
+
+        } catch {
+
+            return value;
+
+        }
 
     } catch (error) {
 
@@ -1383,8 +1516,10 @@ function normalizeCart() {
                     Number(item.quantity) || 1
                 );
 
+
             const price =
                 Number(item.price) || 0;
+
 
             return {
 
@@ -1429,34 +1564,25 @@ function normalizeCart() {
    ADDRESS
 ===================================================== */
 
-/*
-    รองรับหลายรูปแบบที่ address.html
-    อาจบันทึกไว้
-
-    Priority:
-
-    1. selectedAddress
-    2. address
-    3. savedAddress
-    4. shippingAddress
-    5. defaultAddress
-*/
-
 function loadAddress() {
 
     const storageKeys = [
+
         "selectedAddress",
         "address",
         "savedAddress",
         "shippingAddress",
         "defaultAddress"
+
     ];
 
 
     let address = null;
 
 
-    for (const key of storageKeys) {
+    for (
+        const key of storageKeys
+    ) {
 
         const value =
             readStorage(key);
@@ -1474,8 +1600,7 @@ function loadAddress() {
 
 
     /*
-        บางระบบอาจเก็บ addresses
-        เป็น Array
+        รองรับ addresses[]
     */
 
     if (!address) {
@@ -1484,8 +1609,10 @@ function loadAddress() {
             readStorage("addresses");
 
 
-        if (Array.isArray(addresses) &&
-            addresses.length > 0) {
+        if (
+            Array.isArray(addresses) &&
+            addresses.length > 0
+        ) {
 
             address =
                 addresses.find(
@@ -1496,17 +1623,13 @@ function loadAddress() {
                             item.isDefault === true ||
                             item.default === true
                         )
-                ) || addresses[0];
+                ) ||
+                addresses[0];
 
         }
 
     }
 
-
-    /*
-        รองรับกรณีเก็บ address
-        เป็น JSON string ธรรมดา
-    */
 
     if (
         typeof address === "string" &&
@@ -1515,7 +1638,8 @@ function loadAddress() {
 
         address = {
 
-            address: address.trim()
+            address:
+                address.trim()
 
         };
 
@@ -1526,9 +1650,9 @@ function loadAddress() {
 
         currentAddress = null;
 
-        renderAddress();
+        savedAddressData = null;
 
-        return false;
+        return;
 
     }
 
@@ -1537,9 +1661,11 @@ function loadAddress() {
         normalizeAddress(address);
 
 
-    renderAddress();
+    savedAddressData =
+        currentAddress;
 
-    return true;
+
+    showSavedAddress();
 
 }
 
@@ -1554,10 +1680,6 @@ function normalizeAddress(address) {
         return null;
     }
 
-
-    /*
-        รองรับชื่อ field หลายแบบ
-    */
 
     const name =
         address.name ??
@@ -1576,11 +1698,6 @@ function normalizeAddress(address) {
         "";
 
 
-    /*
-        กรณี address เป็น object
-        แต่รายละเอียดถูกแยก field
-    */
-
     let addressText =
         address.address ??
         address.fullAddress ??
@@ -1589,36 +1706,24 @@ function normalizeAddress(address) {
         "";
 
 
-    /*
-        ถ้าไม่มี addressText
-        ให้ประกอบจากข้อมูลย่อย
-    */
-
     if (!addressText) {
 
         const parts = [
 
             address.houseNumber,
-
             address.village,
-
             address.moo,
-
             address.soi,
-
             address.road,
-
             address.subdistrict,
-
             address.district,
-
             address.province,
-
             address.postcode ??
             address.zipcode ??
             address.zip
 
         ];
+
 
         addressText =
             parts
@@ -1664,81 +1769,257 @@ function normalizeAddress(address) {
 
 
 /* =====================================================
-   RENDER ADDRESS
+   SHOW SAVED ADDRESS
 ===================================================== */
 
-function renderAddress() {
+function showSavedAddress() {
 
-    const found =
+    const box =
         document.getElementById(
-            "address-found"
+            "saved-address-box"
         );
 
 
-    const noAddress =
+    const preview =
         document.getElementById(
-            "no-address"
+            "saved-address-preview"
         );
 
 
-    if (!currentAddress) {
-
-        found.classList.add("hidden");
-
-        noAddress.classList.remove("hidden");
+    if (
+        !box ||
+        !preview ||
+        !savedAddressData
+    ) {
 
         return;
 
     }
 
 
-    found.classList.remove("hidden");
+    const text = [
 
-    noAddress.classList.add("hidden");
+        savedAddressData.name,
+        savedAddressData.phone,
+        savedAddressData.address
+
+    ]
+        .filter(Boolean)
+        .join(" • ");
+
+
+    if (!text) {
+
+        box.classList.add("hidden");
+
+        return;
+
+    }
+
+
+    preview.textContent =
+        text;
+
+
+    box.classList.remove(
+        "hidden"
+    );
+
+}
+
+
+/* =====================================================
+   USE SAVED ADDRESS
+===================================================== */
+
+function useSavedAddress() {
+
+    if (!savedAddressData) {
+
+        showToast(
+            "ไม่พบที่อยู่ที่บันทึกไว้"
+        );
+
+        return;
+
+    }
 
 
     document
-        .getElementById("address-name")
-        .textContent =
-        currentAddress.name ||
-        "ผู้รับสินค้า";
-
-
-    document
-        .getElementById("address-phone")
-        .textContent =
-        currentAddress.phone ||
-        "ไม่ได้ระบุเบอร์โทรศัพท์";
-
-
-    document
-        .getElementById("address-text")
-        .textContent =
-        currentAddress.address ||
-        "ไม่ได้ระบุรายละเอียดที่อยู่";
-
-
-    /*
-        เอาข้อมูลไปใส่ hidden input
-        เพื่อให้ createOrder ใช้งานได้
-    */
-
-    document
-        .getElementById("customer-name")
+        .getElementById(
+            "customer-name-input"
+        )
         .value =
-        currentAddress.name;
+        savedAddressData.name || "";
 
 
     document
-        .getElementById("customer-phone")
+        .getElementById(
+            "customer-phone-input"
+        )
         .value =
-        currentAddress.phone;
+        savedAddressData.phone || "";
 
 
     document
-        .getElementById("customer-address")
+        .getElementById(
+            "customer-address-input"
+        )
         .value =
-        currentAddress.address;
+        savedAddressData.address || "";
+
+
+    syncAddress();
+
+
+    safeSound("success");
+
+
+    showToast(
+        "นำที่อยู่ที่บันทึกไว้มาใช้แล้ว"
+    );
+
+}
+
+
+/* =====================================================
+   SYNC ADDRESS
+===================================================== */
+
+function syncAddress() {
+
+    const name =
+        document
+            .getElementById(
+                "customer-name-input"
+            )
+            .value
+            .trim();
+
+
+    const phone =
+        document
+            .getElementById(
+                "customer-phone-input"
+            )
+            .value
+            .trim();
+
+
+    const address =
+        document
+            .getElementById(
+                "customer-address-input"
+            )
+            .value
+            .trim();
+
+
+    document
+        .getElementById(
+            "customer-name"
+        )
+        .value =
+        name;
+
+
+    document
+        .getElementById(
+            "customer-phone"
+        )
+        .value =
+        phone;
+
+
+    document
+        .getElementById(
+            "customer-address"
+        )
+        .value =
+        address;
+
+
+    currentAddress = {
+
+        id:
+            currentAddress?.id || "",
+
+        name,
+
+        phone,
+
+        address
+
+    };
+
+}
+
+
+/* =====================================================
+   FILL SAVED ADDRESS
+===================================================== */
+
+function fillSavedAddress() {
+
+    if (!savedAddressData) {
+
+        return;
+
+    }
+
+
+    const nameInput =
+        document.getElementById(
+            "customer-name-input"
+        );
+
+
+    const phoneInput =
+        document.getElementById(
+            "customer-phone-input"
+        );
+
+
+    const addressInput =
+        document.getElementById(
+            "customer-address-input"
+        );
+
+
+    if (
+        !nameInput.value &&
+        savedAddressData.name
+    ) {
+
+        nameInput.value =
+            savedAddressData.name;
+
+    }
+
+
+    if (
+        !phoneInput.value &&
+        savedAddressData.phone
+    ) {
+
+        phoneInput.value =
+            savedAddressData.phone;
+
+    }
+
+
+    if (
+        !addressInput.value &&
+        savedAddressData.address
+    ) {
+
+        addressInput.value =
+            savedAddressData.address;
+
+    }
+
+
+    syncAddress();
 
 }
 
@@ -1751,6 +2032,7 @@ function formatMoney(value) {
 
     const number =
         Number(value) || 0;
+
 
     return "฿" +
         number.toLocaleString(
@@ -1767,11 +2049,26 @@ function formatMoney(value) {
 function escapeHTML(value) {
 
     return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -1966,15 +2263,21 @@ function renderCheckout() {
 
 
     document
-        .getElementById("summary-count")
+        .getElementById(
+            "summary-count"
+        )
         .textContent =
         `${getCartItemCount()} รายการ`;
 
 
     document
-        .getElementById("summary-subtotal")
+        .getElementById(
+            "summary-subtotal"
+        )
         .textContent =
-        formatMoney(getSubtotal());
+        formatMoney(
+            getSubtotal()
+        );
 
 
     const shipping =
@@ -1982,7 +2285,9 @@ function renderCheckout() {
 
 
     document
-        .getElementById("summary-shipping")
+        .getElementById(
+            "summary-shipping"
+        )
         .textContent =
         shipping === 0
             ? "ฟรี"
@@ -1990,15 +2295,23 @@ function renderCheckout() {
 
 
     document
-        .getElementById("summary-total")
+        .getElementById(
+            "summary-total"
+        )
         .textContent =
-        formatMoney(getGrandTotal());
+        formatMoney(
+            getGrandTotal()
+        );
 
 
     document
-        .getElementById("qr-amount")
+        .getElementById(
+            "qr-amount"
+        )
         .textContent =
-        formatMoney(getGrandTotal());
+        formatMoney(
+            getGrandTotal()
+        );
 
 }
 
@@ -2014,16 +2327,20 @@ function selectPayment(type) {
 
 
     const buttons = [
+
         "payment-cod",
         "payment-qr",
         "payment-card"
+
     ];
 
 
     buttons.forEach(id => {
 
         const element =
-            document.getElementById(id);
+            document.getElementById(
+                id
+            );
 
 
         if (element) {
@@ -2053,7 +2370,9 @@ function selectPayment(type) {
 
 
     document
-        .getElementById("qr-panel")
+        .getElementById(
+            "qr-panel"
+        )
         .classList.toggle(
             "hidden",
             type !== "qr"
@@ -2061,11 +2380,16 @@ function selectPayment(type) {
 
 
     document
-        .getElementById("card-panel")
+        .getElementById(
+            "card-panel"
+        )
         .classList.toggle(
             "hidden",
             type !== "card"
         );
+
+
+    safeSound("success");
 
 }
 
@@ -2076,40 +2400,49 @@ function selectPayment(type) {
 
 function validateCustomer() {
 
-    /*
-        ตรวจจาก currentAddress
-        ไม่ให้ลูกค้าแก้ข้อมูล address
-        จาก checkout โดยตรง
-    */
-
-    if (!currentAddress) {
-
-        showToast(
-            "กรุณาเพิ่มที่อยู่จัดส่งก่อน"
-        );
-
-        return false;
-
-    }
+    syncAddress();
 
 
     const name =
-        currentAddress.name.trim();
+        document
+            .getElementById(
+                "customer-name-input"
+            )
+            .value
+            .trim();
 
 
     const phone =
-        currentAddress.phone.trim();
+        document
+            .getElementById(
+                "customer-phone-input"
+            )
+            .value
+            .trim();
 
 
     const address =
-        currentAddress.address.trim();
+        document
+            .getElementById(
+                "customer-address-input"
+            )
+            .value
+            .trim();
 
 
     if (!name) {
 
         showToast(
-            "ที่อยู่ยังไม่มีชื่อผู้รับ"
+            "กรุณากรอกชื่อผู้รับ"
         );
+
+        document
+            .getElementById(
+                "customer-name-input"
+            )
+            .focus();
+
+        safeSound("failed");
 
         return false;
 
@@ -2119,8 +2452,16 @@ function validateCustomer() {
     if (!phone) {
 
         showToast(
-            "ที่อยู่ยังไม่มีเบอร์โทรศัพท์"
+            "กรุณากรอกเบอร์โทรศัพท์"
         );
+
+        document
+            .getElementById(
+                "customer-phone-input"
+            )
+            .focus();
+
+        safeSound("failed");
 
         return false;
 
@@ -2143,6 +2484,14 @@ function validateCustomer() {
             "กรุณาตรวจสอบเบอร์โทรศัพท์"
         );
 
+        document
+            .getElementById(
+                "customer-phone-input"
+            )
+            .focus();
+
+        safeSound("wrong_pin");
+
         return false;
 
     }
@@ -2151,12 +2500,34 @@ function validateCustomer() {
     if (!address) {
 
         showToast(
-            "ที่อยู่จัดส่งยังไม่สมบูรณ์"
+            "กรุณากรอกที่อยู่จัดส่ง"
         );
+
+        document
+            .getElementById(
+                "customer-address-input"
+            )
+            .focus();
+
+        safeSound("failed");
 
         return false;
 
     }
+
+
+    currentAddress = {
+
+        id:
+            currentAddress?.id || "",
+
+        name,
+
+        phone,
+
+        address
+
+    };
 
 
     return true;
@@ -2170,81 +2541,92 @@ function validateCustomer() {
 
 function validatePayment() {
 
-    if (selectedPayment === "card") {
+    if (
+        selectedPayment !== "card"
+    ) {
 
-        const cardNumber =
-            document
-                .getElementById(
-                    "card-number"
-                )
-                .value
-                .replace(
-                    /\s/g,
-                    ""
-                );
+        return true;
+
+    }
 
 
-        const expiry =
-            document
-                .getElementById(
-                    "card-expiry"
-                )
-                .value
-                .trim();
-
-
-        const cvv =
-            document
-                .getElementById(
-                    "card-cvv"
-                )
-                .value
-                .trim();
-
-
-        if (
-            !/^\d{12,16}$/.test(
-                cardNumber
+    const cardNumber =
+        document
+            .getElementById(
+                "card-number"
             )
-        ) {
-
-            showToast(
-                "กรุณากรอกหมายเลขบัตรทดสอบ"
+            .value
+            .replace(
+                /\s/g,
+                ""
             );
 
-            return false;
 
-        }
-
-
-        if (
-            !/^\d{2}\/\d{2}$/.test(
-                expiry
+    const expiry =
+        document
+            .getElementById(
+                "card-expiry"
             )
-        ) {
-
-            showToast(
-                "กรุณากรอกวันหมดอายุ เช่น 12/30"
-            );
-
-            return false;
-
-        }
+            .value
+            .trim();
 
 
-        if (
-            !/^\d{3,4}$/.test(
-                cvv
+    const cvv =
+        document
+            .getElementById(
+                "card-cvv"
             )
-        ) {
+            .value
+            .trim();
 
-            showToast(
-                "กรุณากรอก CVV สำหรับระบบทดสอบ"
-            );
 
-            return false;
+    if (
+        !/^\d{12,16}$/.test(
+            cardNumber
+        )
+    ) {
 
-        }
+        showToast(
+            "กรุณากรอกหมายเลขบัตรทดสอบ"
+        );
+
+        safeSound("failed");
+
+        return false;
+
+    }
+
+
+    if (
+        !/^\d{2}\/\d{2}$/.test(
+            expiry
+        )
+    ) {
+
+        showToast(
+            "กรุณากรอกวันหมดอายุ เช่น 12/30"
+        );
+
+        safeSound("failed");
+
+        return false;
+
+    }
+
+
+    if (
+        !/^\d{3,4}$/.test(
+            cvv
+        )
+    ) {
+
+        showToast(
+            "กรุณากรอก CVV สำหรับระบบทดสอบ"
+        );
+
+        safeSound("failed");
+
+        return false;
 
     }
 
@@ -2339,11 +2721,6 @@ function getPaymentStatus() {
     }
 
 
-    /*
-        QR / Card ในระบบนี้ยังเป็น DEMO
-        จึงไม่ควรตีความว่าเงินจริงถูกหักแล้ว
-    */
-
     return "รอยืนยันการชำระเงิน";
 
 }
@@ -2354,6 +2731,9 @@ function getPaymentStatus() {
 ===================================================== */
 
 function createOrder() {
+
+    syncAddress();
+
 
     const orderId =
         generateOrderId();
@@ -2519,10 +2899,6 @@ function saveOrder(order) {
     }
 
 
-    /*
-        ป้องกัน order ID ซ้ำ
-    */
-
     if (
         orders.some(
             item =>
@@ -2547,13 +2923,17 @@ function saveOrder(order) {
 
         localStorage.setItem(
             "orders",
-            JSON.stringify(orders)
+            JSON.stringify(
+                orders
+            )
         );
 
 
         localStorage.setItem(
             "latestOrder",
-            JSON.stringify(order)
+            JSON.stringify(
+                order
+            )
         );
 
 
@@ -2563,16 +2943,35 @@ function saveOrder(order) {
         );
 
 
-        /*
-            เก็บลูกค้าล่าสุดไว้ใช้
-            ในหน้าอื่น
-        */
-
         localStorage.setItem(
             "latestCustomer",
             JSON.stringify(
                 order.customer
             )
+        );
+
+
+        /*
+            บันทึกที่อยู่ล่าสุดด้วย
+            เพื่อให้ checkout / address
+            ใช้ต่อได้
+        */
+
+        localStorage.setItem(
+            "selectedAddress",
+            JSON.stringify({
+                id:
+                    order.customer.addressId,
+
+                name:
+                    order.customer.name,
+
+                phone:
+                    order.customer.phone,
+
+                address:
+                    order.customer.address
+            })
         );
 
 
@@ -2589,6 +2988,9 @@ function saveOrder(order) {
         showToast(
             "ไม่สามารถบันทึกคำสั่งซื้อได้"
         );
+
+
+        safeSound("failed");
 
 
         return false;
@@ -2633,23 +3035,7 @@ function placeOrder() {
             "ไม่มีสินค้าในตะกร้า"
         );
 
-        return;
-
-    }
-
-
-    if (!currentAddress) {
-
-        showToast(
-            "กรุณาเพิ่มที่อยู่จัดส่งก่อน"
-        );
-
-        setTimeout(() => {
-
-            window.location.href =
-                "address.html";
-
-        }, 700);
+        safeSound("failed");
 
         return;
 
@@ -2760,6 +3146,13 @@ function placeOrder() {
             );
 
 
+        /*
+            เสียงสำเร็จจาก sound.js
+        */
+
+        safeSound("success");
+
+
     }, 700);
 
 }
@@ -2770,6 +3163,9 @@ function placeOrder() {
 ===================================================== */
 
 function goToOrders() {
+
+    safeSound("success");
+
 
     if (
         currentOrder &&
@@ -2795,6 +3191,9 @@ function goToOrders() {
 ===================================================== */
 
 function goToTracking() {
+
+    safeSound("success");
+
 
     if (
         currentOrder &&
@@ -2996,6 +3395,42 @@ function setupCardFormatting() {
 
 
 /* =====================================================
+   ADDRESS INPUT EVENTS
+===================================================== */
+
+function setupAddressInputs() {
+
+    const inputs = [
+
+        "customer-name-input",
+        "customer-phone-input",
+        "customer-address-input"
+
+    ];
+
+
+    inputs.forEach(id => {
+
+        const input =
+            document.getElementById(id);
+
+
+        if (!input) {
+            return;
+        }
+
+
+        input.addEventListener(
+            "input",
+            syncAddress
+        );
+
+    });
+
+}
+
+
+/* =====================================================
    ESC KEY
 ===================================================== */
 
@@ -3036,23 +3471,19 @@ document.addEventListener(
    STORAGE CHANGE
 ===================================================== */
 
-/*
-    ถ้า address.html เปิดอยู่
-    ในอีก tab/window และมีการเปลี่ยนที่อยู่
-    checkout จะโหลดข้อมูลใหม่
-*/
-
 window.addEventListener(
     "storage",
     function(event) {
 
         const addressKeys = [
+
             "selectedAddress",
             "address",
             "savedAddress",
             "shippingAddress",
             "defaultAddress",
             "addresses"
+
         ];
 
 
@@ -3063,6 +3494,8 @@ window.addEventListener(
         ) {
 
             loadAddress();
+
+            fillSavedAddress();
 
         }
 
@@ -3099,15 +3532,21 @@ document.addEventListener(
 
         loadAddress();
 
+        fillSavedAddress();
+
+        syncAddress();
+
         selectPayment("cod");
 
         setupCardFormatting();
+
+        setupAddressInputs();
 
     }
 );
 
 </script>
 
+
 </body>
 </html>
-
