@@ -761,12 +761,69 @@ function loginDriver() {
     const errorMsg =
         document.getElementById('driver-pin-error');
 
-    if (!pinInput || !errorMsg) {
+    const inputPin =
+        pinInput.value.trim();
+
+    // ใช้ PIN จาก config.js
+    if (
+        typeof CONFIG === 'undefined' ||
+        !CONFIG.DRIVER_PIN
+    ) {
+
+        errorMsg.innerHTML = `
+            <i class="fa-solid fa-triangle-exclamation mr-1"></i>
+            ไม่พบรหัสระบบ กรุณาตรวจสอบไฟล์ config.js
+        `;
+
+        errorMsg.classList.remove('hidden');
+
+        console.error(
+            'CONFIG หรือ CONFIG.DRIVER_PIN ไม่ถูกโหลด'
+        );
+
         return;
     }
 
-    const inputPin =
-        pinInput.value.trim();
+    const correctPin =
+        String(CONFIG.DRIVER_PIN).trim();
+
+    console.log('PIN length:', inputPin.length);
+    console.log('CONFIG loaded:', true);
+
+    if (inputPin === correctPin) {
+
+        sessionStorage.setItem(
+            'driver_logged_in',
+            'true'
+        );
+
+        showDriverSystem();
+
+        errorMsg.classList.add('hidden');
+
+        pinInput.value = '';
+
+        showToast(
+            'เข้าสู่ระบบสำเร็จ 🚚',
+            'success'
+        );
+
+    } else {
+
+        playSound('wrong_pin');
+
+        errorMsg.innerHTML = `
+            <i class="fa-solid fa-circle-exclamation mr-1"></i>
+            รหัสพนักงานไม่ถูกต้อง
+        `;
+
+        errorMsg.classList.remove('hidden');
+
+        pinInput.value = '';
+
+        pinInput.focus();
+    }
+}
 
     /* =========================================
        CHECK CONFIG
