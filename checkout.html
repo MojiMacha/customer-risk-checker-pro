@@ -1,1067 +1,1044 @@
 <!DOCTYPE html>
-
 <html lang="th">
 
 <head>
 
-```
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Checkout - Delivery Risk Market</title>
+    <title>ชำระเงิน - Delivery Risk Market</title>
 
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Font Awesome -->
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
->
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
 
-<!-- Google Font -->
-<link
-    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-<style>
+    <style>
 
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Kanit', sans-serif;
-    }
-
-    .payment-option,
-    .shipping-option {
-        transition: all 0.2s ease;
-    }
-
-    .payment-option:hover,
-    .shipping-option:hover {
-        transform: translateY(-1px);
-    }
-
-    .selected-option {
-        border-color: #4f46e5 !important;
-        background: #eef2ff !important;
-        box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.12);
-    }
-
-    .toast-animation {
-        animation: toastIn 0.25s ease;
-    }
-
-    @keyframes toastIn {
-
-        from {
-            opacity: 0;
-            transform: translate(-50%, 20px);
+        * {
+            box-sizing: border-box;
         }
 
-        to {
-            opacity: 1;
-            transform: translate(-50%, 0);
+        body {
+            font-family: 'Kanit', sans-serif;
         }
 
-    }
+        .payment-option,
+        .shipping-option {
+            transition: all 0.2s ease;
+        }
 
-</style>
-```
+        .payment-option:has(input:checked),
+        .shipping-option:has(input:checked) {
+            border-color: #4f46e5;
+            background: #eef2ff;
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.08);
+        }
+
+        .payment-option:hover,
+        .shipping-option:hover {
+            border-color: #818cf8;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+    </style>
 
 </head>
 
+
 <body class="bg-slate-100 min-h-screen text-slate-800">
+
 
 <!-- =====================================================
      NAVBAR
 ===================================================== -->
 
-<nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
+<nav class="bg-slate-950 text-white shadow-lg">
 
-```
-<div
-    class="max-w-7xl mx-auto px-4 py-3
-    flex items-center justify-between"
->
-
-    <a
-        href="shop.html"
-        class="flex items-center gap-3"
+    <div
+        class="max-w-6xl mx-auto px-4 py-3
+        flex items-center justify-between"
     >
 
-        <div
-            class="w-10 h-10 rounded-xl
-            bg-gradient-to-br from-indigo-500 to-indigo-700
-            flex items-center justify-center"
+        <a
+            href="shop.html"
+            class="flex items-center gap-3"
         >
 
-            <i class="fa-solid fa-store text-amber-300"></i>
+            <div
+                class="w-10 h-10 rounded-xl
+                bg-gradient-to-br from-indigo-500 to-indigo-700
+                flex items-center justify-center"
+            >
 
-        </div>
+                <i class="fa-solid fa-store text-amber-300"></i>
 
-        <div>
-
-            <p class="font-black text-sm">
-                Delivery Risk Market
-            </p>
-
-            <p class="text-[10px] text-slate-400">
-                Checkout
-            </p>
-
-        </div>
-
-    </a>
+            </div>
 
 
-    <div class="flex items-center gap-2">
+            <div>
+
+                <p class="font-black text-sm">
+                    Delivery Risk Market
+                </p>
+
+                <p class="text-[10px] text-slate-400">
+                    Checkout
+                </p>
+
+            </div>
+
+        </a>
+
 
         <a
-            href="orders.html"
-            class="px-3 py-2 rounded-xl
-            text-xs font-bold text-slate-300
-            hover:text-white hover:bg-white/10"
+            href="shop.html"
+            class="text-xs font-bold text-slate-300
+            hover:text-white"
         >
 
-            <i class="fa-solid fa-receipt mr-1"></i>
+            <i class="fa-solid fa-arrow-left mr-1"></i>
 
-            คำสั่งซื้อ
+            กลับไปเลือกสินค้า
 
         </a>
 
     </div>
 
-</div>
-```
-
 </nav>
+
+
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
+
+<section class="bg-white border-b border-slate-200">
+
+    <div
+        class="max-w-6xl mx-auto px-4 py-5"
+    >
+
+        <div
+            class="flex items-center justify-center
+            gap-2 sm:gap-5 text-xs"
+        >
+
+            <div class="flex items-center gap-2 text-indigo-600 font-bold">
+
+                <span
+                    class="w-8 h-8 rounded-full bg-indigo-600
+                    text-white flex items-center justify-center"
+                >
+                    1
+                </span>
+
+                ตะกร้า
+
+            </div>
+
+
+            <div class="w-8 sm:w-16 h-px bg-indigo-300"></div>
+
+
+            <div class="flex items-center gap-2 text-indigo-600 font-bold">
+
+                <span
+                    class="w-8 h-8 rounded-full bg-indigo-600
+                    text-white flex items-center justify-center"
+                >
+                    2
+                </span>
+
+                ข้อมูลจัดส่ง
+
+            </div>
+
+
+            <div class="w-8 sm:w-16 h-px bg-slate-200"></div>
+
+
+            <div class="flex items-center gap-2 text-slate-400">
+
+                <span
+                    class="w-8 h-8 rounded-full bg-slate-200
+                    flex items-center justify-center"
+                >
+                    3
+                </span>
+
+                ยืนยันคำสั่งซื้อ
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
 
 <!-- =====================================================
      MAIN
 ===================================================== -->
 
-<main class="max-w-6xl mx-auto px-4 py-6">
-
-```
-<!-- HEADER -->
-
-<section class="mb-6">
-
-    <a
-        href="shop.html"
-        class="inline-flex items-center gap-2
-        text-sm text-slate-500 hover:text-indigo-600
-        font-bold"
-    >
-
-        <i class="fa-solid fa-arrow-left"></i>
-
-        กลับไปเลือกสินค้า
-
-    </a>
-
-
-    <h1 class="text-3xl font-black mt-4">
-        ชำระเงิน
-    </h1>
-
-
-    <p class="text-sm text-slate-400 mt-1">
-        กรอกข้อมูลจัดส่ง เลือกวิธีจัดส่ง และวิธีชำระเงิน
-    </p>
-
-</section>
-
-
-<!-- EMPTY CART -->
-
-<section
-    id="empty-cart"
-    class="hidden bg-white rounded-3xl
-    p-10 text-center shadow-sm"
+<main
+    class="max-w-6xl mx-auto px-4 py-6"
 >
 
+
+    <!-- EMPTY CART -->
+
     <div
-        class="w-20 h-20 mx-auto rounded-3xl
-        bg-slate-100 flex items-center justify-center
-        text-3xl"
+        id="empty-cart"
+        class="hidden bg-white rounded-3xl
+        p-10 text-center shadow-sm"
     >
-        🛒
+
+        <div
+            class="w-20 h-20 mx-auto rounded-3xl
+            bg-slate-100 flex items-center justify-center
+            text-3xl"
+        >
+            🛒
+        </div>
+
+
+        <h2 class="font-black text-xl mt-5">
+            ตะกร้าสินค้าว่าง
+        </h2>
+
+
+        <p class="text-sm text-slate-400 mt-2">
+            กรุณาเลือกสินค้าก่อนดำเนินการสั่งซื้อ
+        </p>
+
+
+        <a
+            href="shop.html"
+            class="inline-flex items-center
+            gap-2 mt-6 px-5 py-3 rounded-2xl
+            bg-indigo-600 text-white font-bold"
+        >
+
+            <i class="fa-solid fa-store"></i>
+
+            ไปเลือกสินค้า
+
+        </a>
+
     </div>
 
 
-    <h2 class="text-xl font-black mt-5">
-        ตะกร้าสินค้าว่าง
-    </h2>
+    <!-- CHECKOUT -->
 
-
-    <p class="text-sm text-slate-400 mt-2">
-        กรุณาเลือกสินค้าก่อนดำเนินการสั่งซื้อ
-    </p>
-
-
-    <a
-        href="shop.html"
-        class="inline-flex items-center gap-2
-        mt-6 px-6 py-3 rounded-2xl
-        bg-indigo-600 hover:bg-indigo-700
-        text-white font-bold"
+    <form
+        id="checkout-form"
+        class="grid lg:grid-cols-5 gap-6"
     >
 
-        <i class="fa-solid fa-store"></i>
 
-        ไปเลือกสินค้า
+        <!-- LEFT -->
 
-    </a>
-
-</section>
+        <div class="lg:col-span-3 space-y-6">
 
 
-<!-- CHECKOUT -->
+            <!-- ADDRESS -->
 
-<div
-    id="checkout-content"
-    class="grid lg:grid-cols-3 gap-6"
->
-
-
-    <!-- =================================================
-         LEFT
-    ================================================== -->
-
-    <div class="lg:col-span-2 space-y-6">
-
-
-        <!-- SHIPPING ADDRESS -->
-
-        <section
-            class="bg-white rounded-3xl
-            shadow-sm border border-slate-100
-            overflow-hidden"
-        >
-
-            <div
-                class="p-5 border-b border-slate-100"
+            <section
+                class="bg-white rounded-3xl shadow-sm
+                border border-slate-100 overflow-hidden fade-in"
             >
 
-                <div class="flex items-center gap-3">
+                <div
+                    class="p-5 border-b border-slate-100"
+                >
 
-                    <div
-                        class="w-10 h-10 rounded-xl
-                        bg-indigo-50 text-indigo-600
-                        flex items-center justify-center"
-                    >
+                    <h1 class="text-xl font-black">
 
-                        <i class="fa-solid fa-location-dot"></i>
+                        <i
+                            class="fa-solid fa-location-dot
+                            text-indigo-600 mr-2"
+                        ></i>
+
+                        ที่อยู่จัดส่ง
+
+                    </h1>
+
+                    <p class="text-xs text-slate-400 mt-1">
+                        กรอกข้อมูลสำหรับจัดส่งสินค้า
+                    </p>
+
+                </div>
+
+
+                <div class="p-5 grid sm:grid-cols-2 gap-4">
+
+
+                    <!-- NAME -->
+
+                    <div class="sm:col-span-2">
+
+                        <label
+                            for="receiver-name"
+                            class="block text-sm font-bold mb-2"
+                        >
+                            ชื่อผู้รับ
+                        </label>
+
+                        <input
+                            id="receiver-name"
+                            name="receiverName"
+                            type="text"
+                            required
+                            placeholder="เช่น นายณรภัทร ใจดี"
+                            class="w-full px-4 py-3 rounded-2xl
+                            border border-slate-200 outline-none
+                            focus:ring-2 focus:ring-indigo-500"
+                        >
 
                     </div>
 
 
-                    <div>
-
-                        <h2 class="font-black text-lg">
-                            ที่อยู่จัดส่ง
-                        </h2>
-
-                        <p class="text-xs text-slate-400">
-                            กรุณากรอกข้อมูลสำหรับจัดส่งสินค้า
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="p-5 space-y-4">
-
-
-                <!-- NAME -->
-
-                <div>
-
-                    <label
-                        for="shipping-name"
-                        class="block text-sm font-bold mb-2"
-                    >
-                        ชื่อผู้รับ
-                        <span class="text-rose-500">*</span>
-                    </label>
-
-
-                    <input
-                        id="shipping-name"
-                        type="text"
-                        autocomplete="name"
-                        placeholder="เช่น นายสมชาย ใจดี"
-                        class="w-full border border-slate-200
-                        rounded-2xl px-4 py-3
-                        outline-none
-                        focus:ring-2 focus:ring-indigo-500
-                        focus:border-indigo-500"
-                    >
-
-                </div>
-
-
-                <!-- PHONE -->
-
-                <div>
-
-                    <label
-                        for="shipping-phone"
-                        class="block text-sm font-bold mb-2"
-                    >
-                        เบอร์โทรศัพท์
-                        <span class="text-rose-500">*</span>
-                    </label>
-
-
-                    <input
-                        id="shipping-phone"
-                        type="tel"
-                        autocomplete="tel"
-                        inputmode="tel"
-                        maxlength="10"
-                        placeholder="เช่น 0812345678"
-                        class="w-full border border-slate-200
-                        rounded-2xl px-4 py-3
-                        outline-none
-                        focus:ring-2 focus:ring-indigo-500
-                        focus:border-indigo-500"
-                    >
-
-                </div>
-
-
-                <!-- ADDRESS -->
-
-                <div>
-
-                    <label
-                        for="shipping-address"
-                        class="block text-sm font-bold mb-2"
-                    >
-                        ที่อยู่
-                        <span class="text-rose-500">*</span>
-                    </label>
-
-
-                    <textarea
-                        id="shipping-address"
-                        rows="3"
-                        autocomplete="street-address"
-                        placeholder="บ้านเลขที่ หมู่บ้าน หมู่ที่ ถนน"
-                        class="w-full border border-slate-200
-                        rounded-2xl px-4 py-3
-                        outline-none resize-none
-                        focus:ring-2 focus:ring-indigo-500
-                        focus:border-indigo-500"
-                    ></textarea>
-
-                </div>
-
-
-                <!-- DISTRICT / AMPHOE -->
-
-                <div class="grid sm:grid-cols-2 gap-4">
-
+                    <!-- PHONE -->
 
                     <div>
 
                         <label
-                            for="shipping-subdistrict"
+                            for="receiver-phone"
+                            class="block text-sm font-bold mb-2"
+                        >
+                            เบอร์โทรศัพท์
+                        </label>
+
+                        <input
+                            id="receiver-phone"
+                            name="receiverPhone"
+                            type="tel"
+                            required
+                            inputmode="numeric"
+                            placeholder="08xxxxxxxx"
+                            class="w-full px-4 py-3 rounded-2xl
+                            border border-slate-200 outline-none
+                            focus:ring-2 focus:ring-indigo-500"
+                        >
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="sm:col-span-2">
+
+                        <label
+                            for="address"
+                            class="block text-sm font-bold mb-2"
+                        >
+                            บ้านเลขที่ / ที่อยู่
+                        </label>
+
+                        <textarea
+                            id="address"
+                            name="address"
+                            rows="3"
+                            required
+                            placeholder="บ้านเลขที่ หมู่บ้าน ถนน..."
+                            class="w-full px-4 py-3 rounded-2xl
+                            border border-slate-200 outline-none
+                            focus:ring-2 focus:ring-indigo-500 resize-none"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- DISTRICT -->
+
+                    <div>
+
+                        <label
+                            for="district"
                             class="block text-sm font-bold mb-2"
                         >
                             ตำบล / แขวง
-                            <span class="text-rose-500">*</span>
                         </label>
 
-
                         <input
-                            id="shipping-subdistrict"
+                            id="district"
+                            name="district"
                             type="text"
+                            required
                             placeholder="ตำบล / แขวง"
-                            class="w-full border border-slate-200
-                            rounded-2xl px-4 py-3
-                            outline-none
+                            class="w-full px-4 py-3 rounded-2xl
+                            border border-slate-200 outline-none
                             focus:ring-2 focus:ring-indigo-500"
                         >
 
                     </div>
 
 
+                    <!-- AMPHOE -->
+
                     <div>
 
                         <label
-                            for="shipping-district"
+                            for="amphoe"
                             class="block text-sm font-bold mb-2"
                         >
                             อำเภอ / เขต
-                            <span class="text-rose-500">*</span>
                         </label>
 
-
                         <input
-                            id="shipping-district"
+                            id="amphoe"
+                            name="amphoe"
                             type="text"
+                            required
                             placeholder="อำเภอ / เขต"
-                            class="w-full border border-slate-200
-                            rounded-2xl px-4 py-3
-                            outline-none
+                            class="w-full px-4 py-3 rounded-2xl
+                            border border-slate-200 outline-none
                             focus:ring-2 focus:ring-indigo-500"
                         >
 
                     </div>
 
 
-                </div>
-
-
-                <!-- PROVINCE / POSTAL -->
-
-                <div class="grid sm:grid-cols-2 gap-4">
-
+                    <!-- PROVINCE -->
 
                     <div>
 
                         <label
-                            for="shipping-province"
+                            for="province"
                             class="block text-sm font-bold mb-2"
                         >
                             จังหวัด
-                            <span class="text-rose-500">*</span>
                         </label>
 
-
                         <input
-                            id="shipping-province"
+                            id="province"
+                            name="province"
                             type="text"
-                            autocomplete="address-level1"
+                            required
                             placeholder="จังหวัด"
-                            class="w-full border border-slate-200
-                            rounded-2xl px-4 py-3
-                            outline-none
+                            class="w-full px-4 py-3 rounded-2xl
+                            border border-slate-200 outline-none
                             focus:ring-2 focus:ring-indigo-500"
                         >
 
                     </div>
 
+
+                    <!-- ZIP -->
 
                     <div>
 
                         <label
-                            for="shipping-postal"
+                            for="zipcode"
                             class="block text-sm font-bold mb-2"
                         >
                             รหัสไปรษณีย์
-                            <span class="text-rose-500">*</span>
                         </label>
 
-
                         <input
-                            id="shipping-postal"
+                            id="zipcode"
+                            name="zipcode"
                             type="text"
+                            required
                             inputmode="numeric"
                             maxlength="5"
-                            autocomplete="postal-code"
-                            placeholder="เช่น 40000"
-                            class="w-full border border-slate-200
-                            rounded-2xl px-4 py-3
-                            outline-none
+                            placeholder="40000"
+                            class="w-full px-4 py-3 rounded-2xl
+                            border border-slate-200 outline-none
                             focus:ring-2 focus:ring-indigo-500"
                         >
 
                     </div>
 
+                </div>
+
+            </section>
+
+
+            <!-- SHIPPING -->
+
+            <section
+                class="bg-white rounded-3xl shadow-sm
+                border border-slate-100 overflow-hidden"
+            >
+
+                <div class="p-5 border-b border-slate-100">
+
+                    <h2 class="text-xl font-black">
+
+                        <i
+                            class="fa-solid fa-truck-fast
+                            text-indigo-600 mr-2"
+                        ></i>
+
+                        วิธีจัดส่ง
+
+                    </h2>
+
+                    <p class="text-xs text-slate-400 mt-1">
+                        เลือกวิธีจัดส่งที่ต้องการ
+                    </p>
 
                 </div>
 
 
-                <!-- NOTE -->
+                <div class="p-5 space-y-3">
 
-                <div>
 
                     <label
-                        for="shipping-note"
-                        class="block text-sm font-bold mb-2"
+                        class="shipping-option block
+                        border-2 border-slate-200
+                        rounded-2xl p-4 cursor-pointer"
                     >
-                        หมายเหตุถึงร้านค้า
-                        <span class="text-slate-400 font-normal">
-                            (ถ้ามี)
-                        </span>
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="shippingMethod"
+                                value="standard"
+                                data-price="0"
+                                checked
+                                class="w-5 h-5 accent-indigo-600"
+                            >
+
+
+                            <div class="flex-1">
+
+                                <div
+                                    class="flex justify-between gap-3"
+                                >
+
+                                    <div>
+
+                                        <p class="font-black">
+                                            📦 Standard Delivery
+                                        </p>
+
+                                        <p
+                                            class="text-xs
+                                            text-slate-400 mt-1"
+                                        >
+                                            จัดส่งภายใน 2–5 วัน
+                                        </p>
+
+                                    </div>
+
+
+                                    <span
+                                        class="font-black
+                                        text-indigo-600"
+                                    >
+                                        ฟรี
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </label>
 
 
-                    <textarea
-                        id="shipping-note"
-                        rows="2"
-                        placeholder="เช่น ฝากไว้หน้าบ้าน / โทรก่อนส่ง"
-                        class="w-full border border-slate-200
-                        rounded-2xl px-4 py-3
-                        outline-none resize-none
-                        focus:ring-2 focus:ring-indigo-500"
-                    ></textarea>
+                    <label
+                        class="shipping-option block
+                        border-2 border-slate-200
+                        rounded-2xl p-4 cursor-pointer"
+                    >
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="shippingMethod"
+                                value="express"
+                                data-price="50"
+                                class="w-5 h-5 accent-indigo-600"
+                            >
+
+
+                            <div class="flex-1">
+
+                                <div
+                                    class="flex justify-between gap-3"
+                                >
+
+                                    <div>
+
+                                        <p class="font-black">
+                                            🚀 Express Delivery
+                                        </p>
+
+                                        <p
+                                            class="text-xs
+                                            text-slate-400 mt-1"
+                                        >
+                                            จัดส่งเร็วภายใน 1–2 วัน
+                                        </p>
+
+                                    </div>
+
+
+                                    <span
+                                        class="font-black
+                                        text-indigo-600"
+                                    >
+                                        ฿50
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+
+                    <label
+                        class="shipping-option block
+                        border-2 border-slate-200
+                        rounded-2xl p-4 cursor-pointer"
+                    >
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="shippingMethod"
+                                value="same_day"
+                                data-price="100"
+                                class="w-5 h-5 accent-indigo-600"
+                            >
+
+
+                            <div class="flex-1">
+
+                                <div
+                                    class="flex justify-between gap-3"
+                                >
+
+                                    <div>
+
+                                        <p class="font-black">
+                                            ⚡ Same Day
+                                        </p>
+
+                                        <p
+                                            class="text-xs
+                                            text-slate-400 mt-1"
+                                        >
+                                            สำหรับพื้นที่ที่รองรับ
+                                        </p>
+
+                                    </div>
+
+
+                                    <span
+                                        class="font-black
+                                        text-indigo-600"
+                                    >
+                                        ฿100
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <!-- PAYMENT -->
+
+            <section
+                class="bg-white rounded-3xl shadow-sm
+                border border-slate-100 overflow-hidden"
+            >
+
+                <div class="p-5 border-b border-slate-100">
+
+                    <h2 class="text-xl font-black">
+
+                        <i
+                            class="fa-solid fa-wallet
+                            text-indigo-600 mr-2"
+                        ></i>
+
+                        วิธีชำระเงิน
+
+                    </h2>
+
+                    <p class="text-xs text-slate-400 mt-1">
+                        เลือกวิธีชำระเงิน
+                    </p>
 
                 </div>
 
 
-            </div>
-
-        </section>
+                <div class="p-5 space-y-3">
 
 
-        <!-- =================================================
-             SHIPPING METHOD
-        ================================================== -->
+                    <!-- COD -->
 
-        <section
-            class="bg-white rounded-3xl
-            shadow-sm border border-slate-100
-            overflow-hidden"
-        >
-
-            <div
-                class="p-5 border-b border-slate-100"
-            >
-
-                <div class="flex items-center gap-3">
-
-                    <div
-                        class="w-10 h-10 rounded-xl
-                        bg-emerald-50 text-emerald-600
-                        flex items-center justify-center"
+                    <label
+                        class="payment-option block
+                        border-2 border-slate-200
+                        rounded-2xl p-4 cursor-pointer"
                     >
 
-                        <i class="fa-solid fa-truck"></i>
+                        <div class="flex items-center gap-3">
 
-                    </div>
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="cod"
+                                checked
+                                class="w-5 h-5 accent-indigo-600"
+                            >
 
 
-                    <div>
+                            <div>
 
-                        <h2 class="font-black text-lg">
-                            วิธีจัดส่ง
-                        </h2>
+                                <p class="font-black">
+                                    💵 เก็บเงินปลายทาง
+                                </p>
 
-                        <p class="text-xs text-slate-400">
-                            เลือกบริการจัดส่งที่ต้องการ
-                        </p>
+                                <p class="text-xs text-slate-400 mt-1">
+                                    ชำระเงินเมื่อได้รับสินค้า
+                                </p>
 
-                    </div>
+                            </div>
+
+                        </div>
+
+                    </label>
+
+
+                    <!-- BANK -->
+
+                    <label
+                        class="payment-option block
+                        border-2 border-slate-200
+                        rounded-2xl p-4 cursor-pointer"
+                    >
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="bank_transfer"
+                                class="w-5 h-5 accent-indigo-600"
+                            >
+
+
+                            <div>
+
+                                <p class="font-black">
+                                    🏦 โอนเงินผ่านธนาคาร
+                                </p>
+
+                                <p class="text-xs text-slate-400 mt-1">
+                                    ระบบจะแสดงข้อมูลสำหรับการโอนเงิน
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+
+                    <!-- QR -->
+
+                    <label
+                        class="payment-option block
+                        border-2 border-slate-200
+                        rounded-2xl p-4 cursor-pointer"
+                    >
+
+                        <div class="flex items-center gap-3">
+
+                            <input
+                                type="radio"
+                                name="paymentMethod"
+                                value="promptpay"
+                                class="w-5 h-5 accent-indigo-600"
+                            >
+
+
+                            <div>
+
+                                <p class="font-black">
+                                    📱 QR พร้อมเพย์
+                                </p>
+
+                                <p class="text-xs text-slate-400 mt-1">
+                                    ชำระผ่าน QR Code
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </label>
+
+
+                    <div
+                        id="payment-note"
+                        class="hidden mt-4 p-4 rounded-2xl
+                        bg-amber-50 border border-amber-200
+                        text-amber-800 text-sm"
+                    ></div>
 
                 </div>
 
-            </div>
+            </section>
 
 
-            <div class="p-5 space-y-3">
+        </div>
 
 
-                <!-- STANDARD -->
+        <!-- RIGHT -->
 
-                <label
-                    class="shipping-option selected-option
-                    flex items-center gap-4
-                    border-2 border-indigo-500
-                    bg-indigo-50
-                    rounded-2xl p-4 cursor-pointer"
-                    onclick="selectShipping('standard')"
-                >
-
-                    <input
-                        type="radio"
-                        name="shipping-method"
-                        value="standard"
-                        checked
-                        class="w-5 h-5 accent-indigo-600"
-                    >
+        <div class="lg:col-span-2">
 
 
-                    <div
-                        class="w-11 h-11 rounded-xl
-                        bg-white flex items-center justify-center
-                        text-indigo-600"
-                    >
-
-                        <i class="fa-solid fa-truck"></i>
-
-                    </div>
-
-
-                    <div class="flex-1">
-
-                        <p class="font-black">
-                            Standard Delivery
-                        </p>
-
-                        <p class="text-xs text-slate-400 mt-1">
-                            จัดส่งภายใน 2–5 วัน
-                        </p>
-
-                    </div>
-
-
-                    <span
-                        class="font-black text-indigo-600"
-                    >
-                        ฿40
-                    </span>
-
-                </label>
-
-
-                <!-- EXPRESS -->
-
-                <label
-                    class="shipping-option
-                    flex items-center gap-4
-                    border-2 border-slate-200
-                    rounded-2xl p-4 cursor-pointer"
-                    onclick="selectShipping('express')"
-                >
-
-                    <input
-                        type="radio"
-                        name="shipping-method"
-                        value="express"
-                        class="w-5 h-5 accent-indigo-600"
-                    >
-
-
-                    <div
-                        class="w-11 h-11 rounded-xl
-                        bg-white flex items-center justify-center
-                        text-amber-500"
-                    >
-
-                        <i class="fa-solid fa-bolt"></i>
-
-                    </div>
-
-
-                    <div class="flex-1">
-
-                        <p class="font-black">
-                            Express Delivery
-                        </p>
-
-                        <p class="text-xs text-slate-400 mt-1">
-                            จัดส่งเร็วภายใน 1–2 วัน
-                        </p>
-
-                    </div>
-
-
-                    <span
-                        class="font-black text-amber-600"
-                    >
-                        ฿80
-                    </span>
-
-                </label>
-
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             PAYMENT
-        ================================================== -->
-
-        <section
-            class="bg-white rounded-3xl
-            shadow-sm border border-slate-100
-            overflow-hidden"
-        >
-
-            <div
-                class="p-5 border-b border-slate-100"
+            <section
+                class="bg-white rounded-3xl shadow-sm
+                border border-slate-100 overflow-hidden
+                lg:sticky lg:top-6"
             >
 
-                <div class="flex items-center gap-3">
+                <div class="p-5 border-b border-slate-100">
 
-                    <div
-                        class="w-10 h-10 rounded-xl
-                        bg-violet-50 text-violet-600
-                        flex items-center justify-center"
+                    <h2 class="text-xl font-black">
+                        🧾 สรุปคำสั่งซื้อ
+                    </h2>
+
+                    <p
+                        id="item-count"
+                        class="text-xs text-slate-400 mt-1"
                     >
-
-                        <i class="fa-solid fa-credit-card"></i>
-
-                    </div>
-
-
-                    <div>
-
-                        <h2 class="font-black text-lg">
-                            วิธีชำระเงิน
-                        </h2>
-
-                        <p class="text-xs text-slate-400">
-                            เลือกวิธีการชำระเงิน
-                        </p>
-
-                    </div>
+                        0 รายการ
+                    </p>
 
                 </div>
 
-            </div>
 
-
-            <div class="p-5 space-y-3">
-
-
-                <!-- COD -->
-
-                <label
-                    class="payment-option selected-option
-                    flex items-center gap-4
-                    border-2 border-indigo-500
-                    bg-indigo-50
-                    rounded-2xl p-4 cursor-pointer"
-                    onclick="selectPayment('cod')"
-                >
-
-                    <input
-                        type="radio"
-                        name="payment-method"
-                        value="cod"
-                        checked
-                        class="w-5 h-5 accent-indigo-600"
-                    >
-
-
-                    <div
-                        class="w-11 h-11 rounded-xl
-                        bg-white flex items-center justify-center
-                        text-emerald-600"
-                    >
-
-                        <i class="fa-solid fa-money-bill-wave"></i>
-
-                    </div>
-
-
-                    <div class="flex-1">
-
-                        <p class="font-black">
-                            เก็บเงินปลายทาง (COD)
-                        </p>
-
-                        <p class="text-xs text-slate-400 mt-1">
-                            ชำระเงินเมื่อได้รับสินค้า
-                        </p>
-
-                    </div>
-
-                </label>
-
-
-                <!-- BANK -->
-
-                <label
-                    class="payment-option
-                    flex items-center gap-4
-                    border-2 border-slate-200
-                    rounded-2xl p-4 cursor-pointer"
-                    onclick="selectPayment('bank_transfer')"
-                >
-
-                    <input
-                        type="radio"
-                        name="payment-method"
-                        value="bank_transfer"
-                        class="w-5 h-5 accent-indigo-600"
-                    >
-
-
-                    <div
-                        class="w-11 h-11 rounded-xl
-                        bg-white flex items-center justify-center
-                        text-blue-600"
-                    >
-
-                        <i class="fa-solid fa-building-columns"></i>
-
-                    </div>
-
-
-                    <div class="flex-1">
-
-                        <p class="font-black">
-                            โอนผ่านธนาคาร
-                        </p>
-
-                        <p class="text-xs text-slate-400 mt-1">
-                            ระบบจะแสดงข้อมูลบัญชีหลังสั่งซื้อ
-                        </p>
-
-                    </div>
-
-                </label>
-
-
-                <!-- PROMPTPAY -->
-
-                <label
-                    class="payment-option
-                    flex items-center gap-4
-                    border-2 border-slate-200
-                    rounded-2xl p-4 cursor-pointer"
-                    onclick="selectPayment('promptpay')"
-                >
-
-                    <input
-                        type="radio"
-                        name="payment-method"
-                        value="promptpay"
-                        class="w-5 h-5 accent-indigo-600"
-                    >
-
-
-                    <div
-                        class="w-11 h-11 rounded-xl
-                        bg-white flex items-center justify-center
-                        text-sky-600"
-                    >
-
-                        <i class="fa-solid fa-qrcode"></i>
-
-                    </div>
-
-
-                    <div class="flex-1">
-
-                        <p class="font-black">
-                            QR PromptPay
-                        </p>
-
-                        <p class="text-xs text-slate-400 mt-1">
-                            ชำระเงินผ่าน QR Code
-                        </p>
-
-                    </div>
-
-                </label>
-
-
-            </div>
-
-        </section>
-
-
-    </div>
-
-
-    <!-- =================================================
-         RIGHT - ORDER SUMMARY
-    ================================================== -->
-
-    <div class="lg:col-span-1">
-
-
-        <section
-            class="bg-white rounded-3xl
-            shadow-sm border border-slate-100
-            overflow-hidden lg:sticky lg:top-24"
-        >
-
-
-            <div
-                class="p-5 border-b border-slate-100"
-            >
-
-                <h2 class="font-black text-lg">
-                    🛒 สรุปคำสั่งซื้อ
-                </h2>
-
-                <p
-                    id="summary-count"
-                    class="text-xs text-slate-400 mt-1"
-                >
-                    0 รายการ
-                </p>
-
-            </div>
-
-
-            <!-- ITEMS -->
-
-            <div
-                id="order-items"
-                class="p-5 space-y-3 max-h-[400px]
-                overflow-y-auto"
-            ></div>
-
-
-            <!-- TOTAL -->
-
-            <div
-                class="p-5 border-t border-slate-100"
-            >
-
+                <!-- ITEMS -->
 
                 <div
-                    class="flex justify-between
-                    text-sm text-slate-500"
-                >
-
-                    <span>
-                        ค่าสินค้า
-                    </span>
-
-                    <span
-                        id="summary-subtotal"
-                        class="font-bold text-slate-700"
-                    >
-                        ฿0
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="flex justify-between
-                    text-sm text-slate-500 mt-3"
-                >
-
-                    <span>
-                        ค่าจัดส่ง
-                    </span>
-
-                    <span
-                        id="summary-shipping"
-                        class="font-bold text-slate-700"
-                    >
-                        ฿40
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="border-t border-dashed
-                    border-slate-200 my-4"
+                    id="checkout-items"
+                    class="p-5 space-y-3 max-h-[420px]
+                    overflow-y-auto"
                 ></div>
 
 
+                <!-- TOTAL -->
+
                 <div
-                    class="flex justify-between
-                    items-center"
+                    class="p-5 border-t border-slate-100
+                    space-y-3"
                 >
 
-                    <span class="font-black">
-                        รวมทั้งหมด
-                    </span>
-
-                    <span
-                        id="summary-total"
-                        class="text-2xl font-black
-                        text-indigo-600"
+                    <div
+                        class="flex justify-between
+                        text-sm"
                     >
-                        ฿0
-                    </span>
+
+                        <span class="text-slate-500">
+                            ค่าสินค้า
+                        </span>
+
+                        <span
+                            id="subtotal"
+                            class="font-bold"
+                        >
+                            ฿0
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="flex justify-between
+                        text-sm"
+                    >
+
+                        <span class="text-slate-500">
+                            ค่าจัดส่ง
+                        </span>
+
+                        <span
+                            id="shipping-cost"
+                            class="font-bold"
+                        >
+                            ฟรี
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="border-t border-slate-100
+                        pt-3 flex justify-between
+                        items-center"
+                    >
+
+                        <span class="font-black">
+                            ยอดชำระทั้งหมด
+                        </span>
+
+                        <span
+                            id="grand-total"
+                            class="text-2xl font-black
+                            text-indigo-600"
+                        >
+                            ฿0
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="w-full mt-3 py-4 rounded-2xl
+                        bg-indigo-600 hover:bg-indigo-700
+                        text-white font-black text-base
+                        shadow-lg shadow-indigo-200"
+                    >
+
+                        <i
+                            class="fa-solid fa-circle-check mr-2"
+                        ></i>
+
+                        ยืนยันการสั่งซื้อ
+
+                    </button>
+
+
+                    <p
+                        class="text-[11px] text-slate-400
+                        text-center leading-5"
+                    >
+                        เมื่อกดยืนยัน ระบบจะสร้างคำสั่งซื้อ
+                        และนำไปยังหน้าคำสั่งซื้อ
+                    </p>
 
                 </div>
 
+            </section>
 
-                <!-- TERMS -->
+        </div>
 
-                <label
-                    class="flex items-start gap-3
-                    mt-5 cursor-pointer"
-                >
-
-                    <input
-                        id="agree"
-                        type="checkbox"
-                        class="mt-1 w-4 h-4 accent-indigo-600"
-                    >
-
-                    <span
-                        class="text-xs text-slate-500 leading-5"
-                    >
-                        ฉันตรวจสอบรายการสินค้า
-                        ที่อยู่จัดส่ง
-                        และวิธีชำระเงินแล้ว
-                        และยืนยันการสั่งซื้อ
-                    </span>
-
-                </label>
-
-
-                <!-- CONFIRM -->
-
-                <button
-                    id="confirm-order-button"
-                    type="button"
-                    onclick="confirmOrder()"
-                    class="w-full mt-5
-                    bg-indigo-600 hover:bg-indigo-700
-                    disabled:bg-slate-300
-                    disabled:cursor-not-allowed
-                    text-white font-black
-                    py-4 rounded-2xl
-                    transition"
-                >
-
-                    <i class="fa-solid fa-check mr-2"></i>
-
-                    ยืนยันและสั่งซื้อ
-
-                </button>
-
-
-                <a
-                    href="shop.html"
-                    class="w-full mt-3
-                    flex items-center justify-center
-                    py-3 rounded-2xl
-                    bg-slate-100 hover:bg-slate-200
-                    text-slate-600 font-bold text-sm"
-                >
-
-                    กลับไปเลือกสินค้า
-
-                </a>
-
-
-            </div>
-
-        </section>
-
-    </div>
-
-
-</div>
-```
+    </form>
 
 </main>
 
+
 <!-- =====================================================
-     TOAST
+     SUCCESS MODAL
 ===================================================== -->
 
 <div
-    id="toast"
-    class="hidden fixed bottom-6 left-1/2
-    -translate-x-1/2 z-[300]
-    px-5 py-3 rounded-2xl
-    bg-slate-950 text-white
-    shadow-2xl text-sm font-bold"
-></div>
+    id="success-modal"
+    class="hidden fixed inset-0 z-[200]
+    bg-slate-950/70 backdrop-blur-sm
+    p-4"
+>
+
+    <div
+        class="min-h-full flex items-center justify-center"
+    >
+
+        <div
+            class="bg-white rounded-3xl
+            w-full max-w-md p-7 text-center shadow-2xl"
+        >
+
+            <div
+                class="w-20 h-20 mx-auto rounded-full
+                bg-emerald-100 text-emerald-600
+                flex items-center justify-center text-3xl"
+            >
+
+                <i class="fa-solid fa-check"></i>
+
+            </div>
+
+
+            <h2
+                class="text-2xl font-black mt-5"
+            >
+                สั่งซื้อสำเร็จ!
+            </h2>
+
+
+            <p
+                class="text-sm text-slate-500 mt-2"
+            >
+                ระบบบันทึกคำสั่งซื้อของคุณแล้ว
+            </p>
+
+
+            <p
+                id="success-order-id"
+                class="mt-4 px-4 py-3 rounded-2xl
+                bg-slate-100 font-black text-indigo-600"
+            ></p>
+
+
+            <p
+                id="success-payment"
+                class="text-xs text-slate-400 mt-3"
+            ></p>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <!-- =====================================================
      JAVASCRIPT
@@ -1069,16 +1046,25 @@
 
 <script>
 
+/* =====================================================
+   GLOBAL
+===================================================== */
+
 let cart = [];
-
-let selectedShipping = 'standard';
-
-let selectedPayment = 'cod';
 
 
 /* =====================================================
    HELPERS
 ===================================================== */
+
+function formatMoney(value) {
+
+    return '฿' +
+        (Number(value) || 0)
+        .toLocaleString('th-TH');
+
+}
+
 
 function escapeHTML(value) {
 
@@ -1092,24 +1078,15 @@ function escapeHTML(value) {
 }
 
 
-function formatMoney(value) {
-
-    const number = Number(value) || 0;
-
-    return '฿' + number.toLocaleString('th-TH');
-
-}
-
-
 function fallbackImage() {
 
-    return 'https://placehold.co/200x200/e2e8f0/64748b?text=No+Image';
+    return 'https://placehold.co/300x300/e2e8f0/64748b?text=No+Image';
 
 }
 
 
 /* =====================================================
-   LOAD CART
+   CART
 ===================================================== */
 
 function loadCart() {
@@ -1118,6 +1095,7 @@ function loadCart() {
 
         const saved =
             localStorage.getItem('cart');
+
 
         if (!saved) {
 
@@ -1132,15 +1110,10 @@ function loadCart() {
             JSON.parse(saved);
 
 
-        if (Array.isArray(parsed)) {
-
-            cart = parsed;
-
-        } else {
-
-            cart = [];
-
-        }
+        cart =
+            Array.isArray(parsed)
+                ? parsed
+                : [];
 
     } catch (error) {
 
@@ -1157,92 +1130,115 @@ function loadCart() {
 
 
 /* =====================================================
-   CART CALCULATIONS
+   TOTAL
 ===================================================== */
-
-function getCartQuantity() {
-
-    return cart.reduce(
-        (total, item) => {
-
-            return total +
-                Number(item.quantity || 0);
-
-        },
-        0
-    );
-
-}
-
 
 function getSubtotal() {
 
     return cart.reduce(
-        (total, item) => {
-
-            return total +
-                Number(item.price || 0) *
-                Number(item.quantity || 0);
-
-        },
+        (total, item) =>
+            total +
+            Number(item.price || 0) *
+            Number(item.quantity || 1),
         0
     );
 
 }
 
 
-function getShippingFee() {
+function getSelectedShipping() {
 
-    if (selectedShipping === 'express') {
+    const selected =
+        document.querySelector(
+            'input[name="shippingMethod"]:checked'
+        );
 
-        return 80;
+
+    if (!selected) {
+
+        return {
+            value: 'standard',
+            name: 'Standard Delivery',
+            price: 0
+        };
 
     }
 
-    return 40;
+
+    const value =
+        selected.value;
+
+
+    const names = {
+
+        standard: 'Standard Delivery',
+
+        express: 'Express Delivery',
+
+        same_day: 'Same Day'
+
+    };
+
+
+    return {
+
+        value: value,
+
+        name:
+            names[value] ||
+            value,
+
+        price:
+            Number(selected.dataset.price || 0)
+
+    };
 
 }
 
 
 function getGrandTotal() {
 
-    return getSubtotal() + getShippingFee();
+    return (
+        getSubtotal() +
+        getSelectedShipping().price
+    );
 
 }
 
 
 /* =====================================================
-   RENDER ORDER ITEMS
+   RENDER ITEMS
 ===================================================== */
 
-function renderOrderItems() {
+function renderCheckoutItems() {
 
     const container =
-        document.getElementById('order-items');
+        document.getElementById(
+            'checkout-items'
+        );
 
-    const count =
-        document.getElementById('summary-count');
 
-    const subtotal =
-        document.getElementById('summary-subtotal');
-
-    const shipping =
-        document.getElementById('summary-shipping');
-
-    const total =
-        document.getElementById('summary-total');
+    const itemCount =
+        document.getElementById(
+            'item-count'
+        );
 
 
     if (!container) return;
 
 
     const quantity =
-        getCartQuantity();
+        cart.reduce(
+            (sum, item) =>
+                sum +
+                Number(item.quantity || 1),
+            0
+        );
 
 
-    if (count) {
+    if (itemCount) {
 
-        count.textContent =
+        itemCount.textContent =
             `${quantity} รายการ`;
 
     }
@@ -1250,25 +1246,7 @@ function renderOrderItems() {
 
     if (!cart.length) {
 
-        container.innerHTML = `
-
-            <div class="py-8 text-center">
-
-                <div
-                    class="w-14 h-14 mx-auto rounded-2xl
-                    bg-slate-100 flex items-center justify-center
-                    text-2xl"
-                >
-                    🛒
-                </div>
-
-                <p class="font-bold mt-3">
-                    ไม่มีสินค้า
-                </p>
-
-            </div>
-
-        `;
+        container.innerHTML = '';
 
         return;
 
@@ -1278,9 +1256,14 @@ function renderOrderItems() {
     container.innerHTML =
         cart.map(item => {
 
-            const itemTotal =
-                Number(item.price || 0) *
+            const qty =
                 Number(item.quantity || 1);
+
+            const price =
+                Number(item.price || 0);
+
+            const total =
+                price * qty;
 
 
             return `
@@ -1292,21 +1275,25 @@ function renderOrderItems() {
 
                     <img
                         src="${escapeHTML(
-                            item.image || fallbackImage()
+                            item.image ||
+                            fallbackImage()
                         )}"
-                        class="w-16 h-16 rounded-xl
-                        object-cover shrink-0"
+                        class="w-16 h-16
+                        rounded-xl object-cover shrink-0"
                         onerror="this.onerror=null;this.src='${fallbackImage()}'"
                     >
 
 
-                    <div class="flex-1 min-w-0">
+                    <div class="min-w-0 flex-1">
 
                         <p
                             class="font-bold text-sm
                             line-clamp-2"
                         >
-                            ${escapeHTML(item.name || 'สินค้า')}
+                            ${escapeHTML(
+                                item.name ||
+                                'สินค้า'
+                            )}
                         </p>
 
 
@@ -1315,20 +1302,20 @@ function renderOrderItems() {
                             items-end mt-2"
                         >
 
-                            <p class="text-xs text-slate-400">
-
-                                ${formatMoney(item.price || 0)}
-                                ×
-                                ${Number(item.quantity || 1)}
-
+                            <p
+                                class="text-xs
+                                text-slate-400"
+                            >
+                                ${formatMoney(price)}
+                                × ${qty}
                             </p>
 
 
                             <p
-                                class="font-black text-sm
+                                class="font-black
                                 text-indigo-600"
                             >
-                                ${formatMoney(itemTotal)}
+                                ${formatMoney(total)}
                             </p>
 
                         </div>
@@ -1342,151 +1329,68 @@ function renderOrderItems() {
         })
         .join('');
 
-
-    if (subtotal) {
-
-        subtotal.textContent =
-            formatMoney(getSubtotal());
-
-    }
-
-
-    if (shipping) {
-
-        shipping.textContent =
-            formatMoney(getShippingFee());
-
-    }
-
-
-    if (total) {
-
-        total.textContent =
-            formatMoney(getGrandTotal());
-
-    }
-
 }
 
 
 /* =====================================================
-   SHIPPING
+   TOTAL UI
 ===================================================== */
 
-function selectShipping(method) {
+function updateTotals() {
 
-    selectedShipping =
-        method === 'express'
-            ? 'express'
-            : 'standard';
+    const subtotal =
+        getSubtotal();
 
 
-    document
-        .querySelectorAll('.shipping-option')
-        .forEach(option => {
-
-            option.classList.remove(
-                'selected-option'
-            );
-
-            option.classList.remove(
-                'border-indigo-500',
-                'bg-indigo-50'
-            );
-
-            option.classList.add(
-                'border-slate-200'
-            );
-
-        });
+    const shipping =
+        getSelectedShipping();
 
 
-    const selected =
-        document.querySelector(
-            `.shipping-option input[value="${selectedShipping}"]`
+    const grandTotal =
+        subtotal +
+        shipping.price;
+
+
+    const subtotalElement =
+        document.getElementById(
+            'subtotal'
         );
 
 
-    if (selected) {
-
-        const parent =
-            selected.closest('.shipping-option');
-
-        if (parent) {
-
-            parent.classList.add(
-                'selected-option'
-            );
-
-            parent.classList.remove(
-                'border-slate-200'
-            );
-
-        }
-
-        selected.checked = true;
-
-    }
-
-
-    renderOrderItems();
-
-}
-
-
-/* =====================================================
-   PAYMENT
-===================================================== */
-
-function selectPayment(method) {
-
-    selectedPayment = method;
-
-
-    document
-        .querySelectorAll('.payment-option')
-        .forEach(option => {
-
-            option.classList.remove(
-                'selected-option'
-            );
-
-            option.classList.remove(
-                'border-indigo-500',
-                'bg-indigo-50'
-            );
-
-            option.classList.add(
-                'border-slate-200'
-            );
-
-        });
-
-
-    const selected =
-        document.querySelector(
-            `.payment-option input[value="${method}"]`
+    const shippingElement =
+        document.getElementById(
+            'shipping-cost'
         );
 
 
-    if (selected) {
+    const grandElement =
+        document.getElementById(
+            'grand-total'
+        );
 
-        const parent =
-            selected.closest('.payment-option');
 
-        if (parent) {
+    if (subtotalElement) {
 
-            parent.classList.add(
-                'selected-option'
-            );
+        subtotalElement.textContent =
+            formatMoney(subtotal);
 
-            parent.classList.remove(
-                'border-slate-200'
-            );
+    }
 
-        }
 
-        selected.checked = true;
+    if (shippingElement) {
+
+        shippingElement.textContent =
+            shipping.price > 0
+                ? formatMoney(shipping.price)
+                : 'ฟรี';
+
+    }
+
+
+    if (grandElement) {
+
+        grandElement.textContent =
+            formatMoney(grandTotal);
 
     }
 
@@ -1494,60 +1398,83 @@ function selectPayment(method) {
 
 
 /* =====================================================
-   GET SHIPPING DATA
+   PAYMENT UI
 ===================================================== */
 
-function getShippingAddress() {
+function updatePaymentNote() {
+
+    const selected =
+        document.querySelector(
+            'input[name="paymentMethod"]:checked'
+        );
+
+
+    const note =
+        document.getElementById(
+            'payment-note'
+        );
+
+
+    if (!selected || !note) return;
+
+
+    const notes = {
+
+        cod:
+            '💵 คุณจะชำระเงินกับพนักงานจัดส่งเมื่อได้รับสินค้า',
+
+        bank_transfer:
+            '🏦 หลังยืนยันคำสั่งซื้อ กรุณาโอนเงินตามข้อมูลบัญชีที่ระบบกำหนด',
+
+        promptpay:
+            '📱 หลังยืนยันคำสั่งซื้อ ระบบจะแสดง QR สำหรับชำระเงิน'
+
+    };
+
+
+    note.textContent =
+        notes[selected.value] || '';
+
+
+    note.classList.remove('hidden');
+
+}
+
+
+/* =====================================================
+   PAYMENT NAME
+===================================================== */
+
+function getPaymentInfo() {
+
+    const selected =
+        document.querySelector(
+            'input[name="paymentMethod"]:checked'
+        );
+
+
+    const paymentNames = {
+
+        cod: 'เก็บเงินปลายทาง',
+
+        bank_transfer: 'โอนเงินผ่านธนาคาร',
+
+        promptpay: 'QR พร้อมเพย์'
+
+    };
+
 
     return {
 
+        value:
+            selected?.value ||
+            'cod',
+
         name:
-            document
-                .getElementById('shipping-name')
-                .value
-                .trim(),
-
-        phone:
-            document
-                .getElementById('shipping-phone')
-                .value
-                .trim(),
-
-        address:
-            document
-                .getElementById('shipping-address')
-                .value
-                .trim(),
-
-        subdistrict:
-            document
-                .getElementById('shipping-subdistrict')
-                .value
-                .trim(),
-
-        district:
-            document
-                .getElementById('shipping-district')
-                .value
-                .trim(),
-
-        province:
-            document
-                .getElementById('shipping-province')
-                .value
-                .trim(),
-
-        postalCode:
-            document
-                .getElementById('shipping-postal')
-                .value
-                .trim(),
-
-        note:
-            document
-                .getElementById('shipping-note')
-                .value
-                .trim()
+            paymentNames[
+                selected?.value
+            ] ||
+            'เก็บเงินปลายทาง'
 
     };
 
@@ -1555,177 +1482,27 @@ function getShippingAddress() {
 
 
 /* =====================================================
-   VALIDATE
+   SHIPPING NAME
 ===================================================== */
 
-function validateCheckout() {
+function getShippingInfo() {
 
-    const address =
-        getShippingAddress();
+    const shipping =
+        getSelectedShipping();
 
 
-    if (!address.name) {
+    return {
 
-        showToast('กรุณากรอกชื่อผู้รับ');
+        value:
+            shipping.value,
 
-        document
-            .getElementById('shipping-name')
-            .focus();
+        name:
+            shipping.name,
 
-        return false;
-
-    }
-
-
-    if (!address.phone) {
-
-        showToast('กรุณากรอกเบอร์โทรศัพท์');
-
-        document
-            .getElementById('shipping-phone')
-            .focus();
-
-        return false;
-
-    }
-
-
-    if (!/^[0-9]{9,10}$/.test(address.phone)) {
-
-        showToast('กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง');
-
-        document
-            .getElementById('shipping-phone')
-            .focus();
-
-        return false;
-
-    }
-
-
-    if (!address.address) {
-
-        showToast('กรุณากรอกที่อยู่');
-
-        document
-            .getElementById('shipping-address')
-            .focus();
-
-        return false;
-
-    }
-
-
-    if (!address.subdistrict) {
-
-        showToast('กรุณากรอกตำบล / แขวง');
-
-        document
-            .getElementById('shipping-subdistrict')
-            .focus();
-
-        return false;
-
-    }
-
-
-    if (!address.district) {
-
-        showToast('กรุณากรอกอำเภอ / เขต');
-
-        document
-            .getElementById('shipping-district')
-            .focus();
-
-        return false;
-
-    }
-
-
-    if (!address.province) {
-
-        showToast('กรุณากรอกจังหวัด');
-
-        document
-            .getElementById('shipping-province')
-            .focus();
-
-        return false;
-
-    }
-
-
-    if (!/^[0-9]{5}$/.test(address.postalCode)) {
-
-        showToast('กรุณากรอกรหัสไปรษณีย์ 5 หลัก');
-
-        document
-            .getElementById('shipping-postal')
-            .focus();
-
-        return false;
-
-    }
-
-
-    const agree =
-        document.getElementById('agree');
-
-
-    if (!agree.checked) {
-
-        showToast(
-            'กรุณายืนยันว่าตรวจสอบข้อมูลแล้ว'
-        );
-
-        return false;
-
-    }
-
-
-    return true;
-
-}
-
-
-/* =====================================================
-   PAYMENT LABEL
-===================================================== */
-
-function getPaymentLabel(method) {
-
-    const labels = {
-
-        cod: 'เก็บเงินปลายทาง (COD)',
-
-        bank_transfer: 'โอนผ่านธนาคาร',
-
-        promptpay: 'QR PromptPay'
+        price:
+            shipping.price
 
     };
-
-
-    return labels[method] || method;
-
-}
-
-
-/* =====================================================
-   SHIPPING LABEL
-===================================================== */
-
-function getShippingLabel(method) {
-
-    const labels = {
-
-        standard: 'Standard Delivery',
-
-        express: 'Express Delivery'
-
-    };
-
-
-    return labels[method] || method;
 
 }
 
@@ -1734,59 +1511,39 @@ function getShippingLabel(method) {
    CREATE ORDER
 ===================================================== */
 
-function confirmOrder() {
+function createOrder() {
 
-    if (!cart.length) {
-
-        showToast(
-            'ไม่สามารถสั่งซื้อได้ เพราะตะกร้าว่าง'
-        );
-
-        return;
-
-    }
-
-
-    if (!validateCheckout()) {
-
-        return;
-
-    }
-
-
-    const button =
+    const form =
         document.getElementById(
-            'confirm-order-button'
+            'checkout-form'
         );
 
 
-    if (button) {
-
-        button.disabled = true;
-
-        button.innerHTML = `
-
-            <i class="fa-solid fa-spinner fa-spin mr-2"></i>
-
-            กำลังสร้างคำสั่งซื้อ...
-
-        `;
-
-    }
+    const formData =
+        new FormData(form);
 
 
-    const address =
-        getShippingAddress();
+    const shipping =
+        getShippingInfo();
+
+
+    const payment =
+        getPaymentInfo();
+
+
+    const subtotal =
+        getSubtotal();
+
+
+    const grandTotal =
+        subtotal +
+        shipping.price;
 
 
     const orderId =
         'ORD-' +
         Date.now();
 
-
-    /*
-       คัดลอกข้อมูลสินค้า
-    */
 
     const orderItems =
         cart.map(item => ({
@@ -1795,7 +1552,8 @@ function confirmOrder() {
                 item.id,
 
             productId:
-                item.productId || item.id,
+                item.productId ||
+                item.id,
 
             name:
                 item.name,
@@ -1810,14 +1568,14 @@ function confirmOrder() {
                 item.image || '',
 
             shopId:
-                item.shopId || null
+                item.shopId || null,
+
+            itemTotal:
+                Number(item.price || 0) *
+                Number(item.quantity || 1)
 
         }));
 
-
-    /*
-       สร้าง Order
-    */
 
     const order = {
 
@@ -1827,128 +1585,178 @@ function confirmOrder() {
         orderId:
             orderId,
 
+
+        /* สินค้า */
+
         items:
             orderItems,
 
-        /*
-           ราคาสินค้า
-        */
+
+        /* ยอดเงิน */
 
         subtotal:
-            getSubtotal(),
+            subtotal,
 
-        /*
-           ค่าจัดส่ง
-        */
-
-        shippingFee:
-            getShippingFee(),
-
-        /*
-           ยอดรวมทั้งหมด
-        */
+        shippingCost:
+            shipping.price,
 
         total:
-            getGrandTotal(),
+            grandTotal,
 
-        /*
-           สถานะคำสั่งซื้อ
-        */
+
+        /* สถานะ */
 
         status:
             'pending',
 
         paymentStatus:
-            selectedPayment === 'cod'
+            payment.value === 'cod'
                 ? 'pending'
-                : 'waiting_payment',
+                : 'awaiting_payment',
 
-        /*
-           วิธีจัดส่ง
-        */
+
+        /* ที่อยู่ */
+
+        shippingAddress: {
+
+            name:
+                formData.get(
+                    'receiverName'
+                ) || '',
+
+            phone:
+                formData.get(
+                    'receiverPhone'
+                ) || '',
+
+            address:
+                formData.get(
+                    'address'
+                ) || '',
+
+            district:
+                formData.get(
+                    'district'
+                ) || '',
+
+            amphoe:
+                formData.get(
+                    'amphoe'
+                ) || '',
+
+            province:
+                formData.get(
+                    'province'
+                ) || '',
+
+            zipcode:
+                formData.get(
+                    'zipcode'
+                ) || ''
+
+        },
+
+
+        /* เก็บแบบ flat ด้วย
+           เผื่อ orders.html เดิมใช้ชื่อ field เหล่านี้ */
+
+        receiverName:
+            formData.get(
+                'receiverName'
+            ) || '',
+
+        receiverPhone:
+            formData.get(
+                'receiverPhone'
+            ) || '',
+
+        address:
+            formData.get(
+                'address'
+            ) || '',
+
+        district:
+            formData.get(
+                'district'
+            ) || '',
+
+        amphoe:
+            formData.get(
+                'amphoe'
+            ) || '',
+
+        province:
+            formData.get(
+                'province'
+            ) || '',
+
+        zipcode:
+            formData.get(
+                'zipcode'
+            ) || '',
+
+
+        /* การจัดส่ง */
 
         shippingMethod:
-            selectedShipping,
+            shipping.value,
 
         shippingMethodName:
-            getShippingLabel(selectedShipping),
+            shipping.name,
 
-        /*
-           วิธีชำระเงิน
-        */
+
+        /* การจ่ายเงิน */
 
         paymentMethod:
-            selectedPayment,
+            payment.value,
 
         paymentMethodName:
-            getPaymentLabel(selectedPayment),
+            payment.name,
 
-        /*
-           ที่อยู่จัดส่ง
-        */
 
-        shippingAddress:
-            address,
-
-        /*
-           วันเวลาสั่งซื้อ
-        */
+        /* วันที่ */
 
         createdAt:
+            new Date().toISOString(),
+
+        updatedAt:
             new Date().toISOString()
 
     };
 
 
-    console.log(
-        '[CHECKOUT] Creating order:',
-        order
-    );
+    return order;
+
+}
 
 
-    /*
-       บันทึก latestOrder
-    */
+/* =====================================================
+   SAVE ORDER
+===================================================== */
 
-    try {
-
-        localStorage.setItem(
-            'latestOrder',
-            JSON.stringify(order)
-        );
-
-    } catch (error) {
-
-        console.error(
-            '[CHECKOUT] latestOrder error:',
-            error
-        );
-
-    }
-
-
-    /*
-       โหลด orders เดิม
-    */
+function saveOrder(order) {
 
     let orders = [];
 
 
     try {
 
-        const savedOrders =
-            localStorage.getItem('orders');
+        const saved =
+            localStorage.getItem(
+                'orders'
+            );
 
 
-        if (savedOrders) {
+        if (saved) {
 
             const parsed =
-                JSON.parse(savedOrders);
+                JSON.parse(saved);
 
 
             if (Array.isArray(parsed)) {
 
-                orders = parsed;
+                orders =
+                    parsed;
 
             }
 
@@ -1957,7 +1765,7 @@ function confirmOrder() {
     } catch (error) {
 
         console.error(
-            '[CHECKOUT] orders error:',
+            '[CHECKOUT] Cannot read orders:',
             error
         );
 
@@ -1967,49 +1775,50 @@ function confirmOrder() {
 
 
     /*
-       เพิ่ม Order ใหม่ด้านบน
+       เพิ่ม Order ใหม่ไว้ด้านบน
     */
 
     orders.unshift(order);
 
 
+    localStorage.setItem(
+        'orders',
+        JSON.stringify(orders)
+    );
+
+
     /*
-       บันทึก orders
+       latestOrder
     */
 
-    try {
+    localStorage.setItem(
+        'latestOrder',
+        JSON.stringify(order)
+    );
 
-        localStorage.setItem(
-            'orders',
-            JSON.stringify(orders)
+
+    return true;
+
+}
+
+
+/* =====================================================
+   COMPLETE CHECKOUT
+===================================================== */
+
+function completeCheckout(event) {
+
+    event.preventDefault();
+
+
+    if (!cart.length) {
+
+        alert(
+            'ตะกร้าสินค้าว่าง กรุณาเลือกสินค้าก่อน'
         );
 
-    } catch (error) {
-
-        console.error(
-            '[CHECKOUT] Cannot save orders:',
-            error
-        );
-
-
-        if (button) {
-
-            button.disabled = false;
-
-            button.innerHTML = `
-
-                <i class="fa-solid fa-check mr-2"></i>
-
-                ยืนยันและสั่งซื้อ
-
-            `;
-
-        }
-
-
-        showToast(
-            'ไม่สามารถบันทึกคำสั่งซื้อได้'
-        );
+        window.location.href =
+            'shop.html';
 
         return;
 
@@ -2017,25 +1826,106 @@ function confirmOrder() {
 
 
     /*
-       ล้างตะกร้า
+       ตรวจสอบ Form
     */
 
-    try {
-
-        localStorage.removeItem('cart');
-
-    } catch (error) {
-
-        console.error(
-            '[CHECKOUT] Cannot clear cart:',
-            error
+    const form =
+        document.getElementById(
+            'checkout-form'
         );
+
+
+    if (!form.checkValidity()) {
+
+        form.reportValidity();
+
+        return;
 
     }
 
 
     /*
-       ส่งไป orders.html
+       สร้าง Order
+    */
+
+    const order =
+        createOrder();
+
+
+    /*
+       บันทึก Order
+    */
+
+    saveOrder(order);
+
+
+    /*
+       เก็บข้อมูล Order ที่เพิ่งสร้าง
+    */
+
+    localStorage.setItem(
+        'lastCreatedOrderId',
+        order.orderId
+    );
+
+
+    /*
+       ล้างตะกร้า
+    */
+
+    localStorage.removeItem('cart');
+
+    cart = [];
+
+
+    /*
+       แสดง Success
+    */
+
+    const modal =
+        document.getElementById(
+            'success-modal'
+        );
+
+
+    const orderIdElement =
+        document.getElementById(
+            'success-order-id'
+        );
+
+
+    const paymentElement =
+        document.getElementById(
+            'success-payment'
+        );
+
+
+    if (orderIdElement) {
+
+        orderIdElement.textContent =
+            order.orderId;
+
+    }
+
+
+    if (paymentElement) {
+
+        paymentElement.textContent =
+            `วิธีชำระเงิน: ${order.paymentMethodName}`;
+
+    }
+
+
+    if (modal) {
+
+        modal.classList.remove('hidden');
+
+    }
+
+
+    /*
+       ไป orders.html หลังจากแสดง
+       Success เล็กน้อย
     */
 
     setTimeout(() => {
@@ -2043,51 +1933,7 @@ function confirmOrder() {
         window.location.href =
             'orders.html';
 
-    }, 500);
-
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-let toastTimer = null;
-
-
-function showToast(message) {
-
-    const toast =
-        document.getElementById('toast');
-
-
-    if (!toast) return;
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.remove('hidden');
-
-    toast.classList.add(
-        'toast-animation'
-    );
-
-
-    clearTimeout(toastTimer);
-
-
-    toastTimer =
-        setTimeout(() => {
-
-            toast.classList.add('hidden');
-
-            toast.classList.remove(
-                'toast-animation'
-            );
-
-        }, 2500);
+    }, 1200);
 
 }
 
@@ -2103,40 +1949,20 @@ document.addEventListener(
         loadCart();
 
 
-        const content =
-            document.getElementById(
-                'checkout-content'
-            );
-
-
-        const empty =
-            document.getElementById(
-                'empty-cart'
-            );
-
-
         /*
-           ถ้าตะกร้าว่าง
+           ถ้าไม่มีสินค้า
         */
 
         if (!cart.length) {
 
-            if (content) {
-
-                content.classList.add(
-                    'hidden'
-                );
-
-            }
+            document
+                .getElementById('checkout-form')
+                ?.classList.add('hidden');
 
 
-            if (empty) {
-
-                empty.classList.remove(
-                    'hidden'
-                );
-
-            }
+            document
+                .getElementById('empty-cart')
+                ?.classList.remove('hidden');
 
 
             return;
@@ -2145,47 +1971,80 @@ document.addEventListener(
 
 
         /*
-           แสดง Checkout
+           แสดงสินค้า
         */
 
-        if (content) {
-
-            content.classList.remove(
-                'hidden'
-            );
-
-        }
-
-
-        if (empty) {
-
-            empty.classList.add(
-                'hidden'
-            );
-
-        }
+        renderCheckoutItems();
 
 
         /*
-           แสดงรายการสินค้า
+           คำนวณราคา
         */
 
-        renderOrderItems();
+        updateTotals();
 
 
         /*
-           ตั้งค่าเริ่มต้น
+           Payment
         */
 
-        selectShipping('standard');
+        updatePaymentNote();
 
-        selectPayment('cod');
+
+        /*
+           Shipping change
+        */
+
+        document
+            .querySelectorAll(
+                'input[name="shippingMethod"]'
+            )
+            .forEach(input => {
+
+                input.addEventListener(
+                    'change',
+                    updateTotals
+                );
+
+            });
+
+
+        /*
+           Payment change
+        */
+
+        document
+            .querySelectorAll(
+                'input[name="paymentMethod"]'
+            )
+            .forEach(input => {
+
+                input.addEventListener(
+                    'change',
+                    updatePaymentNote
+                );
+
+            });
+
+
+        /*
+           Submit
+        */
+
+        document
+            .getElementById(
+                'checkout-form'
+            )
+            .addEventListener(
+                'submit',
+                completeCheckout
+            );
 
     }
 );
 
 </script>
 
-</body>
 
+</body>
 </html>
