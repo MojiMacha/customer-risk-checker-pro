@@ -40,14 +40,6 @@
 
 
     <!-- =====================================================
-         SOUND SYSTEM
-         ใช้ระบบเสียงจากไฟล์ JS เดิมของโปรเจกต์
-    ====================================================== -->
-
-    <script src="js/sound.js"></script>
-
-
-    <!-- =====================================================
          STYLE
     ====================================================== -->
 
@@ -173,7 +165,7 @@
 
 
         /* ================================
-           BUTTON SOUND EFFECT
+           BUTTON / LINK
         ================================= */
 
         button,
@@ -264,8 +256,10 @@
 
         <div class="flex items-center gap-2">
 
-            <button
-                onclick="openShopModal()"
+            <!-- SHOP BUTTON -->
+
+            <a
+                href="shop.html"
                 class="flex items-center gap-2
                 px-3 py-1.5 rounded-xl
                 bg-white/10
@@ -279,13 +273,14 @@
 
                 ช้อปสินค้า
 
-            </button>
+            </a>
 
 
             <!-- STATUS -->
 
             <div
-                class="flex items-center gap-2
+                class="hidden sm:flex
+                items-center gap-2
                 px-3 py-1.5 rounded-xl
                 bg-emerald-500/10
                 border border-emerald-500/20"
@@ -301,7 +296,9 @@
                     text-emerald-300
                     font-semibold"
                 >
+
                     SYSTEM ONLINE
+
                 </span>
 
             </div>
@@ -512,7 +509,6 @@
 
         <a
             href="tracking.html"
-            onclick="playIndexSound('success')"
             class="block"
         >
 
@@ -560,14 +556,18 @@
                                 text-[10px]
                                 font-black"
                             >
+
                                 PROMO
+
                             </span>
 
                             <span
                                 class="text-xs
                                 font-bold"
                             >
+
                                 FLASH DEAL 🚚
+
                             </span>
 
                         </div>
@@ -671,7 +671,7 @@
 
                 <i class="fa-solid fa-layer-group"></i>
 
-                4 ระบบ
+                5 ระบบ
 
             </span>
 
@@ -687,6 +687,7 @@
             class="grid
             grid-cols-1
             sm:grid-cols-2
+            lg:grid-cols-3
             gap-4"
         >
 
@@ -697,7 +698,6 @@
 
             <a
                 href="driver.html"
-                onclick="playIndexSound('success')"
                 class="menu-card group
                 bg-indigo-600
                 hover:bg-indigo-700
@@ -801,7 +801,6 @@
 
             <a
                 href="admin.html"
-                onclick="playIndexSound('success')"
                 class="menu-card group
                 bg-white
                 hover:bg-slate-50
@@ -909,7 +908,6 @@
 
             <a
                 href="blacklist.html"
-                onclick="playIndexSound('failed')"
                 class="menu-card group
                 bg-white
                 hover:bg-rose-50/50
@@ -1017,7 +1015,6 @@
 
             <a
                 href="tracking.html"
-                onclick="playIndexSound('success')"
                 class="menu-card group
                 bg-white
                 hover:bg-slate-50
@@ -1116,6 +1113,136 @@
                 </div>
 
             </a>
+
+
+
+            <!-- =================================================
+                 SHOP
+            ================================================== -->
+
+            <a
+                href="shop.html"
+                class="menu-card group
+                bg-gradient-to-br
+                from-pink-500
+                to-rose-500
+                hover:from-pink-600
+                hover:to-rose-600
+                text-white
+                rounded-3xl
+                p-6
+                shadow-lg
+                shadow-pink-100
+                relative
+                overflow-hidden"
+            >
+
+                <!-- Decorative icon -->
+
+                <div
+                    class="absolute
+                    -right-6
+                    -bottom-8
+                    text-white/10
+                    text-8xl"
+                >
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                </div>
+
+
+                <div
+                    class="relative
+                    flex
+                    justify-between
+                    items-start"
+                >
+
+                    <div>
+
+                        <div
+                            class="w-14 h-14
+                            rounded-2xl
+                            bg-white/15
+                            flex items-center
+                            justify-center
+                            text-2xl"
+                        >
+
+                            <i class="fa-solid fa-cart-shopping"></i>
+
+                        </div>
+
+
+                        <div
+                            class="flex
+                            items-center
+                            gap-2
+                            mt-5"
+                        >
+
+                            <h3
+                                class="font-black
+                                text-xl"
+                            >
+
+                                Shop ซื้อของ
+
+                            </h3>
+
+
+                            <span
+                                class="px-2 py-0.5
+                                rounded-full
+                                bg-white/20
+                                text-[9px]
+                                font-black"
+                            >
+
+                                NEW
+
+                            </span>
+
+                        </div>
+
+
+                        <p
+                            class="text-xs
+                            text-pink-100
+                            mt-1"
+                        >
+
+                            เลือกซื้อสินค้าและเพิ่มสินค้าลงตะกร้า
+
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="w-9 h-9
+                        rounded-full
+                        bg-white/10
+                        flex items-center
+                        justify-center
+                        group-hover:bg-white/20
+                        transition"
+                    >
+
+                        <i
+                            class="fa-solid
+                            fa-arrow-right
+                            group-hover:translate-x-1
+                            transition"
+                        ></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
 
         </div>
 
@@ -1244,207 +1371,6 @@
     </div>
 
 </footer>
-
-
-
-<!-- ========================================================= -->
-<!-- SHOP MODAL (POPUP)
-========================================================== -->
-
-<div
-    id="shop-modal-backdrop"
-    onclick="closeShopModal(event)"
-    class="hidden
-    fixed inset-0
-    z-50
-    bg-slate-950/70
-    backdrop-blur-sm
-    flex items-center justify-center
-    p-4"
->
-
-    <div
-        onclick="event.stopPropagation()"
-        class="bg-white
-        w-full max-w-5xl
-        h-[85vh]
-        rounded-2xl
-        shadow-2xl
-        overflow-hidden
-        flex flex-col"
-    >
-
-        <div
-            class="flex items-center justify-between
-            px-4 py-3
-            bg-slate-950
-            text-white"
-        >
-
-            <div class="flex items-center gap-2">
-
-                <i class="fa-solid fa-store text-amber-300"></i>
-
-                <span class="font-bold text-sm">
-                    ช้อปสินค้า
-                </span>
-
-            </div>
-
-            <button
-                onclick="closeShopModal()"
-                class="w-8 h-8
-                rounded-lg
-                flex items-center justify-center
-                hover:bg-white/10
-                transition"
-            >
-
-                <i class="fa-solid fa-xmark"></i>
-
-            </button>
-
-        </div>
-
-        <iframe
-            id="shop-modal-iframe"
-            title="ช้อปสินค้า"
-            class="flex-1 w-full border-0"
-        ></iframe>
-
-    </div>
-
-</div>
-
-
-
-<!-- ========================================================= -->
-<!-- INDEX SOUND HANDLER
-========================================================== -->
-
-<script>
-
-    function openShopModal() {
-
-        const backdrop =
-            document.getElementById("shop-modal-backdrop");
-
-        const iframe =
-            document.getElementById("shop-modal-iframe");
-
-        if (!iframe.src) {
-
-            iframe.src = "shop.html";
-
-        }
-
-        backdrop.classList.remove("hidden");
-
-        document.body.style.overflow = "hidden";
-
-    }
-
-    function closeShopModal(event) {
-
-        if (event && event.target !== event.currentTarget) {
-
-            return;
-
-        }
-
-        document
-            .getElementById("shop-modal-backdrop")
-            .classList.add("hidden");
-
-        document.body.style.overflow = "";
-
-    }
-
-</script>
-
-
-<script>
-
-    /*
-     * ระบบเสียงใช้ SoundSystem จาก sound.js
-     *
-     * ไม่สร้าง Audio ใหม่
-     * และไม่เขียนระบบเสียงซ้ำ
-     */
-
-    function playIndexSound(type) {
-
-        try {
-
-            if (
-                typeof SoundSystem !== "undefined" &&
-                typeof SoundSystem.play === "function"
-            ) {
-
-                SoundSystem.play(type);
-
-            }
-
-            else {
-
-                console.warn(
-                    "ไม่พบ SoundSystem กรุณาตรวจสอบ sound.js"
-                );
-
-            }
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "เกิดข้อผิดพลาดในการเล่นเสียง:",
-                error
-            );
-
-        }
-
-    }
-
-
-    /* =====================================================
-       SOUND FOR ALL CLICKABLE ELEMENTS
-    ====================================================== */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        function () {
-
-            /*
-             * ถ้า element มี onclick="playIndexSound(...)"
-             * อยู่แล้ว จะไม่เพิ่มเสียงซ้ำ
-             */
-
-            const clickableElements =
-                document.querySelectorAll(
-                    "button:not([onclick]), .sound-button"
-                );
-
-
-            clickableElements.forEach(
-                function (element) {
-
-                    element.addEventListener(
-                        "click",
-                        function () {
-
-                            playIndexSound("success");
-
-                        }
-                    );
-
-                }
-            );
-
-        }
-    );
-
-</script>
 
 
 </body>
