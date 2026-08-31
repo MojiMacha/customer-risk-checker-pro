@@ -1,8 +1,11 @@
-<!DOCTYPE html><html lang="th"><head>
-    <meta charset="UTF-8"><meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<!DOCTYPE html>
+
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 <title>Delivery Risk Market</title>
 
@@ -22,10 +25,9 @@
 >
 
 <!-- =====================================================
-     DATA FILES
-     สำคัญ:
-     products.js และ shops.js อยู่ใน /js/
-     และประกาศตัวแปรชื่อ products / shops
+     DATA
+     IMPORTANT:
+     โหลดก่อน JavaScript หลัก
 ====================================================== -->
 
 <script src="js/shops.js"></script>
@@ -63,8 +65,11 @@
         animation: modalIn 0.22s ease;
     }
 
-    @keyframes modalIn {
+    .toast-animation {
+        animation: toastIn 0.25s ease;
+    }
 
+    @keyframes modalIn {
         from {
             opacity: 0;
             transform: translateY(12px) scale(0.97);
@@ -74,15 +79,9 @@
             opacity: 1;
             transform: translateY(0) scale(1);
         }
-
-    }
-
-    .toast-animation {
-        animation: toastIn 0.25s ease;
     }
 
     @keyframes toastIn {
-
         from {
             opacity: 0;
             transform: translate(-50%, 20px);
@@ -92,7 +91,6 @@
             opacity: 1;
             transform: translate(-50%, 0);
         }
-
     }
 
     .line-clamp-2 {
@@ -104,14 +102,22 @@
 
 </style>
 
-</head><body class="bg-slate-100 min-h-screen text-slate-800"><!-- =====================================================
+
+</head>
+
+<body class="bg-slate-100 min-h-screen text-slate-800">
+
+<!-- =====================================================
      NAVBAR
-===================================================== --><nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg"><div
+===================================================== -->
+
+<nav class="bg-slate-950 text-white sticky top-0 z-50 shadow-lg">
+
+
+<div
     class="max-w-7xl mx-auto px-4 py-3
     flex items-center justify-between gap-4"
 >
-
-    <!-- BRAND -->
 
     <a
         href="index.html"
@@ -119,19 +125,12 @@
     >
 
         <div
-            class="w-10 h-10
-            rounded-xl
-            bg-gradient-to-br
-            from-indigo-500
-            to-indigo-700
-            flex items-center
-            justify-center"
+            class="w-10 h-10 rounded-xl
+            bg-gradient-to-br from-indigo-500 to-indigo-700
+            flex items-center justify-center"
         >
 
-            <i
-                class="fa-solid fa-store
-                text-amber-300"
-            ></i>
+            <i class="fa-solid fa-store text-amber-300"></i>
 
         </div>
 
@@ -150,25 +149,16 @@
     </a>
 
 
-    <!-- RIGHT -->
-
     <div class="flex items-center gap-2">
 
         <a
             href="tracking.html"
-            class="hidden sm:flex
-            items-center gap-2
-            px-3 py-2
-            rounded-xl
-            text-xs font-bold
-            text-slate-300
-            hover:text-white
-            hover:bg-white/10
-            transition"
+            class="hidden sm:flex items-center gap-2
+            px-3 py-2 rounded-xl text-xs font-bold
+            text-slate-300 hover:text-white hover:bg-white/10"
         >
 
             <i class="fa-solid fa-box"></i>
-
             ติดตามพัสดุ
 
         </a>
@@ -176,55 +166,33 @@
 
         <a
             href="orders.html"
-            class="hidden md:flex
-            items-center gap-2
-            px-3 py-2
-            rounded-xl
-            text-xs font-bold
-            text-slate-300
-            hover:text-white
-            hover:bg-white/10
-            transition"
+            class="hidden md:flex items-center gap-2
+            px-3 py-2 rounded-xl text-xs font-bold
+            text-slate-300 hover:text-white hover:bg-white/10"
         >
 
             <i class="fa-solid fa-receipt"></i>
-
             คำสั่งซื้อ
 
         </a>
 
 
-        <!-- CART -->
-
         <button
             type="button"
             onclick="openCart()"
-            class="relative
-            w-10 h-10
-            rounded-xl
-            bg-indigo-600
-            hover:bg-indigo-500
-            flex items-center
-            justify-center
-            transition
-            active:scale-95"
+            class="relative w-10 h-10 rounded-xl
+            bg-indigo-600 hover:bg-indigo-500
+            flex items-center justify-center"
         >
 
             <i class="fa-solid fa-cart-shopping"></i>
 
             <span
                 id="cart-count"
-                class="hidden
-                absolute -top-2 -right-2
-                min-w-5 h-5
-                px-1
-                rounded-full
-                bg-rose-500
-                text-white
-                text-[10px]
-                font-black
-                items-center
-                justify-center"
+                class="hidden absolute -top-2 -right-2
+                min-w-5 h-5 px-1 rounded-full
+                bg-rose-500 text-white text-[10px]
+                font-black items-center justify-center"
             >
                 0
             </span>
@@ -235,88 +203,53 @@
 
 </div>
 
-</nav><!-- =====================================================
+
+</nav>
+
+<!-- =====================================================
      MAIN
-===================================================== --><main
-    class="max-w-7xl
-    mx-auto
-    px-4
-    py-6"
-><!-- =================================================
-     HERO
-================================================== -->
+===================================================== -->
+
+<main class="max-w-7xl mx-auto px-4 py-6">
+
+
+<!-- HERO -->
 
 <section
-    class="bg-gradient-to-br
-    from-indigo-600
-    via-indigo-700
-    to-slate-950
-    rounded-[2rem]
-    p-6 sm:p-10
-    text-white
-    overflow-hidden
-    relative
-    shadow-xl"
+    class="bg-gradient-to-br from-indigo-600 via-indigo-700 to-slate-950
+    rounded-[2rem] p-6 sm:p-10 text-white
+    overflow-hidden relative shadow-xl"
 >
 
     <div
-        class="absolute
-        -right-20
-        -top-20
-        w-72 h-72
-        rounded-full
-        bg-white/10
-        blur-3xl"
+        class="absolute -right-20 -top-20
+        w-72 h-72 rounded-full bg-white/10 blur-3xl"
     ></div>
 
     <div
-        class="absolute
-        -left-20
-        -bottom-20
-        w-60 h-60
-        rounded-full
-        bg-amber-400/10
-        blur-3xl"
+        class="absolute -left-20 -bottom-20
+        w-60 h-60 rounded-full bg-amber-400/10 blur-3xl"
     ></div>
 
-
-    <div
-        class="relative
-        z-10
-        max-w-2xl"
-    >
+    <div class="relative z-10 max-w-2xl">
 
         <span
-            class="inline-flex
-            items-center
-            gap-2
-            px-3 py-1.5
-            rounded-full
-            bg-white/10
-            border border-white/10
+            class="inline-flex items-center gap-2
+            px-3 py-1.5 rounded-full
+            bg-white/10 border border-white/10
             text-xs font-bold"
         >
 
-            <i
-                class="fa-solid
-                fa-bag-shopping
-                text-amber-300"
-            ></i>
+            <i class="fa-solid fa-bag-shopping text-amber-300"></i>
 
             DELIVERY RISK MARKET
 
         </span>
 
 
-        <h1
-            class="text-3xl
-            sm:text-5xl
-            font-black
-            mt-4"
-        >
+        <h1 class="text-3xl sm:text-5xl font-black mt-4">
 
             ช้อปง่าย
-
             <span class="text-amber-300">
                 ส่งไว
             </span>
@@ -324,105 +257,37 @@
         </h1>
 
 
-        <p
-            class="text-sm
-            sm:text-base
-            text-indigo-100
-            mt-3"
-        >
+        <p class="text-sm sm:text-base text-indigo-100 mt-3">
 
             เลือกซื้อสินค้าจากร้านค้าต่าง ๆ
             พร้อมระบบจัดการคำสั่งซื้อและติดตามพัสดุ
 
         </p>
 
-
-        <div
-            class="mt-6
-            flex
-            flex-wrap
-            gap-3"
-        >
-
-            <span
-                class="px-3 py-2
-                rounded-xl
-                bg-white/10
-                text-xs
-                font-semibold"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-shield-halved
-                    mr-1
-                    text-emerald-300"
-                ></i>
-
-                ร้านค้าที่ตรวจสอบแล้ว
-
-            </span>
-
-
-            <span
-                class="px-3 py-2
-                rounded-xl
-                bg-white/10
-                text-xs
-                font-semibold"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-truck-fast
-                    mr-1
-                    text-amber-300"
-                ></i>
-
-                ติดตามพัสดุได้
-
-            </span>
-
-        </div>
-
     </div>
 
 </section>
 
 
-<!-- =================================================
-     SEARCH
-================================================== -->
+<!-- SEARCH -->
 
 <section class="mt-6">
 
     <div class="relative">
 
         <i
-            class="fa-solid
-            fa-magnifying-glass
-            absolute
-            left-4
-            top-4
-            text-slate-400"
+            class="fa-solid fa-magnifying-glass
+            absolute left-4 top-4 text-slate-400"
         ></i>
-
 
         <input
             id="search-input"
             type="text"
-            placeholder="ค้นหาสินค้า หรือชื่อร้าน..."
             autocomplete="off"
-            class="w-full
-            bg-white
-            border border-slate-200
-            rounded-2xl
-            pl-11 pr-4
-            py-3.5
-            outline-none
-            focus:ring-2
-            focus:ring-indigo-500
-            shadow-sm"
+            placeholder="ค้นหาสินค้า หรือชื่อร้าน..."
+            class="w-full bg-white border border-slate-200
+            rounded-2xl pl-11 pr-4 py-3.5
+            outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm"
         >
 
     </div>
@@ -430,139 +295,76 @@
 </section>
 
 
-<!-- =================================================
-     CATEGORY
-================================================== -->
+<!-- CATEGORY -->
 
-<section
-    class="mt-5
-    flex
-    gap-2
-    overflow-x-auto
-    pb-2"
->
+<section class="mt-5 flex gap-2 overflow-x-auto pb-2">
 
     <button
         type="button"
         data-category="all"
         onclick="setCategory('all')"
-        class="category-btn
-        shrink-0
-        bg-indigo-600
-        text-white
-        px-4 py-2
-        rounded-xl
-        text-xs
-        font-bold
-        whitespace-nowrap"
+        class="category-btn shrink-0 bg-indigo-600 text-white
+        px-4 py-2 rounded-xl text-xs font-bold"
     >
         🛍️ ทั้งหมด
     </button>
-
 
     <button
         type="button"
         data-category="electronics"
         onclick="setCategory('electronics')"
-        class="category-btn
-        shrink-0
-        bg-white
-        border border-slate-200
-        px-4 py-2
-        rounded-xl
-        text-xs
-        font-bold
-        whitespace-nowrap"
+        class="category-btn shrink-0 bg-white border border-slate-200
+        px-4 py-2 rounded-xl text-xs font-bold"
     >
         📱 อิเล็กทรอนิกส์
     </button>
-
 
     <button
         type="button"
         data-category="fashion"
         onclick="setCategory('fashion')"
-        class="category-btn
-        shrink-0
-        bg-white
-        border border-slate-200
-        px-4 py-2
-        rounded-xl
-        text-xs
-        font-bold
-        whitespace-nowrap"
+        class="category-btn shrink-0 bg-white border border-slate-200
+        px-4 py-2 rounded-xl text-xs font-bold"
     >
         👕 แฟชั่น
     </button>
-
 
     <button
         type="button"
         data-category="beauty"
         onclick="setCategory('beauty')"
-        class="category-btn
-        shrink-0
-        bg-white
-        border border-slate-200
-        px-4 py-2
-        rounded-xl
-        text-xs
-        font-bold
-        whitespace-nowrap"
+        class="category-btn shrink-0 bg-white border border-slate-200
+        px-4 py-2 rounded-xl text-xs font-bold"
     >
         💄 ความงาม
     </button>
-
 
     <button
         type="button"
         data-category="books"
         onclick="setCategory('books')"
-        class="category-btn
-        shrink-0
-        bg-white
-        border border-slate-200
-        px-4 py-2
-        rounded-xl
-        text-xs
-        font-bold
-        whitespace-nowrap"
+        class="category-btn shrink-0 bg-white border border-slate-200
+        px-4 py-2 rounded-xl text-xs font-bold"
     >
         📚 หนังสือและการเรียน
     </button>
-
 
     <button
         type="button"
         data-category="daily"
         onclick="setCategory('daily')"
-        class="category-btn
-        shrink-0
-        bg-white
-        border border-slate-200
-        px-4 py-2
-        rounded-xl
-        text-xs
-        font-bold
-        whitespace-nowrap"
+        class="category-btn shrink-0 bg-white border border-slate-200
+        px-4 py-2 rounded-xl text-xs font-bold"
     >
         🧴 ของใช้ประจำวัน
     </button>
-
 
     <button
         type="button"
         data-category="other"
         onclick="setCategory('other')"
-        class="category-btn
-        shrink-0
-        bg-white
-        border border-slate-200
-        px-4 py-2
-        rounded-xl
-        text-xs
-        font-bold
-        whitespace-nowrap"
+        class="category-btn shrink-0 bg-white border border-slate-200
+        px-4 py-2 rounded-xl text-xs font-bold"
     >
         📦 อื่น ๆ
     </button>
@@ -570,16 +372,9 @@
 </section>
 
 
-<!-- =================================================
-     PRODUCT HEADER
-================================================== -->
+<!-- PRODUCT HEADER -->
 
-<section
-    class="mt-6
-    flex
-    items-end
-    justify-between"
->
+<section class="mt-6 flex items-end justify-between">
 
     <div>
 
@@ -587,21 +382,15 @@
             สินค้าแนะนำ
         </h2>
 
-        <p
-            class="text-xs
-            text-slate-400
-            mt-1"
-        >
+        <p class="text-xs text-slate-400 mt-1">
             สินค้าจากร้านค้าภายใน Marketplace
         </p>
 
     </div>
 
-
     <span
         id="product-count"
-        class="text-xs
-        text-slate-400"
+        class="text-xs text-slate-400"
     >
         0 สินค้า
     </span>
@@ -609,29 +398,17 @@
 </section>
 
 
-<!-- =================================================
-     DATA ERROR
-================================================== -->
+<!-- ERROR -->
 
 <div
     id="data-error"
-    class="hidden
-    mt-4
-    bg-rose-50
-    border
-    border-rose-200
-    text-rose-700
-    rounded-2xl
-    p-4"
+    class="hidden mt-4 bg-rose-50 border border-rose-200
+    text-rose-700 rounded-2xl p-4"
 >
 
     <div class="flex items-start gap-3">
 
-        <i
-            class="fa-solid
-            fa-triangle-exclamation
-            mt-1"
-        ></i>
+        <i class="fa-solid fa-triangle-exclamation mt-1"></i>
 
         <div>
 
@@ -651,94 +428,67 @@
 </div>
 
 
-<!-- =================================================
-     PRODUCT GRID
-================================================== -->
+<!-- PRODUCT GRID -->
 
 <section
     id="product-grid"
-    class="grid
-    grid-cols-1
-    sm:grid-cols-2
-    lg:grid-cols-4
-    gap-4
-    mt-4"
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4
+    gap-4 mt-4"
 ></section>
+```
 
-</main><!-- =====================================================
-     PRODUCT DETAIL MODAL
-===================================================== --><div
+</main>
+
+<!-- =====================================================
+     PRODUCT MODAL
+===================================================== -->
+
+<div
     id="product-modal"
-    class="hidden
-    fixed
-    inset-0
-    bg-slate-950/70
-    backdrop-blur-sm
-    z-[110]
-    p-4
-    overflow-y-auto"
+    class="hidden fixed inset-0 bg-slate-950/70
+    backdrop-blur-sm z-[110] p-4 overflow-y-auto"
     onclick="closeProduct(event)"
-><div
-    class="min-h-full
-    flex
-    items-center
-    justify-center"
 >
+
+```
+<div class="min-h-full flex items-center justify-center">
 
     <div
         id="product-modal-content"
-        class="bg-white
-        w-full
-        max-w-2xl
-        rounded-3xl
-        shadow-2xl
-        overflow-hidden
+        class="bg-white w-full max-w-2xl
+        rounded-3xl shadow-2xl overflow-hidden
         modal-animation"
         onclick="event.stopPropagation()"
     ></div>
 
 </div>
+```
 
-</div><!-- =====================================================
+</div>
+
+<!-- =====================================================
      CART MODAL
-===================================================== --><div
+===================================================== -->
+
+<div
     id="cart-modal"
-    class="hidden
-    fixed
-    inset-0
-    bg-slate-950/60
-    backdrop-blur-sm
-    z-[100]
-    p-4
-    overflow-y-auto"
+    class="hidden fixed inset-0 bg-slate-950/60
+    backdrop-blur-sm z-[100] p-4 overflow-y-auto"
     onclick="closeCart(event)"
-><div
-    class="min-h-full
-    flex
-    items-center
-    justify-center"
 >
 
+```
+<div class="min-h-full flex items-center justify-center">
+
     <div
-        class="bg-white
-        w-full
-        max-w-lg
-        max-h-[85vh]
-        rounded-3xl
-        shadow-2xl
-        overflow-hidden"
+        class="bg-white w-full max-w-lg max-h-[85vh]
+        rounded-3xl shadow-2xl overflow-hidden"
         onclick="event.stopPropagation()"
     >
 
-        <!-- HEADER -->
-
         <div
-            class="p-5
-            border-b
-            border-slate-100
-            flex
-            items-center
-            justify-between"
+            class="p-5 border-b border-slate-100
+            flex items-center justify-between"
         >
 
             <div>
@@ -749,23 +499,17 @@
 
                 <p
                     id="cart-summary"
-                    class="text-xs
-                    text-slate-400
-                    mt-1"
+                    class="text-xs text-slate-400 mt-1"
                 >
                     0 รายการ
                 </p>
 
             </div>
 
-
             <button
                 type="button"
                 onclick="closeCart()"
-                class="w-9 h-9
-                rounded-xl
-                bg-slate-100
-                hover:bg-slate-200"
+                class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200"
             >
 
                 <i class="fa-solid fa-xmark"></i>
@@ -775,30 +519,15 @@
         </div>
 
 
-        <!-- ITEMS -->
-
         <div
             id="cart-items"
-            class="p-5
-            space-y-3
-            overflow-y-auto
-            max-h-[50vh]"
+            class="p-5 space-y-3 overflow-y-auto max-h-[50vh]"
         ></div>
 
 
-        <!-- TOTAL -->
+        <div class="p-5 border-t border-slate-100">
 
-        <div
-            class="p-5
-            border-t
-            border-slate-100"
-        >
-
-            <div
-                class="flex
-                justify-between
-                items-center"
-            >
+            <div class="flex justify-between items-center">
 
                 <span class="text-sm text-slate-500">
                     รวมทั้งหมด
@@ -806,9 +535,7 @@
 
                 <span
                     id="cart-total"
-                    class="text-xl
-                    font-black
-                    text-indigo-600"
+                    class="text-xl font-black text-indigo-600"
                 >
                     ฿0
                 </span>
@@ -819,22 +546,11 @@
             <button
                 type="button"
                 onclick="checkout()"
-                class="w-full
-                mt-4
-                bg-indigo-600
-                hover:bg-indigo-700
-                text-white
-                font-bold
-                py-3
-                rounded-2xl
-                transition"
+                class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700
+                text-white font-bold py-3 rounded-2xl"
             >
 
-                <i
-                    class="fa-solid
-                    fa-credit-card
-                    mr-2"
-                ></i>
+                <i class="fa-solid fa-credit-card mr-2"></i>
 
                 ดำเนินการสั่งซื้อ
 
@@ -845,30 +561,34 @@
     </div>
 
 </div>
+```
 
-</div><!-- =====================================================
+</div>
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="toast"
+    class="hidden fixed bottom-6 left-1/2 -translate-x-1/2
+    z-[200] px-5 py-3 rounded-2xl
+    bg-slate-950 text-white shadow-2xl
+    text-sm font-bold"
+></div>
+
+<!-- =====================================================
      JAVASCRIPT
-===================================================== --><script>
+===================================================== -->
 
-/* =====================================================
-   STATE
-===================================================== */
+<script>
 
 let cart = [];
-
 let currentCategory = 'all';
 
 
 /* =====================================================
-   DATA ACCESS
-   สำคัญมาก:
-   products.js ใช้:
-       const products = [...]
-   shops.js ใช้:
-       const shops = [...]
-
-   ดังนั้นเราใช้ products / shops โดยตรง
-   ไม่ใช้ window.products
+   DATA
 ===================================================== */
 
 function getProducts() {
@@ -879,17 +599,12 @@ function getProducts() {
             typeof products !== 'undefined' &&
             Array.isArray(products)
         ) {
-
             return products;
-
         }
 
     } catch (error) {
 
-        console.error(
-            'Cannot access products:',
-            error
-        );
+        console.error('[SHOP] products error:', error);
 
     }
 
@@ -906,17 +621,12 @@ function getShops() {
             typeof shops !== 'undefined' &&
             Array.isArray(shops)
         ) {
-
             return shops;
-
         }
 
     } catch (error) {
 
-        console.error(
-            'Cannot access shops:',
-            error
-        );
+        console.error('[SHOP] shops error:', error);
 
     }
 
@@ -925,16 +635,11 @@ function getShops() {
 }
 
 
-/* =====================================================
-   FIND DATA
-===================================================== */
-
 function getProductById(id) {
 
     return getProducts().find(
         product =>
-            String(product.id).trim() ===
-            String(id).trim()
+            String(product.id).trim() === String(id).trim()
     );
 
 }
@@ -944,15 +649,14 @@ function getShopById(id) {
 
     return getShops().find(
         shop =>
-            String(shop.id).trim() ===
-            String(id).trim()
+            String(shop.id).trim() === String(id).trim()
     );
 
 }
 
 
 /* =====================================================
-   SAFE HTML
+   HELPERS
 ===================================================== */
 
 function escapeHTML(value) {
@@ -967,27 +671,51 @@ function escapeHTML(value) {
 }
 
 
-/* =====================================================
-   MONEY
-===================================================== */
-
 function formatMoney(value) {
 
     const number = Number(value) || 0;
 
-    return '฿' +
-        number.toLocaleString('th-TH');
+    return '฿' + number.toLocaleString('th-TH');
 
 }
 
 
-/* =====================================================
-   IMAGE
-===================================================== */
-
 function fallbackImage() {
 
     return 'https://placehold.co/600x600/e2e8f0/64748b?text=No+Image';
+
+}
+
+
+function getProductImage(product) {
+
+    return (
+        product.image ||
+        product.imageUrl ||
+        product.thumbnail ||
+        product.img ||
+        fallbackImage()
+    );
+
+}
+
+
+function getProductName(product) {
+
+    return product.name || product.title || 'สินค้า';
+
+
+}
+
+
+function getProductPrice(product) {
+
+    return Number(
+        product.price ??
+        product.salePrice ??
+        product.amount ??
+        0
+    ) || 0;
 
 }
 
@@ -998,29 +726,25 @@ function fallbackImage() {
 
 function showDataError(message) {
 
-    const box =
-        document.getElementById(
-            'data-error'
-        );
+    const box = document.getElementById('data-error');
+    const messageBox = document.getElementById('data-error-message');
 
-    const messageBox =
-        document.getElementById(
-            'data-error-message'
-        );
+    if (!box || !messageBox) return;
 
     box.classList.remove('hidden');
 
-    messageBox.textContent =
-        message;
+    messageBox.textContent = message;
 
 }
 
 
 function hideDataError() {
 
-    document
-        .getElementById('data-error')
-        .classList.add('hidden');
+    const box = document.getElementById('data-error');
+
+    if (box) {
+        box.classList.add('hidden');
+    }
 
 }
 
@@ -1031,36 +755,24 @@ function hideDataError() {
 
 function renderProducts() {
 
-    const grid =
-        document.getElementById(
-            'product-grid'
-        );
+    const grid = document.getElementById('product-grid');
+    const count = document.getElementById('product-count');
 
-    const count =
-        document.getElementById(
-            'product-count'
-        );
+    if (!grid) return;
 
-    const productList =
-        getProducts();
+    const productList = getProducts();
 
+    console.log('[SHOP] products:', productList);
+    console.log('[SHOP] shops:', getShops());
 
-    console.log(
-        '[SHOP] products:',
-        productList
-    );
-
-
-    /*
-        ถ้า products.js โหลดไม่ได้
-    */
 
     if (!productList.length) {
 
         grid.innerHTML = '';
 
-        count.textContent =
-            '0 สินค้า';
+        if (count) {
+            count.textContent = '0 สินค้า';
+        }
 
         showDataError(
             'ไม่พบข้อมูล products จาก js/products.js'
@@ -1075,10 +787,1095 @@ function renderProducts() {
 
 
     const searchInput =
-        document.getElementById(
-            'search-input'
+        document.getElementById('search-input');
+
+    const keyword =
+        searchInput
+            ? searchInput.value.trim().toLowerCase()
+            : '';
+
+
+    const filtered =
+        productList.filter(product => {
+
+            const shop =
+                getShopById(product.shopId);
+
+
+            const categoryMatch =
+                currentCategory === 'all' ||
+                String(product.category || '').toLowerCase() ===
+                currentCategory.toLowerCase();
+
+
+            const productText = [
+                product.name,
+                product.title,
+                product.description,
+                product.category,
+                shop?.name
+            ]
+                .filter(Boolean)
+                .join(' ')
+                .toLowerCase();
+
+
+            const searchMatch =
+                !keyword ||
+                productText.includes(keyword);
+
+
+            return categoryMatch && searchMatch;
+
+        });
+
+
+    if (count) {
+
+        count.textContent =
+            `${filtered.length} สินค้า`;
+
+    }
+
+
+    if (!filtered.length) {
+
+        grid.innerHTML = `
+
+            <div class="col-span-full bg-white rounded-3xl
+                p-10 text-center shadow-sm">
+
+                <div
+                    class="w-16 h-16 mx-auto rounded-2xl
+                    bg-slate-100 flex items-center justify-center
+                    text-2xl"
+                >
+                    🔍
+                </div>
+
+                <h3 class="font-black text-lg mt-4">
+                    ไม่พบสินค้าที่ค้นหา
+                </h3>
+
+                <p class="text-sm text-slate-400 mt-1">
+                    ลองเปลี่ยนคำค้นหาหรือหมวดหมู่
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        filtered.map(product => {
+
+            const shop =
+                getShopById(product.shopId);
+
+            const image =
+                getProductImage(product);
+
+            const name =
+                getProductName(product);
+
+            const price =
+                getProductPrice(product);
+
+            const shopName =
+                shop?.name || 'ร้านค้า';
+
+            return `
+
+                <article
+                    class="product-card bg-white rounded-3xl
+                    overflow-hidden shadow-sm border border-slate-100"
+                    onclick="openProduct('${escapeHTML(product.id)}')"
+                >
+
+                    <div class="relative bg-slate-100">
+
+                        <img
+                            src="${escapeHTML(image)}"
+                            alt="${escapeHTML(name)}"
+                            class="product-image w-full aspect-square
+                            object-cover"
+                            loading="lazy"
+                            onerror="this.onerror=null;this.src='${fallbackImage()}'"
+                        >
+
+                        <span
+                            class="absolute top-3 left-3
+                            px-2.5 py-1 rounded-xl
+                            bg-white/90 backdrop-blur
+                            text-[10px] font-bold
+                            text-slate-700"
+                        >
+                            ${escapeHTML(product.category || 'สินค้า')}
+                        </span>
+
+                    </div>
+
+
+                    <div class="p-4">
+
+                        <p
+                            class="text-[11px] text-indigo-600
+                            font-bold truncate"
+                        >
+                            <i class="fa-solid fa-store mr-1"></i>
+                            ${escapeHTML(shopName)}
+                        </p>
+
+
+                        <h3
+                            class="font-black mt-1 line-clamp-2"
+                        >
+                            ${escapeHTML(name)}
+                        </h3>
+
+
+                        <p
+                            class="text-xs text-slate-400
+                            mt-2 line-clamp-2"
+                        >
+                            ${escapeHTML(product.description || '')}
+                        </p>
+
+
+                        <div
+                            class="flex items-center
+                            justify-between mt-4 gap-2"
+                        >
+
+                            <span
+                                class="text-lg font-black
+                                text-indigo-600"
+                            >
+                                ${formatMoney(price)}
+                            </span>
+
+
+                            <button
+                                type="button"
+                                onclick="event.stopPropagation();addToCart('${escapeHTML(product.id)}')"
+                                class="w-10 h-10 shrink-0
+                                rounded-xl bg-indigo-600
+                                hover:bg-indigo-700
+                                text-white flex items-center
+                                justify-center"
+                            >
+
+                                <i class="fa-solid fa-cart-plus"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            `;
+
+        })
+        .join('');
+
+}
+
+
+/* =====================================================
+   CATEGORY
+===================================================== */
+
+function setCategory(category) {
+
+    currentCategory = category || 'all';
+
+    document.querySelectorAll('.category-btn')
+        .forEach(button => {
+
+            const active =
+                button.dataset.category === currentCategory;
+
+            if (active) {
+
+                button.classList.remove(
+                    'bg-white',
+                    'text-slate-800',
+                    'border',
+                    'border-slate-200'
+                );
+
+                button.classList.add(
+                    'bg-indigo-600',
+                    'text-white'
+                );
+
+            } else {
+
+                button.classList.remove(
+                    'bg-indigo-600',
+                    'text-white'
+                );
+
+                button.classList.add(
+                    'bg-white',
+                    'border',
+                    'border-slate-200'
+                );
+
+            }
+
+        });
+
+
+    renderProducts();
+
+}
+
+
+/* =====================================================
+   PRODUCT MODAL
+===================================================== */
+
+function openProduct(id) {
+
+    const product =
+        getProductById(id);
+
+    if (!product) {
+
+        showToast('ไม่พบข้อมูลสินค้า');
+
+        return;
+
+    }
+
+
+    const shop =
+        getShopById(product.shopId);
+
+    const image =
+        getProductImage(product);
+
+    const name =
+        getProductName(product);
+
+    const price =
+        getProductPrice(product);
+
+
+    const modal =
+        document.getElementById('product-modal');
+
+    const content =
+        document.getElementById('product-modal-content');
+
+
+    content.innerHTML = `
+
+        <div class="relative">
+
+            <button
+                type="button"
+                onclick="closeProduct()"
+                class="absolute right-4 top-4 z-10
+                w-10 h-10 rounded-xl
+                bg-white/90 shadow
+                flex items-center justify-center"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+
+            <div class="grid md:grid-cols-2">
+
+                <div class="bg-slate-100">
+
+                    <img
+                        src="${escapeHTML(image)}"
+                        alt="${escapeHTML(name)}"
+                        class="w-full aspect-square object-cover"
+                        onerror="this.onerror=null;this.src='${fallbackImage()}'"
+                    >
+
+                </div>
+
+
+                <div class="p-6">
+
+                    <p
+                        class="text-xs font-bold
+                        text-indigo-600"
+                    >
+
+                        <i class="fa-solid fa-store mr-1"></i>
+
+                        ${escapeHTML(shop?.name || 'ร้านค้า')}
+
+                    </p>
+
+
+                    <h2
+                        class="text-2xl font-black mt-2"
+                    >
+                        ${escapeHTML(name)}
+                    </h2>
+
+
+                    <p
+                        class="text-2xl font-black
+                        text-indigo-600 mt-4"
+                    >
+                        ${formatMoney(price)}
+                    </p>
+
+
+                    <p
+                        class="text-sm text-slate-500
+                        leading-7 mt-5"
+                    >
+                        ${escapeHTML(
+                            product.description ||
+                            'ไม่มีรายละเอียดสินค้า'
+                        )}
+                    </p>
+
+
+                    <div class="mt-6">
+
+                        <button
+                            type="button"
+                            onclick="addToCart('${escapeHTML(product.id)}');closeProduct()"
+                            class="w-full py-3 rounded-2xl
+                            bg-indigo-600 hover:bg-indigo-700
+                            text-white font-bold"
+                        >
+
+                            <i class="fa-solid fa-cart-plus mr-2"></i>
+
+                            เพิ่มลงตะกร้า
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    modal.classList.remove('hidden');
+
+    document.body.classList.add('overflow-hidden');
+
+}
+
+
+function closeProduct(event) {
+
+    if (
+        event &&
+        event.target &&
+        event.target.id !== 'product-modal'
+    ) {
+        return;
+    }
+
+    const modal =
+        document.getElementById('product-modal');
+
+    modal.classList.add('hidden');
+
+    document.body.classList.remove('overflow-hidden');
+
+}
+
+
+/* =====================================================
+   CART
+===================================================== */
+
+function loadCart() {
+
+    try {
+
+        const saved =
+            localStorage.getItem('cart');
+
+        if (!saved) {
+
+            cart = [];
+
+            return;
+
+        }
+
+
+        const parsed =
+            JSON.parse(saved);
+
+
+        if (Array.isArray(parsed)) {
+
+            cart = parsed;
+
+        } else {
+
+            cart = [];
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            '[SHOP] Cannot load cart:',
+            error
+        );
+
+        cart = [];
+
+    }
+
+}
+
+
+function saveCart() {
+
+    try {
+
+        localStorage.setItem(
+            'cart',
+            JSON.stringify(cart)
+        );
+
+    } catch (error) {
+
+        console.error(
+            '[SHOP] Cannot save cart:',
+            error
+        );
+
+    }
+
+}
+
+
+function addToCart(productId) {
+
+    const product =
+        getProductById(productId);
+
+    if (!product) {
+
+        showToast('ไม่พบสินค้านี้');
+
+        return;
+
+    }
+
+
+    const id =
+        String(product.id);
+
+
+    const existing =
+        cart.find(
+            item =>
+                String(item.id) === id
         );
 
 
-    const searchText =
-        (
+    if (existing) {
+
+        existing.quantity =
+            Number(existing.quantity || 1) + 1;
+
+    } else {
+
+        cart.push({
+
+            id: product.id,
+
+            productId: product.id,
+
+            name: getProductName(product),
+
+            price: getProductPrice(product),
+
+            image: getProductImage(product),
+
+            shopId: product.shopId,
+
+            quantity: 1
+
+        });
+
+    }
+
+
+    saveCart();
+
+    updateCartUI();
+
+    showToast(
+        `เพิ่ม "${getProductName(product)}" ลงตะกร้าแล้ว`
+    );
+
+}
+
+
+function increaseCart(productId) {
+
+    const item =
+        cart.find(
+            cartItem =>
+                String(cartItem.id) ===
+                String(productId)
+        );
+
+    if (!item) return;
+
+    item.quantity =
+        Number(item.quantity || 1) + 1;
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+function decreaseCart(productId) {
+
+    const item =
+        cart.find(
+            cartItem =>
+                String(cartItem.id) ===
+                String(productId)
+        );
+
+    if (!item) return;
+
+
+    item.quantity =
+        Number(item.quantity || 1) - 1;
+
+
+    if (item.quantity <= 0) {
+
+        cart =
+            cart.filter(
+                cartItem =>
+                    String(cartItem.id) !==
+                    String(productId)
+            );
+
+    }
+
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+function removeFromCart(productId) {
+
+    cart =
+        cart.filter(
+            item =>
+                String(item.id) !==
+                String(productId)
+        );
+
+    saveCart();
+
+    updateCartUI();
+
+}
+
+
+/* =====================================================
+   CART UI
+===================================================== */
+
+function getCartQuantity() {
+
+    return cart.reduce(
+        (total, item) =>
+            total + Number(item.quantity || 0),
+        0
+    );
+
+}
+
+
+function getCartTotal() {
+
+    return cart.reduce(
+        (total, item) =>
+            total +
+            Number(item.price || 0) *
+            Number(item.quantity || 0),
+        0
+    );
+
+}
+
+
+function updateCartUI() {
+
+    const count =
+        document.getElementById('cart-count');
+
+    const summary =
+        document.getElementById('cart-summary');
+
+    const total =
+        document.getElementById('cart-total');
+
+    const items =
+        document.getElementById('cart-items');
+
+
+    const quantity =
+        getCartQuantity();
+
+
+    if (count) {
+
+        count.textContent =
+            quantity;
+
+        if (quantity > 0) {
+
+            count.classList.remove('hidden');
+            count.classList.add('flex');
+
+        } else {
+
+            count.classList.add('hidden');
+            count.classList.remove('flex');
+
+        }
+
+    }
+
+
+    if (summary) {
+
+        summary.textContent =
+            `${quantity} รายการ`;
+
+    }
+
+
+    if (total) {
+
+        total.textContent =
+            formatMoney(getCartTotal());
+
+    }
+
+
+    if (!items) return;
+
+
+    if (!cart.length) {
+
+        items.innerHTML = `
+
+            <div class="py-10 text-center">
+
+                <div
+                    class="w-16 h-16 mx-auto rounded-2xl
+                    bg-slate-100 flex items-center justify-center
+                    text-2xl"
+                >
+                    🛒
+                </div>
+
+                <h3 class="font-black mt-4">
+                    ตะกร้ายังว่างอยู่
+                </h3>
+
+                <p class="text-xs text-slate-400 mt-1">
+                    เลือกสินค้าแล้วกดเพิ่มลงตะกร้า
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    items.innerHTML =
+        cart.map(item => {
+
+            return `
+
+                <div
+                    class="bg-slate-50 rounded-2xl p-3
+                    flex gap-3"
+                >
+
+                    <img
+                        src="${escapeHTML(item.image || fallbackImage())}"
+                        class="w-16 h-16 rounded-xl object-cover"
+                        onerror="this.onerror=null;this.src='${fallbackImage()}'"
+                    >
+
+
+                    <div class="flex-1 min-w-0">
+
+                        <p
+                            class="font-bold text-sm
+                            truncate"
+                        >
+                            ${escapeHTML(item.name)}
+                        </p>
+
+
+                        <p
+                            class="text-sm font-black
+                            text-indigo-600 mt-1"
+                        >
+                            ${formatMoney(item.price)}
+                        </p>
+
+
+                        <div
+                            class="flex items-center
+                            justify-between mt-2"
+                        >
+
+                            <div
+                                class="flex items-center
+                                bg-white rounded-xl
+                                border border-slate-200"
+                            >
+
+                                <button
+                                    type="button"
+                                    onclick="decreaseCart('${escapeHTML(item.id)}')"
+                                    class="w-8 h-8"
+                                >
+                                    −
+                                </button>
+
+                                <span
+                                    class="w-8 text-center
+                                    text-xs font-bold"
+                                >
+                                    ${Number(item.quantity || 1)}
+                                </span>
+
+                                <button
+                                    type="button"
+                                    onclick="increaseCart('${escapeHTML(item.id)}')"
+                                    class="w-8 h-8"
+                                >
+                                    +
+                                </button>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                onclick="removeFromCart('${escapeHTML(item.id)}')"
+                                class="text-rose-500 text-xs font-bold"
+                            >
+
+                                <i class="fa-solid fa-trash mr-1"></i>
+
+                                ลบ
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        })
+        .join('');
+
+}
+
+
+function openCart() {
+
+    const modal =
+        document.getElementById('cart-modal');
+
+    modal.classList.remove('hidden');
+
+    updateCartUI();
+
+}
+
+
+function closeCart(event) {
+
+    if (
+        event &&
+        event.target &&
+        event.target.id !== 'cart-modal'
+    ) {
+        return;
+    }
+
+    document
+        .getElementById('cart-modal')
+        .classList.add('hidden');
+
+}
+
+
+/* =====================================================
+   CHECKOUT
+===================================================== */
+
+function checkout() {
+
+    if (!cart.length) {
+
+        showToast('ตะกร้ายังว่างอยู่');
+
+        return;
+
+    }
+
+
+    /*
+       สร้าง order สำหรับหน้า orders / tracking
+    */
+
+    const orderId =
+        'ORD-' +
+        Date.now();
+
+
+    const orderItems =
+        cart.map(item => ({
+
+            productId: item.productId || item.id,
+
+            id: item.id,
+
+            name: item.name,
+
+            price: Number(item.price || 0),
+
+            quantity: Number(item.quantity || 1),
+
+            image: item.image,
+
+            shopId: item.shopId
+
+        }));
+
+
+    const order = {
+
+        id: orderId,
+
+        orderId: orderId,
+
+        items: orderItems,
+
+        total: getCartTotal(),
+
+        status: 'pending',
+
+        createdAt: new Date().toISOString()
+
+    };
+
+
+    /*
+       เก็บ latestOrder
+    */
+
+    localStorage.setItem(
+        'latestOrder',
+        JSON.stringify(order)
+    );
+
+
+    /*
+       เก็บ orders
+    */
+
+    let orders = [];
+
+    try {
+
+        const savedOrders =
+            localStorage.getItem('orders');
+
+        if (savedOrders) {
+
+            const parsed =
+                JSON.parse(savedOrders);
+
+            if (Array.isArray(parsed)) {
+
+                orders = parsed;
+
+            }
+
+        }
+
+    } catch (error) {
+
+        orders = [];
+
+    }
+
+
+    orders.unshift(order);
+
+
+    localStorage.setItem(
+        'orders',
+        JSON.stringify(orders)
+    );
+
+
+    /*
+       ล้างตะกร้า
+    */
+
+    cart = [];
+
+    saveCart();
+
+    updateCartUI();
+
+    closeCart();
+
+
+    /*
+       ไปหน้าคำสั่งซื้อ
+    */
+
+    window.location.href =
+        'orders.html';
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer = null;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById('toast');
+
+    if (!toast) return;
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.remove('hidden');
+
+    toast.classList.add('toast-animation');
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.add('hidden');
+
+            toast.classList.remove('toast-animation');
+
+        }, 2200);
+
+}
+
+
+/* =====================================================
+   EVENTS
+===================================================== */
+
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+        loadCart();
+
+        updateCartUI();
+
+        renderProducts();
+
+
+        const searchInput =
+            document.getElementById('search-input');
+
+
+        if (searchInput) {
+
+            searchInput.addEventListener(
+                'input',
+                renderProducts
+            );
+
+        }
+
+
+        /*
+           ปิด modal ด้วย ESC
+        */
+
+        document.addEventListener(
+            'keydown',
+            function (event) {
+
+                if (event.key === 'Escape') {
+
+                    closeProduct();
+
+                    closeCart();
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+</body>
+</html>
