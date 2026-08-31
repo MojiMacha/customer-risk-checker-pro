@@ -1,104 +1,109 @@
 <!DOCTYPE html>
-
 <html lang="th">
 
 <head>
 
-```
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>Delivery Risk Pro | Admin Dashboard</title>
+    <title>Delivery Risk Pro | Admin Dashboard</title>
 
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Font Awesome -->
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
->
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
 
-<!-- Google Font -->
-<link
-    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-<style>
+    <style>
 
-    body {
-        font-family: 'Kanit', sans-serif;
-    }
-
-    .fade-in {
-        animation: fadeIn 0.35s ease-out;
-    }
-
-    .toast-animation {
-        animation: toastAnimation 0.3s ease-out;
-    }
-
-    @keyframes fadeIn {
-
-        from {
-            opacity: 0;
-            transform: translateY(12px);
+        body {
+            font-family: 'Kanit', sans-serif;
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
+        .fade-in {
+            animation: fadeIn 0.35s ease-out;
         }
 
-    }
-
-    @keyframes toastAnimation {
-
-        from {
-            opacity: 0;
-            transform: translate(-50%, 30px);
+        .toast-animation {
+            animation: toastAnimation 0.3s ease-out;
         }
 
-        to {
-            opacity: 1;
-            transform: translate(-50%, 0);
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
         }
 
-    }
+        @keyframes toastAnimation {
 
-    input {
-        transition: all 0.2s ease;
-    }
+            from {
+                opacity: 0;
+                transform: translate(-50%, 30px);
+            }
 
-    button,
-    a {
-        -webkit-tap-highlight-color: transparent;
-    }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
 
-    .stat-card {
-        transition: all 0.2s ease;
-    }
+        }
 
-    .stat-card:hover {
-        transform: translateY(-3px);
-    }
+        input {
+            transition: all 0.2s ease;
+        }
 
-</style>
-```
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .stat-card {
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .chart-bar {
+            transition: height 0.5s ease;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+    </style>
 
 </head>
 
+
 <body class="bg-slate-100 min-h-screen pb-10">
 
+
 <!-- ========================================================= -->
-
 <!-- ADMIN LOGIN -->
-
 <!-- ========================================================= -->
 
 <div
@@ -106,237 +111,231 @@
     class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-slate-950 via-slate-900 to-purple-950"
 >
 
-```
-<!-- Background -->
-
-<div
-    class="absolute top-0 left-0 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
-></div>
-
-<div
-    class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
-></div>
-
-
-<!-- Login Card -->
-
-<div
-    class="relative w-full max-w-md bg-white rounded-[2rem] shadow-2xl overflow-hidden fade-in"
->
-
-    <!-- Header -->
+    <!-- Background -->
 
     <div
-        class="h-32 bg-gradient-to-r from-purple-600 via-indigo-700 to-indigo-800 relative"
+        class="absolute top-0 left-0 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"
+    ></div>
+
+    <div
+        class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"
+    ></div>
+
+
+    <!-- Login Card -->
+
+    <div
+        class="relative w-full max-w-md bg-white rounded-[2rem] shadow-2xl overflow-hidden fade-in"
     >
 
+        <!-- Header -->
+
         <div
-            class="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2"
+            class="h-32 bg-gradient-to-r from-purple-600 via-indigo-700 to-indigo-800 relative"
         >
 
             <div
-                class="w-20 h-20 rounded-3xl bg-white shadow-xl flex items-center justify-center"
+                class="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2"
             >
 
-                <i
-                    class="fa-solid fa-user-shield text-3xl text-purple-600"
-                ></i>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- Login Content -->
-
-    <div class="p-8 pt-16 text-center">
-
-        <h1 class="text-2xl font-black text-slate-800">
-            Delivery Risk Pro
-        </h1>
-
-        <p class="text-sm text-slate-400 mt-2">
-            เข้าสู่ระบบผู้ดูแลระบบ
-        </p>
-
-
-        <div class="mt-8 space-y-4">
-
-            <!-- PIN -->
-
-            <div class="text-left">
-
-                <label
-                    class="block text-xs font-bold text-slate-600 mb-2"
+                <div
+                    class="w-20 h-20 rounded-3xl bg-white shadow-xl flex items-center justify-center"
                 >
 
                     <i
-                        class="fa-solid fa-lock text-purple-500 mr-1"
+                        class="fa-solid fa-user-shield text-3xl text-purple-600"
                     ></i>
 
-                    รหัสผู้ดูแลระบบ (PIN 6 หลัก)
-
-                </label>
-
-
-                <input
-                    type="password"
-                    id="admin-pin-input"
-                    maxlength="6"
-                    inputmode="numeric"
-                    autocomplete="off"
-                    placeholder="• • • • • •"
-                    class="w-full text-center text-2xl tracking-[0.35em] font-bold py-4 border-2 border-slate-200 rounded-2xl bg-slate-50 focus:outline-none focus:border-purple-500 focus:bg-white"
-                >
+                </div>
 
             </div>
 
+        </div>
 
-            <!-- Error -->
 
-            <p
-                id="admin-pin-error"
-                class="hidden text-sm text-rose-500 font-bold"
-            >
+        <!-- Login Content -->
 
-                <i
-                    class="fa-solid fa-circle-exclamation mr-1"
-                ></i>
+        <div class="p-8 pt-16 text-center">
 
-                รหัสผู้ดูแลระบบไม่ถูกต้อง
+            <h1 class="text-2xl font-black text-slate-800">
+                Delivery Risk Pro
+            </h1>
 
+            <p class="text-sm text-slate-400 mt-2">
+                เข้าสู่ระบบผู้ดูแลระบบ
             </p>
 
 
-            <!-- Login -->
+            <div class="mt-8 space-y-4">
 
-            <button
-                type="button"
-                onclick="loginAdmin()"
-                class="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-bold shadow-lg shadow-purple-200 transition-all active:scale-95"
-            >
+                <!-- PIN -->
 
-                <i
-                    class="fa-solid fa-right-to-bracket mr-2"
-                ></i>
+                <div class="text-left">
 
-                เข้าสู่ระบบแอดมิน
+                    <label
+                        class="block text-xs font-bold text-slate-600 mb-2"
+                    >
 
-            </button>
+                        <i
+                            class="fa-solid fa-lock text-purple-500 mr-1"
+                        ></i>
+
+                        รหัสผู้ดูแลระบบ (PIN 6 หลัก)
+
+                    </label>
 
 
-            <p class="text-xs text-slate-400">
-                กรุณากรอกรหัสผู้ดูแลระบบเพื่อเข้าสู่ Dashboard
-            </p>
+                    <input
+                        type="password"
+                        id="admin-pin-input"
+                        maxlength="6"
+                        inputmode="numeric"
+                        autocomplete="off"
+                        placeholder="• • • • • •"
+                        class="w-full text-center text-2xl tracking-[0.35em] font-bold py-4 border-2 border-slate-200 rounded-2xl bg-slate-50 focus:outline-none focus:border-purple-500 focus:bg-white"
+                    >
+
+                </div>
+
+
+                <!-- Error -->
+
+                <p
+                    id="admin-pin-error"
+                    class="hidden text-sm text-rose-500 font-bold"
+                >
+
+                    <i
+                        class="fa-solid fa-circle-exclamation mr-1"
+                    ></i>
+
+                    รหัสผู้ดูแลระบบไม่ถูกต้อง
+
+                </p>
+
+
+                <!-- Login -->
+
+                <button
+                    type="button"
+                    onclick="loginAdmin()"
+                    class="w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-bold shadow-lg shadow-purple-200 transition-all active:scale-95"
+                >
+
+                    <i
+                        class="fa-solid fa-right-to-bracket mr-2"
+                    ></i>
+
+                    เข้าสู่ระบบแอดมิน
+
+                </button>
+
+
+                <p class="text-xs text-slate-400">
+                    กรุณากรอกรหัสผู้ดูแลระบบเพื่อเข้าสู่ Dashboard
+                </p>
+
+            </div>
 
         </div>
 
     </div>
 
 </div>
-```
 
-</div>
 
 <!-- ========================================================= -->
-
 <!-- NAVBAR -->
-
 <!-- ========================================================= -->
 
 <nav
     class="sticky top-0 z-40 bg-slate-950 text-white border-b border-slate-800 shadow-md"
 >
 
-```
-<div
-    class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between"
->
+    <div
+        class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between"
+    >
 
-    <!-- LEFT -->
+        <!-- LEFT -->
 
-    <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3">
 
-        <a
-            href="index.html"
-            class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition"
-            title="กลับหน้าหลัก"
-        >
+            <a
+                href="index.html"
+                class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 flex items-center justify-center transition"
+                title="กลับหน้าหลัก"
+            >
 
-            <i class="fa-solid fa-arrow-left"></i>
+                <i class="fa-solid fa-arrow-left"></i>
 
-        </a>
+            </a>
 
 
-        <div>
+            <div>
 
-            <h1 class="font-bold text-sm">
-                Delivery Risk Pro
-            </h1>
+                <h1 class="font-bold text-sm">
+                    Delivery Risk Pro
+                </h1>
 
-            <p class="text-xs text-slate-400">
-                Admin Dashboard
-            </p>
+                <p class="text-xs text-slate-400">
+                    Admin Dashboard
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="flex items-center gap-2">
+
+            <span
+                id="admin-id-badge"
+                class="hidden px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-500/10 border border-purple-500/20 text-purple-300"
+            >
+
+                <span
+                    class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1 animate-pulse"
+                ></span>
+
+                ADMIN ONLINE
+
+            </span>
+
+
+            <a
+                href="driver.html"
+                class="hidden sm:flex items-center px-3 py-2 text-xs text-slate-300 hover:text-white transition"
+            >
+
+                <i class="fa-solid fa-truck mr-1"></i>
+
+                Driver
+
+            </a>
+
+
+            <button
+                type="button"
+                onclick="logoutAdmin()"
+                class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition"
+                title="ออกจากระบบ"
+            >
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+            </button>
 
         </div>
 
     </div>
 
-
-    <!-- RIGHT -->
-
-    <div class="flex items-center gap-2">
-
-        <span
-            id="admin-id-badge"
-            class="hidden px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-500/10 border border-purple-500/20 text-purple-300"
-        >
-
-            <span
-                class="inline-block w-2 h-2 rounded-full bg-emerald-400 mr-1 animate-pulse"
-            ></span>
-
-            ADMIN ONLINE
-
-        </span>
-
-
-        <a
-            href="driver.html"
-            class="hidden sm:flex items-center px-3 py-2 text-xs text-slate-300 hover:text-white transition"
-        >
-
-            <i class="fa-solid fa-truck mr-1"></i>
-
-            Driver
-
-        </a>
-
-
-        <button
-            type="button"
-            onclick="logoutAdmin()"
-            class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 transition"
-            title="ออกจากระบบ"
-        >
-
-            <i class="fa-solid fa-right-from-bracket"></i>
-
-        </button>
-
-    </div>
-
-</div>
-```
-
 </nav>
 
+
 <!-- ========================================================= -->
-
 <!-- ADMIN MAIN -->
-
 <!-- ========================================================= -->
 
 <main
@@ -344,418 +343,611 @@
     class="hidden max-w-7xl mx-auto px-4 py-6 space-y-6"
 >
 
-```
-<!-- ===================================================== -->
-<!-- HEADER -->
-<!-- ===================================================== -->
 
-<section
-    class="fade-in bg-gradient-to-r from-purple-700 via-indigo-700 to-indigo-900 rounded-3xl p-6 text-white shadow-lg"
->
+    <!-- ===================================================== -->
+    <!-- HEADER -->
+    <!-- ===================================================== -->
 
-    <div class="flex items-center justify-between gap-4">
+    <section
+        class="fade-in bg-gradient-to-r from-purple-700 via-indigo-700 to-indigo-900 rounded-3xl p-6 text-white shadow-lg"
+    >
 
-        <div>
+        <div class="flex items-center justify-between gap-4">
+
+            <div>
+
+                <div
+                    class="inline-flex items-center gap-2 text-xs text-purple-200"
+                >
+
+                    <span
+                        class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"
+                    ></span>
+
+                    Admin System Online
+
+                </div>
+
+
+                <h2 class="text-xl sm:text-2xl font-bold mt-2">
+                    Dashboard ผู้ดูแลระบบ 🛡️
+                </h2>
+
+
+                <p class="text-xs text-indigo-200 mt-2">
+                    ตรวจสอบลูกค้า ประวัติการจัดส่ง ยอดขาย และระดับความเสี่ยง
+                </p>
+
+            </div>
+
 
             <div
-                class="inline-flex items-center gap-2 text-xs text-purple-200"
+                class="hidden sm:flex w-20 h-20 rounded-2xl bg-white/10 items-center justify-center text-4xl"
             >
+
+                <i class="fa-solid fa-chart-line"></i>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================== -->
+    <!-- STATISTICS -->
+    <!-- ===================================================== -->
+
+    <section
+        class="grid grid-cols-2 lg:grid-cols-5 gap-4"
+    >
+
+        <!-- TOTAL USERS -->
+
+        <div
+            class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
+        >
+
+            <div class="flex items-center justify-between">
+
+                <div
+                    class="w-11 h-11 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center"
+                >
+
+                    <i class="fa-solid fa-users"></i>
+
+                </div>
 
                 <span
-                    class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"
-                ></span>
-
-                Admin System Online
+                    class="text-xs font-bold text-slate-400"
+                >
+                    ลูกค้าทั้งหมด
+                </span>
 
             </div>
 
 
-            <h2 class="text-xl sm:text-2xl font-bold mt-2">
-                Dashboard ผู้ดูแลระบบ 🛡️
-            </h2>
-
-
-            <p class="text-xs text-indigo-200 mt-2">
-                ตรวจสอบลูกค้า ประวัติการจัดส่ง และระดับความเสี่ยง
+            <p
+                id="stat-total-users"
+                class="text-3xl font-black text-slate-800 mt-4"
+            >
+                0
             </p>
 
-        </div>
-
-
-        <div
-            class="hidden sm:flex w-20 h-20 rounded-2xl bg-white/10 items-center justify-center text-4xl"
-        >
-
-            <i class="fa-solid fa-chart-line"></i>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ===================================================== -->
-<!-- STATISTICS -->
-<!-- ===================================================== -->
-
-<section
-    class="grid grid-cols-2 lg:grid-cols-4 gap-4"
->
-
-    <!-- TOTAL -->
-
-    <div
-        class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
-    >
-
-        <div class="flex items-center justify-between">
-
-            <div
-                class="w-11 h-11 rounded-2xl bg-indigo-100 text-indigo-600 flex items-center justify-center"
-            >
-
-                <i class="fa-solid fa-users"></i>
-
-            </div>
-
-            <span
-                class="text-xs font-bold text-slate-400"
-            >
-                ลูกค้าทั้งหมด
-            </span>
-
-        </div>
-
-
-        <p
-            id="stat-total-users"
-            class="text-3xl font-black text-slate-800 mt-4"
-        >
-            0
-        </p>
-
-
-        <p class="text-xs text-slate-400 mt-1">
-            รายชื่อในระบบ
-        </p>
-
-    </div>
-
-
-    <!-- SUCCESS -->
-
-    <div
-        class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
-    >
-
-        <div class="flex items-center justify-between">
-
-            <div
-                class="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center"
-            >
-
-                <i class="fa-solid fa-circle-check"></i>
-
-            </div>
-
-            <span
-                class="text-xs font-bold text-slate-400"
-            >
-                สำเร็จ
-            </span>
-
-        </div>
-
-
-        <p
-            id="stat-success"
-            class="text-3xl font-black text-emerald-600 mt-4"
-        >
-            0
-        </p>
-
-
-        <p class="text-xs text-slate-400 mt-1">
-            การจัดส่งสำเร็จ
-        </p>
-
-    </div>
-
-
-    <!-- FAILED -->
-
-    <div
-        class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
-    >
-
-        <div class="flex items-center justify-between">
-
-            <div
-                class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center"
-            >
-
-                <i class="fa-solid fa-circle-xmark"></i>
-
-            </div>
-
-            <span
-                class="text-xs font-bold text-slate-400"
-            >
-                ตีกลับ
-            </span>
-
-        </div>
-
-
-        <p
-            id="stat-failed"
-            class="text-3xl font-black text-rose-600 mt-4"
-        >
-            0
-        </p>
-
-
-        <p class="text-xs text-slate-400 mt-1">
-            การจัดส่งล้มเหลว
-        </p>
-
-    </div>
-
-
-    <!-- BLACKLIST -->
-
-    <div
-        class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
-    >
-
-        <div class="flex items-center justify-between">
-
-            <div
-                class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center"
-            >
-
-                <i class="fa-solid fa-user-slash"></i>
-
-            </div>
-
-            <span
-                class="text-xs font-bold text-slate-400"
-            >
-                Blacklist
-            </span>
-
-        </div>
-
-
-        <p
-            id="stat-blacklist"
-            class="text-3xl font-black text-amber-600 mt-4"
-        >
-            0
-        </p>
-
-
-        <p class="text-xs text-slate-400 mt-1">
-            ลูกค้าที่ถูกขึ้นบัญชี
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- ===================================================== -->
-<!-- CONTROL -->
-<!-- ===================================================== -->
-
-<section
-    class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6"
->
-
-    <div
-        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
-    >
-
-        <div>
-
-            <h2 class="text-lg font-bold text-slate-800">
-
-                <i
-                    class="fa-solid fa-sliders text-purple-500 mr-2"
-                ></i>
-
-                จัดการข้อมูล
-
-            </h2>
 
             <p class="text-xs text-slate-400 mt-1">
-                ค้นหาและตรวจสอบข้อมูลลูกค้าในระบบ
+                รายชื่อในระบบ
             </p>
 
         </div>
 
 
-        <button
-            type="button"
-            onclick="refreshDashboard()"
-            class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition active:scale-95"
-        >
-
-            <i
-                class="fa-solid fa-rotate mr-1"
-            ></i>
-
-            รีเฟรชข้อมูล
-
-        </button>
-
-    </div>
-
-
-    <!-- SEARCH -->
-
-    <div class="mt-5 relative">
+        <!-- SUCCESS -->
 
         <div
-            class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
         >
 
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="flex items-center justify-between">
+
+                <div
+                    class="w-11 h-11 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center"
+                >
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <span
+                    class="text-xs font-bold text-slate-400"
+                >
+                    สำเร็จ
+                </span>
+
+            </div>
+
+
+            <p
+                id="stat-success"
+                class="text-3xl font-black text-emerald-600 mt-4"
+            >
+                0
+            </p>
+
+
+            <p class="text-xs text-slate-400 mt-1">
+                การจัดส่งสำเร็จ
+            </p>
 
         </div>
 
 
-        <input
-            type="text"
-            id="admin-search-input"
-            oninput="handleAdminSearch()"
-            placeholder="ค้นหาชื่อลูกค้า..."
-            autocomplete="off"
-            class="w-full pl-11 pr-4 py-4 rounded-2xl border-2 border-slate-200 bg-slate-50 font-semibold focus:outline-none focus:border-purple-500 focus:bg-white"
+        <!-- FAILED -->
+
+        <div
+            class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
         >
 
-    </div>
+            <div class="flex items-center justify-between">
 
-</section>
+                <div
+                    class="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center"
+                >
+
+                    <i class="fa-solid fa-circle-xmark"></i>
+
+                </div>
+
+                <span
+                    class="text-xs font-bold text-slate-400"
+                >
+                    ตีกลับ
+                </span>
+
+            </div>
 
 
-<!-- ===================================================== -->
-<!-- CUSTOMER TABLE -->
-<!-- ===================================================== -->
+            <p
+                id="stat-failed"
+                class="text-3xl font-black text-rose-600 mt-4"
+            >
+                0
+            </p>
 
-<section
-    class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden"
->
 
-    <!-- HEADER -->
+            <p class="text-xs text-slate-400 mt-1">
+                การจัดส่งล้มเหลว
+            </p>
 
-    <div
-        class="p-6 flex items-center justify-between border-b border-slate-100"
+        </div>
+
+
+        <!-- SALES -->
+
+        <div
+            class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
+        >
+
+            <div class="flex items-center justify-between">
+
+                <div
+                    class="w-11 h-11 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center"
+                >
+
+                    <i class="fa-solid fa-baht-sign"></i>
+
+                </div>
+
+                <span
+                    class="text-xs font-bold text-slate-400"
+                >
+                    ยอดขาย
+                </span>
+
+            </div>
+
+
+            <p
+                id="stat-sales"
+                class="text-2xl font-black text-purple-600 mt-4"
+            >
+                ฿0
+            </p>
+
+
+            <p class="text-xs text-slate-400 mt-1">
+                ยอดขายรวม
+            </p>
+
+        </div>
+
+
+        <!-- BLACKLIST -->
+
+        <div
+            class="stat-card bg-white rounded-3xl border border-slate-200 shadow-sm p-5"
+        >
+
+            <div class="flex items-center justify-between">
+
+                <div
+                    class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center"
+                >
+
+                    <i class="fa-solid fa-user-slash"></i>
+
+                </div>
+
+                <span
+                    class="text-xs font-bold text-slate-400"
+                >
+                    Blacklist
+                </span>
+
+            </div>
+
+
+            <p
+                id="stat-blacklist"
+                class="text-3xl font-black text-amber-600 mt-4"
+            >
+                0
+            </p>
+
+
+            <p class="text-xs text-slate-400 mt-1">
+                ลูกค้าที่ถูกขึ้นบัญชี
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================== -->
+    <!-- SALES CHART -->
+    <!-- ===================================================== -->
+
+    <section
+        class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6"
     >
 
-        <div>
+        <div
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+        >
+
+            <div>
+
+                <h2 class="text-lg font-bold text-slate-800">
+
+                    <i
+                        class="fa-solid fa-chart-column text-purple-500 mr-2"
+                    ></i>
+
+                    กราฟยอดขาย
+
+                </h2>
+
+                <p class="text-xs text-slate-400 mt-1">
+                    แสดงยอดขายของลูกค้าที่มียอดขายสูงสุด
+                </p>
+
+            </div>
+
+
+            <div
+                class="px-3 py-2 rounded-xl bg-purple-50 text-purple-600 text-xs font-bold"
+            >
+
+                <i class="fa-solid fa-baht-sign mr-1"></i>
+
+                ยอดขายรวม:
+                <span id="chart-total-sales">
+                    ฿0
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- CHART -->
+
+        <div
+            id="sales-chart"
+            class="mt-8 h-72 flex items-end gap-2 sm:gap-4 overflow-x-auto px-2 pb-2"
+        >
+
+            <div
+                class="w-full text-center text-slate-400 text-sm"
+            >
+                ยังไม่มีข้อมูลยอดขาย
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================== -->
+    <!-- CONTROL -->
+    <!-- ===================================================== -->
+
+    <section
+        class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6"
+    >
+
+        <div
+            class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+        >
+
+            <div>
+
+                <h2 class="text-lg font-bold text-slate-800">
+
+                    <i
+                        class="fa-solid fa-sliders text-purple-500 mr-2"
+                    ></i>
+
+                    จัดการข้อมูล
+
+                </h2>
+
+                <p class="text-xs text-slate-400 mt-1">
+                    ค้นหา นำเข้า และส่งออกข้อมูลลูกค้า
+                </p>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="flex flex-wrap gap-2">
+
+                <!-- IMPORT -->
+
+                <input
+                    type="file"
+                    id="csv-file-input"
+                    class="file-input"
+                    accept=".csv,text/csv"
+                    onchange="importCSV(event)"
+                >
+
+
+                <button
+                    type="button"
+                    onclick="document.getElementById('csv-file-input').click()"
+                    class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition active:scale-95"
+                >
+
+                    <i
+                        class="fa-solid fa-file-import mr-1"
+                    ></i>
+
+                    นำเข้า CSV
+
+                </button>
+
+
+                <!-- EXPORT -->
+
+                <button
+                    type="button"
+                    onclick="exportCSV()"
+                    class="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition active:scale-95"
+                >
+
+                    <i
+                        class="fa-solid fa-file-export mr-1"
+                    ></i>
+
+                    ส่งออก CSV
+
+                </button>
+
+
+                <!-- REFRESH -->
+
+                <button
+                    type="button"
+                    onclick="refreshDashboard()"
+                    class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition active:scale-95"
+                >
+
+                    <i
+                        class="fa-solid fa-rotate mr-1"
+                    ></i>
+
+                    รีเฟรช
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CSV INFO -->
+
+        <div
+            class="mt-5 p-4 rounded-2xl bg-slate-50 border border-slate-200"
+        >
+
+            <div class="flex items-start gap-3">
+
+                <div
+                    class="w-9 h-9 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0"
+                >
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                </div>
+
+
+                <div>
+
+                    <p class="text-sm font-bold text-slate-700">
+                        รูปแบบ CSV ที่รองรับ
+                    </p>
+
+                    <p class="text-xs text-slate-500 mt-1">
+                        id, name, success, failed, total, sales, isBlacklisted, blacklistReason
+                    </p>
+
+                    <p class="text-[11px] text-slate-400 mt-1">
+                        หากไม่มี sales ระบบจะตั้งยอดขายเป็น 0 บาท
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="mt-5 relative">
+
+            <div
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+            >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </div>
+
+
+            <input
+                type="text"
+                id="admin-search-input"
+                oninput="handleAdminSearch()"
+                placeholder="ค้นหาชื่อลูกค้า..."
+                autocomplete="off"
+                class="w-full pl-11 pr-4 py-4 rounded-2xl border-2 border-slate-200 bg-slate-50 font-semibold focus:outline-none focus:border-purple-500 focus:bg-white"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================== -->
+    <!-- CUSTOMER TABLE -->
+    <!-- ===================================================== -->
+
+    <section
+        class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden"
+    >
+
+        <!-- HEADER -->
+
+        <div
+            class="p-6 flex items-center justify-between border-b border-slate-100"
+        >
+
+            <div>
+
+                <h3 class="text-base font-bold text-slate-800">
+
+                    <i
+                        class="fa-solid fa-users text-indigo-500 mr-2"
+                    ></i>
+
+                    รายชื่อลูกค้า
+
+                </h3>
+
+                <p class="text-xs text-slate-400 mt-1">
+                    ข้อมูลความเสี่ยง ประวัติการจัดส่ง และยอดขาย
+                </p>
+
+            </div>
+
+
+            <span
+                id="customer-count-badge"
+                class="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 text-xs font-bold"
+            >
+                0 รายการ
+            </span>
+
+        </div>
+
+
+        <!-- LIST -->
+
+        <div
+            id="customer-list"
+            class="p-4 space-y-3"
+        >
+
+            <div
+                class="text-center py-12 text-slate-400"
+            >
+
+                <div
+                    class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-slate-100 flex items-center justify-center text-xl"
+                >
+
+                    <i class="fa-solid fa-database"></i>
+
+                </div>
+
+                <p class="text-sm font-medium">
+                    กำลังโหลดข้อมูล...
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ===================================================== -->
+    <!-- DELIVERY SUMMARY -->
+    <!-- ===================================================== -->
+
+    <section
+        class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden"
+    >
+
+        <div
+            class="p-6 border-b border-slate-100"
+        >
 
             <h3 class="text-base font-bold text-slate-800">
 
                 <i
-                    class="fa-solid fa-users text-indigo-500 mr-2"
+                    class="fa-solid fa-clock-rotate-left text-purple-500 mr-2"
                 ></i>
 
-                รายชื่อลูกค้า
+                สรุปการจัดส่ง
 
             </h3>
 
             <p class="text-xs text-slate-400 mt-1">
-                ข้อมูลความเสี่ยงและประวัติการจัดส่ง
+                ตรวจสอบสถานะจากข้อมูลลูกค้า
             </p>
 
         </div>
 
-
-        <span
-            id="customer-count-badge"
-            class="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 text-xs font-bold"
-        >
-            0 รายการ
-        </span>
-
-    </div>
-
-
-    <!-- LIST -->
-
-    <div
-        id="customer-list"
-        class="p-4 space-y-3"
-    >
 
         <div
-            class="text-center py-12 text-slate-400"
-        >
+            id="delivery-summary-list"
+            class="p-4 space-y-3"
+        ></div>
 
-            <div
-                class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-slate-100 flex items-center justify-center text-xl"
-            >
+    </section>
 
-                <i class="fa-solid fa-database"></i>
-
-            </div>
-
-            <p class="text-sm font-medium">
-                กำลังโหลดข้อมูล...
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ===================================================== -->
-<!-- RECENT DELIVERY LOGS -->
-<!-- ===================================================== -->
-
-<section
-    class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden"
->
-
-    <div
-        class="p-6 border-b border-slate-100"
-    >
-
-        <h3 class="text-base font-bold text-slate-800">
-
-            <i
-                class="fa-solid fa-clock-rotate-left text-purple-500 mr-2"
-            ></i>
-
-            สรุปการจัดส่ง
-
-        </h3>
-
-        <p class="text-xs text-slate-400 mt-1">
-            ตรวจสอบสถานะจากข้อมูลลูกค้า
-        </p>
-
-    </div>
-
-
-    <div
-        id="delivery-summary-list"
-        class="p-4 space-y-3"
-    ></div>
-
-</section>
-```
 
 </main>
 
+
 <!-- ========================================================= -->
-
 <!-- TOAST -->
-
 <!-- ========================================================= -->
 
 <div
@@ -763,10 +955,9 @@
     class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] px-5 py-3 rounded-2xl shadow-2xl text-white text-sm font-semibold whitespace-nowrap"
 ></div>
 
+
 <!-- ========================================================= -->
-
-<!-- JAVASCRIPT -->
-
+<!-- JAVASCRIPT FILES -->
 <!-- ========================================================= -->
 
 <script src="js/config.js"></script>
@@ -775,55 +966,60 @@
 
 <script src="js/sound.js"></script>
 
+
+<!-- ========================================================= -->
+<!-- ADMIN JAVASCRIPT -->
+<!-- ========================================================= -->
+
 <script>
+
 
 /* =========================================================
    INITIALIZE
 ========================================================= */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener(
+    'DOMContentLoaded',
+    () => {
 
-    /*
-     * ตรวจสอบ Admin Session
-     */
+        if (
+            sessionStorage.getItem(
+                'admin_logged_in'
+            ) === 'true'
+        ) {
 
-    if (
-        sessionStorage.getItem('admin_logged_in') === 'true'
-    ) {
+            showAdminSystem();
 
-        showAdminSystem();
-
-    }
-
-
-    /*
-     * Enter ในช่อง PIN
-     */
-
-    const pinInput =
-        document.getElementById(
-            'admin-pin-input'
-        );
+        }
 
 
-    if (pinInput) {
+        const pinInput =
+            document.getElementById(
+                'admin-pin-input'
+            );
 
-        pinInput.addEventListener(
-            'keydown',
-            event => {
 
-                if (event.key === 'Enter') {
+        if (pinInput) {
 
-                    loginAdmin();
+            pinInput.addEventListener(
+                'keydown',
+                event => {
+
+                    if (
+                        event.key === 'Enter'
+                    ) {
+
+                        loginAdmin();
+
+                    }
 
                 }
+            );
 
-            }
-        );
+        }
 
     }
-
-});
+);
 
 
 /* =========================================================
@@ -858,14 +1054,6 @@ function loginAdmin() {
         pinInput.value.trim();
 
 
-    /*
-     * ใช้ ADMIN_PIN จาก config.js
-     *
-     * หากโปรเจกต์เดิมยังไม่มี ADMIN_PIN
-     * จะใช้ DRIVER_PIN เป็น fallback
-     * เพื่อให้ระบบไม่พัง
-     */
-
     let correctPin = '';
 
 
@@ -873,7 +1061,9 @@ function loginAdmin() {
         typeof CONFIG !== 'undefined'
     ) {
 
-        if (CONFIG.ADMIN_PIN) {
+        if (
+            CONFIG.ADMIN_PIN
+        ) {
 
             correctPin =
                 String(
@@ -882,7 +1072,9 @@ function loginAdmin() {
 
         }
 
-        else if (CONFIG.DRIVER_PIN) {
+        else if (
+            CONFIG.DRIVER_PIN
+        ) {
 
             correctPin =
                 String(
@@ -893,10 +1085,6 @@ function loginAdmin() {
 
     }
 
-
-    /*
-     * ตรวจสอบว่ามี PIN หรือไม่
-     */
 
     if (!correctPin) {
 
@@ -916,19 +1104,10 @@ function loginAdmin() {
         );
 
 
-        console.error(
-            'ไม่พบ CONFIG.ADMIN_PIN หรือ CONFIG.DRIVER_PIN'
-        );
-
-
         return;
 
     }
 
-
-    /*
-     * CHECK PIN
-     */
 
     if (
         inputPin === correctPin
@@ -970,10 +1149,6 @@ function loginAdmin() {
     }
 
     else {
-
-        /*
-         * PIN ผิด
-         */
 
         if (
             typeof playSound === 'function'
@@ -1121,10 +1296,12 @@ function refreshDashboard() {
             error
         );
 
+
         showToast(
             'ไม่สามารถโหลดข้อมูลได้',
             'error'
         );
+
 
         return;
 
@@ -1132,6 +1309,11 @@ function refreshDashboard() {
 
 
     updateStatistics(
+        users
+    );
+
+
+    renderSalesChart(
         users
     );
 
@@ -1149,14 +1331,74 @@ function refreshDashboard() {
 
 
 /* =========================================================
+   GET SALES
+========================================================= */
+
+function getUserSales(user) {
+
+    if (!user) {
+        return 0;
+    }
+
+
+    const value =
+        user.sales ??
+        user.revenue ??
+        user.sale ??
+        user.amount ??
+        0;
+
+
+    const number =
+        Number(
+            String(value)
+                .replace(/,/g, '')
+                .replace(/[฿บาท\s]/g, '')
+        );
+
+
+    return Number.isFinite(number)
+        ? number
+        : 0;
+
+}
+
+
+/* =========================================================
+   FORMAT BAHT
+========================================================= */
+
+function formatBaht(value) {
+
+    const number =
+        Number(value) || 0;
+
+
+    return '฿' +
+        number.toLocaleString(
+            'th-TH',
+            {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            }
+        );
+
+}
+
+
+/* =========================================================
    STATISTICS
 ========================================================= */
 
 function updateStatistics(users) {
 
     let totalSuccess = 0;
+
     let totalFailed = 0;
+
     let totalBlacklist = 0;
+
+    let totalSales = 0;
 
 
     users.forEach(
@@ -1171,6 +1413,12 @@ function updateStatistics(users) {
             totalFailed +=
                 Number(
                     user.failed || 0
+                );
+
+
+            totalSales +=
+                getUserSales(
+                    user
                 );
 
 
@@ -1204,6 +1452,12 @@ function updateStatistics(users) {
         );
 
 
+    const salesElement =
+        document.getElementById(
+            'stat-sales'
+        );
+
+
     const blacklistElement =
         document.getElementById(
             'stat-blacklist'
@@ -1221,7 +1475,9 @@ function updateStatistics(users) {
     if (successElement) {
 
         successElement.innerText =
-            totalSuccess;
+            totalSuccess.toLocaleString(
+                'th-TH'
+            );
 
     }
 
@@ -1229,7 +1485,19 @@ function updateStatistics(users) {
     if (failedElement) {
 
         failedElement.innerText =
-            totalFailed;
+            totalFailed.toLocaleString(
+                'th-TH'
+            );
+
+    }
+
+
+    if (salesElement) {
+
+        salesElement.innerText =
+            formatBaht(
+                totalSales
+            );
 
     }
 
@@ -1240,6 +1508,209 @@ function updateStatistics(users) {
             totalBlacklist;
 
     }
+
+}
+
+
+/* =========================================================
+   SALES BAR CHART
+========================================================= */
+
+function renderSalesChart(users) {
+
+    const chart =
+        document.getElementById(
+            'sales-chart'
+        );
+
+
+    const totalElement =
+        document.getElementById(
+            'chart-total-sales'
+        );
+
+
+    if (!chart) {
+
+        return;
+
+    }
+
+
+    let totalSales = 0;
+
+
+    users.forEach(
+        user => {
+
+            totalSales +=
+                getUserSales(
+                    user
+                );
+
+        }
+    );
+
+
+    if (totalElement) {
+
+        totalElement.innerText =
+            formatBaht(
+                totalSales
+            );
+
+    }
+
+
+    const sorted =
+        [...users]
+            .map(
+                user => ({
+
+                    name:
+                        user.name || '-',
+
+                    sales:
+                        getUserSales(
+                            user
+                        )
+
+                })
+            )
+            .filter(
+                item =>
+                    item.sales > 0
+            )
+            .sort(
+                (a, b) =>
+                    b.sales -
+                    a.sales
+            )
+            .slice(
+                0,
+                10
+            );
+
+
+    if (
+        sorted.length === 0
+    ) {
+
+        chart.innerHTML = `
+
+            <div
+                class="w-full h-full flex flex-col items-center justify-center text-slate-400"
+            >
+
+                <div
+                    class="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center text-2xl mb-3"
+                >
+
+                    <i
+                        class="fa-solid fa-chart-column"
+                    ></i>
+
+                </div>
+
+                <p class="text-sm font-semibold">
+                    ยังไม่มีข้อมูลยอดขาย
+                </p>
+
+                <p class="text-xs mt-1">
+                    เพิ่ม sales ผ่าน CSV เพื่อแสดงกราฟ
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const maxSales =
+        Math.max(
+            ...sorted.map(
+                item =>
+                    item.sales
+            )
+        );
+
+
+    chart.innerHTML =
+        sorted
+            .map(
+                item => {
+
+                    const height =
+                        maxSales > 0
+                            ? Math.max(
+                                5,
+                                (
+                                    item.sales /
+                                    maxSales
+                                ) *
+                                100
+                            )
+                            : 5;
+
+
+                    return `
+
+                        <div
+                            class="min-w-[55px] sm:min-w-[70px] flex-1 h-full flex flex-col justify-end items-center gap-2"
+                        >
+
+                            <div
+                                class="text-[10px] sm:text-xs font-bold text-purple-600 whitespace-nowrap"
+                            >
+
+                                ${formatBaht(
+                                    item.sales
+                                )}
+
+                            </div>
+
+
+                            <div
+                                class="w-full max-w-[55px] bg-purple-100 rounded-t-xl overflow-hidden flex items-end"
+                                style="height:200px"
+                            >
+
+                                <div
+                                    class="chart-bar w-full bg-gradient-to-t from-purple-700 to-indigo-500 rounded-t-xl"
+                                    style="height:${height}%"
+                                    title="${escapeHtml(
+                                        item.name
+                                    )} ${formatBaht(
+                                        item.sales
+                                    )}"
+                                ></div>
+
+                            </div>
+
+
+                            <div
+                                class="w-full text-center text-[10px] sm:text-xs font-semibold text-slate-600 truncate"
+                                title="${escapeHtml(
+                                    item.name
+                                )}"
+                            >
+
+                                ${escapeHtml(
+                                    item.name
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join('');
 
 }
 
@@ -1285,21 +1756,28 @@ function handleAdminSearch() {
     const filtered =
         keyword
 
-        ?
+            ?
 
-        users.filter(
-            user =>
-                user.name &&
-                user.name
-                    .toLowerCase()
-                    .includes(
+            users.filter(
+                user => {
+
+                    const name =
+                        String(
+                            user.name || ''
+                        )
+                        .toLowerCase();
+
+
+                    return name.includes(
                         keyword
-                    )
-        )
+                    );
 
-        :
+                }
+            )
 
-        users;
+            :
+
+            users;
 
 
     renderCustomers(
@@ -1412,38 +1890,44 @@ function renderCustomers(users) {
                     risk &&
                     risk.label
 
-                    ?
+                        ?
 
-                    risk.label
+                        risk.label
 
-                    :
+                        :
 
-                    'ไม่ทราบระดับ';
+                        'ไม่ทราบระดับ';
 
 
                 const riskClass =
                     risk &&
                     risk.colorClass
 
-                    ?
+                        ?
 
-                    risk.colorClass
+                        risk.colorClass
 
-                    :
+                        :
 
-                    'bg-slate-100 text-slate-600';
+                        'bg-slate-100 text-slate-600';
 
 
                 const blacklistClass =
                     user.isBlacklisted
 
-                    ?
+                        ?
 
-                    'border-rose-300 bg-rose-50'
+                        'border-rose-300 bg-rose-50'
 
-                    :
+                        :
 
-                    'border-slate-200 bg-slate-50';
+                        'border-slate-200 bg-slate-50';
+
+
+                const sales =
+                    getUserSales(
+                        user
+                    );
 
 
                 return `
@@ -1453,7 +1937,7 @@ function renderCustomers(users) {
                     >
 
                         <div
-                            class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+                            class="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4"
                         >
 
                             <!-- USER -->
@@ -1491,41 +1975,41 @@ function renderCustomers(users) {
                                         ${
                                             user.isBlacklisted
 
-                                            ?
+                                                ?
 
-                                            `
+                                                `
 
-                                                <span
-                                                    class="inline-flex items-center gap-1 mt-1 text-[11px] font-bold text-rose-600"
-                                                >
+                                                    <span
+                                                        class="inline-flex items-center gap-1 mt-1 text-[11px] font-bold text-rose-600"
+                                                    >
 
-                                                    <i
-                                                        class="fa-solid fa-user-slash"
-                                                    ></i>
+                                                        <i
+                                                            class="fa-solid fa-user-slash"
+                                                        ></i>
 
-                                                    BLACKLIST
+                                                        BLACKLIST
 
-                                                </span>
+                                                    </span>
 
-                                            `
+                                                `
 
-                                            :
+                                                :
 
-                                            `
+                                                `
 
-                                                <span
-                                                    class="inline-flex items-center gap-1 mt-1 text-[11px] font-bold text-emerald-600"
-                                                >
+                                                    <span
+                                                        class="inline-flex items-center gap-1 mt-1 text-[11px] font-bold text-emerald-600"
+                                                    >
 
-                                                    <i
-                                                        class="fa-solid fa-circle-check"
-                                                    ></i>
+                                                        <i
+                                                            class="fa-solid fa-circle-check"
+                                                        ></i>
 
-                                                    ACTIVE
+                                                        ACTIVE
 
-                                                </span>
+                                                    </span>
 
-                                            `
+                                                `
                                         }
 
                                     </div>
@@ -1586,6 +2070,21 @@ function renderCustomers(users) {
 
 
                                 <span
+                                    class="px-3 py-2 rounded-xl bg-purple-100 text-purple-700 text-xs font-bold"
+                                >
+
+                                    <i
+                                        class="fa-solid fa-baht-sign mr-1"
+                                    ></i>
+
+                                    ${formatBaht(
+                                        sales
+                                    )}
+
+                                </span>
+
+
+                                <span
                                     class="px-3 py-2 rounded-xl text-xs font-bold ${riskClass}"
                                 >
 
@@ -1604,29 +2103,29 @@ function renderCustomers(users) {
                             user.isBlacklisted &&
                             user.blacklistReason
 
-                            ?
+                                ?
 
-                            `
+                                `
 
-                                <div
-                                    class="mt-4 p-3 rounded-xl bg-rose-100/70 text-rose-700 text-xs font-semibold"
-                                >
+                                    <div
+                                        class="mt-4 p-3 rounded-xl bg-rose-100/70 text-rose-700 text-xs font-semibold"
+                                    >
 
-                                    <i
-                                        class="fa-solid fa-triangle-exclamation mr-1"
-                                    ></i>
+                                        <i
+                                            class="fa-solid fa-triangle-exclamation mr-1"
+                                        ></i>
 
-                                    ${escapeHtml(
-                                        user.blacklistReason
-                                    )}
+                                        ${escapeHtml(
+                                            user.blacklistReason
+                                        )}
 
-                                </div>
+                                    </div>
 
-                            `
+                                `
 
-                            :
+                                :
 
-                            ''
+                                ''
 
                         }
 
@@ -1731,19 +2230,25 @@ function renderDeliverySummary(users) {
                 const successRate =
                     total > 0
 
-                    ?
+                        ?
 
-                    Math.round(
-                        (
-                            success /
-                            total
-                        ) *
-                        100
-                    )
+                        Math.round(
+                            (
+                                success /
+                                total
+                            ) *
+                            100
+                        )
 
-                    :
+                        :
 
-                    0;
+                        0;
+
+
+                const sales =
+                    getUserSales(
+                        user
+                    );
 
 
                 return `
@@ -1792,21 +2297,21 @@ function renderDeliverySummary(users) {
                                     class="text-lg font-black ${
                                         successRate >= 80
 
-                                        ?
+                                            ?
 
-                                        'text-emerald-600'
+                                            'text-emerald-600'
 
-                                        :
+                                            :
 
-                                        successRate >= 50
+                                            successRate >= 50
 
-                                        ?
+                                                ?
 
-                                        'text-amber-600'
+                                                'text-amber-600'
 
-                                        :
+                                                :
 
-                                        'text-rose-600'
+                                                'text-rose-600'
                                     }"
                                 >
 
@@ -1827,28 +2332,45 @@ function renderDeliverySummary(users) {
 
 
                         <div
-                            class="mt-3 h-2 rounded-full bg-slate-200 overflow-hidden"
+                            class="mt-3 flex items-center justify-between text-xs"
+                        >
+
+                            <span class="text-slate-400">
+                                ยอดขาย
+                            </span>
+
+                            <span class="font-bold text-purple-600">
+                                ${formatBaht(
+                                    sales
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            class="mt-2 h-2 rounded-full bg-slate-200 overflow-hidden"
                         >
 
                             <div
                                 class="h-full rounded-full ${
                                     successRate >= 80
 
-                                    ?
+                                        ?
 
-                                    'bg-emerald-500'
+                                        'bg-emerald-500'
 
-                                    :
+                                        :
 
-                                    successRate >= 50
+                                        successRate >= 50
 
-                                    ?
+                                            ?
 
-                                    'bg-amber-500'
+                                            'bg-amber-500'
 
-                                    :
+                                            :
 
-                                    'bg-rose-500'
+                                            'bg-rose-500'
                                 }"
                                 style="width:${Math.min(
                                     successRate,
@@ -1870,12 +2392,807 @@ function renderDeliverySummary(users) {
 
 
 /* =========================================================
+   EXPORT CSV
+========================================================= */
+
+function exportCSV() {
+
+    if (
+        typeof DB === 'undefined'
+    ) {
+
+        showToast(
+            'ไม่พบระบบฐานข้อมูล DB',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    let users = [];
+
+
+    try {
+
+        users =
+            DB.getAll() || [];
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            'ไม่สามารถอ่านข้อมูลได้',
+            'error'
+        );
+
+
+        return;
+
+    }
+
+
+    if (
+        users.length === 0
+    ) {
+
+        showToast(
+            'ไม่มีข้อมูลสำหรับส่งออก',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    const headers = [
+
+        'id',
+        'name',
+        'success',
+        'failed',
+        'total',
+        'sales',
+        'isBlacklisted',
+        'blacklistReason'
+
+    ];
+
+
+    const rows =
+        users.map(
+            user => [
+
+                user.id ?? '',
+
+                user.name ?? '',
+
+                Number(
+                    user.success || 0
+                ),
+
+                Number(
+                    user.failed || 0
+                ),
+
+                Number(
+                    user.total || 0
+                ),
+
+                getUserSales(
+                    user
+                ),
+
+                user.isBlacklisted
+                    ? 'true'
+                    : 'false',
+
+                user.blacklistReason ?? ''
+
+            ]
+        );
+
+
+    const csv =
+        '\uFEFF' +
+        [
+            headers,
+            ...rows
+        ]
+            .map(
+                row =>
+                    row
+                        .map(
+                            csvEscape
+                        )
+                        .join(',')
+            )
+            .join('\r\n');
+
+
+    const blob =
+        new Blob(
+            [csv],
+            {
+                type:
+                    'text/csv;charset=utf-8;'
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const link =
+        document.createElement(
+            'a'
+        );
+
+
+    const date =
+        new Date()
+            .toISOString()
+            .slice(
+                0,
+                10
+            );
+
+
+    link.href =
+        url;
+
+
+    link.download =
+        `delivery-risk-data-${date}.csv`;
+
+
+    document.body.appendChild(
+        link
+    );
+
+
+    link.click();
+
+
+    document.body.removeChild(
+        link
+    );
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
+
+    showToast(
+        `ส่งออก CSV สำเร็จ ${users.length} รายการ 📤`,
+        'success'
+    );
+
+}
+
+
+/* =========================================================
+   CSV ESCAPE
+========================================================= */
+
+function csvEscape(value) {
+
+    const text =
+        String(
+            value ?? ''
+        );
+
+
+    if (
+        /[",\n\r]/.test(
+            text
+        )
+    ) {
+
+        return '"' +
+            text.replace(
+                /"/g,
+                '""'
+            ) +
+            '"';
+
+    }
+
+
+    return text;
+
+}
+
+
+/* =========================================================
+   IMPORT CSV
+========================================================= */
+
+function importCSV(event) {
+
+    const file =
+        event.target.files &&
+        event.target.files[0];
+
+
+    if (!file) {
+
+        return;
+
+    }
+
+
+    if (
+        !file.name
+            .toLowerCase()
+            .endsWith('.csv')
+    ) {
+
+        showToast(
+            'กรุณาเลือกไฟล์ CSV',
+            'error'
+        );
+
+
+        event.target.value =
+            '';
+
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function (e) {
+
+            try {
+
+                const text =
+                    e.target.result
+                        .replace(
+                            /^\uFEFF/,
+                            ''
+                        );
+
+
+                const rows =
+                    parseCSV(
+                        text
+                    );
+
+
+                if (
+                    rows.length < 2
+                ) {
+
+                    throw new Error(
+                        'CSV ไม่มีข้อมูล'
+                    );
+
+                }
+
+
+                const headers =
+                    rows[0]
+                        .map(
+                            header =>
+                                String(
+                                    header
+                                )
+                                .trim()
+                                .toLowerCase()
+                        );
+
+
+                const dataRows =
+                    rows.slice(
+                        1
+                    );
+
+
+                const imported =
+                    dataRows
+                        .filter(
+                            row =>
+                                row.some(
+                                    value =>
+                                        String(
+                                            value
+                                        ).trim() !== ''
+                                )
+                        )
+                        .map(
+                            (row, index) => {
+
+                                const get =
+                                    name => {
+
+                                        const i =
+                                            headers.indexOf(
+                                                name
+                                            );
+
+
+                                        return i >= 0
+                                            ? row[i] ?? ''
+                                            : '';
+
+                                    };
+
+
+                                const success =
+                                    toNumber(
+                                        get(
+                                            'success'
+                                        )
+                                    );
+
+
+                                const failed =
+                                    toNumber(
+                                        get(
+                                            'failed'
+                                        )
+                                    );
+
+
+                                const totalRaw =
+                                    get(
+                                        'total'
+                                    );
+
+
+                                const total =
+                                    totalRaw !== ''
+                                        ? toNumber(
+                                            totalRaw
+                                        )
+                                        : success +
+                                          failed;
+
+
+                                const blacklistValue =
+                                    String(
+                                        get(
+                                            'isblacklisted'
+                                        )
+                                    )
+                                    .trim()
+                                    .toLowerCase();
+
+
+                                return {
+
+                                    id:
+                                        get(
+                                            'id'
+                                        ) ||
+                                        Date.now() +
+                                        index,
+
+                                    name:
+                                        get(
+                                            'name'
+                                        ) ||
+                                        `Customer ${index + 1}`,
+
+                                    success:
+                                        success,
+
+                                    failed:
+                                        failed,
+
+                                    total:
+                                        total,
+
+                                    sales:
+                                        toNumber(
+                                            get(
+                                                'sales'
+                                            ) ||
+                                            get(
+                                                'revenue'
+                                            )
+                                        ),
+
+                                    isBlacklisted:
+                                        blacklistValue ===
+                                            'true' ||
+                                        blacklistValue ===
+                                            '1' ||
+                                        blacklistValue ===
+                                            'yes' ||
+                                        blacklistValue ===
+                                            'blacklist',
+
+                                    blacklistReason:
+                                        get(
+                                            'blacklistreason'
+                                        ) || '',
+
+                                    logs:
+                                        []
+
+                                };
+
+                            }
+                        );
+
+
+                if (
+                    imported.length === 0
+                ) {
+
+                    throw new Error(
+                        'ไม่พบข้อมูลที่สามารถนำเข้าได้'
+                    );
+
+                }
+
+
+                const shouldReplace =
+                    confirm(
+                        `พบข้อมูล ${imported.length} รายการ\n\nกด "ตกลง" เพื่อแทนที่ข้อมูลเดิม\nกด "ยกเลิก" เพื่อเพิ่มต่อจากข้อมูลเดิม`
+                    );
+
+
+                let finalData;
+
+
+                if (
+                    shouldReplace
+                ) {
+
+                    finalData =
+                        imported;
+
+                }
+
+                else {
+
+                    const existing =
+                        DB.getAll() || [];
+
+
+                    finalData =
+                        mergeUsers(
+                            existing,
+                            imported
+                        );
+
+                }
+
+
+                DB.save(
+                    finalData
+                );
+
+
+                refreshDashboard();
+
+
+                showToast(
+                    `นำเข้า CSV สำเร็จ ${imported.length} รายการ 📥`,
+                    'success'
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+
+                showToast(
+                    'นำเข้า CSV ไม่สำเร็จ: ' +
+                    error.message,
+                    'error'
+                );
+
+            }
+
+
+            event.target.value =
+                '';
+
+        };
+
+
+    reader.onerror =
+        function () {
+
+            showToast(
+                'ไม่สามารถอ่านไฟล์ CSV ได้',
+                'error'
+            );
+
+
+            event.target.value =
+                '';
+
+        };
+
+
+    reader.readAsText(
+        file,
+        'UTF-8'
+    );
+
+}
+
+
+/* =========================================================
+   PARSE CSV
+========================================================= */
+
+function parseCSV(text) {
+
+    const rows = [];
+
+    let row = [];
+
+    let cell = '';
+
+    let insideQuotes = false;
+
+
+    for (
+        let i = 0;
+        i < text.length;
+        i++
+    ) {
+
+        const char =
+            text[i];
+
+
+        const next =
+            text[i + 1];
+
+
+        if (
+            char === '"'
+        ) {
+
+            if (
+                insideQuotes &&
+                next === '"'
+            ) {
+
+                cell += '"';
+
+                i++;
+
+            }
+
+            else {
+
+                insideQuotes =
+                    !insideQuotes;
+
+            }
+
+        }
+
+        else if (
+            char === ',' &&
+            !insideQuotes
+        ) {
+
+            row.push(
+                cell
+            );
+
+            cell = '';
+
+        }
+
+        else if (
+            (
+                char === '\n' ||
+                char === '\r'
+            ) &&
+            !insideQuotes
+        ) {
+
+            if (
+                char === '\r' &&
+                next === '\n'
+            ) {
+
+                i++;
+
+            }
+
+
+            row.push(
+                cell
+            );
+
+
+            rows.push(
+                row
+            );
+
+
+            row = [];
+
+            cell = '';
+
+        }
+
+        else {
+
+            cell += char;
+
+        }
+
+    }
+
+
+    if (
+        cell !== '' ||
+        row.length > 0
+    ) {
+
+        row.push(
+            cell
+        );
+
+
+        rows.push(
+            row
+        );
+
+    }
+
+
+    return rows;
+
+}
+
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+function toNumber(value) {
+
+    const number =
+        Number(
+            String(
+                value ?? ''
+            )
+            .replace(
+                /,/g,
+                ''
+            )
+            .replace(
+                /฿/g,
+                ''
+            )
+            .replace(
+                /บาท/g,
+                ''
+            )
+            .trim()
+        );
+
+
+    return Number.isFinite(
+        number
+    )
+        ? number
+        : 0;
+
+}
+
+
+/* =========================================================
+   MERGE USERS
+========================================================= */
+
+function mergeUsers(
+    existing,
+    imported
+) {
+
+    const result =
+        [...existing];
+
+
+    imported.forEach(
+        incoming => {
+
+            const incomingName =
+                String(
+                    incoming.name || ''
+                )
+                .trim()
+                .toLowerCase();
+
+
+            const index =
+                result.findIndex(
+                    user =>
+                        String(
+                            user.name || ''
+                        )
+                        .trim()
+                        .toLowerCase() ===
+                        incomingName
+                );
+
+
+            if (
+                index >= 0
+            ) {
+
+                result[index] = {
+
+                    ...result[index],
+
+                    ...incoming,
+
+                    logs:
+                        incoming.logs &&
+                        incoming.logs.length
+                            ? incoming.logs
+                            : (
+                                result[index]
+                                    .logs ||
+                                []
+                            )
+
+                };
+
+            }
+
+            else {
+
+                result.push(
+                    incoming
+                );
+
+            }
+
+        }
+    );
+
+
+    return result;
+
+}
+
+
+/* =========================================================
    ESCAPE HTML
 ========================================================= */
 
 function escapeHtml(value) {
 
-    return String(value)
+    return String(
+        value ?? ''
+    )
 
         .replace(
             /&/g,
@@ -1968,40 +3285,47 @@ function showToast(
         ${
             type === 'success'
 
-            ?
+                ?
 
-            'bg-emerald-600'
+                'bg-emerald-600'
 
-            :
+                :
 
-            type === 'error'
+                type === 'error'
 
-            ?
+                    ?
 
-            'bg-rose-600'
+                    'bg-rose-600'
 
-            :
+                    :
 
-            'bg-slate-800'
+                    'bg-slate-800'
         }
 
     `;
 
 
-    setTimeout(
-        () => {
-
-            toast.classList.add(
-                'hidden'
-            );
-
-        },
-        3000
+    clearTimeout(
+        window.adminToastTimer
     );
+
+
+    window.adminToastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.add(
+                    'hidden'
+                );
+
+            },
+            3000
+        );
 
 }
 
 </script>
+
 
 </body>
 </html>
