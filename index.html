@@ -2,8 +2,13 @@
 <html lang="th">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Delivery Risk Pro | Portal</title>
 
@@ -35,6 +40,14 @@
 
 
     <!-- =====================================================
+         SOUND SYSTEM
+         ใช้ระบบเสียงจากไฟล์ JS เดิมของโปรเจกต์
+    ====================================================== -->
+
+    <script src="sound.js"></script>
+
+
+    <!-- =====================================================
          STYLE
     ====================================================== -->
 
@@ -49,21 +62,19 @@
         }
 
 
-        /* =====================================================
+        /* ================================
            ANIMATIONS
-        ====================================================== */
+        ================================= */
 
         .fade-up {
             animation: fadeUp 0.6s ease-out;
         }
 
+
         .fade-up-delay {
             animation: fadeUp 0.6s ease-out 0.12s both;
         }
 
-        .fade-up-delay-2 {
-            animation: fadeUp 0.6s ease-out 0.22s both;
-        }
 
         @keyframes fadeUp {
 
@@ -80,9 +91,9 @@
         }
 
 
-        /* =====================================================
+        /* ================================
            MENU CARD
-        ====================================================== */
+        ================================= */
 
         .menu-card {
             transition:
@@ -91,39 +102,39 @@
                 border-color 0.25s ease;
         }
 
+
         .menu-card:hover {
             transform: translateY(-5px);
         }
+
 
         .menu-card:active {
             transform: scale(0.98);
         }
 
 
-        /* =====================================================
+        /* ================================
            PROMO
-        ====================================================== */
+        ================================= */
 
         .promo-card {
             transition: all 0.25s ease;
         }
 
+
         .promo-card:hover {
             transform: translateY(-2px);
         }
 
-        .promo-card:active {
-            transform: scale(0.99);
-        }
 
-
-        /* =====================================================
+        /* ================================
            FLOATING TRUCK
-        ====================================================== */
+        ================================= */
 
         .floating-truck {
             animation: floatingTruck 3s ease-in-out infinite;
         }
+
 
         @keyframes floatingTruck {
 
@@ -139,50 +150,14 @@
         }
 
 
-        /* =====================================================
-           PULSE
-        ====================================================== */
-
-        .logo-pulse {
-            animation: logoPulse 2.5s infinite;
-        }
-
-        @keyframes logoPulse {
-
-            0% {
-                box-shadow:
-                    0 0 0 0
-                    rgba(99, 102, 241, 0.25);
-            }
-
-            70% {
-                box-shadow:
-                    0 0 0 15px
-                    rgba(99, 102, 241, 0);
-            }
-
-            100% {
-                box-shadow:
-                    0 0 0 0
-                    rgba(99, 102, 241, 0);
-            }
-
-        }
-
-
-        /* =====================================================
+        /* ================================
            MARQUEE
-        ====================================================== */
-
-        .marquee-wrapper {
-            overflow: hidden;
-            white-space: nowrap;
-        }
+        ================================= */
 
         .marquee {
-            display: inline-block;
-            animation: marquee 18s linear infinite;
+            animation: marquee 16s linear infinite;
         }
+
 
         @keyframes marquee {
 
@@ -197,31 +172,35 @@
         }
 
 
-        /* =====================================================
-           BUTTON RIPPLE
-        ====================================================== */
+        /* ================================
+           BUTTON SOUND EFFECT
+        ================================= */
 
-        .sound-click {
+        button,
+        a {
             -webkit-tap-highlight-color: transparent;
         }
 
 
-        /* =====================================================
+        /* ================================
            SCROLLBAR
-        ====================================================== */
+        ================================= */
 
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 7px;
         }
+
 
         ::-webkit-scrollbar-track {
             background: #f1f5f9;
         }
 
+
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 999px;
         }
+
 
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
@@ -235,9 +214,9 @@
 <body class="bg-slate-100 min-h-screen text-slate-800">
 
 
-<!-- =========================================================
-     TOP NAVBAR
-========================================================= -->
+<!-- ========================================================= -->
+<!-- TOP NAVBAR -->
+<!-- ========================================================= -->
 
 <nav class="bg-slate-950 text-white shadow-lg">
 
@@ -251,14 +230,9 @@
         <div class="flex items-center gap-3">
 
             <div
-                class="logo-pulse
-                w-10 h-10
-                rounded-xl
-                bg-gradient-to-br
-                from-indigo-500
-                to-indigo-700
-                flex items-center
-                justify-center
+                class="w-10 h-10 rounded-xl
+                bg-gradient-to-br from-indigo-500 to-indigo-700
+                flex items-center justify-center
                 shadow-lg"
             >
 
@@ -290,17 +264,14 @@
 
         <div
             class="flex items-center gap-2
-            px-3 py-1.5
-            rounded-xl
+            px-3 py-1.5 rounded-xl
             bg-emerald-500/10
             border border-emerald-500/20"
         >
 
             <span
-                class="w-2 h-2
-                rounded-full
-                bg-emerald-400
-                animate-pulse"
+                class="w-2 h-2 rounded-full
+                bg-emerald-400 animate-pulse"
             ></span>
 
             <span
@@ -318,17 +289,16 @@
 </nav>
 
 
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
+<!-- ========================================================= -->
+<!-- MAIN -->
+<!-- ========================================================= -->
 
 <main class="max-w-6xl mx-auto px-4 py-8">
 
 
-    <!-- =====================================================
-         HERO
-    ====================================================== -->
+    <!-- ===================================================== -->
+    <!-- HERO -->
+    <!-- ===================================================== -->
 
     <section
         class="fade-up
@@ -340,13 +310,14 @@
         relative"
     >
 
-        <!-- Background -->
+        <!-- Background decoration -->
 
         <div
             class="absolute
             -right-20
             -top-20
-            w-72 h-72
+            w-72
+            h-72
             bg-indigo-100
             rounded-full
             blur-3xl"
@@ -357,7 +328,8 @@
             class="absolute
             -left-20
             -bottom-20
-            w-60 h-60
+            w-60
+            h-60
             bg-amber-100
             rounded-full
             blur-3xl"
@@ -375,7 +347,6 @@
             justify-between
             gap-8"
         >
-
 
             <!-- TEXT -->
 
@@ -431,7 +402,7 @@
                 </p>
 
 
-                <!-- SYSTEM STATUS -->
+                <!-- STATUS -->
 
                 <div
                     class="mt-5
@@ -464,7 +435,7 @@
             </div>
 
 
-            <!-- TRUCK -->
+            <!-- ICON -->
 
             <div
                 class="floating-truck
@@ -497,9 +468,9 @@
 
 
 
-    <!-- =====================================================
-         PROMO / TRACKING
-    ====================================================== -->
+    <!-- ===================================================== -->
+    <!-- PROMO -->
+    <!-- ===================================================== -->
 
     <section
         class="promo-card
@@ -517,22 +488,19 @@
 
         <a
             href="tracking.html"
-            onclick="playClickSound()"
-            class="sound-click block"
+            onclick="playIndexSound('success')"
+            class="block"
         >
 
             <div
                 class="px-5 py-4
                 flex items-center
-                justify-between
-                gap-4"
+                justify-between gap-4"
             >
 
                 <div
-                    class="flex
-                    items-center
-                    gap-4
-                    min-w-0"
+                    class="flex items-center
+                    gap-4 min-w-0"
                 >
 
                     <div
@@ -568,19 +536,14 @@
                                 text-[10px]
                                 font-black"
                             >
-
                                 PROMO
-
                             </span>
-
 
                             <span
                                 class="text-xs
                                 font-bold"
                             >
-
                                 FLASH DEAL 🚚
-
                             </span>
 
                         </div>
@@ -636,11 +599,11 @@
 
 
 
-    <!-- =====================================================
-         PORTAL
-    ====================================================== -->
+    <!-- ===================================================== -->
+    <!-- PORTAL -->
+    <!-- ===================================================== -->
 
-    <section class="mt-8 fade-up-delay-2">
+    <section class="mt-8">
 
         <div
             class="flex
@@ -668,7 +631,7 @@
                     mt-1"
                 >
 
-                    เลือกระบบที่คุณต้องการใช้งาน
+                    เลือกระบบที่ต้องการใช้งาน
 
                 </p>
 
@@ -682,7 +645,7 @@
                 text-slate-400"
             >
 
-                <i class="fa-solid fa-grip"></i>
+                <i class="fa-solid fa-layer-group"></i>
 
                 4 ระบบ
 
@@ -692,9 +655,9 @@
 
 
 
-        <!-- =================================================
-             MENU GRID
-        ================================================= -->
+        <!-- ================================================= -->
+        <!-- MENU GRID -->
+        <!-- ================================================= -->
 
         <div
             class="grid
@@ -706,14 +669,12 @@
 
             <!-- =================================================
                  DRIVER
-            ================================================= -->
+            ================================================== -->
 
             <a
                 href="driver.html"
-                onclick="playClickSound()"
-                class="menu-card
-                sound-click
-                group
+                onclick="playIndexSound('success')"
+                class="menu-card group
                 bg-indigo-600
                 hover:bg-indigo-700
                 text-white
@@ -756,10 +717,7 @@
                             text-2xl"
                         >
 
-                            <i
-                                class="fa-solid
-                                fa-motorcycle"
-                            ></i>
+                            <i class="fa-solid fa-motorcycle"></i>
 
                         </div>
 
@@ -819,10 +777,8 @@
 
             <a
                 href="admin.html"
-                onclick="playClickSound()"
-                class="menu-card
-                sound-click
-                group
+                onclick="playIndexSound('success')"
+                class="menu-card group
                 bg-white
                 hover:bg-slate-50
                 border border-slate-200
@@ -867,10 +823,7 @@
                             text-2xl"
                         >
 
-                            <i
-                                class="fa-solid
-                                fa-chart-pie"
-                            ></i>
+                            <i class="fa-solid fa-chart-pie"></i>
 
                         </div>
 
@@ -932,10 +885,8 @@
 
             <a
                 href="blacklist.html"
-                onclick="playClickSound()"
-                class="menu-card
-                sound-click
-                group
+                onclick="playIndexSound('failed')"
+                class="menu-card group
                 bg-white
                 hover:bg-rose-50/50
                 border border-slate-200
@@ -956,10 +907,7 @@
                     text-8xl"
                 >
 
-                    <i
-                        class="fa-solid
-                        fa-user-shield"
-                    ></i>
+                    <i class="fa-solid fa-user-shield"></i>
 
                 </div>
 
@@ -983,10 +931,7 @@
                             text-2xl"
                         >
 
-                            <i
-                                class="fa-solid
-                                fa-user-shield"
-                            ></i>
+                            <i class="fa-solid fa-user-shield"></i>
 
                         </div>
 
@@ -1048,12 +993,10 @@
 
             <a
                 href="tracking.html"
-                onclick="playClickSound()"
-                class="menu-card
-                sound-click
-                group
+                onclick="playIndexSound('success')"
+                class="menu-card group
                 bg-white
-                hover:bg-emerald-50/50
+                hover:bg-slate-50
                 border border-slate-200
                 hover:border-emerald-200
                 rounded-3xl
@@ -1072,10 +1015,7 @@
                     text-8xl"
                 >
 
-                    <i
-                        class="fa-solid
-                        fa-location-dot"
-                    ></i>
+                    <i class="fa-solid fa-location-dot"></i>
 
                 </div>
 
@@ -1099,10 +1039,7 @@
                             text-2xl"
                         >
 
-                            <i
-                                class="fa-solid
-                                fa-location-dot"
-                            ></i>
+                            <i class="fa-solid fa-location-dot"></i>
 
                         </div>
 
@@ -1162,418 +1099,170 @@
 
 
 
-    <!-- =====================================================
-         QUICK INFO
-    ====================================================== -->
+    <!-- ===================================================== -->
+    <!-- SYSTEM INFO -->
+    <!-- ===================================================== -->
 
     <section
-        class="mt-6
-        grid
-        grid-cols-1
-        sm:grid-cols-3
-        gap-3"
-    >
-
-
-        <!-- INFO 1 -->
-
-        <div
-            class="bg-white
-            border border-slate-200
-            rounded-2xl
-            p-4
-            flex items-center gap-3"
-        >
-
-            <div
-                class="w-10 h-10
-                rounded-xl
-                bg-indigo-50
-                text-indigo-600
-                flex items-center
-                justify-center
-                shrink-0"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-shield-halved"
-                ></i>
-
-            </div>
-
-
-            <div>
-
-                <p
-                    class="text-xs
-                    font-black"
-                >
-
-                    Risk Analysis
-
-                </p>
-
-                <p
-                    class="text-[10px]
-                    text-slate-400"
-                >
-
-                    วิเคราะห์ความเสี่ยงลูกค้า
-
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- INFO 2 -->
-
-        <div
-            class="bg-white
-            border border-slate-200
-            rounded-2xl
-            p-4
-            flex items-center gap-3"
-        >
-
-            <div
-                class="w-10 h-10
-                rounded-xl
-                bg-emerald-50
-                text-emerald-600
-                flex items-center
-                justify-center
-                shrink-0"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-truck-fast"
-                ></i>
-
-            </div>
-
-
-            <div>
-
-                <p
-                    class="text-xs
-                    font-black"
-                >
-
-                    Delivery Tracking
-
-                </p>
-
-                <p
-                    class="text-[10px]
-                    text-slate-400"
-                >
-
-                    ติดตามสถานะพัสดุ
-
-                </p>
-
-            </div>
-
-        </div>
-
-
-
-        <!-- INFO 3 -->
-
-        <div
-            class="bg-white
-            border border-slate-200
-            rounded-2xl
-            p-4
-            flex items-center gap-3"
-        >
-
-            <div
-                class="w-10 h-10
-                rounded-xl
-                bg-rose-50
-                text-rose-500
-                flex items-center
-                justify-center
-                shrink-0"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-user-lock"
-                ></i>
-
-            </div>
-
-
-            <div>
-
-                <p
-                    class="text-xs
-                    font-black"
-                >
-
-                    Blacklist System
-
-                </p>
-
-                <p
-                    class="text-[10px]
-                    text-slate-400"
-                >
-
-                    จัดการลูกค้าที่มีความเสี่ยง
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         SYSTEM MESSAGE
-    ====================================================== -->
-
-    <section
-        class="mt-6
-        bg-slate-950
-        text-white
-        rounded-2xl
-        overflow-hidden
-        shadow-sm"
-    >
-
-        <div
-            class="marquee-wrapper
-            py-3"
-        >
-
-            <div
-                class="marquee
-                text-xs
-                text-slate-300"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-circle-check
-                    text-emerald-400
-                    mr-2"
-                ></i>
-
-                Delivery Risk Pro พร้อมให้บริการ
-
-                <span class="mx-8 text-slate-600">
-                    •
-                </span>
-
-                ระบบวิเคราะห์ความเสี่ยงในการจัดส่ง
-
-                <span class="mx-8 text-slate-600">
-                    •
-                </span>
-
-                ตรวจสอบข้อมูลลูกค้าได้อย่างรวดเร็ว
-
-                <span class="mx-8 text-slate-600">
-                    •
-                </span>
-
-                ระบบติดตามพัสดุออนไลน์
-
-                <span class="mx-8 text-slate-600">
-                    •
-                </span>
-
-                Customer Risk Management
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         FOOTER
-    ====================================================== -->
-
-    <footer
-        class="text-center
-        py-8"
+        class="mt-8
+        bg-white
+        rounded-3xl
+        border border-slate-200
+        shadow-sm
+        p-5"
     >
 
         <div
             class="flex
-            items-center
-            justify-center
-            gap-2
-            mb-2"
+            flex-col
+            sm:flex-row
+            items-start
+            sm:items-center
+            justify-between
+            gap-4"
         >
 
-            <i
-                class="fa-solid
-                fa-truck-fast
-                text-indigo-500"
-            ></i>
-
-            <span
-                class="text-sm
-                font-black
-                text-slate-700"
+            <div
+                class="flex
+                items-center
+                gap-3"
             >
 
-                Delivery Risk Pro
+                <div
+                    class="w-11 h-11
+                    rounded-xl
+                    bg-indigo-50
+                    text-indigo-600
+                    flex items-center
+                    justify-center"
+                >
 
-            </span>
+                    <i
+                        class="fa-solid
+                        fa-shield-halved"
+                    ></i>
+
+                </div>
+
+
+                <div>
+
+                    <p
+                        class="font-black
+                        text-sm"
+                    >
+
+                        Customer Risk Management
+
+                    </p>
+
+
+                    <p
+                        class="text-[11px]
+                        text-slate-400"
+                    >
+
+                        ระบบวิเคราะห์และจัดการความเสี่ยงลูกค้า
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="flex
+                items-center
+                gap-2
+                text-xs
+                text-slate-400"
+            >
+
+                <span
+                    class="w-2 h-2
+                    rounded-full
+                    bg-emerald-500"
+                ></span>
+
+                ระบบทำงานปกติ
+
+            </div>
 
         </div>
 
+    </section>
 
-        <p
-            class="text-[10px]
-            text-slate-400"
-        >
-
-            © 2026 Delivery Risk Pro
-            • Logistics Risk Management System
-
-        </p>
-
-    </footer>
 
 </main>
 
 
+<!-- ========================================================= -->
+<!-- FOOTER -->
+<!-- ========================================================= -->
 
-<!-- =========================================================
-     SOUND SYSTEM
-========================================================= -->
+<footer
+    class="max-w-6xl
+    mx-auto
+    px-4
+    pb-8"
+>
+
+    <div
+        class="text-center
+        text-[10px]
+        text-slate-400"
+    >
+
+        © 2026 Delivery Risk Pro
+        • Logistics Risk Management System
+
+    </div>
+
+</footer>
+
+
+
+<!-- ========================================================= -->
+<!-- INDEX SOUND HANDLER
+========================================================== -->
 
 <script>
 
     /*
-     * =====================================================
-     * SOUND SYSTEM
-     * =====================================================
+     * ระบบเสียงใช้ SoundSystem จาก sound.js
      *
-     * ใช้ Web Audio API
-     * ไม่ต้องมีไฟล์เสียงแยก
-     *
-     * เมื่อกดเมนูจะมีเสียง click สั้น ๆ
+     * ไม่สร้าง Audio ใหม่
+     * และไม่เขียนระบบเสียงซ้ำ
      */
 
-    let audioContext = null;
-
-
-    function getAudioContext() {
-
-        if (!audioContext) {
-
-            const AudioContext =
-                window.AudioContext ||
-                window.webkitAudioContext;
-
-            if (AudioContext) {
-
-                audioContext =
-                    new AudioContext();
-
-            }
-
-        }
-
-        return audioContext;
-
-    }
-
-
-    function playClickSound() {
+    function playIndexSound(type) {
 
         try {
 
-            const ctx =
-                getAudioContext();
+            if (
+                typeof SoundSystem !== "undefined" &&
+                typeof SoundSystem.play === "function"
+            ) {
 
-            if (!ctx) {
-                return;
-            }
-
-
-            if (ctx.state === "suspended") {
-
-                ctx.resume();
+                SoundSystem.play(type);
 
             }
 
+            else {
 
-            const oscillator =
-                ctx.createOscillator();
+                console.warn(
+                    "ไม่พบ SoundSystem กรุณาตรวจสอบ sound.js"
+                );
 
-            const gain =
-                ctx.createGain();
-
-
-            oscillator.type = "sine";
-
-
-            oscillator.frequency.setValueAtTime(
-                520,
-                ctx.currentTime
-            );
-
-
-            oscillator.frequency.exponentialRampToValueAtTime(
-                760,
-                ctx.currentTime + 0.06
-            );
-
-
-            gain.gain.setValueAtTime(
-                0.0001,
-                ctx.currentTime
-            );
-
-
-            gain.gain.exponentialRampToValueAtTime(
-                0.08,
-                ctx.currentTime + 0.01
-            );
-
-
-            gain.gain.exponentialRampToValueAtTime(
-                0.0001,
-                ctx.currentTime + 0.08
-            );
-
-
-            oscillator.connect(gain);
-
-            gain.connect(ctx.destination);
-
-
-            oscillator.start();
-
-            oscillator.stop(
-                ctx.currentTime + 0.09
-            );
+            }
 
         }
 
         catch (error) {
 
-            console.log(
-                "Audio unavailable:",
+            console.error(
+                "เกิดข้อผิดพลาดในการเล่นเสียง:",
                 error
             );
 
@@ -1582,63 +1271,39 @@
     }
 
 
-
-    /*
-     * =====================================================
-     * ADD SOUND TO ALL CLICKABLE ELEMENTS
-     * =====================================================
-     */
+    /* =====================================================
+       SOUND FOR ALL CLICKABLE ELEMENTS
+    ====================================================== */
 
     document.addEventListener(
         "DOMContentLoaded",
-        function() {
+        function () {
 
-            const clickable =
+            /*
+             * ถ้า element มี onclick="playIndexSound(...)"
+             * อยู่แล้ว จะไม่เพิ่มเสียงซ้ำ
+             */
+
+            const clickableElements =
                 document.querySelectorAll(
-                    "a, button"
+                    "button:not([onclick]), .sound-button"
                 );
 
 
-            clickable.forEach(
-                function(element) {
+            clickableElements.forEach(
+                function (element) {
 
                     element.addEventListener(
                         "click",
-                        function() {
+                        function () {
 
-                            playClickSound();
+                            playIndexSound("success");
 
-                        },
-                        {
-                            passive: true
                         }
                     );
 
                 }
             );
-
-        }
-    );
-
-
-    /*
-     * =====================================================
-     * PREVENT DOUBLE CLICK ISSUE
-     * =====================================================
-     */
-
-    document.addEventListener(
-        "dblclick",
-        function(event) {
-
-            const link =
-                event.target.closest("a");
-
-            if (link) {
-
-                event.preventDefault();
-
-            }
 
         }
     );
