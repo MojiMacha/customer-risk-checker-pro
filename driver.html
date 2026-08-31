@@ -714,13 +714,13 @@ const recentLogs = [];
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    if (
-        sessionStorage.getItem('driver_logged_in') === 'true'
-    ) {
-
-        showDriverSystem();
-
-    }
+   if (
+    sessionStorage.getItem('driver_logged_in') === 'true' &&
+    typeof CONFIG !== 'undefined' &&
+    CONFIG.DRIVER_PIN
+) {
+    showDriverSystem();
+}
 
 
     const pinInput =
@@ -755,78 +755,86 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function loginDriver() {
 
-    const inputPin =
-        document
-        .getElementById(
-            'driver-pin-input'
-        )
-        .value
-        .trim();
-
-
-    const correctPin =
-
-        (
-            typeof CONFIG !== 'undefined' &&
-            CONFIG.DRIVER_PIN
-        )
-
-        ?
-
-        CONFIG.DRIVER_PIN
-
-        :
-
-        '123456';
-
+    const pinInput =
+        document.getElementById('driver-pin-input');
 
     const errorMsg =
-        document.getElementById(
-            'driver-pin-error'
-        );
+        document.getElementById('driver-pin-error');
 
+    if (!pinInput || !errorMsg) {
+        return;
+    }
 
-    if (inputPin === correctPin) {
+    const inputPin =
+        pinInput.value.trim();
+
+    /* =========================================
+       CHECK CONFIG
+    ========================================= */
+
+    if (
+        typeof CONFIG === 'undefined' ||
+        !CONFIG.DRIVER_PIN
+    ) {
+
+        errorMsg.innerHTML = `
+            <i class="fa-solid fa-triangle-exclamation mr-1"></i>
+            ไม่สามารถโหลดระบบเข้าสู่ระบบได้
+        `;
+
+        errorMsg.classList.remove('hidden');
+
+        playSound('wrong_pin');
+
+        return;
+    }
+
+    const correctPin =
+        String(CONFIG.DRIVER_PIN).trim();
+
+    /* =========================================
+       CHECK PIN
+    ========================================= */
+
+    if (
+        inputPin.length === 6 &&
+        inputPin === correctPin
+    ) {
 
         sessionStorage.setItem(
             'driver_logged_in',
             'true'
         );
 
-
         showDriverSystem();
 
+        errorMsg.classList.add('hidden');
 
-        errorMsg.classList.add(
-            'hidden'
-        );
-
+        pinInput.value = '';
 
         showToast(
             'เข้าสู่ระบบสำเร็จ 🚚',
             'success'
         );
 
-    }
+    } else {
 
-    else {
-
-        // 🔴 PIN ผิด
         playSound('wrong_pin');
 
+        errorMsg.innerHTML = `
+            <i class="fa-solid fa-circle-exclamation mr-1"></i>
+            รหัสพนักงานไม่ถูกต้อง
+        `;
 
-        errorMsg.classList.remove(
-            'hidden'
-        );
+        errorMsg.classList.remove('hidden');
 
+        pinInput.value = '';
 
-        document
-            .getElementById(
-                'driver-pin-input'
-            )
-            .value = '';
+        pinInput.focus();
 
     }
+
+}
 
 }
 
@@ -837,28 +845,34 @@ function loginDriver() {
 
 function showDriverSystem() {
 
-    document
-        .getElementById(
+    const authScreen =
+        document.getElementById(
             'driver-auth-screen'
-        )
-        .classList
-        .add('hidden');
+        );
 
-
-    document
-        .getElementById(
+    const mainContent =
+        document.getElementById(
             'driver-main-content'
-        )
-        .classList
-        .remove('hidden');
+        );
 
-
-    document
-        .getElementById(
+    const driverBadge =
+        document.getElementById(
             'driver-id-badge'
-        )
-        .classList
-        .remove('hidden');
+        );
+
+    if (
+        !authScreen ||
+        !mainContent ||
+        !driverBadge
+    ) {
+        return;
+    }
+
+    authScreen.classList.add('hidden');
+
+    mainContent.classList.remove('hidden');
+
+    driverBadge.classList.remove('hidden');
 
 }
 
@@ -873,7 +887,11 @@ function logoutDriver() {
         'driver_logged_in'
     );
 
-    location.reload();
+    selectedUser = null;
+
+    window.location.replace(
+        'driver.html'
+    );
 
 }
 
